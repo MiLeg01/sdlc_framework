@@ -1,0 +1,141 @@
+{
+  "schema_version": 1,
+  "mutation_run": {
+    "scope_profile": "NIGHTLY",
+    "scope": "example/payment/tax_calculator.py",
+    "changed_scope_only": false,
+    "criticality": "INTEGRATION_CONTRACT",
+    "technology": "python",
+    "tool": "mutmut",
+    "tool_version": "2.4.4",
+    "commit": "ba9910f",
+    "baseline_tests": "PASS",
+    "tool_execution": "VALID"
+  },
+  "metrics": {
+    "total_mutants": 40,
+    "killed": 33,
+    "survived": 7
+  },
+  "performance": {
+    "runtime_seconds": 168.0,
+    "mutants_per_second": 0.24,
+    "affected_tests": 26,
+    "timeouts": 2,
+    "excluded": []
+  },
+  "survivors": [
+    {
+      "id": "MUT-071",
+      "component": "example.payment.tax_calculator.invoice_total",
+      "location": "example/payment/tax_calculator.py:31",
+      "operator": "ARITHMETIC",
+      "mutation": "contract-relevant mutation 1 in the gross-total path",
+      "classification": "TEST_GAP",
+      "criticality": "INTEGRATION_CONTRACT",
+      "requirement": "REQ-017",
+      "specification": "SPEC-004",
+      "affected_tests": [],
+      "evidence": [
+        "mutation-report/MUT-071.json"
+      ],
+      "recommended_action": "assert the gross-total contract with an independently derived expected value"
+    },
+    {
+      "id": "MUT-072",
+      "component": "example.payment.tax_calculator.invoice_total",
+      "location": "example/payment/tax_calculator.py:32",
+      "operator": "CONDITIONAL_BOUNDARY",
+      "mutation": "contract-relevant mutation 2 in the gross-total path",
+      "classification": "TEST_GAP",
+      "criticality": "INTEGRATION_CONTRACT",
+      "requirement": "REQ-017",
+      "specification": "SPEC-004",
+      "affected_tests": [],
+      "evidence": [
+        "mutation-report/MUT-072.json"
+      ],
+      "recommended_action": "assert the gross-total contract with an independently derived expected value"
+    },
+    {
+      "id": "MUT-073",
+      "component": "example.payment.tax_calculator.invoice_total",
+      "location": "example/payment/tax_calculator.py:33",
+      "operator": "RETURN_VALUE",
+      "mutation": "contract-relevant mutation 3 in the gross-total path",
+      "classification": "TEST_GAP",
+      "criticality": "INTEGRATION_CONTRACT",
+      "requirement": "REQ-017",
+      "specification": "SPEC-004",
+      "affected_tests": [],
+      "evidence": [
+        "mutation-report/MUT-073.json"
+      ],
+      "recommended_action": "assert the gross-total contract with an independently derived expected value"
+    },
+    {
+      "id": "MUT-074",
+      "component": "example.payment.tax_calculator.invoice_total",
+      "location": "example/payment/tax_calculator.py:34",
+      "operator": "BRANCH_REMOVAL",
+      "mutation": "contract-relevant mutation 4 in the gross-total path",
+      "classification": "TEST_GAP",
+      "criticality": "INTEGRATION_CONTRACT",
+      "requirement": "REQ-017",
+      "specification": "SPEC-004",
+      "affected_tests": [],
+      "evidence": [
+        "mutation-report/MUT-074.json"
+      ],
+      "recommended_action": "assert the gross-total contract with an independently derived expected value"
+    },
+    {
+      "id": "MUT-075",
+      "component": "example.payment.tax_calculator.invoice_total",
+      "location": "example/payment/tax_calculator.py:35",
+      "operator": "BOOLEAN_REPLACEMENT",
+      "mutation": "contract-relevant mutation 5 in the gross-total path",
+      "classification": "TEST_GAP",
+      "criticality": "INTEGRATION_CONTRACT",
+      "requirement": "REQ-017",
+      "specification": "SPEC-004",
+      "affected_tests": [],
+      "evidence": [
+        "mutation-report/MUT-075.json"
+      ],
+      "recommended_action": "assert the gross-total contract with an independently derived expected value"
+    },
+    {
+      "id": "MUT-076",
+      "component": "example.payment.tax_calculator.invoice_total",
+      "location": "example/payment/tax_calculator.py:36",
+      "operator": "METHOD_CALL_REMOVAL",
+      "mutation": "contract-relevant mutation 6 in the gross-total path",
+      "classification": "TEST_GAP",
+      "criticality": "INTEGRATION_CONTRACT",
+      "requirement": "REQ-017",
+      "specification": "SPEC-004",
+      "affected_tests": [],
+      "evidence": [
+        "mutation-report/MUT-076.json"
+      ],
+      "recommended_action": "assert the gross-total contract with an independently derived expected value"
+    },
+    {
+      "id": "MUT-077",
+      "component": "example.payment.tax_calculator.invoice_total",
+      "location": "example/payment/tax_calculator.py:37",
+      "operator": "ARITHMETIC",
+      "mutation": "contract-relevant mutation 7 in the gross-total path",
+      "classification": "TEST_GAP",
+      "criticality": "INTEGRATION_CONTRACT",
+      "requirement": "REQ-017",
+      "specification": "SPEC-004",
+      "affected_tests": [],
+      "evidence": [
+        "mutation-report/MUT-077.json"
+      ],
+      "recommended_action": "assert the gross-total contract with an independently derived expected value"
+    }
+  ]
+}

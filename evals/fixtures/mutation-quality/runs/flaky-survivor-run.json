@@ -1,0 +1,54 @@
+{
+  "schema_version": 1,
+  "mutation_run": {
+    "scope_profile": "LOCAL",
+    "scope": "example/payment/tax_calculator.py",
+    "changed_scope_only": true,
+    "criticality": "FINANCIAL_OR_CALCULATION",
+    "technology": "python",
+    "tool": "mutmut",
+    "tool_version": "2.4.4",
+    "commit": "d90b214",
+    "baseline_tests": "PASS",
+    "tool_execution": "VALID"
+  },
+  "metrics": {
+    "total_mutants": 24,
+    "killed": 22,
+    "survived": 2
+  },
+  "survivors": [
+    {
+      "id": "MUT-091",
+      "component": "example.payment.tax_calculator.invoice_total",
+      "location": "example/payment/tax_calculator.py:36",
+      "operator": "ARITHMETIC",
+      "mutation": "gross total addition replaced with subtraction",
+      "classification": "FLAKY_OR_INFRASTRUCTURE",
+      "criticality": "FINANCIAL_OR_CALCULATION",
+      "affected_tests": [
+        "InvoiceTotalTests.test_gross_total"
+      ],
+      "evidence": [
+        "the mutant was reported killed in two of five repeats with no code change"
+      ],
+      "recommended_action": "stabilize the test before interpreting this result"
+    },
+    {
+      "id": "MUT-092",
+      "component": "example.payment.tax_calculator.tax_rate",
+      "location": "example/payment/tax_calculator.py:21",
+      "operator": "CONDITIONAL_BOUNDARY",
+      "mutation": "reduced-rate threshold comparison < replaced with <=",
+      "classification": "TEST_GAP",
+      "criticality": "FINANCIAL_OR_CALCULATION",
+      "requirement": "REQ-017",
+      "specification": "SPEC-004",
+      "affected_tests": [],
+      "evidence": [
+        "mutation-report/MUT-092.json"
+      ],
+      "recommended_action": "assert the tax rate at exactly the threshold once the run is trustworthy"
+    }
+  ]
+}

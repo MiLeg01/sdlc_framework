@@ -1,0 +1,32 @@
+{
+  "schema_version": 1,
+  "id": "opencode",
+  "display_name": "OpenCode",
+  "verified_on": "2026-08-18",
+  "documentation": [
+    "https://opencode.ai/docs/rules",
+    "https://opencode.ai/docs/skills",
+    "https://opencode.ai/docs/agents",
+    "https://opencode.ai/docs/config",
+    "https://opencode.ai/docs/mcp-servers"
+  ],
+  "concepts": {
+    "global_instructions": "native",
+    "project_instructions": "native",
+    "skills": "native",
+    "custom_agents": "native",
+    "mcp": "native",
+    "project_memory": "commons-project-local",
+    "archetypes": "commons",
+    "evals": "commons"
+  },
+  "installation": {"skills": "generated-thin-wrapper", "agents": "generated-native", "global_instructions": "managed-section"},
+  "user_paths": {
+    "global_instructions": [".config", "opencode", "AGENTS.md"],
+    "skills": [".config", "opencode", "skills"],
+    "agents": [".config", "opencode", "agents"]
+  },
+  "project": {"instructions": "AGENTS.md", "skills": ".opencode/skills", "agents": ".opencode/agents", "config": "opencode.json"},
+  "precedence": "Remote, global, custom, project, .opencode directories, inline, managed files, managed preferences; later configuration overrides conflicting keys.",
+  "limitations": ["Official documentation lists Agent Skills compatibility paths but does not promise symlink behavior, so the adapter generates wrappers instead."]
+}

@@ -1,0 +1,6 @@
+{
+  "schema_version": 1,
+  "absolute_minimum": {"default": null, "FINANCIAL_OR_CALCULATION": 0.95},
+  "regression_tolerance": 0.02,
+  "fail_on_changed_business_logic_survivors": true
+}

@@ -1,0 +1,134 @@
+name: commons-main-validation-$(Date:yyyyMMdd)$(Rev:.r)
+
+trigger:
+  batch: true
+  branches:
+    include:
+    - refs/heads/main
+
+pr: none
+
+variables:
+- group: agent-commons-evals
+- name: evalProfile
+  value: standard
+- name: semanticPolicy
+  value: optional
+
+stages:
+- stage: Static
+  displayName: Static validation
+  jobs:
+  - template: templates/static-validation.yml
+
+- stage: Integration
+  displayName: Critical capability, workflow, installer, and E2E validation
+  dependsOn: Static
+  jobs:
+  - template: templates/quality-shard.yml
+    parameters:
+      jobName: critical_foundation
+      displayName: Critical foundation and project lifecycle skills
+      selectionArguments: >-
+        --capability analyze-legacy-system
+        --capability continue-project
+        --capability coordinate-parallel-agents
+        --capability initialize-project
+        --capability inventory-codebase
+        --capability maintain-project-memory
+      evalProfile: standard
+      repeat: 1
+      semanticPolicy: optional
+      installSemanticRuntime: false
+      compareBaseline: true
+  - template: templates/quality-shard.yml
+    parameters:
+      jobName: critical_delivery
+      displayName: Critical specification, implementation, and test-quality skills
+      selectionArguments: >-
+        --capability derive-modernization-requirements
+        --capability implement-ready-slice
+        --capability mutation-testing
+        --capability specify-openspec-change
+        --capability test-driven-development
+        --capability verify-openspec-implementation
+      evalProfile: standard
+      repeat: 1
+      semanticPolicy: optional
+      installSemanticRuntime: false
+      compareBaseline: true
+  - template: templates/quality-shard.yml
+    parameters:
+      jobName: critical_visual
+      displayName: Critical dashboard, visual, and financial controls
+      selectionArguments: >-
+        --capability build-living-dashboard
+        --capability calculate-project-financial-forecast
+        --capability create-branded-html-artifact
+        --capability forecast-project-financials
+        --capability validate-visual-artifact
+      evalProfile: standard
+      repeat: 1
+      semanticPolicy: optional
+      installSemanticRuntime: false
+      compareBaseline: true
+      installBrowser: true
+  - template: templates/quality-shard.yml
+    parameters:
+      jobName: critical_governance
+      displayName: Critical research, estimation, and Commons governance skills
+      selectionArguments: >-
+        --capability deep-research
+        --capability estimate-adm-modernization
+        --capability promote-to-commons
+        --capability review-for-commons
+        --capability sales-storytelling
+        --capability update-commons-presentation
+      evalProfile: standard
+      repeat: 1
+      semanticPolicy: optional
+      installSemanticRuntime: false
+      compareBaseline: true
+  - template: templates/quality-shard.yml
+    parameters:
+      jobName: critical_agents
+      displayName: Critical independent agent evaluations
+      selectionArguments: >-
+        --capability architecture-reviewer
+        --capability financial-forecast-reviewer
+        --capability legacy-discovery-specialist
+        --capability privacy-security-reviewer
+        --capability test-behavior-reviewer
+      evalProfile: standard
+      repeat: 1
+      semanticPolicy: optional
+      installSemanticRuntime: false
+      compareBaseline: true
+  - template: templates/quality-shard.yml
+    parameters:
+      jobName: critical_workflows_delivery
+      displayName: Critical legacy, development, and dashboard workflows
+      selectionArguments: >-
+        --workflow legacy-modernization
+        --workflow development-delivery
+        --workflow dashboard-quality
+      evalProfile: standard
+      repeat: 1
+      semanticPolicy: optional
+      installSemanticRuntime: false
+      compareBaseline: true
+      installBrowser: true
+  - template: templates/quality-shard.yml
+    parameters:
+      jobName: critical_workflows_governance
+      displayName: Critical research, public-sector, and Commons governance workflows
+      selectionArguments: >-
+        --workflow research-presentation
+        --workflow public-sector-delivery
+        --workflow commons-governance
+      evalProfile: standard
+      repeat: 1
+      semanticPolicy: optional
+      installSemanticRuntime: false
+      compareBaseline: true
+      installBrowser: true

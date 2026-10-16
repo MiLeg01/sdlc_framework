@@ -1,0 +1,69 @@
+{
+  "schema_version": 1,
+  "mutation_run": {
+    "scope_profile": "PR",
+    "scope": "example/orders/eligibility.py",
+    "changed_scope_only": true,
+    "scope_selection": {
+      "diff_base": "origin/main",
+      "changed_production_files": [
+        "example/orders/eligibility.py"
+      ],
+      "impacted_files": [
+        "example/orders/pricing.py"
+      ],
+      "excluded_unchanged_modules": [
+        "example/reporting",
+        "example/admin",
+        "example/legacy"
+      ],
+      "selected_tests": [
+        "tests/test_eligibility.py",
+        "tests/test_pricing.py"
+      ]
+    },
+    "criticality": "NORMAL_BUSINESS_LOGIC",
+    "technology": "python",
+    "tool": "mutmut",
+    "tool_version": "2.4.4",
+    "commit": "3f0ce81",
+    "baseline_tests": "PASS",
+    "tool_execution": "VALID"
+  },
+  "metrics": {
+    "total_mutants": 11,
+    "killed": 10,
+    "survived": 1
+  },
+  "performance": {
+    "runtime_seconds": 12.8,
+    "affected_tests": 5,
+    "timeouts": 0,
+    "excluded": [
+      "example/reporting",
+      "example/admin",
+      "example/legacy"
+    ]
+  },
+  "survivors": [
+    {
+      "id": "MUT-088",
+      "component": "example.orders.eligibility.is_eligible",
+      "location": "example/orders/eligibility.py:22",
+      "operator": "BRANCH_REMOVAL",
+      "mutation": "the minimum-tenure branch was removed",
+      "classification": "TEST_GAP",
+      "criticality": "NORMAL_BUSINESS_LOGIC",
+      "requirement": "REQ-031",
+      "specification": "SPEC-011",
+      "acceptance_criterion": "AC-011-2",
+      "affected_tests": [
+        "EligibilityTests.test_eligible_customer"
+      ],
+      "evidence": [
+        "mutation-report/MUT-088.json"
+      ],
+      "recommended_action": "assert the ineligible outcome for a customer below the minimum tenure"
+    }
+  ]
+}

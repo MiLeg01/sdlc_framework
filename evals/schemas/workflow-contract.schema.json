@@ -1,0 +1,54 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/agent-commons/workflow-contract.schema.json",
+  "title": "Agent Commons workflow evaluation contracts",
+  "type": "object",
+  "required": ["schema_version", "workflows"],
+  "properties": {
+    "schema_version": {"const": 1},
+    "workflows": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "required": ["criticality", "level", "archetypes", "overlays", "capabilities", "applicable_metrics", "scenarios"],
+        "properties": {
+          "criticality": {"enum": ["critical", "high", "standard"]},
+          "level": {"const": 4},
+          "archetypes": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+          "overlays": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+          "capabilities": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+          "applicable_metrics": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+          "scenarios": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "object",
+              "required": ["id", "level", "deterministic", "execution"],
+              "properties": {
+                "id": {"type": "string", "minLength": 1},
+                "level": {"type": "integer", "minimum": 3, "maximum": 4},
+                "deterministic": {"type": "boolean"},
+                "fixture": {"type": "string"},
+                "golden": {"type": "string"},
+                "judge": {"enum": ["independent-semantic"]},
+                "execution": {
+                  "type": "object",
+                  "required": ["kind"],
+                  "properties": {
+                    "kind": {"enum": ["unittest", "command", "external"]},
+                    "modules": {"type": "array", "items": {"type": "string"}},
+                    "argv": {"type": "array", "items": {"type": "string"}}
+                  },
+                  "additionalProperties": false
+                }
+              },
+              "additionalProperties": false
+            }
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}

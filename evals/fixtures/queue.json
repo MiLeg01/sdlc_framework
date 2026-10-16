@@ -1,0 +1,9 @@
+{
+  "items": [
+    {"id": "REQ-001", "status": "done", "priority": "must", "dependencies": [], "risk": 2, "acceptance_criteria": ["done"], "evidence_confidence": "high"},
+    {"id": "REQ-002", "status": "ready", "priority": "must", "dependencies": ["REQ-001"], "risk": 2, "acceptance_criteria": ["a", "b"], "evidence_confidence": "high"},
+    {"id": "REQ-003", "status": "ready", "priority": "should", "dependencies": [], "risk": 1, "acceptance_criteria": ["a"], "evidence_confidence": "medium"},
+    {"id": "REQ-004", "status": "ready", "priority": "must", "dependencies": ["REQ-999"], "risk": 1, "acceptance_criteria": ["a"], "evidence_confidence": "high"}
+  ]
+}
+

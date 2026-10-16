@@ -1,0 +1,36 @@
+{
+  "schema_version": 1,
+  "nodes": [
+    {"id": "SRC-001", "type": "source", "status": "observed"},
+    {"id": "EVD-001", "type": "evidence", "status": "accepted"},
+    {"id": "REQ-001", "type": "requirement", "status": "approved"},
+    {"id": "SPEC-001", "type": "specification", "status": "approved"}
+  ],
+  "edges": [
+    {"source": "SRC-001", "target": "EVD-001", "type": "supports", "reciprocal_type": "derived_from"},
+    {"source": "EVD-001", "target": "SRC-001", "type": "derived_from"},
+    {"source": "EVD-001", "target": "REQ-001", "type": "supports", "reciprocal_type": "supported_by"},
+    {"source": "REQ-001", "target": "EVD-001", "type": "supported_by"},
+    {"source": "REQ-001", "target": "SPEC-001", "type": "specified_by", "reciprocal_type": "specifies"},
+    {"source": "SPEC-001", "target": "REQ-001", "type": "specifies"}
+  ],
+  "lifecycle_rules": [
+    {
+      "id": "approved-requirement-has-specification",
+      "node_type": "requirement",
+      "statuses": ["approved"],
+      "direction": "out",
+      "edge_type": "specified_by",
+      "related_type": "specification",
+      "min_count": 1,
+      "severity": "major"
+    }
+  ],
+  "generated_views": [
+    {
+      "id": "stakeholder-dashboard",
+      "expected_fingerprint": "sha256:canonical-001",
+      "actual_fingerprint": "sha256:canonical-001"
+    }
+  ]
+}

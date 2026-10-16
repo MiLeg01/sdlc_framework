@@ -1,0 +1,13 @@
+.DS_Store
+.idea/
+.playwright-cli/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.venv/
+node_modules/
+build/
+dist/
+output/

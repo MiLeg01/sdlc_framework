@@ -1,0 +1,155 @@
+version: 1
+initialized_with:
+  library_version: "1.0.0"
+  library_revision: "replace-with-canonical-git-revision"
+project:
+  name: example-project
+  scale: tiny
+  context: generic
+  intake_mode: structured
+  runtimes:
+    - codex
+    - claude-code
+  scopes:
+    - development
+client:
+  organization: null
+  sector: unknown
+  public_sector: false
+  public_sector_confidence: NOT_PUBLIC_SECTOR
+  country: null
+  locale: null
+  evidence: []
+intake:
+  mode: structured
+  brief_summary: null
+goal:
+  outcome: "Replace with the intended outcome"
+  done:
+    - "Replace with an observable completion criterion"
+deliverables: []
+technologies: []
+migration:
+  source_technology: null
+  target_technology: null
+  intent: none
+requirements:
+  extraction: false
+specifications:
+  method: openspec
+  state: default
+  generate_from_requirements: false
+implementation:
+  method: test-driven-development
+  state: default
+  phase: active
+lifecycle:
+  schema_version: 1
+  stage: initialized
+  next_action:
+    capability: specify-openspec-change
+    subject: null
+    required: true
+    reason: "Implementation starts from an approved OpenSpec change."
+architecture_documentation:
+  enabled: false
+  views: []
+sources: []
+research:
+  enabled: false
+  topic: null
+  goal: null
+  depth: structured-research
+  purpose: research-output
+presentation:
+  enabled: false
+  topic: null
+  purposes: []
+  audience: []
+  languages:
+    - "en"
+  default_language: "en"
+  bilingual: false
+  language_policy_source: neutral-commons-default
+  desired_outcome: null
+sales:
+  enabled: false
+  objective: null
+source_material: []
+references: []
+html:
+  enabled: false
+  purpose: none
+  living: false
+dashboard:
+  enabled: false
+  template: canonical
+  template_id: agent-commons-living-dashboard
+  structure_policy: canonical-standard-sections-with-honest-empty-states
+  visual_contract: agent-commons-living-dashboard-v3
+  mode: adaptive
+  show_requirements: false
+  show_specifications: false
+  traceability: false
+  purposes: []
+  audience: []
+  languages:
+    - "en"
+  default_language: "en"
+  language_switch: false
+  language_policy_source: neutral-commons-default
+brand:
+  source: neutral-premium
+  required: false
+  status: neutral
+  profile: null
+  profile_fingerprint: null
+  theme_fingerprint: null
+  asset_fingerprint: null
+  favicon_sha256: null
+  logo_sha256: null
+  fidelity_gate: required-browser-computed-style-and-visible-identity
+localization:
+  enabled: false
+  working_language: "en"
+  policy_precedence:
+    - explicit-project-instruction
+    - explicit-client-requirement
+    - public-sector-client-default
+    - archetype-default
+    - neutral-commons-default
+  offline: true
+  persistence: localStorage-with-safe-fallback
+external_research:
+  mode: skipped
+  automatic_search: false
+  source_registry: "external/sources.yaml"
+  source_scope: configured
+composition:
+  schema_version: 1
+  archetypes:
+    - development
+  overlays: []
+  conditions: []
+  levels:
+    - required
+    - default
+  excluded_skills: []
+methodology_evidence: []
+commons:
+  skills: []
+  agents: []
+  tools: []
+  templates: []
+capability_state:
+  schema_version: 1
+  strategy: ask
+  requires_user_choice: false
+  covered: []
+  gaps: []
+external_capabilities:
+  accepted: []
+constraints:
+  source_paths_read_only: []
+  project_rules: []
+validation: []

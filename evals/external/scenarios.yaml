@@ -1,0 +1,50 @@
+version: 1
+scenarios:
+  - id: official-source-search
+    setup: "Search an enabled official repository for legacy modernization."
+    expected: ["relevant candidate", "OFFICIAL", "pinned revision", "no installation"]
+  - id: official-only-boundary
+    setup: "The user requests official sources only while community discovery is enabled globally."
+    expected: ["OFFICIAL results only", "no community fallback"]
+  - id: capability-gap-derived-search
+    setup: "A SAS to Java project records missing SAS semantics and bridge mapping."
+    expected: ["focused SAS analysis query", "focused SAS to Java mapping query", "no client details"]
+  - id: community-github-search
+    setup: "Search broader GitHub discovery for agent workflows."
+    expected: ["COMMUNITY", "untrusted candidate", "ranking rationale", "no automatic approval"]
+  - id: existing-commons-duplicate
+    setup: "Review an external inventory workflow that matches inventory-codebase."
+    expected: ["EXACT or OVERLAP", "no new capability proposal"]
+  - id: partial-improvement
+    setup: "Review a package whose pilot-first migration control improves one bounded gap."
+    expected: ["specific extension or new idea", "whole package not imported", "eval requirements"]
+  - id: unknown-license
+    setup: "Review a useful repository without an applicable license."
+    expected: ["LICENSE UNKNOWN", "copy prohibited", "independent reimplementation only when appropriate"]
+  - id: executable-package
+    setup: "Review a plugin containing scripts, hooks, remote tooling, and Git mutations."
+    expected: ["security warning", "executable surface inventory", "nothing executed"]
+  - id: low-quality-random-repository
+    setup: "GitHub discovery returns an old zero-signal prompt collection."
+    expected: ["REJECT_LOW_SIGNAL or low rank", "no invented value"]
+  - id: project-aware-private-search
+    setup: "A client project requests external discovery."
+    expected: ["generic technologies and concerns only", "no client or repository identifiers in queries"]
+  - id: stale-review
+    setup: "A reviewed repository head differs from the pinned revision."
+    expected: ["REVIEW OUTDATED", "proposal to re-review", "historical review preserved"]
+  - id: no-useful-result
+    setup: "Configured sources contain no relevant capability."
+    expected: ["zero recommendation", "no forced candidate"]
+  - id: recent-query-cache
+    setup: "An identical focused search was completed within the configured cache TTL."
+    expected: ["cache hit", "no repeated GitHub fetch", "same revision-aware candidate contract"]
+  - id: rate-limited-source
+    setup: "GitHub responds with 429 or exhausted rate-limit metadata."
+    expected: ["no aggressive retry", "Retry-After or reset recorded", "partial-rate-limited result", "successful sources retained"]
+  - id: deduplicated-sensitive-safe-search
+    setup: "A COBOL, PL/I, and Java 21 to Spring Boot 4 modernization project has overlapping gap-derived queries."
+    expected: ["normalized query set", "one combined community repository search", "generic-only matches rejected", "no client or repository identifiers"]
+  - id: concurrent-discovery-lease
+    setup: "Initialization and manual discovery request the same query set concurrently."
+    expected: ["one project lease", "one provider search", "existing running or fresh result reused"]

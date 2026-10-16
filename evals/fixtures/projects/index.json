@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "projects": {
+    "legacy-modernization": {
+      "fixture": "evals/fixtures/projects/legacy-modernization/input/scenario.json",
+      "golden": "evals/fixtures/projects/legacy-modernization/golden/expectations.json",
+      "purpose": "Mixed COBOL, PL/I, Java/API modernization with delivery artifacts"
+    },
+    "development-delivery": {
+      "fixture": "evals/fixtures/projects/development-delivery/input/scenario.json",
+      "golden": "evals/fixtures/projects/development-delivery/golden/expectations.json",
+      "purpose": "OpenSpec and strict RED-GREEN-REFACTOR delivery"
+    },
+    "research-corpus": {
+      "fixture": "evals/fixtures/projects/research-corpus/input/scenario.json",
+      "golden": "evals/fixtures/projects/research-corpus/golden/expectations.json",
+      "purpose": "Deterministic local research with known citations"
+    },
+    "dashboard-quality": {
+      "fixture": "evals/fixtures/projects/dashboard-quality/input/scenario.json",
+      "golden": "evals/fixtures/projects/dashboard-quality/golden/expectations.json",
+      "purpose": "Dashboard semantic completeness and representative visual states"
+    },
+    "public-sector-delivery": {
+      "fixture": "evals/fixtures/projects/public-sector-delivery/input/scenario.json",
+      "golden": "evals/fixtures/projects/public-sector-delivery/golden/expectations.json",
+      "purpose": "Synthetic Austrian public-sector localization and branding"
+    }
+  }
+}

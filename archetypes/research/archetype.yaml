@@ -1,0 +1,81 @@
+{
+  "schema_version": 1,
+  "id": "research",
+  "kind": "archetype",
+  "title": "Research and evidence synthesis",
+  "intent": [
+    "market, technology, product, competitor, client, industry, architecture, and ecosystem research",
+    "evidence gathering and synthesis for decisions, reports, dashboards, or presentations",
+    "research that remains useful without a downstream presentation"
+  ],
+  "not_for": [
+    "external agent-capability discovery, which uses the governed external intelligence workflow",
+    "a simple lookup that does not justify a research evidence base",
+    "unsupported conclusions derived only from filenames, snippets, or memory"
+  ],
+  "initialization": {
+    "discover": [
+      "supplied topic, questions, audience, desired decision, scope boundaries, source material, repositories, documents, URLs, and references",
+      "existing research plans, findings, sources, synthesis, reports, dashboards, and presentation inputs"
+    ],
+    "ask_if_unresolved": [
+      "research question, audience, decision or artifact supported, and required depth",
+      "geographic, industry, technology, competitor, and temporal boundaries",
+      "authoritative sources, evidence-quality expectations, output format, and presentation handoff needs"
+    ]
+  },
+  "capabilities": {
+    "required": {"skills": [], "agents": [], "tools": [], "templates": []},
+    "default": {
+      "skills": ["deep-research"],
+      "agents": [],
+      "tools": [],
+      "templates": ["research-plan-template", "research-synthesis-template", "project-instructions-template"]
+    },
+    "recommended": {"skills": [], "agents": [], "tools": [], "templates": []},
+    "optional": {"skills": [], "agents": [], "tools": [], "templates": []}
+  },
+  "capability_expectations": {
+    "required": [
+      {
+        "id": "structured-research",
+        "when": "always",
+        "description": "Frame the research question, evaluate evidence, synthesize multiple perspectives, and retain claim provenance."
+      }
+    ],
+    "strongly_recommended": [],
+    "optional": []
+  },
+  "conditions": [],
+  "dashboard_projection": {
+    "structure": "agent-commons-living-dashboard",
+    "enable_when_selected": [],
+    "project_extensions": [{"id": "research-findings", "extension_point": "business-domain", "when": "canonical research findings exist"}],
+    "enable_when_observed": ["architecture"],
+    "rule": "use the canonical core and evidence sections; add research findings through the controlled extension point"
+  },
+  "recommended_overlays": [
+    {"id": "architecture-documentation", "when": "the research compares or documents systems, solution structure, or data movement"},
+    {"id": "bilingual-client-delivery", "when": "the final research HTML artifact is delivered in German (Austria) with English retained"},
+    {"id": "durable-state", "when": "the evidence base spans sessions or has meaningful recovery cost"},
+    {"id": "evidence-traceability", "when": "important claims require a durable source-to-output audit trail"},
+    {"id": "living-dashboard", "when": "canonical research state needs a synchronized stakeholder view"},
+    {"id": "branded-html", "when": "research is delivered through a polished HTML report or presentation"},
+    {"id": "public-sector-client-delivery", "when": "the research or downstream client artifact targets a confirmed or high-confidence public-sector organization"}
+  ],
+  "recommended_compositions": [
+    {"id": "presentation", "when": "the research must become a separate audience-specific narrative"}
+  ],
+  "typical_outputs": [
+    "research plan and bounded question set",
+    "source index and evidence-backed findings",
+    "synthesis with implications, conflicts, risks, and unknowns",
+    "presentation-ready synthesis when a downstream presentation is selected"
+  ],
+  "invariants": [
+    "separate sourced fact, synthesis, proposal, assumption, conflict, and unknown",
+    "prefer direct authoritative evidence where appropriate",
+    "actively inspect counterarguments and competing approaches for consequential findings",
+    "do not turn a source list into a claim of completed research"
+  ]
+}

@@ -1,0 +1,88 @@
+parameters:
+- name: evalProfile
+  type: string
+- name: repeat
+  type: number
+- name: promoteBaseline
+  type: boolean
+  default: false
+- name: runMutations
+  type: boolean
+  default: false
+- name: weeklyReport
+  type: boolean
+  default: false
+- name: historyDays
+  type: number
+  default: 30
+
+jobs:
+- job: aggregate
+  displayName: Aggregate quality, compare baseline, and publish
+  condition: always()
+  pool:
+    vmImage: ubuntu-24.04
+  steps:
+  - template: setup.yml
+  - download: current
+    displayName: Download isolated quality shard artifacts
+  - template: baseline.yml
+    parameters:
+      mode: resolve
+  - bash: |
+      set -euo pipefail
+      mkdir -p '$(Pipeline.Workspace)/quality-history'
+      history_definition="$BASELINE_PIPELINE_DEFINITION_ID"
+      if [[ ! "$history_definition" =~ ^[1-9][0-9]*$ ]]; then
+        echo 'baselinePipelineDefinitionId must be a positive numeric Azure pipeline definition ID.' >&2
+        exit 2
+      fi
+      python3 tools/evals/download_quality_history.py \
+        --collection-uri "$AZDO_COLLECTION_URI" \
+        --project "$AZDO_PROJECT_ID" \
+        --definition "$history_definition" \
+        --output '$(Pipeline.Workspace)/quality-history' \
+        --max-builds '${{ parameters.historyDays }}'
+    displayName: Download retained nightly quality reports
+    continueOnError: true
+    env:
+      AZDO_COLLECTION_URI: $(System.CollectionUri)
+      AZDO_PROJECT_ID: $(System.TeamProjectId)
+      BASELINE_PIPELINE_DEFINITION_ID: $(baselinePipelineDefinitionId)
+      SYSTEM_ACCESSTOKEN: $(System.AccessToken)
+  - bash: |
+      set -euo pipefail
+      output='$(Build.ArtifactStagingDirectory)/quality/aggregate'
+      args=(
+        --input-root '$(Pipeline.Workspace)'
+        --output "$output"
+        --profile '${{ parameters.evalProfile }}'
+        --branch main
+        --baseline '$(ResolvedBaselinePath)'
+        --visual-report '$(Pipeline.Workspace)/quality-visual/visual-report.json'
+        --history-dir '$(Pipeline.Workspace)/quality-history'
+        --required-shard quality-skills-foundation
+        --required-shard quality-skills-delivery
+        --required-shard quality-skills-visual
+        --required-shard quality-skills-governance
+        --required-shard quality-agents
+        --required-shard quality-workflows-delivery
+        --required-shard quality-workflows-governance
+      )
+      if [ '${{ parameters.runMutations }}' = 'True' ]; then
+        args+=(--mutation-report '$(Pipeline.Workspace)/quality-mutation/mutation-report.json')
+      fi
+      if [ '${{ parameters.weeklyReport }}' = 'True' ]; then
+        args+=(--weekly-report)
+      fi
+      python3 tools/evals/aggregate_results.py "${args[@]}"
+    displayName: Aggregate shards and apply regression policy
+  - template: publish-results.yml
+    parameters:
+      outputDir: '$(Build.ArtifactStagingDirectory)/quality/aggregate'
+      artifactName: quality-aggregate
+  - ${{ if eq(parameters.promoteBaseline, true) }}:
+    - template: baseline.yml
+      parameters:
+        mode: promote
+        outputDir: '$(Build.ArtifactStagingDirectory)/quality/aggregate'

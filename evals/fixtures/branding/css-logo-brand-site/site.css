@@ -1,0 +1,7 @@
+body{font-family:Arial,sans-serif;color:#323232;background:#ffffff}
+.site-logo a{display:block;background-image:url('data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 120 40%22%3E%3Cpath fill=%22%230b80a7%22 d=%22M0 0h120v40H0z%22/%3E%3C/svg%3E%0A')}
+.site-header{background:#323232;color:#ffffff}
+.content-link{color:#096888}
+.button-primary{background:#0b80a7;color:#ffffff}
+.content-card{background:#f0f0f0;border:1px solid #cccccc}
+.message-success{color:#3c763d}.field-error{color:#a94442}

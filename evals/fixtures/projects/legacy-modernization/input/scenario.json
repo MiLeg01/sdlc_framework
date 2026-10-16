@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "provenance": "Deterministic sanitized analogue of the existing small IBM-style mixed-language benchmark; contains no upstream or client source text.",
+  "prompt": "Perform FULL configured analysis of the supplied synthetic request-processing estate and produce evidence-linked modernization outputs.",
+  "source_artifacts": [
+    "evals/fixtures/projects/legacy-modernization/input/request.cbl",
+    "evals/fixtures/projects/legacy-modernization/input/request.pli",
+    "evals/fixtures/projects/legacy-modernization/input/RequestResource.java",
+    "evals/fixtures/projects/legacy-modernization/input/service.yaml",
+    "evals/fixtures/projects/legacy-modernization/input/build.gradle",
+    "evals/fixtures/projects/legacy-modernization/input/runtime.properties",
+    "evals/fixtures/projects/legacy-modernization/input/requirements.json"
+  ],
+  "inputs": {
+    "scope": "all supplied artifacts",
+    "mode": "FULL",
+    "source_policy": "read-only",
+    "required_outputs": [
+      "contracts",
+      "runtime-build",
+      "requirements",
+      "complexity",
+      "estimation",
+      "roadmap",
+      "dashboard",
+      "test-quality"
+    ]
+  },
+  "workspace_policy": {
+    "writable_artifacts": [],
+    "generated_prefixes": ["outputs/legacy-modernization"]
+  },
+  "constraints": [
+    "Account for every supplied artifact",
+    "Keep evidence separate from interpretation",
+    "Do not inspect validator-only Golden material",
+    "Every evidence identifier cited inside any generated output, including estimation, roadmap, requirements, dashboard, and test-quality artifacts, must exactly match an ID in the top-level evidence registry delivered in the executor response. Do not invent aliases or cite identifiers that are absent from that registry",
+    "Return exactly eight generated_result.observations, one for each of these source-verifiable findings: all seven supplied artifacts are accounted for; COBOL, PL/I, and Java reject a blank request identifier; COBOL and PL/I route request type P to PRICE01 and other types to STATUS01; Java routing equivalence remains unproven because RequestResource delegates to RequestService; POST /requests exposes submitRequest with 202 and 400 responses; the Java build targets Java 21; runtime configuration defines timeout, retry, and audit controls; and the requirements, complexity, estimation, roadmap, dashboard, and test-quality delivery chain remains evidence-linked. Do not add a ninth observation or any unsolicited finding",
+    "Render test quality as its own dashboard domain with evidence-linked coverage, strength, and gaps"
+  ]
+}

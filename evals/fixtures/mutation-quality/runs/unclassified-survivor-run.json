@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "mutation_run": {
+    "scope_profile": "LOCAL",
+    "scope": "example/payment/tax_calculator.py",
+    "changed_scope_only": true,
+    "criticality": "FINANCIAL_OR_CALCULATION",
+    "technology": "python",
+    "tool": "mutmut",
+    "tool_version": "2.4.4",
+    "commit": "cc7714d",
+    "baseline_tests": "PASS",
+    "tool_execution": "VALID"
+  },
+  "metrics": {
+    "total_mutants": 24,
+    "killed": 23,
+    "survived": 1
+  },
+  "survivors": [
+    {
+      "id": "MUT-001",
+      "component": "example.payment.tax_calculator.tax_rate",
+      "location": "example/payment/tax_calculator.py:21",
+      "operator": "CONDITIONAL_BOUNDARY",
+      "mutation": "reduced-rate threshold comparison < replaced with <=",
+      "criticality": "FINANCIAL_OR_CALCULATION"
+    }
+  ]
+}

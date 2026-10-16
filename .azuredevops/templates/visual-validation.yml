@@ -1,0 +1,29 @@
+parameters:
+- name: jobName
+  type: string
+  default: visual
+
+jobs:
+- job: ${{ parameters.jobName }}
+  displayName: Visual regression validation
+  pool:
+    vmImage: ubuntu-24.04
+  steps:
+  - template: setup.yml
+    parameters:
+      installBrowser: true
+  - bash: |
+      set -euo pipefail
+      output='$(Build.ArtifactStagingDirectory)/quality/visual'
+      mkdir -p "$output/screenshots"
+      node tools/evals/capture_visual_baselines.mjs \
+        --node-modules "$(Pipeline.Workspace)/agent-commons-browser/node_modules" \
+        --output "$output/screenshots" \
+        --report "$output/visual-report.json" 2>&1 | tee "$output/visual.log"
+    displayName: Render and validate dashboard and presentation states
+  - task: PublishPipelineArtifact@1
+    displayName: Publish visual report and screenshots
+    condition: always()
+    inputs:
+      targetPath: '$(Build.ArtifactStagingDirectory)/quality/visual'
+      artifact: quality-visual

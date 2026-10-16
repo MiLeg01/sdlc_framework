@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "scope": "example/payment/tax_calculator.py",
+  "tool": "mutmut",
+  "commit": "9d41c02",
+  "accepted_at": "2026-08-14",
+  "mutation_score": 0.875,
+  "meaningful_mutants": 48,
+  "killed": 42,
+  "critical_survivors": 0,
+  "test_gaps": 8,
+  "accepted_equivalent_mutants": 2
+}

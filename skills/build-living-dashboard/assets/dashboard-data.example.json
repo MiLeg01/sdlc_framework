@@ -1,0 +1,62 @@
+{
+  "schema_version": 2,
+  "title": "Requirements to validated delivery",
+  "subtitle": "Synthetic example generated from canonical structured state",
+  "updated_at": "2026-08-19T00:00:00Z",
+  "audience": "combined",
+  "brand": "project",
+  "delivery": {
+    "languages": ["en"],
+    "default_language": "en",
+    "language_switch": false,
+    "storage_key": "requirements-dashboard-language"
+  },
+  "openspec_required": true,
+  "workflow": {
+    "scopes": ["development"],
+    "requirements_required": true,
+    "specification_method": "openspec",
+    "specifications_required": true,
+    "implementation_method": "test-driven-development",
+    "implementation_phase": "active",
+    "source_inventory_complete": true,
+    "requires_user_choice": false,
+    "dashboard_enabled": true
+  },
+  "requirements": [
+    {"id": "REQ-001", "title": "Reject invalid records", "description": "Batch rejects records that violate the input contract.", "category": "batch", "priority": "high", "confidence": "high", "status": "approved", "revision": 2, "implementation_status": "implemented"},
+    {"id": "REQ-002", "title": "Report rejection reasons", "description": "Operators receive actionable rejection reasons.", "category": "operations", "status": "approved", "revision": 1, "implementation_status": "implemented"}
+  ],
+  "specifications": [
+    {"id": "SPEC-001", "title": "Batch validation", "purpose": "Define deterministic validation and operator feedback.", "status": "active", "readiness": "ready", "implementation_status": "implemented", "requirement_revisions": {"REQ-001": 2, "REQ-002": 1}, "source": "openspec/changes/batch-validation"},
+    {"id": "SPEC-002", "title": "Rejection audit", "purpose": "Retain a durable rejection audit trail.", "status": "draft", "readiness": "not-ready", "implementation_status": "not-started", "requirement_revisions": {"REQ-001": 2}, "source": "openspec/changes/rejection-audit"}
+  ],
+  "acceptance_criteria": [
+    {"id": "AC-001", "requirement_id": "REQ-001", "title": "Invalid record is rejected", "description": "Given an invalid record, the batch rejects it and continues safely.", "status": "implemented"},
+    {"id": "AC-002", "requirement_id": "REQ-002", "title": "Reason is visible", "description": "The rejection output identifies the violated rule.", "status": "implemented"},
+    {"id": "AC-003", "requirement_id": "REQ-001", "title": "Audit retention decision", "description": "Retention period and access policy are approved.", "status": "pending"}
+  ],
+  "implementation_items": [
+    {"id": "SLICE-001", "title": "Validate and reject one record", "status": "implemented"}
+  ],
+  "tests": [
+    {"id": "TEST-001", "title": "Rejects malformed record", "status": "passing", "command": "pytest tests/test_batch.py -k malformed", "red_evidence": "failed before implementation", "green_evidence": "passed after minimum change", "refactor_evidence": "full regression passed"},
+    {"id": "TEST-002", "title": "Includes violated rule", "status": "passing", "command": "pytest tests/test_batch.py -k reason"}
+  ],
+  "evidence": [
+    {"id": "EVID-001", "title": "Legacy validation routine", "kind": "source", "location": "legacy/BATCH01.cbl:120", "summary": "Reject branch and reason code mapping."}
+  ],
+  "relationships": [
+    {"type": "specified-by", "source": "REQ-001", "target": "SPEC-001"},
+    {"type": "specified-by", "source": "REQ-002", "target": "SPEC-001"},
+    {"type": "specified-by", "source": "REQ-001", "target": "SPEC-002"},
+    {"type": "defines", "source": "SPEC-001", "target": "AC-001"},
+    {"type": "defines", "source": "SPEC-001", "target": "AC-002"},
+    {"type": "defines", "source": "SPEC-002", "target": "AC-003"},
+    {"type": "implemented-by", "source": "AC-001", "target": "SLICE-001"},
+    {"type": "validated-by", "source": "AC-001", "target": "TEST-001"},
+    {"type": "validated-by", "source": "AC-002", "target": "TEST-002"},
+    {"type": "supported-by", "source": "REQ-001", "target": "EVID-001"},
+    {"type": "depends-on", "source": "SPEC-002", "target": "SPEC-001"}
+  ]
+}

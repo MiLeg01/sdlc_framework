@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/agent-commons/executor-input.schema.json",
+  "title": "Semantic executor input without golden expectations",
+  "type": "object",
+  "required": ["schema_version", "capability", "subject_kind", "scenario", "scenario_input", "canonical_source", "artifact_manifest", "workspace_root"],
+  "properties": {
+    "schema_version": {"const": 1},
+    "capability": {"type": "string", "minLength": 1},
+    "subject_kind": {"type": "string", "minLength": 1},
+    "scenario": {"type": "string", "minLength": 1},
+    "scenario_input": {"type": "object"},
+    "canonical_source": {"type": ["string", "null"]},
+    "artifact_manifest": {
+      "type": "object",
+      "additionalProperties": {"type": "string", "minLength": 64}
+    },
+    "workspace_root": {"const": "."}
+  },
+  "additionalProperties": false
+}

@@ -1,0 +1,71 @@
+{
+  "schema_version": 1,
+  "workflows": {
+    "legacy-modernization": {
+      "criticality": "critical", "level": 4,
+      "archetypes": ["legacy-migration"],
+      "overlays": ["durable-state", "evidence-traceability", "living-dashboard"],
+      "capabilities": ["initialize-project", "inventory-codebase", "maintain-project-memory", "analyze-legacy-system", "derive-modernization-requirements", "estimate-adm-modernization", "plan-work", "specify-openspec-change", "build-living-dashboard"],
+      "applicable_metrics": ["correctness", "completeness", "recall", "precision", "evidence_grounding", "traceability", "scope_discipline", "handoff_quality", "consistency", "runtime", "token_context_efficiency"],
+      "scenarios": [
+        {"id": "integration", "level": 3, "deterministic": true, "execution": {"kind": "unittest", "modules": ["evals.tools.test_analysis_coordinator", "evals.tools.test_project_memory", "evals.tools.test_project_memory_benchmark", "evals.tools.test_dashboard"]}},
+        {"id": "e2e", "level": 4, "deterministic": false, "execution": {"kind": "external"}, "judge": "independent-semantic", "fixture": "evals/fixtures/projects/legacy-modernization/input/scenario.json", "golden": "evals/fixtures/projects/legacy-modernization/golden/expectations.json"}
+      ]
+    },
+    "development-delivery": {
+      "criticality": "critical", "level": 4,
+      "archetypes": ["development"],
+      "overlays": ["durable-state", "evidence-traceability", "living-dashboard"],
+      "capabilities": ["initialize-project", "continue-project", "maintain-project-memory", "derive-modernization-requirements", "specify-openspec-change", "implement-ready-slice", "test-driven-development", "verify-openspec-implementation", "build-living-dashboard"],
+      "applicable_metrics": ["correctness", "completeness", "recall", "precision", "evidence_grounding", "traceability", "scope_discipline", "handoff_quality", "ownership_discipline", "consistency", "runtime", "token_context_efficiency"],
+      "scenarios": [
+        {"id": "integration", "level": 3, "deterministic": true, "execution": {"kind": "unittest", "modules": ["evals.archetypes.test_archetypes", "evals.tools.test_project_continuation"]}},
+        {"id": "e2e", "level": 4, "deterministic": false, "execution": {"kind": "external"}, "judge": "independent-semantic", "fixture": "evals/fixtures/projects/development-delivery/input/scenario.json", "golden": "evals/fixtures/projects/development-delivery/golden/expectations.json"}
+      ]
+    },
+    "research-presentation": {
+      "criticality": "critical", "level": 4,
+      "archetypes": ["research", "presentation"],
+      "overlays": ["branded-html", "sales-storytelling"],
+      "capabilities": ["initialize-project", "deep-research", "sales-storytelling", "create-branded-html-artifact", "validate-visual-artifact"],
+      "applicable_metrics": ["correctness", "completeness", "recall", "evidence_grounding", "precision", "scope_discipline", "handoff_quality", "visual_quality", "consistency", "runtime", "token_context_efficiency"],
+      "scenarios": [
+        {"id": "integration", "level": 3, "deterministic": true, "execution": {"kind": "unittest", "modules": ["evals.archetypes.test_archetypes", "evals.tools.test_brand_validation"]}},
+        {"id": "e2e", "level": 4, "deterministic": false, "execution": {"kind": "external"}, "judge": "independent-semantic", "fixture": "evals/fixtures/projects/research-corpus/input/scenario.json", "golden": "evals/fixtures/projects/research-corpus/golden/expectations.json"}
+      ]
+    },
+    "dashboard-quality": {
+      "criticality": "critical", "level": 4,
+      "archetypes": ["legacy-migration"],
+      "overlays": ["living-dashboard"],
+      "capabilities": ["build-living-dashboard", "validate-visual-artifact"],
+      "applicable_metrics": ["correctness", "completeness", "recall", "precision", "evidence_grounding", "traceability", "scope_discipline", "visual_quality", "runtime"],
+      "scenarios": [
+        {"id": "integration", "level": 3, "deterministic": true, "execution": {"kind": "unittest", "modules": ["evals.tools.test_dashboard", "evals.tools.test_dashboard_visual", "evals.evaluation.test_benchmark_portfolio"]}},
+        {"id": "e2e", "level": 4, "deterministic": false, "execution": {"kind": "external"}, "judge": "independent-semantic", "fixture": "evals/fixtures/projects/dashboard-quality/input/scenario.json", "golden": "evals/fixtures/projects/dashboard-quality/golden/expectations.json"}
+      ]
+    },
+    "public-sector-delivery": {
+      "criticality": "critical", "level": 4,
+      "archetypes": ["presentation"],
+      "overlays": ["living-dashboard", "public-sector-client-delivery"],
+      "capabilities": ["initialize-project", "build-living-dashboard", "create-branded-html-artifact", "sales-storytelling", "validate-visual-artifact"],
+      "applicable_metrics": ["correctness", "completeness", "recall", "precision", "evidence_grounding", "scope_discipline", "visual_quality", "consistency"],
+      "scenarios": [
+        {"id": "integration", "level": 3, "deterministic": true, "execution": {"kind": "unittest", "modules": ["evals.initialization.test_public_sector_delivery", "evals.tools.test_brand_validation", "evals.tools.test_localization"]}},
+        {"id": "e2e", "level": 4, "deterministic": false, "execution": {"kind": "external"}, "judge": "independent-semantic", "fixture": "evals/fixtures/projects/public-sector-delivery/input/scenario.json", "golden": "evals/fixtures/projects/public-sector-delivery/golden/expectations.json"}
+      ]
+    },
+    "commons-governance": {
+      "criticality": "critical", "level": 4,
+      "archetypes": [],
+      "overlays": [],
+      "capabilities": ["review-for-commons", "promote-to-commons", "run-evaluations", "build-capability-index", "runtime-adapters", "validate-commons", "refresh-commons-presentation", "update-commons-presentation"],
+      "applicable_metrics": ["correctness", "completeness", "evidence_grounding", "traceability", "scope_discipline", "handoff_quality", "ownership_discipline", "consistency"],
+      "scenarios": [
+        {"id": "integration", "level": 3, "deterministic": true, "execution": {"kind": "unittest", "modules": ["evals.tools.test_completeness_promotion", "evals.tools.test_promote_to_commons", "evals.tools.test_capability_index", "evals.installation.test_installer", "evals.tools.test_presentation_sync"]}},
+        {"id": "e2e", "level": 4, "deterministic": false, "execution": {"kind": "external"}, "judge": "independent-semantic", "fixture": "evals/fixtures/evaluation/scenarios.json#commons-governance", "golden": "evals/golden/workflows.json#commons-governance"}
+      ]
+    }
+  }
+}

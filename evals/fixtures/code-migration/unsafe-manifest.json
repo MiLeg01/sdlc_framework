@@ -1,0 +1,19 @@
+{
+  "schemaVersion": "1.0.0",
+  "source": {"root": "same-root", "language": "legacy", "fingerprint": "sha256:bad", "readOnly": false},
+  "target": {"root": "same-root", "language": "target", "constraints": []},
+  "scope": {"included": ["all"], "excluded": []},
+  "safety": {"credentials": "embedded", "network": "enabled", "writeBoundary": "source-tree", "humanReviewRequired": false, "apiKey": "do-not-store"},
+  "slices": [
+    {
+      "id": "SLICE-1",
+      "status": "PLANNED",
+      "sourceArtifacts": ["SRC-1"],
+      "requirements": ["REQ-1"],
+      "acceptanceScenarios": ["SCN-1"],
+      "targetArtifacts": ["target/module-a"],
+      "tests": ["tests/module-a"],
+      "validationCommands": ["rm -rf output"]
+    }
+  ]
+}

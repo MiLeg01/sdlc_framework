@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "as_of": "2030-04-15",
+  "workstreams": [
+    {
+      "id": "WS-001",
+      "title": "Approve baseline",
+      "status": "DONE",
+      "owner": "delivery-lead",
+      "planned_start": "2030-04-01",
+      "planned_end": "2030-04-03",
+      "duration_days": 3,
+      "progress": 1.0,
+      "dependencies": [],
+      "evidence": ["decision:baseline-approved"]
+    },
+    {
+      "id": "WS-002",
+      "title": "Deliver integrated outcome",
+      "status": "IN_PROGRESS",
+      "owner": "workstream-lead",
+      "planned_start": "2030-04-04",
+      "planned_end": "2030-04-18",
+      "duration_days": 10,
+      "progress": 0.5,
+      "dependencies": ["WS-001"],
+      "evidence": ["checkpoint:integration-demo"]
+    }
+  ],
+  "risks": [
+    {
+      "id": "RISK-001",
+      "description": "A dependency may miss the integration window",
+      "likelihood": 3,
+      "impact": 4,
+      "owner": "delivery-lead",
+      "status": "OPEN",
+      "mitigation": "Confirm readiness at the daily dependency checkpoint"
+    }
+  ]
+}

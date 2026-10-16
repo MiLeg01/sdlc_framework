@@ -1,0 +1,201 @@
+{
+  "schema_version": 1,
+  "cases": [
+    {
+      "id": "full-scope-to-first-slice",
+      "critical": true,
+      "target": "skills/analyze-legacy-system/scripts/coordinate_analysis.py",
+      "search": "    selected_artifacts = [\n        artifact for artifact in artifacts\n        if artifact.get(\"disposition\") == \"eligible\" and (mode_for_scope == \"FULL\" or _matches(str(artifact[\"path\"]), selectors))\n    ]",
+      "replacement": "    selected_artifacts = [next(artifact for artifact in artifacts if artifact.get(\"disposition\") == \"eligible\")]",
+      "detector": [
+        "python3",
+        "-m",
+        "unittest",
+        "evals.tools.test_analysis_coordinator.AnalysisCoordinatorScenarios.test_full_is_default_and_accounts_for_the_entire_configured_denominator"
+      ],
+      "expected_failure": "test_full_is_default_and_accounts_for_the_entire_configured_denominator"
+    },
+    {
+      "id": "remove-requirement-evidence",
+      "critical": true,
+      "target": "skills/analyze-legacy-system/scripts/coordinate_analysis.py",
+      "search": "        if value[\"status\"] == \"VERIFIED\" and not value.get(\"evidence_ids\"):",
+      "replacement": "        if False and value[\"status\"] == \"VERIFIED\" and not value.get(\"evidence_ids\"):",
+      "detector": [
+        "python3",
+        "-m",
+        "unittest",
+        "evals.tools.test_analysis_coordinator.AnalysisCoordinatorScenarios.test_verified_depth_dimensions_require_evidence"
+      ],
+      "expected_failure": "test_verified_depth_dimensions_require_evidence"
+    },
+    {
+      "id": "remove-red-first",
+      "critical": true,
+      "target": "skills/test-driven-development/SKILL.md",
+      "search": "1. Add or change one focused test before production behavior.",
+      "replacement": "1. Implement production behavior before adding a focused test.",
+      "detector": [
+        "python3",
+        "tools/evals/check_methodology_contracts.py",
+        "--case",
+        "red-first"
+      ],
+      "expected_failure": "RED-first ordering is absent or contradicted"
+    },
+    {
+      "id": "remove-dashboard-test-quality",
+      "critical": true,
+      "target": "skills/build-living-dashboard/assets/dashboard-structure.json",
+      "search": "\"id\": \"test-quality\"",
+      "replacement": "\"id\": \"quality-removed\"",
+      "detector": [
+        "python3",
+        "-m",
+        "unittest",
+        "evals.tools.test_dashboard.DashboardScenarios.test_full_legacy_modernization_structure_uses_the_complete_canonical_order"
+      ],
+      "expected_failure": "test_full_legacy_modernization_structure_uses_the_complete_canonical_order"
+    },
+    {
+      "id": "allow-worker-dashboard-write",
+      "critical": true,
+      "target": "skills/analyze-legacy-system/scripts/coordinate_analysis.py",
+      "search": "\"prohibited_writes\": [\"client_input\", \"requirements\", \"openspec\", \"dashboard\", \"analysis/coverage.json\"]",
+      "replacement": "\"prohibited_writes\": [\"client_input\", \"requirements\", \"openspec\", \"analysis/coverage.json\"]",
+      "detector": [
+        "python3",
+        "-m",
+        "unittest",
+        "evals.tools.test_analysis_coordinator.AnalysisCoordinatorScenarios.test_workers_cannot_write_the_shared_dashboard"
+      ],
+      "expected_failure": "test_workers_cannot_write_the_shared_dashboard"
+    },
+    {
+      "id": "remove-project-memory-reuse",
+      "critical": true,
+      "target": "skills/analyze-legacy-system/scripts/coordinate_analysis.py",
+      "search": "        validated = all_accounted and previous.get(\"status\") == \"VALIDATED\" and previous.get(\"input_fingerprint\") == input_fingerprint",
+      "replacement": "        validated = False",
+      "detector": [
+        "python3",
+        "-m",
+        "unittest",
+        "evals.tools.test_project_memory_benchmark.ProjectMemoryBenchmarkTests.test_mixed_language_resume_reduces_repeated_context_without_depth_regression"
+      ],
+      "expected_failure": "test_mixed_language_resume_reduces_repeated_context_without_depth_regression"
+    },
+    {
+      "id": "demote-critical-mutant-to-warning",
+      "critical": true,
+      "target": "skills/mutation-testing/references/quality-gates.md",
+      "search": "- a critical behavioral mutant survives, regardless of the aggregate score;\n",
+      "replacement": "- a critical behavioral mutant survives, but only as a warning when the aggregate score is high;",
+      "detector": [
+        "python3",
+        "tools/evals/check_methodology_contracts.py",
+        "--case",
+        "mutation-quality-gate"
+      ],
+      "expected_failure": "a surviving critical mutant is not a hard failure"
+    },
+    {
+      "id": "allow-unsupported-mutation-tooling-to-pass",
+      "critical": true,
+      "target": "skills/mutation-testing/references/quality-gates.md",
+      "search": "An unsupported technology is never a pass.",
+      "replacement": "An unsupported technology may be reported as a pass.",
+      "detector": [
+        "python3",
+        "tools/evals/check_methodology_contracts.py",
+        "--case",
+        "mutation-quality-gate"
+      ],
+      "expected_failure": "unsupported mutation tooling is not explicitly barred from passing"
+    },
+    {
+      "id": "remove-tdd-mutation-delegation",
+      "critical": true,
+      "target": "skills/test-driven-development/SKILL.md",
+      "search": "## Mutation quality check",
+      "replacement": "## Optional extra checks",
+      "detector": [
+        "python3",
+        "tools/evals/check_methodology_contracts.py",
+        "--case",
+        "tdd-delegates-mutation"
+      ],
+      "expected_failure": "TDD has no mutation quality check phase"
+    },
+    {
+      "id": "allow-production-change-to-kill-a-mutant",
+      "critical": true,
+      "target": "skills/mutation-testing/SKILL.md",
+      "search": "Never modify correct production behavior to kill a mutant.",
+      "replacement": "Adjust production behavior when that is the quickest way to kill a mutant.",
+      "detector": [
+        "python3",
+        "tools/evals/check_methodology_contracts.py",
+        "--case",
+        "mutation-quality-gate"
+      ],
+      "expected_failure": "the mutation-testing skill no longer forbids distorting production code"
+    },
+    {
+      "id": "weaken-critical-survivor-gate-logic",
+      "critical": true,
+      "target": "skills/mutation-testing/scripts/assess_mutation_quality.py",
+      "search": "        if critical_survivors:\n            details",
+      "replacement": "        if False and critical_survivors:\n            details",
+      "detector": [
+        "python3",
+        "-m",
+        "unittest",
+        "evals.tools.test_mutation_quality.MutationQualityGateScenarios.test_critical_survivor_fails_even_with_a_high_aggregate_score"
+      ],
+      "expected_failure": "test_critical_survivor_fails_even_with_a_high_aggregate_score"
+    },
+    {
+      "id": "allow-unsupported-mutation-run-to-exit-zero",
+      "critical": true,
+      "target": "skills/mutation-testing/scripts/assess_mutation_quality.py",
+      "search": "\"NOT_SUPPORTED\": 3",
+      "replacement": "\"NOT_SUPPORTED\": 0",
+      "detector": [
+        "python3",
+        "-m",
+        "unittest",
+        "evals.tools.test_mutation_quality.MutationQualityGateScenarios.test_unsupported_technology_is_not_a_pass"
+      ],
+      "expected_failure": "test_unsupported_technology_is_not_a_pass"
+    },
+    {
+      "id": "score-flaky-baseline-instead-of-blocking",
+      "critical": true,
+      "target": "skills/mutation-testing/scripts/assess_mutation_quality.py",
+      "search": "    if header[\"baseline_tests\"] == \"FLAKY\":",
+      "replacement": "    if False and header[\"baseline_tests\"] == \"FLAKY\":",
+      "detector": [
+        "python3",
+        "-m",
+        "unittest",
+        "evals.tools.test_mutation_quality.MutationQualityGateScenarios.test_flaky_baseline_blocks_instead_of_scoring"
+      ],
+      "expected_failure": "test_flaky_baseline_blocks_instead_of_scoring"
+    },
+    {
+      "id": "remove-dashboard-mutation-quality-model",
+      "critical": true,
+      "target": "skills/build-living-dashboard/assets/dashboard-structure.json",
+      "search": "\"id\": \"mutation_score\"",
+      "replacement": "\"id\": \"mutation_score_removed\"",
+      "detector": [
+        "python3",
+        "-m",
+        "unittest",
+        "evals.tools.test_dashboard.DashboardScenarios.test_canonical_test_quality_model_keeps_coverage_subordinate_to_mutation"
+      ],
+      "expected_failure": "test_canonical_test_quality_model_keeps_coverage_subordinate_to_mutation"
+    }
+  ]
+}

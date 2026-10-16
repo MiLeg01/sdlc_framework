@@ -1,0 +1,32 @@
+{
+  "schema_version": 1,
+  "id": "codex",
+  "display_name": "OpenAI Codex",
+  "verified_on": "2026-08-18",
+  "documentation": [
+    "https://learn.chatgpt.com/docs/agent-configuration/agents-md",
+    "https://learn.chatgpt.com/docs/build-skills",
+    "https://learn.chatgpt.com/docs/agent-configuration/subagents",
+    "https://learn.chatgpt.com/docs/extend/mcp",
+    "https://learn.chatgpt.com/docs/config-file/config-basic#configuration-precedence"
+  ],
+  "concepts": {
+    "global_instructions": "native",
+    "project_instructions": "native",
+    "skills": "native",
+    "custom_agents": "native",
+    "mcp": "native",
+    "project_memory": "commons-project-local-with-native-context-optimizations-optional",
+    "archetypes": "commons",
+    "evals": "commons"
+  },
+  "installation": {"skills": "documented-symlink", "agents": "generated-native", "global_instructions": "managed-section"},
+  "user_paths": {
+    "global_instructions": [".codex", "AGENTS.md"],
+    "skills": [".agents", "skills"],
+    "agents": [".codex", "agents"]
+  },
+  "project": {"instructions": "AGENTS.md", "agent_directory": ".codex/agents", "config": ".codex/config.toml"},
+  "precedence": "CLI, closest trusted project config, profile, user config, system config, defaults; AGENTS.md is concatenated from global then project root toward the working directory.",
+  "limitations": []
+}

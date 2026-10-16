@@ -1,0 +1,39 @@
+jobs:
+- job: semantic_smoke
+  displayName: Production semantic executor and judge smoke test
+  pool:
+    vmImage: ubuntu-24.04
+  steps:
+  - template: setup.yml
+    parameters:
+      installSemanticRuntime: true
+  - template: baseline.yml
+    parameters:
+      mode: resolve
+  - bash: |
+      set -euo pipefail
+      output='$(Build.ArtifactStagingDirectory)/quality/semantic-smoke/azure-pipeline-access.json'
+      python3 tools/evals/verify_azure_pipeline_access.py \
+        --collection-uri "$AZDO_COLLECTION_URI" \
+        --project "$AZDO_PROJECT_ID" \
+        --definition "$BASELINE_PIPELINE_DEFINITION_ID" \
+        --expected-yaml-path '.azuredevops/commons-nightly-quality.yml' \
+        --output "$output"
+    displayName: Verify nightly baseline and history access
+    env:
+      AZDO_COLLECTION_URI: $(System.CollectionUri)
+      AZDO_PROJECT_ID: $(System.TeamProjectId)
+      BASELINE_PIPELINE_DEFINITION_ID: $(baselinePipelineDefinitionId)
+      SYSTEM_ACCESSTOKEN: $(System.AccessToken)
+  - template: run-evals.yml
+    parameters:
+      outputDir: '$(Build.ArtifactStagingDirectory)/quality/semantic-smoke'
+      evalProfile: smoke
+      selectionArguments: '--capability inventory-codebase'
+      repeat: 1
+      semanticPolicy: required
+      compareBaseline: true
+  - template: publish-results.yml
+    parameters:
+      outputDir: '$(Build.ArtifactStagingDirectory)/quality/semantic-smoke'
+      artifactName: 'quality-semantic-smoke'

@@ -1,0 +1,30 @@
+:root {
+  --brand-ink: #123a52;
+  --brand-paper: #f3f7f8;
+  --brand-surface: #ffffff;
+  --brand-card: #ffffff;
+  --brand-line: #91a9b5;
+  --brand-primary: #006f8b;
+  --brand-secondary: #e2a72e;
+  --brand-danger: #a63b2b;
+  --brand-success: #2d7452;
+  --brand-muted: #566b76;
+  --brand-focus: #005fcc;
+  --brand-link: #005f78;
+  --brand-ink-subtle: #566b76;
+  --brand-surface-subtle: #f3f7f8;
+  --brand-line-strong: #566b76;
+  --brand-accent-soft: #f3f7f8;
+  --brand-risk-soft: #f3f7f8;
+  --brand-header: #123a52;
+  --brand-on-dark: #ffffff;
+  --brand-font-display: "Arial Narrow", Arial, sans-serif;
+  --brand-font-body: Arial, sans-serif;
+  --brand-font-data: "Courier New", monospace;
+  --brand-radius: 2px;
+  --brand-border-width: 1px;
+  --brand-signature-thickness: 6px;
+}
+body { background: var(--brand-paper); color: var(--brand-ink); font-family: var(--brand-font-body); }
+a { color: var(--brand-link); }
+button:focus-visible { outline: 3px solid var(--brand-focus); }

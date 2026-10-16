@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "mutation_run": {
+    "scope_profile": "NIGHTLY",
+    "scope": "example/reporting/label_formatter.py",
+    "changed_scope_only": false,
+    "criticality": "NORMAL_BUSINESS_LOGIC",
+    "technology": "python",
+    "tool": "mutmut",
+    "tool_version": "2.4.4",
+    "commit": "c41aa07",
+    "baseline_tests": "PASS",
+    "tool_execution": "VALID"
+  },
+  "metrics": {"total_mutants": 18, "killed": 17, "survived": 1},
+  "survivors": [
+    {
+      "id": "MUT-043",
+      "component": "example.reporting.label_formatter.short_label",
+      "location": "example/reporting/label_formatter.py:18",
+      "operator": "BOUNDARY",
+      "mutation": "truncation length boundary changed",
+      "classification": "EQUIVALENT_MUTANT",
+      "criticality": "NORMAL_BUSINESS_LOGIC",
+      "affected_tests": [],
+      "evidence": ["mutation-report/MUT-043.json"],
+      "recommended_action": "assert the label at exactly the truncation length"
+    }
+  ]
+}

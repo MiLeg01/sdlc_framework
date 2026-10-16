@@ -1,0 +1,19 @@
+{
+  "schema_version": 1,
+  "items": [
+    {
+      "id": "AUTH-SYN-003",
+      "status": "READY",
+      "priority": "MUST",
+      "dependencies": [],
+      "owned_paths": [
+        "evals/fixtures/projects/development-delivery/input/session_service.py",
+        "evals/fixtures/projects/development-delivery/input/session_service_acceptance.py"
+      ],
+      "acceptance": [
+        "Expired sessions return SESSION_EXPIRED",
+        "Active sessions return ACTIVE"
+      ]
+    }
+  ]
+}

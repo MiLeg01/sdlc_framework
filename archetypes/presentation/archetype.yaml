@@ -1,0 +1,70 @@
+{
+  "schema_version": 1,
+  "id": "presentation",
+  "kind": "archetype",
+  "title": "Presentation and interactive storytelling",
+  "intent": [
+    "sales, management, technical executive, capability, solution, and workshop presentations",
+    "interactive standalone HTML storytelling when HTML is the chosen medium"
+  ],
+  "not_for": [
+    "assuming every presentation must be HTML",
+    "generic AI-generated SaaS styling without audience, evidence, or brand direction"
+  ],
+  "initialization": {
+    "discover": [
+      "source material, existing decks, website and design-system evidence, logos, assets, diagrams, graphs, and delivery constraints"
+    ],
+    "ask_if_unresolved": [
+      "objective, audience, desired decision or action, and authoritative factual sources",
+      "narrative, technical depth, brand or client evidence, existing presentation references, and visual thesis",
+      "diagrams, graphs, interactivity, accessibility, offline or standalone behavior, and delivery format"
+    ]
+  },
+  "purposes": {
+    "supported": ["sales", "executive", "technical", "informational", "workshop", "internal"],
+    "multiple_allowed": true,
+    "selection_rule": "infer explicit purposes from the brief and ask only when the audience or desired outcome leaves the presentation purpose materially ambiguous"
+  },
+  "capabilities": {
+    "required": {"skills": [], "agents": [], "tools": [], "templates": []},
+    "default": {"skills": [], "agents": [], "tools": [], "templates": ["project-instructions-template"]},
+    "recommended": {"skills": [], "agents": [], "tools": [], "templates": []},
+    "optional": {"skills": [], "agents": [], "tools": [], "templates": []}
+  },
+  "conditions": [
+    {
+      "id": "presentation-accessibility-review",
+      "when": "the presentation is interactive, public, consequential, or has an explicit accessibility expectation",
+      "capabilities": {
+        "skills": ["accessibility-review"],
+        "agents": [],
+        "tools": [],
+        "templates": []
+      }
+    }
+  ],
+  "recommended_overlays": [
+    {"id": "architecture-documentation", "when": "the presentation documents architecture and must preserve a traceable technical model"},
+    {"id": "bilingual-client-delivery", "when": "the HTML presentation must support German (Austria) client delivery and an English switch"},
+    {"id": "sales-storytelling", "when": "sales is an explicit or clearly inferred presentation purpose"},
+    {"id": "branded-html", "when": "HTML is the selected delivery medium"},
+    {"id": "durable-state", "when": "the narrative and asset workflow is substantial or multi-session"},
+    {"id": "living-dashboard", "when": "the artifact is a canonical-state dashboard rather than a one-off narrative"},
+    {"id": "public-sector-client-delivery", "when": "the target client is confirmed or high-confidence public sector and output-specific language, branding, tone, and accessibility defaults apply"}
+  ],
+  "typical_outputs": [
+    "audience-specific narrative and source index",
+    "presentation or workshop artifact in the explicitly selected medium",
+    "brand-derived visual system when resolvable, otherwise the labeled Accenture fallback",
+    "visual, interaction, accessibility, responsive, print, and offline validation evidence as applicable"
+  ],
+  "invariants": [
+    "map factual claims to authoritative sources",
+    "derive visual identity from verified client or company evidence when available",
+    "always create the selected HTML artifact and use the Accenture fallback when branding is absent or unavailable",
+    "do not clone protected marketing pages or invent unsupported brand rules",
+    "do not select HTML-only capabilities for non-HTML delivery",
+    "treat sales, executive, technical, informational, workshop, and internal as combinable purposes rather than separate archetypes"
+  ]
+}

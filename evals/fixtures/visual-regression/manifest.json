@@ -1,0 +1,241 @@
+{
+  "schema_version": 1,
+  "comparison_policy": {
+    "pixel_equality_required": false,
+    "perceptual_difference_threshold": 0.01,
+    "privacy": "Presentation identity text is replaced with the generic product/version label during capture.",
+    "checks": [
+      "structural invariants",
+      "overflow",
+      "required elements",
+      "browser errors",
+      "canonical design grammar",
+      "semantic review"
+    ]
+  },
+  "states": [
+    {
+      "id": "dashboard-overview",
+      "artifact": "dashboard",
+      "viewport": [
+        1440,
+        1000
+      ],
+      "screenshot": "evals/fixtures/visual-regression/screenshots/dashboard-overview.png",
+      "structural_invariants": [
+        "overview visible",
+        "grouped navigation visible"
+      ],
+      "sha256": "35c6cb1cb0427c8095b19fa3450b260da66d641b8a5ce8ffc4edc89687ffcd08",
+      "captured_dimensions": [
+        1440,
+        1000
+      ]
+    },
+    {
+      "id": "dashboard-architecture",
+      "artifact": "dashboard",
+      "viewport": [
+        1440,
+        1000
+      ],
+      "screenshot": "evals/fixtures/visual-regression/screenshots/dashboard-architecture.png",
+      "structural_invariants": [
+        "architecture section visible",
+        "evidence detail available"
+      ],
+      "sha256": "e21d927db1140f78ebe557ee56ddc04481509545a83ae70a81f6f6a96c396fac",
+      "captured_dimensions": [
+        1440,
+        1000
+      ]
+    },
+    {
+      "id": "dashboard-requirements",
+      "artifact": "dashboard",
+      "viewport": [
+        1440,
+        1000
+      ],
+      "screenshot": "evals/fixtures/visual-regression/screenshots/dashboard-requirements.png",
+      "structural_invariants": [
+        "requirements visible",
+        "filter and detail opener present"
+      ],
+      "sha256": "881a65e12cc6a5fc37aa6ef6fa319b498a569322e8b6f1f11cd62dd98ebaf279",
+      "captured_dimensions": [
+        1440,
+        1000
+      ]
+    },
+    {
+      "id": "dashboard-estimation",
+      "artifact": "dashboard",
+      "viewport": [
+        1440,
+        1000
+      ],
+      "screenshot": "evals/fixtures/visual-regression/screenshots/dashboard-estimation.png",
+      "structural_invariants": [
+        "estimate range visible",
+        "basis remains explicit"
+      ],
+      "sha256": "e6c2643774d6c71cc6b8cd099e413c4b3e99a4766e9700684d0ba9fbb9643824",
+      "captured_dimensions": [
+        1440,
+        1000
+      ]
+    },
+    {
+      "id": "dashboard-detail-opener",
+      "artifact": "dashboard",
+      "viewport": [
+        1440,
+        1000
+      ],
+      "screenshot": "evals/fixtures/visual-regression/screenshots/dashboard-detail-opener.png",
+      "structural_invariants": [
+        "detail dialog open",
+        "focus remains bounded"
+      ],
+      "sha256": "c84b2d473866c4e8e299154aff8590a96b871c714b2b6052eecab61bb975ca95",
+      "captured_dimensions": [
+        1440,
+        1000
+      ]
+    },
+    {
+      "id": "dashboard-mobile",
+      "artifact": "dashboard",
+      "viewport": [
+        390,
+        844
+      ],
+      "screenshot": "evals/fixtures/visual-regression/screenshots/dashboard-mobile.png",
+      "structural_invariants": [
+        "mobile navigation visible",
+        "no horizontal overflow"
+      ],
+      "sha256": "e85c2bceaf9e0925a294f581df258e12ec82a020b1b75d8f3fa638e6cba88f7b",
+      "captured_dimensions": [
+        390,
+        844
+      ]
+    },
+    {
+      "id": "presentation-opening",
+      "artifact": "presentation",
+      "viewport": [
+        1440,
+        900
+      ],
+      "screenshot": "evals/fixtures/visual-regression/screenshots/presentation-opening.png",
+      "structural_invariants": [
+        "opening slide visible",
+        "slide count visible"
+      ],
+      "sha256": "05b1e44e99453f4be879cd2ba9ff72a25f2ffde159d5d2538123328b235205d8",
+      "captured_dimensions": [
+        1440,
+        1086
+      ]
+    },
+    {
+      "id": "presentation-concepts",
+      "artifact": "presentation",
+      "viewport": [
+        1440,
+        900
+      ],
+      "screenshot": "evals/fixtures/visual-regression/screenshots/presentation-concepts.png",
+      "structural_invariants": [
+        "concept comparison visible",
+        "labels remain legible"
+      ],
+      "sha256": "315fad523cc3347250ba22d40fbe490040f351817584e944e3ff85698f071792",
+      "captured_dimensions": [
+        1440,
+        1177
+      ]
+    },
+    {
+      "id": "presentation-graph",
+      "artifact": "presentation",
+      "viewport": [
+        1440,
+        900
+      ],
+      "screenshot": "evals/fixtures/visual-regression/screenshots/presentation-graph.png",
+      "structural_invariants": [
+        "relationship graph visible",
+        "nodes are not clipped"
+      ],
+      "sha256": "bee204c503b67350abddb4814136ad92cc01793de0b5ddcbe93e7fc2ab6807ea",
+      "captured_dimensions": [
+        1440,
+        1688
+      ]
+    },
+    {
+      "id": "presentation-navigator",
+      "artifact": "presentation",
+      "viewport": [
+        1440,
+        900
+      ],
+      "screenshot": "evals/fixtures/visual-regression/screenshots/presentation-navigator.png",
+      "structural_invariants": [
+        "navigator visible",
+        "current slide indicated"
+      ],
+      "sha256": "6241387170429362ea859ebc01cee44fc45ed033f44d96f304889f4ae12d1ebd",
+      "captured_dimensions": [
+        1440,
+        3794
+      ]
+    },
+    {
+      "id": "presentation-technical",
+      "artifact": "presentation",
+      "viewport": [
+        1440,
+        900
+      ],
+      "screenshot": "evals/fixtures/visual-regression/screenshots/presentation-technical.png",
+      "structural_invariants": [
+        "technical section visible",
+        "code and diagrams remain legible"
+      ],
+      "sha256": "39dc90557526785ffdb081f5b085f9b9703f392a93590a9faa6f900be5ae81b0",
+      "captured_dimensions": [
+        1440,
+        1658
+      ]
+    },
+    {
+      "id": "presentation-closing",
+      "artifact": "presentation",
+      "viewport": [
+        1440,
+        900
+      ],
+      "screenshot": "evals/fixtures/visual-regression/screenshots/presentation-closing.png",
+      "structural_invariants": [
+        "closing action visible",
+        "footer remains visible"
+      ],
+      "sha256": "4d64af4946b5f179754f315e86fdadc1cf299d2ba578a3cd722bf313042177d5",
+      "captured_dimensions": [
+        1440,
+        1062
+      ]
+    }
+  ],
+  "capture_tool": "tools/evals/capture_visual_baselines.mjs",
+  "capture_environment": {
+    "os": "ubuntu-24.04",
+    "node": "22.14.0",
+    "playwright": "1.55.0",
+    "browser": "chromium"
+  }
+}

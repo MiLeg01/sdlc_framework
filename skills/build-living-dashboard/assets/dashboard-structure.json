@@ -1,0 +1,247 @@
+{
+  "schema_version": 2,
+  "id": "agent-commons-living-dashboard",
+  "title": "Canonical Agent Commons living dashboard",
+  "chrome": {
+    "utility_strip": ["validation-state", "data-integrity-state", "read-only-state"],
+    "brand_header": ["official-logo-or-wordmark", "project-title", "optional-co-brand", "accessible-language-switch"],
+    "navigation": "fixed-grouped-navigation-with-mobile-adaptation",
+    "footer": ["generation-time", "canonical-state-fingerprint", "source-fingerprint"]
+  },
+  "navigation": {
+    "model": "fixed-header-grouped-rail-scrollspy",
+    "mobile_model": "fixed-bottom-grouped-rail",
+    "groups": [
+      {"id": "overview", "label": "Overview", "short_label": "Home", "order": 10},
+      {"id": "business", "label": "Business", "short_label": "Business", "order": 20},
+      {"id": "estate", "label": "Estate", "short_label": "Estate", "order": 30},
+      {"id": "architecture", "label": "Architecture", "short_label": "Arch", "order": 40},
+      {"id": "assurance", "label": "Assurance", "short_label": "Assure", "order": 50}
+    ]
+  },
+  "sections": [
+    {
+      "id": "overview", "label": "Evidence overview", "group": "overview", "order": 10, "classification": "core",
+      "description": "Project context, current truth, next action, denominator-backed metrics, findings, and explanatory tooltips.",
+      "empty_state": "Analysis in progress. Current truth and denominators remain pending until canonical evidence exists.",
+      "required_regions": ["project-context", "current-status", "key-findings", "next-actions", "denominator-metrics", "metric-tooltips"]
+    },
+    {
+      "id": "decision-brief", "label": "Executive decision brief", "group": "overview", "order": 20, "classification": "core",
+      "description": "Recommendation, authorization boundary, readiness, significance, options, waves, controls, and commitment gates.",
+      "empty_state": "Decision posture pending. No commitment is implied without evidence, options, and accountable gates.",
+      "required_regions": ["recommendation-posture", "approve-defer", "readiness-model", "business-significance", "option-comparison", "pilot-waves", "decision-controls"]
+    },
+    {
+      "id": "stakeholder-questions", "label": "Stakeholder questions & decisions", "group": "overview", "order": 30, "classification": "core",
+      "description": "Executive questions, full Q&A, known unknowns, open decisions, assumptions, and validation requirements.",
+      "empty_state": "Stakeholder reconciliation pending. Unknowns and decisions remain visible until classified and owned.",
+      "required_regions": ["executive-questions", "qa-explorer", "known-unknowns", "open-decisions", "assumptions-validation"]
+    },
+    {
+      "id": "modernization", "label": "Modernization", "group": "overview", "order": 40, "classification": "conditional", "condition": "has_modernization",
+      "description": "ADM estimate, scenarios, waves, transition and coexistence, data and interface implications, risks, and gates.",
+      "empty_state": "Modernization planning not yet observed. Estimates, scenarios, and gates remain pending.",
+      "required_regions": ["adm-estimate", "modernization-scenarios", "roadmap-waves", "transition-coexistence", "data-interface-implications", "modernization-risks-gates"]
+    },
+    {
+      "id": "capabilities", "label": "Capability atlas", "group": "business", "order": 50, "classification": "conditional", "condition": "has_capabilities",
+      "description": "Business responsibilities and evidence-backed coverage.", "empty_state": "Capabilities not yet observed or not applicable.",
+      "required_hooks": ["filter", "record-list", "detail-opener"]
+    },
+    {
+      "id": "requirements", "label": "Requirements explorer", "group": "business", "order": 60, "classification": "conditional", "condition": "has_requirements",
+      "description": "Observable obligations with status, evidence, and related specifications.", "empty_state": "Requirements have not yet been derived.",
+      "required_hooks": ["filter", "record-list", "detail-opener"]
+    },
+    {
+      "id": "specifications", "label": "Specifications explorer", "group": "business", "order": 70, "classification": "conditional", "condition": "has_specifications",
+      "description": "OpenSpec readiness, acceptance criteria, implementation state, and validation.", "empty_state": "OpenSpec is not selected or specifications are not yet available.",
+      "required_hooks": ["filter", "record-list", "detail-opener"]
+    },
+    {
+      "id": "flows", "label": "Application & business flows", "group": "business", "order": 80, "classification": "conditional", "condition": "has_flows",
+      "description": "Evidence-backed application and business paths with capability coverage.", "empty_state": "Flows have not yet been reconstructed.",
+      "required_hooks": ["filter", "record-list", "detail-opener"]
+    },
+    {
+      "id": "inventory", "label": "Repository & module inventory", "group": "estate", "order": 90, "classification": "conditional", "condition": "has_inventory",
+      "description": "Repositories, applications, modules, components, and bounded scope.", "empty_state": "Inventory denominator has not yet been established.",
+      "required_hooks": ["filter", "record-list", "detail-opener"]
+    },
+    {
+      "id": "database", "label": "Database access & ER model", "group": "estate", "order": 100, "classification": "conditional", "condition": "has_database",
+      "description": "Persistence access, ownership, physical identity, and entity relationships.", "empty_state": "Database access and ownership are not yet observed.",
+      "required_hooks": ["filter", "record-list", "detail-opener"]
+    },
+    {
+      "id": "interfaces", "label": "Interfaces", "group": "architecture", "order": 110, "classification": "conditional", "condition": "has_interfaces",
+      "description": "Exposed and consumed boundaries and cross-application interactions.", "empty_state": "Interfaces are not yet observed.",
+      "required_hooks": ["filter", "record-list", "detail-opener"]
+    },
+    {
+      "id": "dependencies", "label": "Dependencies", "group": "architecture", "order": 120, "classification": "conditional", "condition": "has_dependencies",
+      "description": "Coverage, unresolved targets, cross-application relationships, and cycles.", "empty_state": "Dependency coverage is pending.",
+      "required_hooks": ["filter", "record-list", "detail-opener"]
+    },
+    {
+      "id": "external-estate", "label": "External estate", "group": "architecture", "order": 130, "classification": "conditional", "condition": "has_external_estate",
+      "description": "External libraries, platforms, systems, interfaces, and data boundaries.", "empty_state": "External dependencies and systems are not yet observed.",
+      "required_hooks": ["filter", "record-list", "detail-opener"]
+    },
+    {
+      "id": "application-map", "label": "Application / system / C4 map", "group": "architecture", "order": 140, "classification": "conditional", "condition": "has_application_map",
+      "description": "System landscape and progressively detailed application, container, and component views.", "empty_state": "Architecture map is pending or not applicable.",
+      "required_hooks": ["record-list", "detail-opener"]
+    },
+    {
+      "id": "progress", "label": "Progress & checkpoints", "group": "assurance", "order": 150, "classification": "core",
+      "description": "Coverage, denominator status, checkpoints, and current ledger.", "empty_state": "No denominator-backed progress exists yet.",
+      "required_regions": ["progress-summary", "checkpoint-ledger"]
+    },
+    {
+      "id": "traceability", "label": "Traceability", "group": "assurance", "order": 160, "classification": "conditional", "condition": "has_traceability",
+      "description": "Source to requirement to specification to implementation, test, and verification.", "empty_state": "Lifecycle traceability is not yet available.",
+      "required_hooks": ["trace-chain", "detail-opener"]
+    },
+    {
+      "id": "evidence", "label": "Evidence explorer", "group": "assurance", "order": 170, "classification": "core",
+      "description": "Source provenance, observations, interpretations, and linked records.", "empty_state": "No evidence records have been captured.",
+      "required_hooks": ["filter", "record-list", "detail-opener"]
+    },
+    {
+      "id": "test-quality", "label": "Test quality & modernization safety", "group": "assurance", "order": 180, "classification": "conditional", "condition": "has_test_quality",
+      "description": "Test strength, execution evidence, gaps, prerequisites, and modernization safety.", "empty_state": "Test quality is not yet observed.",
+      "required_hooks": ["filter", "record-list", "detail-opener"]
+    },
+    {
+      "id": "questions-risks", "label": "Questions, risks & uncertainty", "group": "assurance", "order": 190, "classification": "core",
+      "description": "Open technical questions, risks, assumptions, uncertainty, owners, and closure paths.", "empty_state": "No questions or risks are asserted yet; unassessed uncertainty remains explicit.",
+      "required_regions": ["question-register", "risk-register", "uncertainty-register"]
+    }
+  ],
+  "information_domains": [
+    {"id": "management-overview", "label": "Management overview", "order": 10, "section_id": "overview", "condition": "always", "profiles": ["legacy-modernization", "development", "research", "general"]},
+    {"id": "system-statistics", "label": "System statistics & composition", "order": 20, "section_id": "overview", "condition": "has_composition", "profiles": ["legacy-modernization", "development"]},
+    {"id": "complexity", "label": "Complexity", "order": 30, "section_id": "overview", "condition": "has_complexity", "profiles": ["legacy-modernization", "development"]},
+    {"id": "estimation", "label": "ADM estimation", "order": 40, "section_id": "modernization", "condition": "has_estimation", "profiles": ["legacy-modernization", "development"]},
+    {"id": "roadmap", "label": "Roadmap", "order": 50, "section_id": "modernization", "condition": "has_roadmap", "profiles": ["legacy-modernization", "development", "research"]},
+    {"id": "inventory", "label": "Application & module inventory", "order": 60, "section_id": "inventory", "condition": "has_inventory", "profiles": ["legacy-modernization", "development"]},
+    {"id": "system-landscape", "label": "System landscape", "order": 70, "section_id": "application-map", "condition": "has_system_landscape", "profiles": ["legacy-modernization", "development"]},
+    {"id": "component-architecture", "label": "Component architecture", "order": 80, "section_id": "application-map", "condition": "has_component_architecture", "profiles": ["legacy-modernization", "development"]},
+    {"id": "service-topology", "label": "Service topology", "order": 90, "section_id": "application-map", "condition": "has_service_topology", "profiles": ["legacy-modernization", "development"]},
+    {"id": "data-persistence", "label": "Data & persistence", "order": 100, "section_id": "database", "condition": "has_persistence", "profiles": ["legacy-modernization", "development"]},
+    {"id": "entity-relationship-model", "label": "Entity-relationship model", "order": 110, "section_id": "database", "condition": "has_relational_schema", "profiles": ["legacy-modernization", "development"]},
+    {"id": "integrations", "label": "Integrations", "order": 120, "section_id": "interfaces", "condition": "has_interfaces", "profiles": ["legacy-modernization", "development"]},
+    {"id": "business-flows-rules", "label": "Business flows & rules", "order": 130, "section_id": "flows", "condition": "has_flows", "profiles": ["legacy-modernization", "development"]},
+    {"id": "requirements", "label": "Requirements", "order": 140, "section_id": "requirements", "condition": "has_requirements", "profiles": ["legacy-modernization", "development"]},
+    {"id": "openspec-specifications", "label": "OpenSpec specifications", "order": 150, "section_id": "specifications", "condition": "has_specifications", "profiles": ["legacy-modernization", "development"]},
+    {"id": "traceability", "label": "Traceability", "order": 160, "section_id": "traceability", "condition": "has_traceability", "profiles": ["legacy-modernization", "development"]},
+    {"id": "legacy-test-quality", "label": "Legacy test quality", "order": 170, "section_id": "test-quality", "condition": "has_test_quality", "profiles": ["legacy-modernization"]},
+    {"id": "quality-maintainability", "label": "Quality & maintainability", "order": 180, "section_id": "test-quality", "condition": "has_quality", "profiles": ["legacy-modernization", "development"]},
+    {"id": "target-architecture", "label": "Target architecture", "order": 190, "section_id": "application-map", "condition": "has_target_architecture", "profiles": ["legacy-modernization", "development"]},
+    {"id": "risks-decisions", "label": "Risks & decisions", "order": 200, "section_id": "questions-risks", "condition": "has_risks_decisions", "profiles": ["legacy-modernization", "development", "research", "general"]},
+    {"id": "open-questions", "label": "Open questions", "order": 210, "section_id": "stakeholder-questions", "condition": "has_open_questions", "profiles": ["legacy-modernization", "development", "research", "general"]},
+    {"id": "evidence", "label": "Evidence & source explorer", "order": 220, "section_id": "evidence", "condition": "has_evidence", "profiles": ["legacy-modernization", "development", "research", "general"]}
+  ],
+  "domain_states": ["AVAILABLE", "IN_PROGRESS", "NOT_YET_ANALYZED", "NOT_APPLICABLE", "BLOCKED"],
+    "test_quality_model": {
+      "domain_id": "legacy-test-quality",
+      "section_id": "test-quality",
+      "purpose": "Expose test strength, not only test execution. Coverage answers whether code ran; mutation testing answers whether tests would notice incorrect behavior.",
+      "metrics": [
+        {
+          "id": "tests",
+          "label": "Tests",
+          "required": true
+        },
+        {
+          "id": "coverage",
+          "label": "Coverage",
+          "required": false,
+          "note": "supporting data only; never presented as a substitute for mutation quality"
+        },
+        {
+          "id": "mutation_score",
+          "label": "Mutation score",
+          "required": false
+        },
+        {
+          "id": "killed_mutants",
+          "label": "Killed mutants",
+          "required": false
+        },
+        {
+          "id": "surviving_meaningful_mutants",
+          "label": "Surviving meaningful mutants",
+          "required": false
+        },
+        {
+          "id": "critical_survivors",
+          "label": "Critical survivors",
+          "required": false
+        },
+        {
+          "id": "accepted_equivalent_mutants",
+          "label": "Accepted equivalent mutants",
+          "required": false
+        },
+        {
+          "id": "mutation_trend",
+          "label": "Mutation trend",
+          "required": false,
+          "note": "current against the last accepted baseline"
+        },
+        {
+          "id": "test_quality_status",
+          "label": "Test quality",
+          "required": true
+        }
+      ],
+      "test_quality_states": [
+        "GOOD",
+        "ADEQUATE",
+        "WEAK",
+        "NOT_YET_ANALYZED",
+        "NOT_SUPPORTED",
+        "BLOCKED_BY_FLAKY_TESTS"
+      ],
+      "state_rules": {
+        "NOT_YET_ANALYZED": "mutation testing applies but has not been run; never omit the row",
+        "NOT_SUPPORTED": "no maintained mutation engine applies to the technology; state the compensating verification",
+        "BLOCKED_BY_FLAKY_TESTS": "the baseline suite is not demonstrably stable, so no score is trustworthy"
+      },
+      "drill_down": [
+        "module",
+        "changed-code scope",
+        "surviving mutant",
+        "mutation operator",
+        "linked requirement and specification",
+        "linked tests",
+        "recommended action"
+      ],
+      "management_overview_rule": "Management Overview shows only aggregate test-quality status, critical survivor count, and trend. Individual mutants, operators, and per-survivor recommendations belong in the test-quality drill-down.",
+      "prohibited": [
+        "presenting coverage as mutation quality",
+        "omitting the mutation row when mutation testing has not been run",
+        "aggregating application mutation results with Agent Commons methodology mutation results",
+        "vanity metrics with no decision consequence"
+      ]
+    },
+  "profiles": ["legacy-modernization", "development", "research", "general"],
+  "extension_points": [
+    {"id": "after-overview", "group": "overview", "after": "overview", "order_min": 11, "order_max": 19},
+    {"id": "operational", "group": "overview", "after": "modernization", "order_min": 41, "order_max": 49},
+    {"id": "business-domain", "group": "business", "after": "flows", "order_min": 81, "order_max": 89},
+    {"id": "architecture-domain", "group": "architecture", "after": "application-map", "order_min": 141, "order_max": 149},
+    {"id": "appendix-evidence", "group": "assurance", "after": "questions-risks", "order_min": 200, "order_max": 229}
+  ],
+  "interaction_contract": {
+    "detail_opener": "modal-dialog",
+    "record_pattern": "filterable-list-or-table-with-shared-detail-opener",
+    "progressive_disclosure": "executive-summary-to-detail-to-evidence",
+    "missing_data": ["pending", "not-observed", "not-applicable"],
+    "footer": ["generation-time", "canonical-state-fingerprint", "source-fingerprint"],
+    "required_hooks": ["canonical-navigation", "global-search", "detail-dialog"]
+  }
+}

@@ -1,0 +1,22 @@
+# Agent Commons methodology mutation testing: mutates canonical skills and contracts to prove the Commons
+# evaluations detect degraded agent behavior. This is not application mutation testing, which belongs to the
+# delivery project's own pipeline under the `mutation-testing` skill. Never aggregate the two result models.
+jobs:
+- job: mutation
+  displayName: Critical methodology mutation tests
+  pool:
+    vmImage: ubuntu-24.04
+  steps:
+  - template: setup.yml
+  - bash: |
+      set -euo pipefail
+      output='$(Build.ArtifactStagingDirectory)/quality/mutation'
+      mkdir -p "$output"
+      python3 tools/evals/run_mutations.py --output "$output/mutation-report.json" 2>&1 | tee "$output/mutation.log"
+    displayName: Run harmful mutation portfolio
+  - task: PublishPipelineArtifact@1
+    displayName: Publish mutation diagnostics
+    condition: always()
+    inputs:
+      targetPath: '$(Build.ArtifactStagingDirectory)/quality/mutation'
+      artifact: quality-mutation

@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="{{DOCUMENT_LANG}}" __BRAND_ATTRIBUTES__>
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">__BRAND_FAVICON__
+  <title>{{PROJECT_NAME}} — {{ARTIFACT_PURPOSE}}</title>
+  <style>
+    :root{--ink:#182428;--paper:#f3f6f6;--surface:#fff;--muted:#4c6066;--line:#b9c7ca;--accent:#0b6477;--display:Arial,sans-serif;--body:Arial,sans-serif}/* BRAND_PROFILE_START */__BRAND_STYLE__/* BRAND_PROFILE_END */*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.5 var(--body)}main{width:min(1180px,calc(100% - 48px));margin:auto;padding:64px 0 96px}.brand-header{display:flex;justify-content:space-between;align-items:center;gap:24px;width:min(1180px,calc(100% - 48px));margin:auto;padding:20px 0;border-bottom:1px solid var(--line)}.brand-header img{display:block;width:auto;max-width:min(300px,55vw);height:48px;object-fit:contain;object-position:left center}.brand-header nav{display:flex;gap:16px;align-items:center}.brand-header a,.artifact-footer a{color:var(--link,var(--accent));font-weight:700}.eyebrow{color:var(--accent);font-weight:700;letter-spacing:.08em;text-transform:uppercase}h1{max-width:18ch;margin:.25em 0;font:600 clamp(2.7rem,8vw,6.4rem)/.94 var(--display);letter-spacing:-.045em}.goal{max-width:68ch;font-size:1.2rem}.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:56px}.card{border-top:2px solid var(--ink);padding-top:16px}.card h2{font-size:.8rem;letter-spacing:.08em;text-transform:uppercase}.card p{color:var(--muted)}.empty{margin-top:56px;display:grid;grid-template-columns:repeat(2,1fr);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}.empty article{min-height:150px;padding:22px;border-right:1px solid var(--line)}.empty article:last-child{border-right:0}.empty h2{font:600 1.45rem/1 var(--display)}.empty p{color:var(--muted)}.notice{margin-top:56px;padding:18px 20px;border:1px solid var(--line);background:var(--surface)}.artifact-footer{display:flex;justify-content:space-between;align-items:center;gap:24px;width:min(1180px,calc(100% - 48px));margin:auto;padding:20px 0;border-top:1px solid var(--line)}.artifact-footer button{padding:.65rem .9rem;border:var(--border-width,1px) solid var(--accent);border-radius:var(--radius,2px);background:var(--accent);color:var(--on-dark,#fff);font-weight:700;cursor:pointer}a:focus-visible,button:focus-visible{outline:3px solid var(--focus,var(--accent));outline-offset:3px}@media(max-width:760px){.brand-header,.artifact-footer{align-items:flex-start;flex-direction:column}.grid,.empty{grid-template-columns:1fr}.empty article{border-right:0;border-bottom:1px solid var(--line)}}@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}@media print{body{background:var(--surface);color:var(--ink)}.notice{border-color:var(--line)}}
+  </style>
+</head>
+<body><header class="brand-header" data-brand-validation-role="header">__BRAND_LOGO__<nav aria-label="Artifact navigation" data-brand-validation-role="navigation"><a href="#project-content">Project brief</a></nav></header><main id="project-content">
+  <p class="eyebrow">{{ARTIFACT_PURPOSE}}</p>
+  <h1>{{PROJECT_NAME}}</h1>
+  <p class="goal">{{PROJECT_GOAL}}</p>
+  <section class="grid" aria-label="{{INITIALIZATION_CONTEXT_LABEL}}">
+    <article class="card"><h2>{{SCOPE_LABEL}}</h2><p>{{PROJECT_SCOPE}}</p></article>
+    <article class="card"><h2>{{SOURCE_SYSTEM_LABEL}}</h2><p>{{SOURCE_SYSTEM}}</p></article>
+    <article class="card"><h2>{{TARGET_SYSTEM_LABEL}}</h2><p>{{TARGET_SYSTEM}}</p></article>
+    <article class="card"><h2>{{MIGRATION_INTENT_LABEL}}</h2><p>{{MIGRATION_INTENT}}</p></article>
+    <article class="card"><h2>{{AUDIENCE_LABEL}}</h2><p>{{DASHBOARD_AUDIENCE}}</p></article>
+    <article class="card"><h2>{{VISUAL_SOURCE_LABEL}}</h2><p>{{BRAND_SOURCE}}</p></article>
+  </section>
+  <section class="empty" aria-label="{{UNPOPULATED_VIEWS_LABEL}}">
+    <article><h2>{{PRIMARY_VIEW_TITLE}}</h2><p>{{PRIMARY_VIEW_EMPTY}}</p></article>
+    <article><h2>{{SECONDARY_VIEW_TITLE}}</h2><p>{{SECONDARY_VIEW_EMPTY}}</p></article>
+  </section>
+  <p class="notice">{{READ_ONLY_NOTICE}}</p>
+</main><footer class="artifact-footer" data-brand-validation-role="footer"><a href="#project-content">Back to project brief</a><button type="button" onclick="window.print()">Print</button></footer><script id="brand-profile" type="application/json">__BRAND_PROFILE_JSON__</script></body>
+</html>

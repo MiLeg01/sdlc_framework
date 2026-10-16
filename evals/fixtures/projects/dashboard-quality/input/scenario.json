@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "prompt": "Render and validate the supplied canonical project state as a complete read-only dashboard.",
+  "source_artifacts": [
+    "evals/fixtures/projects/dashboard-quality/input/project-state.json",
+    "evals/fixtures/projects/dashboard-quality/input/visual-states.json",
+    "skills/build-living-dashboard/assets/dashboard-structure.json",
+    "skills/validate-visual-artifact/scripts/capture_visual_matrix.mjs",
+    "skills/continue-project/scripts/resolve_project_continuation.py",
+    "skills/localize-client-artifact/assets/bilingual-runtime.js"
+  ],
+  "inputs": {
+    "profile": "legacy-modernization",
+    "required_visual_states": 6,
+    "build_command": "python3 skills/build-living-dashboard/scripts/build_dashboard.py --data evals/fixtures/projects/dashboard-quality/input/project-state.json --dashboard-mode full-legacy-modernization --output dashboard/index.html",
+    "browser_command": "node skills/validate-visual-artifact/scripts/capture_visual_matrix.mjs --html dashboard/index.html --states evals/fixtures/projects/dashboard-quality/input/visual-states.json --output dashboard/visual-qa.json --screenshot-dir dashboard/screenshots"
+  },
+  "workspace_policy": {
+    "writable_artifacts": [],
+    "generated_prefixes": ["dashboard"]
+  },
+  "constraints": ["Preserve canonical state", "Include every required domain including test quality", "Run the supplied deterministic build commands", "Create the complete browser input artifact; the trusted evaluation runner executes browser_command after the sandboxed work and appends its authoritative report", "Use structural and browser checks rather than pixel equality alone", "Use this exact non-factual summary sentence: Dashboard build and validation complete; see the four observations below.", "Return exactly four generated_result.observations that map one-to-one to all-state-domains, test-quality-domain, read-only, and representative-visuals in that order. Do not add a fifth observation, recommendation, benefit, limitation, or process note", "For all-state-domains cite the exact project-state.json JSON pointers for languages, modules, complexity, requirements, specifications, questions, tests, and architecture; for test-quality-domain cite /project/test_quality; for read-only cite this scenario's /workspace_policy and the generated dashboard artifact; for representative-visuals cite visual-states.json#/states and the trusted browser manifest"]
+}

@@ -1,0 +1,9 @@
+{
+  "name": "Northstar Civic Systems",
+  "short_name": "Northstar",
+  "theme_color": "#123a52",
+  "background_color": "#f3f7f8",
+  "icons": [
+    {"src": "assets/favicon.svg", "sizes": "any", "type": "image/svg+xml"}
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "milestone": "VALIDATION_COMPLETE",
+  "records": [
+    {
+      "id": "MEM-SYN-001",
+      "summary": "Synthetic validation completed",
+      "depends_on": ["E-SYN-001"],
+      "source_fingerprint": "sha256:old-source",
+      "status": "CURRENT"
+    }
+  ],
+  "current_sources": [
+    {
+      "id": "E-SYN-001",
+      "fingerprint": "sha256:new-source",
+      "status": "PASS"
+    }
+  ],
+  "exclusions": ["credentials", "secret values", "raw conversations"],
+  "write_contract": ["exclusive lock", "temporary file", "atomic replacement"]
+}

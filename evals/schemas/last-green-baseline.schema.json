@@ -1,0 +1,85 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/agent-commons/last-green-baseline.schema.json",
+  "title": "Agent Commons accepted last-green quality baseline",
+  "type": "object",
+  "required": ["schema_version", "version", "status", "baseline_commit", "created_at", "accepted_run", "capabilities", "scenarios"],
+  "properties": {
+    "schema_version": {"const": 1},
+    "version": {"const": "1.0.0"},
+    "status": {"enum": ["bootstrap", "accepted"]},
+    "baseline_commit": {"type": "string", "minLength": 1},
+    "created_at": {"type": ["string", "null"]},
+    "accepted_run": {
+      "type": ["object", "null"],
+      "properties": {
+        "id": {"type": "string", "minLength": 1},
+        "branch": {"const": "main"},
+        "profile": {"type": "string", "minLength": 1}
+      },
+      "required": ["id", "branch", "profile"],
+      "additionalProperties": false
+    },
+    "capabilities": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "required": ["pass_rate", "metrics", "runtime_seconds", "tokens"],
+        "properties": {
+          "pass_rate": {"type": "number", "minimum": 0, "maximum": 1},
+          "metrics": {"type": "object", "additionalProperties": {"type": "number", "minimum": 0, "maximum": 1}},
+          "runtime_seconds": {"type": "number", "minimum": 0},
+          "tokens": {"type": ["number", "string"]}
+        },
+        "additionalProperties": false
+      }
+    },
+    "scenarios": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "required": ["scenario", "runs", "pass_rate", "duration_mean_seconds", "tokens_mean", "metrics_mean"],
+        "properties": {
+          "scenario": {"type": "string", "minLength": 1},
+          "runs": {"type": "integer", "minimum": 1},
+          "pass_rate": {"type": "number", "minimum": 0, "maximum": 1},
+          "score_mean": {"type": ["number", "null"]},
+          "score_worst": {"type": ["number", "null"]},
+          "score_variance": {"type": ["number", "null"]},
+          "duration_mean_seconds": {"type": "number", "minimum": 0},
+          "duration_worst_seconds": {"type": "number", "minimum": 0},
+          "tokens_mean": {"type": ["number", "string", "null"]},
+          "tokens_worst": {"type": ["number", "string", "null"]},
+          "metrics_mean": {"type": "object", "additionalProperties": {"type": "number", "minimum": 0, "maximum": 1}},
+          "metrics_worst": {"type": "object", "additionalProperties": {"type": "number", "minimum": 0, "maximum": 1}},
+          "metrics_variance": {"type": "object", "additionalProperties": {"type": "number", "minimum": 0}},
+          "performance_metrics": {"type": "object"}
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "allOf": [
+    {
+      "if": {"properties": {"status": {"const": "accepted"}}},
+      "then": {
+        "properties": {
+          "baseline_commit": {"type": "string", "minLength": 7, "not": {"const": "not_available"}},
+          "created_at": {"type": "string", "minLength": 1},
+          "accepted_run": {"type": "object"}
+        }
+      }
+    },
+    {
+      "if": {"properties": {"status": {"const": "bootstrap"}}},
+      "then": {
+        "properties": {
+          "baseline_commit": {"const": "not_available"},
+          "created_at": {"type": "null"},
+          "accepted_run": {"type": "null"}
+        }
+      }
+    }
+  ],
+  "additionalProperties": false
+}

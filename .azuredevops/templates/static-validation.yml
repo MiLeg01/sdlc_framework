@@ -1,0 +1,40 @@
+parameters:
+- name: jobName
+  type: string
+  default: static
+
+jobs:
+- job: ${{ parameters.jobName }}
+  displayName: Static and deterministic validation
+  pool:
+    vmImage: ubuntu-24.04
+  steps:
+  - template: setup.yml
+
+  - bash: |
+      set -euo pipefail
+      python3 - <<'PY'
+      import re
+      from pathlib import Path
+
+      version = Path("VERSION").read_text(encoding="utf-8").strip()
+      if not re.fullmatch(r"1\.\d+\.\d+", version):
+          raise SystemExit(f"VERSION must contain a semantic version in the v1 release line; got {version!r}")
+      changelog = Path("CHANGELOG.md").read_text(encoding="utf-8")
+      if f"## v{version}" not in changelog:
+          raise SystemExit(f"CHANGELOG.md does not contain a section for v{version}")
+      PY
+      ruby -e 'require "yaml"; ARGV.each { |path| YAML.safe_load(File.read(path), aliases: true) }' $(find .azuredevops -type f -name '*.yml' -print | sort)
+      python3 tools/runtime_adapters.py validate
+      python3 tools/validate_commons.py
+      python3 - <<'PY'
+      from pathlib import Path
+      import subprocess
+      import sys
+      modules = [
+          ".".join(path.with_suffix("").parts)
+          for path in sorted(Path("evals").rglob("test_*.py"))
+      ]
+      raise SystemExit(subprocess.run([sys.executable, "-m", "unittest", *modules]).returncode)
+      PY
+    displayName: Validate metadata, catalogs, adapters, links, YAML, JSON, and Python tests

@@ -1,0 +1,11 @@
+{
+  "schema_version": 1,
+  "nodes": [
+    {"id": "EVD-001", "type": "evidence", "status": "accepted"}
+  ],
+  "edges": [
+    {"source": "EVD-001", "target": "REQ-404", "type": "supports"}
+  ],
+  "lifecycle_rules": [],
+  "generated_views": []
+}

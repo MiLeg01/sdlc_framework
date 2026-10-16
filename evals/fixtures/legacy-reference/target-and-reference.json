@@ -1,0 +1,47 @@
+{
+  "schema_version": 1,
+  "reference_profile": {
+    "state": "REFERENCE_PATTERN",
+    "source_kind": "REFERENCE_APPLICATION",
+    "fingerprint": "sha256:reference-fixture",
+    "patterns": [
+      {
+        "id": "REF-MATCH",
+        "summary": "A configuration-backed adapter registration may connect the service boundary.",
+        "target_use": "Search target configuration and call sites for the same registration chain."
+      },
+      {
+        "id": "REF-NONMATCH",
+        "summary": "A nightly scheduler may trigger the processing flow.",
+        "target_use": "Search target entry points for scheduled execution."
+      },
+      {
+        "id": "REF-ONLY",
+        "summary": "A remote queue may carry completion events.",
+        "target_use": "Search target messaging configuration and producers."
+      }
+    ]
+  },
+  "target_evidence": [
+    {
+      "id": "TARGET-MATCH",
+      "reference_pattern": "REF-MATCH",
+      "observation": "Target configuration registers the adapter and the target call site invokes it.",
+      "state": "VERIFIED"
+    },
+    {
+      "id": "TARGET-NONMATCH",
+      "reference_pattern": "REF-NONMATCH",
+      "observation": "Target configuration exposes an on-demand endpoint and contains no scheduler registration.",
+      "state": "VERIFIED"
+    }
+  ],
+  "target_unknowns": [
+    {
+      "id": "TARGET-UNKNOWN",
+      "reference_pattern": "REF-ONLY",
+      "observation": "No target queue configuration or producer was supplied.",
+      "state": "UNRESOLVED"
+    }
+  ]
+}

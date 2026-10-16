@@ -1,0 +1,45 @@
+{
+  "schema_version": 1,
+  "capabilities": {
+    "architecture-reviewer": {
+      "kind": "agent", "criticality": "critical", "path": "agents/architecture-reviewer.yaml",
+      "applicable_metrics": ["correctness", "completeness", "evidence_grounding", "precision", "scope_discipline", "handoff_quality", "ownership_discipline"],
+      "scenarios": [
+        {"id": "contract", "level": 1, "deterministic": true, "execution": {"kind": "source-contract"}, "golden": "evals/golden/agents.json#architecture-reviewer"},
+        {"id": "behavior", "level": 2, "deterministic": false, "execution": {"kind": "external"}, "judge": "independent-semantic", "fixture": "evals/fixtures/evaluation/scenarios.json#architecture-reviewer", "golden": "evals/golden/agents.json#architecture-reviewer"}
+      ]
+    },
+    "financial-forecast-reviewer": {
+      "kind": "agent", "criticality": "critical", "path": "agents/financial-forecast-reviewer.yaml",
+      "applicable_metrics": ["correctness", "completeness", "evidence_grounding", "precision", "traceability", "scope_discipline", "handoff_quality", "ownership_discipline"],
+      "scenarios": [
+        {"id": "contract", "level": 1, "deterministic": true, "execution": {"kind": "source-contract"}, "golden": "evals/golden/agents.json#financial-forecast-reviewer"},
+        {"id": "behavior", "level": 2, "deterministic": false, "execution": {"kind": "external"}, "judge": "independent-semantic", "fixture": "evals/fixtures/evaluation/scenarios.json#financial-forecast-reviewer", "golden": "evals/golden/agents.json#financial-forecast-reviewer"}
+      ]
+    },
+    "legacy-discovery-specialist": {
+      "kind": "agent", "criticality": "critical", "path": "agents/legacy-discovery-specialist.yaml",
+      "applicable_metrics": ["correctness", "completeness", "evidence_grounding", "precision", "scope_discipline", "handoff_quality", "ownership_discipline", "token_context_efficiency"],
+      "scenarios": [
+        {"id": "contract", "level": 1, "deterministic": true, "execution": {"kind": "source-contract"}, "golden": "evals/golden/agents.json#legacy-discovery-specialist"},
+        {"id": "behavior", "level": 2, "deterministic": false, "execution": {"kind": "external"}, "judge": "independent-semantic", "fixture": "evals/fixtures/evaluation/scenarios.json#legacy-discovery-specialist", "golden": "evals/golden/agents.json#legacy-discovery-specialist"}
+      ]
+    },
+    "privacy-security-reviewer": {
+      "kind": "agent", "criticality": "critical", "path": "agents/privacy-security-reviewer.yaml",
+      "applicable_metrics": ["correctness", "completeness", "evidence_grounding", "precision", "scope_discipline", "handoff_quality", "ownership_discipline"],
+      "scenarios": [
+        {"id": "contract", "level": 1, "deterministic": true, "execution": {"kind": "source-contract"}, "golden": "evals/golden/agents.json#privacy-security-reviewer"},
+        {"id": "behavior", "level": 2, "deterministic": false, "execution": {"kind": "external"}, "judge": "independent-semantic", "fixture": "evals/fixtures/evaluation/scenarios.json#privacy-security-reviewer", "golden": "evals/golden/agents.json#privacy-security-reviewer"}
+      ]
+    },
+    "test-behavior-reviewer": {
+      "kind": "agent", "criticality": "critical", "path": "agents/test-behavior-reviewer.yaml",
+      "applicable_metrics": ["correctness", "completeness", "evidence_grounding", "precision", "traceability", "scope_discipline", "handoff_quality", "ownership_discipline"],
+      "scenarios": [
+        {"id": "contract", "level": 1, "deterministic": true, "execution": {"kind": "source-contract"}, "golden": "evals/golden/agents.json#test-behavior-reviewer"},
+        {"id": "behavior", "level": 2, "deterministic": false, "execution": {"kind": "external"}, "judge": "independent-semantic", "fixture": "evals/fixtures/evaluation/scenarios.json#test-behavior-reviewer", "golden": "evals/golden/agents.json#test-behavior-reviewer"}
+      ]
+    }
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "currency": "EUR",
+  "as_of_period": "2026-02",
+  "periods": [
+    {
+      "period": "2026-01",
+      "baseline_revenue": 100,
+      "baseline_cost": 60,
+      "actual_revenue": 90,
+      "actual_cost": 70,
+      "planned_value": 50,
+      "earned_value": 45
+    },
+    {
+      "period": "2026-01",
+      "baseline_revenue": 120,
+      "baseline_cost": 70,
+      "actual_revenue": 110,
+      "actual_cost": 80,
+      "planned_value": 70,
+      "earned_value": 60
+    }
+  ],
+  "scenarios": []
+}

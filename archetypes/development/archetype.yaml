@@ -1,0 +1,204 @@
+{
+  "schema_version": 1,
+  "id": "development",
+  "kind": "archetype",
+  "title": "Software and application development",
+  "intent": [
+    "greenfield applications and feature-rich prototypes",
+    "frontend, backend, API, internal-tool, and product development",
+    "modernization target implementation when delivery work is material"
+  ],
+  "not_for": [
+    "a tiny one-off edit that does not justify a durable workflow",
+    "legacy discovery without approved target implementation behavior"
+  ],
+  "initialization": {
+    "discover": [
+      "existing source, manifests, tests, architecture documents, and deployment configuration",
+      "frontend, backend, persistence, authentication, integration, and UI conventions"
+    ],
+    "ask_if_unresolved": [
+      "goal, users, observable acceptance, and greenfield versus existing code",
+      "application shape, data ownership, authentication, integrations, and deployment target",
+      "test levels, architecture expectations, UI and accessibility expectations, documentation, and HTML artifact need"
+    ]
+  },
+  "execution_guidance": {
+    "dag": [
+      {"id": "specification", "after": [], "fan_out": "one coordinator-reserved OpenSpec change per independent behavior domain"},
+      {"id": "readiness", "after": ["specification"], "fan_in": "cross-change terminology, dependency, and requirement-revision reconciliation"},
+      {"id": "implementation-slices", "after": ["readiness"], "fan_out": "dependency-ready slices with exclusive paths, shared-surface declarations, and isolated writable state"},
+      {"id": "test-quality", "after": ["implementation-slices"], "fan_out": "targeted mutation scope per accepted slice, then test hardening against meaningful survivors"},
+      {"id": "integration", "after": ["test-quality"], "fan_in": "coordinator-only merges with affected gates after every accepted slice"},
+      {"id": "verification", "after": ["integration"], "fan_in": "one immutable integrated snapshot before change-level PASS"},
+      {"id": "completion", "after": ["verification"], "fan_in": "serialize main-spec and archive mutations"}
+    ],
+    "planner": "Use a deterministic dependency and ownership plan when two or more independent tasks can materially reduce elapsed time."
+  },
+  "capabilities": {
+    "required": {"skills": [], "agents": [], "tools": [], "templates": []},
+    "default": {
+      "skills": [
+        "continue-project",
+        "specify-openspec-change",
+        "review-openspec-change",
+        "implement-openspec-change",
+        "implement-ready-slice",
+        "test-driven-development",
+        "mutation-testing",
+        "verify-openspec-implementation",
+        "complete-openspec-change"
+      ],
+      "agents": [],
+      "tools": ["resolve-project-continuation"],
+      "templates": ["project-instructions-template"]
+    },
+    "recommended": {
+      "skills": ["plan-work", "design-test-strategy", "review-code-change", "protect-git-work"],
+      "agents": [],
+      "tools": [],
+      "templates": []
+    },
+    "optional": {"skills": [], "agents": [], "tools": [], "templates": []}
+  },
+  "conditions": [
+    {
+      "id": "existing-code-denominator",
+      "when": "the existing repository boundary or completeness denominator is not already reliable",
+      "capabilities": {
+        "skills": ["inventory-codebase"],
+        "agents": [],
+        "tools": ["inventory-codebase-tool"],
+        "templates": []
+      }
+    },
+    {
+      "id": "normalized-ready-queue",
+      "when": "the project exports the normalized ready-slice queue contract",
+      "capabilities": {
+        "skills": [],
+        "agents": [],
+        "tools": ["rank-ready-slices"],
+        "templates": []
+      }
+    },
+    {
+      "id": "frontend-product-design",
+      "when": "the project includes material application UI design or redesign",
+      "capabilities": {
+        "skills": ["frontend-design", "accessibility-review"],
+        "agents": [],
+        "tools": [],
+        "templates": []
+      }
+    },
+    {
+      "id": "frontend-architecture",
+      "when": "material route, rendering, state, module, data, or cross-feature frontend foundations must be defined",
+      "capabilities": {
+        "skills": ["design-frontend-architecture"],
+        "agents": [],
+        "tools": [],
+        "templates": []
+      }
+    },
+    {
+      "id": "structured-data-sharing",
+      "when": "structured sensitive data must cross a trust boundary after minimization and deterministic protection",
+      "capabilities": {
+        "skills": ["anonymize-data", "review-privacy-security"],
+        "agents": ["privacy-security-reviewer"],
+        "tools": ["anonymize-structured-data"],
+        "templates": []
+      }
+    },
+    {
+      "id": "parallel-agent-work",
+      "when": "two or more independent non-overlapping work partitions can materially reduce elapsed time",
+      "capabilities": {
+        "skills": ["coordinate-parallel-agents"],
+        "agents": [],
+        "tools": [],
+        "templates": []
+      }
+    },
+    {
+      "id": "independent-architecture-review",
+      "when": "a consequential architecture proposal or structural change needs fresh findings-only challenge",
+      "capabilities": {
+        "skills": [],
+        "agents": ["architecture-reviewer"],
+        "tools": [],
+        "templates": []
+      }
+    },
+    {
+      "id": "privacy-security-review",
+      "when": "sensitive data, privileged operations, tenancy, hostile input, or consequential deployment is in scope",
+      "capabilities": {
+        "skills": ["review-privacy-security"],
+        "agents": ["privacy-security-reviewer"],
+        "tools": [],
+        "templates": []
+      }
+    },
+    {
+      "id": "consequential-state-change",
+      "when": "the workflow mutates external, infrastructure, account, service, or sensitive data state",
+      "capabilities": {
+        "skills": ["execute-safe-change"],
+        "agents": [],
+        "tools": [],
+        "templates": []
+      }
+    },
+    {
+      "id": "unsupported-mutation-technology",
+      "when": "the implementation technology has no maintained mutation engine",
+      "capabilities": {
+        "skills": ["design-test-strategy"],
+        "agents": [],
+        "tools": [],
+        "templates": []
+      }
+    },
+    {
+      "id": "independent-test-review",
+      "when": "consequential completion evidence needs fresh challenge",
+      "capabilities": {
+        "skills": [],
+        "agents": ["test-behavior-reviewer"],
+        "tools": [],
+        "templates": []
+      }
+    }
+  ],
+  "dashboard_projection": {
+    "structure": "agent-commons-living-dashboard",
+    "enable_when_selected": ["requirements", "specifications", "architecture", "roadmap", "traceability", "validation"],
+    "mark_not_applicable_without_data_or_scope": ["inventory", "database", "interfaces", "dependencies", "external-estate", "flows", "capabilities"],
+    "rule": "resolve applicability; never redefine canonical dashboard navigation or order"
+  },
+  "recommended_overlays": [
+    {"id": "architecture-documentation", "when": "the project requires explicit architecture views or technical diagrams"},
+    {"id": "bilingual-client-delivery", "when": "client-facing HTML must be delivered in German (Austria) while English remains available"},
+    {"id": "durable-state", "when": "recovery cost or multi-session coordination justifies repository-native memory"},
+    {"id": "living-dashboard", "when": "stakeholders need a synchronized read-only project view"},
+    {"id": "branded-html", "when": "a polished client-facing HTML artifact is an explicit deliverable"},
+    {"id": "public-sector-client-delivery", "when": "client evidence confirms or strongly indicates a public-sector organization and locale-aware delivery defaults apply"},
+    {"id": "evidence-traceability", "when": "modernization or regulated delivery needs an evidence-to-verification chain"}
+  ],
+  "typical_outputs": [
+    "project-specific AGENTS.md and resolved .agent-commons.yaml",
+    "bounded implementation plan or ready slice",
+    "implementation and tests with exact validation evidence, including the mutation quality status where supported",
+    "architecture, deployment, and decision documentation only when the project requires them"
+  ],
+  "invariants": [
+    "use OpenSpec specification and test-driven implementation by default unless the user or established project methodology explicitly overrides them",
+    "after tests pass, validate test strength with targeted mutation testing on changed critical behavior where the technology supports it, and represent an unsupported technology explicitly rather than as a pass",
+    "preserve existing conventions and user work",
+    "do not claim unapproved or unobservable behavior as implemented",
+    "keep deployment and provider details project-specific unless separately validated"
+  ]
+}

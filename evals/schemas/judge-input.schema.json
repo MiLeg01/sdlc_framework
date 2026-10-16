@@ -1,0 +1,76 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/agent-commons/judge-input.schema.json",
+  "title": "Independent semantic judge input",
+  "type": "object",
+  "required": ["scenario", "expected", "generated_result", "evidence", "executor_artifacts", "deterministic_findings", "required_metrics"],
+  "properties": {
+    "scenario": {
+      "type": "object",
+      "required": ["capability", "id", "level", "input", "artifact_manifest"],
+      "properties": {
+        "capability": {"type": "string"},
+        "id": {"type": "string"},
+        "level": {"type": "integer", "minimum": 1, "maximum": 4},
+        "input": {"type": "object"},
+        "artifact_manifest": {
+          "type": "object",
+          "additionalProperties": {"type": "string", "minLength": 64}
+        }
+      },
+      "additionalProperties": false
+    },
+    "expected": {"type": "object"},
+    "generated_result": {},
+    "executor_artifacts": {
+      "type": "object",
+      "required": ["files", "deleted_paths"],
+      "properties": {
+        "files": {
+          "type": "object",
+          "additionalProperties": {"type": "string", "minLength": 64}
+        },
+        "deleted_paths": {
+          "type": "array",
+          "items": {"type": "string", "minLength": 1},
+          "uniqueItems": true
+        }
+      },
+      "additionalProperties": false
+    },
+    "deterministic_findings": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["scenario", "status", "reason", "score"],
+        "properties": {
+          "scenario": {"type": "string"},
+          "status": {"type": "string"},
+          "reason": {"type": ["string", "null"]},
+          "score": {"type": ["number", "null"]}
+        },
+        "additionalProperties": false
+      }
+    },
+    "required_metrics": {
+      "type": "array",
+      "items": {"type": "string", "minLength": 1},
+      "uniqueItems": true
+    },
+    "evidence": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "source", "locator"],
+        "properties": {
+          "id": {"type": "string", "minLength": 1},
+          "source": {"type": "string", "minLength": 1},
+          "locator": {"type": "string", "minLength": 1},
+          "claim": {"type": "string", "minLength": 1}
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}

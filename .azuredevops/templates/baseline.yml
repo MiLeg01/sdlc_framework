@@ -1,0 +1,64 @@
+parameters:
+- name: mode
+  type: string
+- name: outputDir
+  type: string
+  default: ''
+
+steps:
+- ${{ if eq(parameters.mode, 'resolve') }}:
+  - bash: |
+      set -euo pipefail
+      resolved='$(Agent.TempDirectory)/last-green-baseline.json'
+      report='$(Agent.TempDirectory)/baseline-resolution.json'
+      python3 tools/evals/resolve_azure_baseline.py \
+        --collection-uri "$AZDO_COLLECTION_URI" \
+        --project "$AZDO_PROJECT_ID" \
+        --definition "$BASELINE_PIPELINE_DEFINITION_ID" \
+        --bootstrap evals/baselines/v1.0.0.json \
+        --output "$resolved" \
+        --report "$report"
+      echo "##vso[task.setvariable variable=ResolvedBaselinePath]$resolved"
+    displayName: Resolve authoritative or bootstrap baseline
+    env:
+      AZDO_COLLECTION_URI: $(System.CollectionUri)
+      AZDO_PROJECT_ID: $(System.TeamProjectId)
+      BASELINE_PIPELINE_DEFINITION_ID: $(baselinePipelineDefinitionId)
+      SYSTEM_ACCESSTOKEN: $(System.AccessToken)
+
+- ${{ if eq(parameters.mode, 'promote') }}:
+  - bash: |
+      set -euo pipefail
+      python3 - '${{ parameters.outputDir }}/quality-summary.json' <<'PY'
+      import json
+      import sys
+      summary = json.load(open(sys.argv[1], encoding="utf-8"))
+      counts = summary.get("counts", {})
+      eligible = (
+          summary.get("overall_status") == "PASS"
+          and summary.get("selection", {}).get("profile") == "full"
+          and summary.get("selection", {}).get("branch") == "main"
+          and not any(int(counts.get(name, 0)) for name in ("warnings", "regression_failures", "hard_failures"))
+      )
+      print(f"##vso[task.setvariable variable=CanPromoteBaseline]{str(eligible).lower()}")
+      print("Baseline promotion eligible." if eligible else "Baseline promotion skipped: run is not warning-free full/main PASS.")
+      PY
+    displayName: Check guarded baseline eligibility
+    condition: succeeded()
+
+  - bash: |
+      set -euo pipefail
+      python3 tools/evals/promote_baseline.py \
+        --run-dir '${{ parameters.outputDir }}' \
+        --output '${{ parameters.outputDir }}/last-green-baseline.json' \
+        --accepted-run '$(Build.BuildId)' \
+        --branch main
+    displayName: Build guarded last-green baseline
+    condition: and(succeeded(), eq(variables['CanPromoteBaseline'], 'true'))
+
+  - task: PublishPipelineArtifact@1
+    displayName: Publish last-green-baseline artifact
+    condition: and(succeeded(), eq(variables['CanPromoteBaseline'], 'true'))
+    inputs:
+      targetPath: '${{ parameters.outputDir }}/last-green-baseline.json'
+      artifact: last-green-baseline

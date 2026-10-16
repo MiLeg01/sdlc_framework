@@ -1,0 +1,13 @@
+{
+  "schemaVersion": "1.0.0",
+  "batchId": "BATCH-INVALID",
+  "repositoryFingerprint": "sha256:invalid",
+  "status": "ESTIMATED",
+  "scenario": {"unit": "person-days", "targetArchitecture": "target", "deliveryModel": "slices"},
+  "calibration": {"basis": "UNAVAILABLE", "source": null, "confidence": "HIGH"},
+  "units": [
+    {"id": "UNIT-1", "workstream": "application", "traceIds": [], "complexityDrivers": [], "estimate": {"optimistic": 8, "mostLikely": 5, "pessimistic": 3}}
+  ],
+  "risks": [],
+  "review": {"status": "NOT_REVIEWED", "findings": []}
+}

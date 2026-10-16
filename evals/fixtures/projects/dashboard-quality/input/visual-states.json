@@ -1,0 +1,10 @@
+{
+  "states": [
+    {"id": "dashboard-overview", "selector": "#overview", "viewport": [1440, 1000]},
+    {"id": "dashboard-architecture", "selector": "#application-map", "viewport": [1440, 1000]},
+    {"id": "dashboard-requirements", "selector": "#requirements", "viewport": [1440, 1000]},
+    {"id": "dashboard-estimation", "selector": "#modernization", "viewport": [1440, 1000]},
+    {"id": "dashboard-detail-opener", "selector": "#detail-dialog", "viewport": [1440, 1000]},
+    {"id": "dashboard-mobile", "selector": "#overview", "viewport": [390, 844]}
+  ]
+}

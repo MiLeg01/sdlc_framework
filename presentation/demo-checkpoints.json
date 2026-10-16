@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "demo_id": "ibm-zos-connect-redbook-modernization",
+  "source": {
+    "description": "IBM z/OS Connect OpenAPI 3 API requester Redbook sample",
+    "license": "Apache-2.0",
+    "file_count": 77,
+    "portable_fingerprint": "9ce1a9a20f8d49a7c13d6c06f3e292731604b84a6cbb0a77fa7b641f60ce5e31"
+  },
+  "stages": {
+    "01-fresh": {
+      "required": ["client_input/README.md", "client_input/LICENSE"],
+      "prohibited": [".agent-commons.yaml", "analysis/analysis-state.json", "requirements/modernization-requirements.json", "openspec/changes"]
+    },
+    "02-initialized": {
+      "required": ["client_input/README.md", "client_input/LICENSE", ".agent-commons.yaml", "AGENTS.md", "README.md", "dashboard/data.json", "dashboard/index.html"],
+      "prohibited": ["analysis/analysis-state.json", "requirements/modernization-requirements.json", "openspec/changes"]
+    },
+    "03-analyzed": {
+      "required": ["client_input/README.md", "client_input/LICENSE", ".agent-commons.yaml", "analysis/source-inventory.json", "analysis/analysis-state.json", "analysis/cross-system-synthesis.json", "requirements/modernization-requirements.json", "estimation/adm-modernization-summary.json", "dashboard/data.json", "dashboard/index.html"],
+      "prohibited": ["openspec/changes"]
+    },
+    "04-spec-ready": {
+      "required": ["client_input/README.md", "client_input/LICENSE", ".agent-commons.yaml", "analysis/source-inventory.json", "analysis/analysis-state.json", "analysis/cross-system-synthesis.json", "requirements/modernization-requirements.json", "estimation/adm-modernization-summary.json", "dashboard/data.json", "dashboard/index.html", "openspec/config.yaml", "openspec/changes/modernize-redbook-service/proposal.md", "openspec/changes/modernize-redbook-service/specs/redbook-api/spec.md", "openspec/changes/modernize-redbook-service/tasks.md", "openspec/changes/modernize-redbook-service/traceability.json"]
+    }
+  }
+}

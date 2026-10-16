@@ -1,0 +1,51 @@
+{
+  "schema_version": 1,
+  "currency": "EUR",
+  "as_of_period": "2026-02",
+  "periods": [
+    {
+      "period": "2026-01",
+      "baseline_revenue": 100,
+      "baseline_cost": 60,
+      "actual_revenue": 90,
+      "actual_cost": 70,
+      "planned_value": 50,
+      "earned_value": 45
+    },
+    {
+      "period": "2026-02",
+      "baseline_revenue": 120,
+      "baseline_cost": 70,
+      "actual_revenue": 110,
+      "actual_cost": 80,
+      "planned_value": 70,
+      "earned_value": 60
+    },
+    {
+      "period": "2026-03",
+      "baseline_revenue": 130,
+      "baseline_cost": 80,
+      "forecast_revenue": 125,
+      "forecast_cost": 85
+    },
+    {
+      "period": "2026-04",
+      "baseline_revenue": 150,
+      "baseline_cost": 90,
+      "forecast_revenue": 140,
+      "forecast_cost": 95
+    }
+  ],
+  "scenarios": [
+    {
+      "id": "upside",
+      "future_revenue_multiplier": 1.1,
+      "future_cost_multiplier": 0.95
+    },
+    {
+      "id": "downside",
+      "future_revenue_multiplier": 0.9,
+      "future_cost_multiplier": 1.1
+    }
+  ]
+}

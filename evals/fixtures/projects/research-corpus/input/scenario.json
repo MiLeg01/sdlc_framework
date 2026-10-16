@@ -1,0 +1,11 @@
+{
+  "schema_version": 1,
+  "prompt": "Recommend a queue policy for the synthetic service using only the supplied local corpus and cite every factual claim.",
+  "source_artifacts": [
+    "evals/fixtures/projects/research-corpus/input/architecture-note.md",
+    "evals/fixtures/projects/research-corpus/input/operations-note.md",
+    "evals/fixtures/projects/research-corpus/input/security-note.md"
+  ],
+  "inputs": {"question": "Which delivery and retry policy satisfies the documented constraints?"},
+  "constraints": ["Use only the supplied local corpus", "Cite document and section", "Separate facts, conflicts, and recommendation", "Use this exact non-factual summary sentence: Queue-policy research complete; see the seven cited source facts and one cited recommendation below.", "Return exactly eight generated_result.observations and no extras. The first seven cover each documented fact once: at-least-once delivery; idempotency by request identifier; per-customer-account ordering; three retries with exponential backoff; dead-letter handling with a recorded cause before replay; exclusion of access tokens and raw personal identifiers from payloads; and audit request identifiers retained for thirty days", "The eighth observation must be labeled recommendation-inference, recommend at-least-once delivery with per-account ordering, idempotent request handling, the documented retry and dead-letter policy, payload minimization, and thirty-day audit identifier retention, and cite the supporting sections from all three supplied notes. Do not repeat this recommendation or any factual policy claim in generated_result.summary"]
+}

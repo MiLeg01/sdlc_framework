@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "expected_facts": [
+    {"id": "public-sector-composition", "severity": "CRITICAL", "text": "The public-sector client delivery overlay is selected."},
+    {"id": "dashboard-de-default", "severity": "CRITICAL", "text": "The dashboard defaults to de-AT with English available."},
+    {"id": "flag-only-switch", "severity": "CRITICAL", "text": "The visible dashboard language controls are 🇦🇹 and 🇬🇧 only, with accessible names."},
+    {"id": "german-sales", "severity": "CRITICAL", "text": "The sales presentation is German-only."},
+    {"id": "safe-branding", "severity": "MAJOR", "text": "Only synthetic evidence or the bundled fallback brand is used."}
+  ],
+  "invariants": ["no private client assets", "technical identifiers remain unchanged", "dashboard and presentation language policies remain distinct"],
+  "hard_assertions": ["dashboard-de-default", "flag-only-switch", "german-sales"]
+}

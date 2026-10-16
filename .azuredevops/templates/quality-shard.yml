@@ -1,0 +1,65 @@
+parameters:
+- name: jobName
+  type: string
+- name: displayName
+  type: string
+- name: selectionArguments
+  type: string
+- name: evalProfile
+  type: string
+- name: repeat
+  type: number
+  default: 0
+- name: semanticPolicy
+  type: string
+  default: optional
+- name: compareBaseline
+  type: boolean
+  default: false
+- name: baselineSource
+  type: string
+  default: azure
+- name: installBrowser
+  type: boolean
+  default: false
+- name: installSemanticRuntime
+  type: boolean
+  default: true
+- name: persistCredentials
+  type: boolean
+  default: false
+
+jobs:
+- job: ${{ parameters.jobName }}
+  displayName: ${{ parameters.displayName }}
+  pool:
+    vmImage: ubuntu-24.04
+  steps:
+  - template: setup.yml
+    parameters:
+      installSemanticRuntime: ${{ parameters.installSemanticRuntime }}
+      installBrowser: ${{ parameters.installBrowser }}
+      persistCredentials: ${{ parameters.persistCredentials }}
+  - ${{ if and(eq(parameters.compareBaseline, true), eq(parameters.baselineSource, 'azure')) }}:
+    - template: baseline.yml
+      parameters:
+        mode: resolve
+  - ${{ if and(eq(parameters.compareBaseline, true), eq(parameters.baselineSource, 'bootstrap')) }}:
+    - bash: |
+        set -euo pipefail
+        baseline='$(Build.SourcesDirectory)/evals/baselines/v1.0.0.json'
+        test -f "$baseline"
+        echo "##vso[task.setvariable variable=ResolvedBaselinePath]$baseline"
+      displayName: Use credential-free versioned bootstrap baseline
+  - template: run-evals.yml
+    parameters:
+      outputDir: '$(Build.ArtifactStagingDirectory)/quality/${{ parameters.jobName }}'
+      evalProfile: ${{ parameters.evalProfile }}
+      selectionArguments: ${{ parameters.selectionArguments }}
+      repeat: ${{ parameters.repeat }}
+      semanticPolicy: ${{ parameters.semanticPolicy }}
+      compareBaseline: ${{ parameters.compareBaseline }}
+  - template: publish-results.yml
+    parameters:
+      outputDir: '$(Build.ArtifactStagingDirectory)/quality/${{ parameters.jobName }}'
+      artifactName: 'quality-${{ replace(parameters.jobName, ''_'', ''-'') }}'

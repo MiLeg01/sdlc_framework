@@ -1,0 +1,48 @@
+version: 1
+scenarios:
+  - id: development-only
+    expected: [OpenSpec specification before implementation, canonical TDD, verification, no legacy analysis, no presentation behavior]
+  - id: development-no-openspec
+    expected: [explicit OpenSpec exclusion recorded, OpenSpec family absent, TDD retained]
+  - id: development-no-tdd
+    expected: [explicit TDD exclusion recorded, OpenSpec family retained, no false TDD claim]
+  - id: legacy-requirements-only
+    expected: [inventory, analysis, evidence-backed requirements, no implementation specification]
+  - id: legacy-migration-preparation
+    expected: [requirements become OpenSpec specifications, TDD deferred until implementation]
+  - id: legacy-only
+    expected: [inventory, bounded source analysis, no target implementation]
+  - id: presentation-only
+    expected: [presentation profile, no HTML capability until the medium is selected]
+  - id: research-only
+    expected: [deep research, no presentation behavior, no OpenSpec software-change workflow]
+  - id: research-presentation
+    expected: [research synthesis feeds presentation, deduplicated]
+  - id: research-sales-presentation
+    expected: [deep research, sales storytelling, optional branded HTML]
+  - id: legacy-development
+    expected: [analysis and implementation capabilities, deduplicated]
+  - id: development-presentation
+    expected: [implementation plus explicitly selected communication capability]
+  - id: legacy-presentation
+    expected: [modernization analysis plus explicitly selected executive communication]
+  - id: full-hybrid
+    expected: [three archetypes compose without duplicate capabilities]
+  - id: branded-html-overlay
+    expected: [overlay is valid for development, legacy migration, research, and presentation]
+  - id: sales-storytelling-overlay
+    expected: [sales remains an overlay compatible with research and presentation]
+  - id: architecture-documentation-overlay
+    expected: [router and evidence model by default, only explicitly selected diagram specialists, compatible with all four archetypes]
+  - id: migration-roadmap-composition
+    expected: [system landscape plus component architecture plus planning and timeline pattern, no separate roadmap skill]
+  - id: bilingual-client-delivery-overlay
+    expected: [English-first work, de-AT plus English delivery, localization validation, bilingual visual QA]
+  - id: public-sector-client-delivery-overlay
+    expected: [evidence-based sector and locale resolution, German-default bilingual dashboard, German-only sales presentation, client branding, accessibility and visual QA]
+  - id: consulting-delivery-overlay
+    expected: [delivery governance, project financial forecast, deterministic controls, independent forecast review, organization-specific adaptation remains project-local]
+  - id: minimal-project
+    expected: [selected archetype recorded, no default capabilities at tiny scale]
+  - id: unknown-archetype
+    expected: [explicit failure, no guessed fallback]

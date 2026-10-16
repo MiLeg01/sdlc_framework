@@ -1,0 +1,84 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Portable ADM modernization estimation package",
+  "type": "object",
+  "required": ["schemaVersion", "batchId", "repositoryFingerprint", "status", "scenario", "calibration", "units", "risks", "review"],
+  "properties": {
+    "schemaVersion": {"const": "1.0.0"},
+    "batchId": {"type": "string", "minLength": 1},
+    "repositoryFingerprint": {"type": "string", "minLength": 1},
+    "status": {"enum": ["SCOPED", "ESTIMATED", "REVIEWED", "BLOCKED"]},
+    "scenario": {
+      "type": "object",
+      "required": ["name", "outcome", "strategy", "targetArchitecture", "deliveryModel", "unit", "included", "excluded", "assumptions"],
+      "properties": {
+        "name": {"type": "string", "minLength": 1},
+        "outcome": {"type": "string", "minLength": 1},
+        "strategy": {"enum": ["REHOST", "REPLATFORM", "REFACTOR", "REWRITE", "REPLACE", "RETAIN", "RETIRE", "MIXED"]},
+        "targetArchitecture": {"type": ["string", "null"]},
+        "deliveryModel": {"type": ["string", "null"]},
+        "unit": {"const": "person-days"},
+        "included": {"type": "array", "items": {"type": "string"}},
+        "excluded": {"type": "array", "items": {"type": "string"}},
+        "assumptions": {"type": "array", "items": {"type": "string"}}
+      }
+    },
+    "calibration": {
+      "type": "object",
+      "required": ["basis", "source", "confidence"],
+      "properties": {
+        "basis": {"enum": ["ORGANIZATION_HISTORY", "TEAM_HISTORY", "BENCHMARK", "EXPERT_JUDGMENT", "UNAVAILABLE"]},
+        "source": {"type": ["string", "null"]},
+        "confidence": {"enum": ["LOW", "MEDIUM", "HIGH"]}
+      }
+    },
+    "units": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "name", "kind", "workstream", "outcome", "traceIds", "unresolvedQuestionIds", "complexityDrivers", "assumptions", "confidence", "estimate"],
+        "properties": {
+          "id": {"type": "string", "minLength": 1},
+          "name": {"type": "string", "minLength": 1},
+          "kind": {"type": "string", "minLength": 1},
+          "workstream": {"type": "string", "minLength": 1},
+          "outcome": {"type": "string", "minLength": 1},
+          "traceIds": {"type": "array", "uniqueItems": true, "items": {"type": "string"}},
+          "unresolvedQuestionIds": {"type": "array", "uniqueItems": true, "items": {"type": "string"}},
+          "complexityDrivers": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": ["dimension", "rating", "rationale", "evidenceIds"],
+              "properties": {
+                "dimension": {"type": "string", "minLength": 1},
+                "rating": {"enum": ["LOW", "MEDIUM", "HIGH", "UNKNOWN"]},
+                "rationale": {"type": "string", "minLength": 1},
+                "evidenceIds": {"type": "array", "uniqueItems": true, "items": {"type": "string"}}
+              }
+            }
+          },
+          "assumptions": {"type": "array", "items": {"type": "string"}},
+          "confidence": {"enum": ["LOW", "MEDIUM", "HIGH"]},
+          "estimate": {
+            "oneOf": [
+              {"type": "null"},
+              {
+                "type": "object",
+                "required": ["optimistic", "mostLikely", "pessimistic", "basis"],
+                "properties": {
+                  "optimistic": {"type": "number", "minimum": 0},
+                  "mostLikely": {"type": "number", "minimum": 0},
+                  "pessimistic": {"type": "number", "minimum": 0},
+                  "basis": {"type": "string", "minLength": 1}
+                }
+              }
+            ]
+          }
+        }
+      }
+    },
+    "risks": {"type": "array"},
+    "review": {"type": "object"}
+  }
+}

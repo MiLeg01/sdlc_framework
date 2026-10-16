@@ -1,0 +1,257 @@
+{
+  "schema_version": 1,
+  "id": "legacy-migration",
+  "kind": "archetype",
+  "title": "Legacy analysis and modernization",
+  "intent": [
+    "complete configured discovery and behavior reconstruction across legacy technologies using bounded internal slices",
+    "modernization requirements, migration boundaries, coexistence, and verification",
+    "analysis-only or hybrid analysis plus target implementation"
+  ],
+  "not_for": [
+    "target-state invention without source evidence",
+    "assuming COBOL, Java, SOAP, XSD, or any other technology is mandatory"
+  ],
+  "initialization": {
+    "discover": [
+      "source repositories, application boundaries, languages, entry points, databases, schemas, interfaces, and documents",
+      "existing inventories, topology, dependency graphs, requirements, target-stack decisions, validation assets, and any explicitly authorized separate reference applications"
+    ],
+    "ask_if_unresolved": [
+      "authorized source boundary, read-only paths, technologies, entry points, persistence, batch, and integrations",
+      "migration boundary, target stack, coexistence expectations, reference implementation, and implementation scope",
+      "evidence depth, call or data-flow graphs, requirement extraction, parity expectations, validation, and dashboard audience"
+    ]
+  },
+  "execution_guidance": {
+    "dag": [
+      {"id": "inventory", "after": [], "fan_in": "one validated denominator, fingerprint, and exclusive batch partition"},
+      {"id": "bounded-analysis", "after": ["inventory"], "fan_out": "all relevant artifacts assigned once across non-overlapping language, subsystem, or program-family evidence packets"},
+      {"id": "analysis-integration", "after": ["bounded-analysis"], "fan_in": "coordinator validates zero unaccounted relevant artifacts, reconciles cross-system behavior, and allocates canonical evidence IDs"},
+      {"id": "requirement-candidates", "after": ["analysis-integration"], "fan_out": "temporary candidates only for independent evidence domains"},
+      {"id": "requirements-synthesis", "after": ["requirement-candidates"], "fan_in": "deduplicate, reconcile conflicts, and assign canonical requirement revisions"},
+      {"id": "specification-preparation", "after": ["requirements-synthesis"], "fan_out": "one reserved OpenSpec change directory per independent implementation domain"},
+      {"id": "dashboard-refresh", "after": ["analysis-integration", "requirements-synthesis", "specification-preparation"], "fan_in": "single renderer projects canonical full-system state"},
+      {"id": "coverage-validation", "after": ["dashboard-refresh"], "fan_in": "completion requires zero unaccounted relevant artifacts and explicit blockers"}
+    ],
+    "planner": "Keep source read-only and serialize canonical evidence, requirement, specification, dashboard, and lifecycle mutations."
+  },
+  "capabilities": {
+    "required": {"skills": [], "agents": [], "tools": [], "templates": []},
+    "default": {
+      "skills": ["continue-project", "inventory-codebase", "analyze-legacy-system"],
+      "agents": [],
+      "tools": ["inventory-codebase-tool", "coordinate-legacy-analysis", "resolve-project-continuation"],
+      "templates": ["evidence-analysis-template"]
+    },
+    "recommended": {
+      "skills": ["plan-work", "design-test-strategy", "test-driven-development", "mutation-testing", "protect-git-work"],
+      "agents": [],
+      "tools": [],
+      "templates": []
+    },
+    "optional": {"skills": [], "agents": [], "tools": [], "templates": []}
+  },
+  "capability_expectations": {
+    "required": [
+      {
+        "id": "repository-discovery",
+        "when": "always",
+        "description": "Establish the source denominator and protected boundary before interpretation."
+      },
+      {
+        "id": "legacy-semantic-analysis",
+        "when": "always",
+        "description": "Reconstruct source behavior, data flow, rules, integrations, persistence, and errors."
+      },
+      {
+        "id": "dependency-analysis",
+        "when": "always",
+        "description": "Resolve dependencies and retain unresolved or dynamic edges."
+      },
+      {
+        "id": "generic-migration-planning",
+        "when": "migration-target-declared",
+        "description": "Define migration obligations and target mapping without inventing source behavior."
+      },
+      {
+        "id": "target-architecture-design",
+        "when": "target-implementation-selected",
+        "description": "Design and deliver target behavior through the development composition."
+      }
+    ],
+    "strongly_recommended": [
+      {
+        "id": "requirements-extraction",
+        "when": "requirements-requested",
+        "description": "Turn legacy evidence into deduplicated target requirements and acceptance criteria."
+      },
+      {
+        "id": "evidence-traceability",
+        "when": "traceability-requested",
+        "description": "Preserve forward and reverse evidence through requirements and verification."
+      },
+      {
+        "id": "mutation-test-quality",
+        "when": "target-implementation-selected",
+        "description": "Verify that characterization and migration tests would detect incorrect target behavior, not merely execute it."
+      },
+      {
+        "id": "migration-validation",
+        "when": "validation-requested",
+        "description": "Validate migration completeness and parity claims independently."
+      }
+    ],
+    "optional": [
+      {
+        "id": "source-technology-characterization-testing",
+        "when": "migration-target-declared",
+        "description": "Technology-aware characterization tests can reduce translation risk."
+      }
+    ],
+    "migration_dimensions": {
+      "source": {
+        "importance": "required",
+        "exact_template": "technology:{source}:source-semantic-analysis",
+        "generic": "legacy-semantic-analysis",
+        "description": "Source-technology semantics, constructs, runtime behavior, and data-flow conventions."
+      },
+      "target": {
+        "importance": "required",
+        "exact_template": "technology:{target}:target-architecture",
+        "generic": "target-architecture-design",
+        "description": "Target-technology architecture, implementation constraints, and validation conventions."
+      },
+      "bridge": {
+        "importance": "required",
+        "exact_template": "migration:{source}-to-{target}:mapping",
+        "generic": "generic-migration-planning",
+        "description": "Explicit source-to-target semantic mapping; separate source and target coverage is insufficient."
+      }
+    }
+  },
+  "conditions": [
+    {
+      "id": "requirements-discovery",
+      "when": "analysis includes evidence-backed requirement extraction but no implementation preparation",
+      "capabilities": {
+        "skills": ["derive-modernization-requirements"],
+        "agents": [],
+        "tools": [],
+        "templates": ["requirement-record-example"]
+      }
+    },
+    {
+      "id": "migration-openspec-preparation",
+      "when": "approved modernization requirements must become implementation-ready OpenSpec specifications",
+      "capabilities": {
+        "skills": ["derive-modernization-requirements", "specify-openspec-change", "review-openspec-change"],
+        "agents": [],
+        "tools": [],
+        "templates": ["requirement-record-example"]
+      }
+    },
+    {
+      "id": "deterministic-legacy-structure",
+      "when": "COBOL, Java, or SQL structure needs conservative machine extraction before semantic tracing",
+      "capabilities": {
+        "skills": [],
+        "agents": [],
+        "tools": ["extract-legacy-structure"],
+        "templates": []
+      }
+    },
+    {
+      "id": "parallel-discovery",
+      "when": "the inventory supports independent non-overlapping analysis batches with coordinator-owned integration",
+      "capabilities": {
+        "skills": [
+          "coordinate-parallel-agents"
+        ],
+        "agents": ["legacy-discovery-specialist"],
+        "tools": [],
+        "templates": []
+      }
+    },
+    {
+      "id": "evidence-constrained-code-migration",
+      "when": "an approved code-language or platform migration can proceed one bounded slice at a time with runnable validation",
+      "capabilities": {
+        "skills": [
+          "migrate-code-with-evidence"
+        ],
+        "agents": [],
+        "tools": [
+          "validate-migration-manifest"
+        ],
+        "templates": []
+      }
+    },
+    {
+      "id": "migration-architecture-review",
+      "when": "a consequential target, coexistence, or migration architecture needs fresh findings-only challenge",
+      "capabilities": {
+        "skills": [],
+        "agents": [
+          "architecture-reviewer"
+        ],
+        "tools": [],
+        "templates": []
+      }
+    },
+    {
+      "id": "migration-test-review",
+      "when": "parity or completion claims need independent test and behavior challenge",
+      "capabilities": {
+        "skills": [],
+        "agents": ["test-behavior-reviewer"],
+        "tools": [],
+        "templates": []
+      }
+    },
+    {
+      "id": "adm-modernization-estimation",
+      "when": "the project requires an evidence-linked ADM scope and three-point modernization effort estimate",
+      "capabilities": {
+        "skills": ["estimate-adm-modernization"],
+        "agents": [],
+        "tools": ["summarize-adm-estimate"],
+        "templates": []
+      }
+    }
+  ],
+  "dashboard_projection": {
+    "structure": "agent-commons-living-dashboard",
+    "enable_when_selected": ["inventory", "dependencies", "requirements"],
+    "enable_when_migration_preparation": ["specifications", "architecture", "roadmap", "traceability", "validation"],
+    "enable_when_observed": ["capabilities", "flows", "data", "interfaces", "external-dependencies"],
+    "rule": "analysis-only work omits implementation and migration sections unless canonical scope or data enables them"
+  },
+  "recommended_overlays": [
+    {"id": "architecture-documentation", "when": "discovery, migration, coexistence, or target decisions require explicit architecture views"},
+    {"id": "bilingual-client-delivery", "when": "a client dashboard or HTML presentation requires German (Austria) plus English"},
+    {"id": "evidence-traceability", "when": "modernization obligations or completion claims require durable provenance"},
+    {"id": "durable-state", "when": "the analysis is substantial or spans sessions and contributors"},
+    {"id": "living-dashboard", "when": "canonical project state needs a stakeholder view"},
+    {"id": "branded-html", "when": "the assessment includes a polished client-facing HTML deliverable"},
+    {"id": "public-sector-client-delivery", "when": "client evidence confirms or strongly indicates a public-sector organization and locale-aware delivery defaults apply"}
+  ],
+  "recommended_compositions": [
+    {"id": "development", "when": "the modernization scope includes material target implementation"},
+    {"id": "presentation", "when": "the scope includes a separate executive or workshop narrative"}
+  ],
+  "typical_outputs": [
+    "deterministic source inventory and bounded analysis batches",
+    "application topology, dependency, call, data-flow, interface, and business-rule evidence as required",
+    "modernization requirements and migration strategy when selected",
+    "target implementation and verification only through composition with development"
+  ],
+  "invariants": [
+    "protect declared legacy sources as read-only",
+    "assess characterization and migration tests with mutation testing on the migrated target or supported harness, and never attempt to mutate an unsupported legacy source technology",
+    "separate observed behavior, interpretation, gaps, and target proposals",
+    "establish a denominator before completeness claims",
+    "treat technology-specific references as conditional evidence routes",
+    "treat a separate reference application as a discovery prior and never target evidence"
+  ]
+}

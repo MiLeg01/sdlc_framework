@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "id": "evidence-traceability",
+  "kind": "overlay",
+  "title": "Evidence and traceability",
+  "purpose": "Add durable evidence-to-requirement records and an independent delivery-chain audit.",
+  "compatible_archetypes": ["development", "legacy-migration", "research"],
+  "initialization": {
+    "ask_if_unresolved": ["authoritative sources, required evidence granularity, lifecycle states, approval boundary, and independent verification expectations"]
+  },
+  "capabilities": {
+    "required": {"skills": [], "agents": [], "tools": [], "templates": []},
+    "default": {
+      "skills": ["derive-modernization-requirements", "audit-delivery-traceability"],
+      "agents": [],
+      "tools": ["audit-trace-matrix", "audit-trace-graph"],
+      "templates": [
+        "evidence-record-example",
+        "requirement-record-example",
+        "acceptance-audit-template"
+      ]
+    },
+    "recommended": {"skills": [], "agents": [], "tools": [], "templates": []},
+    "optional": {"skills": [], "agents": [], "tools": [], "templates": []}
+  },
+  "conditions": [],
+  "outputs": ["stable evidence and requirement records", "reciprocal lifecycle links", "independent completeness audit"]
+}

@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "expected_facts": [
+    {"id": "requirement-trace", "severity": "MAJOR", "text": "REQ-AUTH-003 traces to SPEC-AUTH-003 and both acceptance scenarios."},
+    {"id": "expired-rejected", "severity": "CRITICAL", "text": "Expired sessions return SESSION_EXPIRED."},
+    {"id": "active-accepted", "severity": "MAJOR", "text": "Active sessions return ACTIVE."},
+    {"id": "same-focused-test", "severity": "CRITICAL", "text": "The same focused expired-session test is observed failing and then passing."},
+    {"id": "broader-validation", "severity": "MAJOR", "text": "Related validation runs after refactor."}
+  ],
+  "required_sequence": ["requirement", "specification", "acceptance-criteria", "red", "green", "refactor", "validation"],
+  "invariants": ["setup failure is not RED", "assertions are not weakened", "implementation stays within the approved behavior"],
+  "hard_assertions": ["red_evidence_present", "green_evidence_present", "expired-rejected", "same-focused-test"]
+}

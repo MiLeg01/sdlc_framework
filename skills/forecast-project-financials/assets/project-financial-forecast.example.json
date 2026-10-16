@@ -1,0 +1,39 @@
+{
+  "schema_version": 1,
+  "currency": "EUR",
+  "as_of_period": "2030-02",
+  "periods": [
+    {
+      "period": "2030-01",
+      "baseline_revenue": 100000,
+      "baseline_cost": 70000,
+      "actual_revenue": 98000,
+      "actual_cost": 72000,
+      "planned_value": 65000,
+      "earned_value": 62000
+    },
+    {
+      "period": "2030-02",
+      "baseline_revenue": 120000,
+      "baseline_cost": 80000,
+      "actual_revenue": 115000,
+      "actual_cost": 85000,
+      "planned_value": 75000,
+      "earned_value": 70000
+    },
+    {
+      "period": "2030-03",
+      "baseline_revenue": 130000,
+      "baseline_cost": 85000,
+      "forecast_revenue": 125000,
+      "forecast_cost": 90000
+    }
+  ],
+  "scenarios": [
+    {
+      "id": "downside",
+      "future_revenue_multiplier": 0.95,
+      "future_cost_multiplier": 1.08
+    }
+  ]
+}

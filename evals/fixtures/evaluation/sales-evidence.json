@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "evidence": [
+    {
+      "id": "E-SYN-TRACE-001",
+      "claim": "All twelve synthetic requirements have links to a specification, implementation item, test, and passing evidence record.",
+      "source": "synthetic audited trace report",
+      "status": "verified"
+    }
+  ],
+  "audience": "public-sector technology executives",
+  "decision": "Approve a bounded discovery and validation pilot",
+  "renderer_handoff": {
+    "capability": "create-branded-html-artifact",
+    "deliverable": "offline executive presentation",
+    "required_inputs": ["approved narrative", "resolved brand profile", "evidence IDs"]
+  }
+}

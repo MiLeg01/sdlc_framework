@@ -1,0 +1,141 @@
+version: 1
+scenarios:
+  - id: a-legacy-modernization
+    setup: "COBOL plus legacy Java analysis targeting a modern architecture and technical dashboard."
+    expected: ["legacy analysis", "evidence and requirements", "dashboard", "read-only source constraint"]
+  - id: b-greenfield-development
+    setup: "New web application with architecture, testing, deployment, UI, and project dashboard."
+    expected: ["development scope", "OpenSpec specification default", "TDD implementation default", "ready-slice workflow", "dashboard"]
+  - id: development-default-methodology
+    setup: "New development: React frontend, Spring Boot backend, PostgreSQL."
+    expected: ["development archetype", "OpenSpec without prompting", "TDD without prompting", "manifest methodology"]
+  - id: development-no-openspec
+    setup: "Quick prototype development, no OpenSpec."
+    expected: ["development archetype", "OpenSpec skills excluded", "opt-out recorded", "TDD remains selected"]
+  - id: development-no-tdd
+    setup: "New development experiment, normal implementation, no TDD."
+    expected: ["OpenSpec remains selected", "TDD skill excluded", "normal implementation recorded"]
+  - id: existing-openspec-reuse
+    setup: "Existing development project contains openspec/config.yaml and active OpenSpec state."
+    expected: ["existing OpenSpec detected", "state reuse", "no second hierarchy", "existing files unchanged"]
+  - id: existing-alternative-specification
+    setup: "Existing development project uses .specify or another recorded specification method."
+    expected: ["alternative preserved", "OpenSpec excluded", "no destructive replacement"]
+  - id: existing-method-conflict
+    setup: "Existing project uses another specification method and the brief explicitly requests OpenSpec."
+    expected: ["conflict reported", "stop before changes", "deliberate migration decision required"]
+  - id: legacy-implementation-default-methodology
+    setup: "Implement a legacy migration from derived requirements."
+    expected: ["legacy plus development", "OpenSpec", "TDD", "active validation path"]
+  - id: non-development-methodology-routing
+    setup: "Research or presentation without software implementation."
+    expected: ["no OpenSpec", "no TDD", "no delivery methodology question"]
+  - id: c-client-presentation
+    setup: "Executive presentation with source content, supplied identity assets, and diagrams."
+    expected: ["presentation path", "brand source", "HTML construction", "visual QA"]
+  - id: technical-diagram-explicit-views
+    setup: "Development brief explicitly requests a component architecture, ER diagram, and login sequence diagram."
+    expected: ["architecture-documentation overlay", "matching view conditions", "diagram views recorded", "no repeated view question"]
+  - id: technical-diagram-adaptive-question
+    setup: "Substantial architecture documentation is requested without naming the expected views."
+    expected: ["one concise architecture-view question", "multiple selections allowed", "no scaffold before answer"]
+  - id: technical-diagram-natural-inference
+    setup: "Show all applications and integrations, database relationships, and where batch data moves."
+    expected: ["system landscape", "ER diagram", "data-flow diagram", "no unrelated class diagram"]
+  - id: bilingual-client-delivery
+    setup: "English working presentation with Austrian German as the client default and English retained."
+    expected: ["bilingual-client-delivery overlay", "en plus de-AT", "localization capability", "bilingual QA"]
+  - id: research-only
+    setup: "Research European banking modernization without a presentation."
+    expected: ["research archetype", "deep research", "research scaffold", "no presentation path"]
+  - id: presentation-only-existing-research
+    setup: "Create a technical presentation from existing research without doing new research."
+    expected: ["presentation archetype", "existing source material", "no research scaffold"]
+  - id: research-presentation
+    setup: "Research agentic modernization and create an executive presentation."
+    expected: ["research plus presentation", "research synthesis handoff", "no unsupported claims"]
+  - id: research-sales-presentation
+    setup: "Research customer pain points and competitors, then create a client-branded sales presentation for CIOs."
+    expected: ["deep research", "sales storytelling", "branded HTML", "audience and outcome captured"]
+  - id: presentation-references
+    setup: "Use a timeline image for structure, a cluster image for grouping, and an example deck for storytelling and density."
+    expected: ["structured reference manifest", "timeline-only application", "cluster-only application", "project-local read-only references"]
+  - id: reference-negative-intent
+    setup: "Use the supplied timeline structure but not its colors."
+    expected: ["use structure", "ignore colors"]
+  - id: no-references
+    setup: "Create an informational presentation with no supplied examples."
+    expected: ["normal initialization", "optional reference question", "no blocking"]
+  - id: d-tiny-development
+    setup: "Small one-off development utility with no dashboard."
+    expected: ["shared base files", "selected runtime", "empty skill and agent selections"]
+    must_not: ["docs directory", "dashboard", ".agents", ".codex", ".claude", ".cline", ".opencode", "durable memory"]
+  - id: e-hybrid
+    setup: "Legacy discovery plus implementation prototype plus management presentation."
+    expected: ["composed scopes", "deduplicated skill list", "no copied commons"]
+  - id: presentation-decline-html
+    setup: "Presentation scope with an explicit non-HTML delivery format."
+    expected: ["decline recorded", "no HTML skills or paths"]
+  - id: discoverable-existing-app
+    setup: "Existing repository with manifests, tests, README, and user changes."
+    expected: ["existing files preserved", "no Git reinitialization"]
+  - id: unsafe-root
+    setup: "Root is the user home directory or filesystem root."
+    expected: ["refusal with exact safe-root requirement"]
+  - id: multi-runtime-codex-claude
+    setup: "One project deliberately uses Codex and Claude Code."
+    expected: ["one shared AGENTS.md", "CLAUDE.md import adapter", "both runtimes in .agent-commons.yaml"]
+  - id: runtime-detection
+    setup: "An existing project contains a strong native runtime marker."
+    expected: ["runtime detected", "evidence reported", "no unnecessary prompt"]
+  - id: runtime-removal
+    setup: "Remove Claude Code from a Codex plus Claude Code project."
+    expected: ["CLAUDE.md removed", "AGENTS.md preserved", ".agent-commons.yaml preserved", "Codex remains selected"]
+  - id: explicit-non-gap-external-research-suggestion
+    setup: "A user explicitly requests broad external precedent research even though no material capability gap is present."
+    expected: ["external discovery started without reconfirmation", "automatic search true", "privacy-safe queries", "core initialization continues", "composition unchanged"]
+  - id: tiny-external-research-skip
+    setup: "A tiny project uses the default external research policy."
+    expected: ["external research skipped", "no internet search", "no extra capability selection"]
+  - id: k-missing-technology-capability
+    setup: "Initialize a SAS to Java migration when commons has generic migration coverage but no SAS specialist."
+    expected: ["material gap detected", "external discovery starts automatically", "core scaffold and canonical dashboard available", "no fabricated SAS skill", "no automatic activation"]
+  - id: l-user-chooses-external-search
+    setup: "The user explicitly asks to search configured external sources for the identified SAS gaps."
+    expected: ["focused gap-derived queries", "search starts without another confirmation", "shortlisted findings", "no installation", "candidate review and selection remain explicit"]
+  - id: slow-github-does-not-block
+    setup: "Configured GitHub discovery is slow while project instructions, manifest, source inventory, and dashboard shell are ready."
+    expected: ["initializer completes", "external state remains running", "next lifecycle action available", "later completed or partial result"]
+  - id: github-rate-limit-is-partial
+    setup: "GitHub responds with a rate limit during external capability discovery."
+    expected: ["no aggressive retry", "reset or retry time recorded", "core initialization succeeds", "partial-rate-limited discovery state", "no fabricated candidate"]
+  - id: recent-identical-query-uses-cache
+    setup: "The same focused capability query was completed five minutes earlier against the same registry revision."
+    expected: ["Commons-owned cache hit", "no duplicate GitHub fetch", "same candidate contract", "staleness remains bounded"]
+  - id: m-user-accepts-one-candidate
+    setup: "The user explicitly accepts one reviewed candidate and rejects the rest."
+    expected: ["only selected candidate recorded", "project-local scope", "provenance captured", "commons unchanged"]
+  - id: n-user-rejects-all
+    setup: "The user rejects all findings and selects a declared fallback strategy."
+    expected: ["project continues by selected fallback", "no hidden integration"]
+  - id: o-official-sources-only
+    setup: "The user limits discovery to official configured sources."
+    expected: ["official source scope preserved", "community and GitHub-wide discovery excluded"]
+  - id: p-commons-fully-covers-request
+    setup: "A technology-neutral legacy analysis is fully covered by the resolved commons composition."
+    expected: ["normal initialization", "no capability-gap question", "no unnecessary external research"]
+  - id: generated-git-commit-policy
+    setup: "Initialize a Codex, Claude Code, Cline, and OpenCode project."
+    expected: ["shared AGENTS.md commit policy", "meaningful subjects", "no Conventional Commit prefix", "reliable ticket prefix only", "no Co-authored-by trailer", "thin runtime adapters reuse shared instructions"]
+  - id: q-partial-generic-coverage
+    setup: "Generic target architecture exists but a target-specific migration capability does not."
+    expected: ["PARTIALLY_COVERED classification", "only material gaps interrupt", "optional gap recorded"]
+  - id: r-bridge-missing
+    setup: "Source and target generic capabilities exist but no source-to-target semantic mapping exists."
+    expected: ["bridge assessed separately", "bridge gap detected"]
+  - id: s-external-result-with-scripts-hooks
+    setup: "A shortlisted external result contains scripts, hooks, plugins, or remote tooling."
+    expected: ["security warning", "license and security review required", "no execution or install"]
+  - id: t-future-commons-candidate
+    setup: "An accepted project-local capability appears reusable after review."
+    expected: ["future commons candidate metadata allowed", "no canonical mutation", "review-for-commons remains required"]

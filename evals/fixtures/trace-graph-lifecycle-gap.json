@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "nodes": [
+    {"id": "REQ-001", "type": "requirement", "status": "approved"}
+  ],
+  "edges": [],
+  "lifecycle_rules": [
+    {
+      "id": "approved-requirement-has-specification",
+      "node_type": "requirement",
+      "statuses": ["approved"],
+      "direction": "out",
+      "edge_type": "specified_by",
+      "related_type": "specification",
+      "min_count": 1,
+      "severity": "major"
+    }
+  ],
+  "generated_views": []
+}

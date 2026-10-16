@@ -1,0 +1,71 @@
+{
+  "schema_version": 2,
+  "title": "Synthetic modernization quality dashboard",
+  "subtitle": "Canonical lifecycle, architecture, estimation, and test evidence",
+  "updated_at": "2030-01-15T00:00:00Z",
+  "audience": "combined",
+  "brand": "project",
+  "delivery": {
+    "languages": ["en"],
+    "default_language": "en",
+    "language_switch": false,
+    "storage_key": "synthetic-dashboard-language"
+  },
+  "openspec_required": true,
+  "workflow": {
+    "scopes": ["legacy-modernization", "development"],
+    "requirements_required": true,
+    "specification_method": "openspec",
+    "specifications_required": true,
+    "implementation_method": "test-driven-development",
+    "implementation_phase": "active",
+    "source_inventory_complete": true,
+    "requires_user_choice": false,
+    "dashboard_enabled": true
+  },
+  "project": {
+    "objective": "Modernize the synthetic request service with behavioral parity.",
+    "status": "IN-PROGRESS",
+    "composition": {
+      "basis": "MEASURED",
+      "languages": [
+        {"name": "COBOL", "files": 1},
+        {"name": "PL/I", "files": 1},
+        {"name": "Java", "files": 1}
+      ]
+    },
+    "inventory": {"modules": ["request-batch", "request-api", "shared-contract"]},
+    "complexity": {"basis": "ASSESSED", "modules": [{"module": "request-batch", "rating": "high"}]},
+    "architecture": {"components": ["batch", "api", "host-service"]},
+    "interfaces": [{"id": "API-REQUESTS", "operation": "POST /requests"}],
+    "adm_estimate": {"person_days": {"low": 40, "likely": 55, "high": 80}},
+    "roadmap": [{"wave": 1, "scope": "contract and validation parity"}],
+    "questions": [{"id": "Q-001", "owner": "architecture", "text": "Confirm host-service retry ownership."}],
+    "test_quality": {"assessment": "Behavioral acceptance coverage is present for the selected slice."}
+  },
+  "requirements": [
+    {"id": "REQ-001", "title": "Preserve request validation", "description": "Invalid requests remain rejected.", "status": "approved", "implementation_status": "implemented"}
+  ],
+  "specifications": [
+    {"id": "SPEC-001", "title": "Request validation", "purpose": "Define parity for request validation.", "status": "active", "readiness": "ready", "implementation_status": "implemented", "requirement_revisions": {"REQ-001": 1}, "source": "openspec/changes/request-validation"}
+  ],
+  "acceptance_criteria": [
+    {"id": "AC-001", "requirement_id": "REQ-001", "title": "Reject invalid request", "description": "Given an invalid request, reject it before downstream processing.", "status": "implemented"}
+  ],
+  "implementation_items": [
+    {"id": "SLICE-001", "title": "Request validation parity", "status": "implemented"}
+  ],
+  "tests": [
+    {"id": "TEST-001", "title": "Rejects an invalid request", "strength": "behavioral", "status": "passing", "command": "python3 -m unittest synthetic_acceptance", "red_evidence": "failed before implementation", "green_evidence": "passed after minimum change", "refactor_evidence": "full regression passed"}
+  ],
+  "evidence": [
+    {"id": "EVID-001", "title": "Synthetic request contract", "kind": "source", "location": "fixtures/request-contract.md:1", "summary": "Defines request validation behavior."}
+  ],
+  "relationships": [
+    {"type": "specified-by", "source": "REQ-001", "target": "SPEC-001"},
+    {"type": "defines", "source": "SPEC-001", "target": "AC-001"},
+    {"type": "implemented-by", "source": "AC-001", "target": "SLICE-001"},
+    {"type": "validated-by", "source": "AC-001", "target": "TEST-001"},
+    {"type": "supported-by", "source": "REQ-001", "target": "EVID-001"}
+  ]
+}

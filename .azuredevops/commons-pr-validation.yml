@@ -1,0 +1,58 @@
+name: commons-pr-validation-$(Date:yyyyMMdd)$(Rev:.r)
+
+trigger: none
+pr: none
+
+variables:
+- name: evalProfile
+  value: fast
+- name: semanticPolicy
+  value: optional
+
+stages:
+- stage: Static
+  displayName: Static validation
+  jobs:
+  - template: templates/static-validation.yml
+
+- stage: Impact
+  displayName: Changed capability detection and impact analysis
+  dependsOn: Static
+  jobs:
+  - job: impact
+    pool:
+      vmImage: ubuntu-24.04
+    steps:
+    - template: templates/setup.yml
+      parameters:
+        persistCredentials: true
+    - bash: |
+        set -euo pipefail
+        git fetch origin main --no-tags
+        output='$(Build.ArtifactStagingDirectory)/impact'
+        mkdir -p "$output"
+        python3 tools/evals/select_impacted_evals.py \
+          --changed --base origin/main --output "$output/impact-selection.json"
+      displayName: Resolve changed capability IDs and dependency impact
+    - task: PublishPipelineArtifact@1
+      inputs:
+        targetPath: '$(Build.ArtifactStagingDirectory)/impact'
+        artifact: impact-selection
+
+- stage: TargetedBehavior
+  displayName: Targeted behavioral evaluations and baseline comparison
+  dependsOn: Impact
+  jobs:
+  - template: templates/quality-shard.yml
+    parameters:
+      jobName: targeted
+      displayName: Changed and impacted capabilities
+      selectionArguments: '--changed --base origin/main'
+      evalProfile: fast
+      repeat: 1
+      semanticPolicy: optional
+      installSemanticRuntime: false
+      compareBaseline: true
+      baselineSource: bootstrap
+      installBrowser: true
+      persistCredentials: true

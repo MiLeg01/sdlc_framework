@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://agent-commons.local/schema/external-discovery-state-v2.json",
+  "title": "Agent Commons project external discovery state",
+  "type": "object",
+  "required": ["schema_version", "status", "request_key", "candidate_count", "failures", "completed_source_tiers", "result_path", "safety"],
+  "properties": {
+    "schema_version": {"const": 2},
+    "status": {"enum": ["running", "completed", "partial-rate-limited", "partial-source-failure", "failed"]},
+    "request_key": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "candidate_count": {"type": "integer", "minimum": 0},
+    "failures": {"type": "array", "items": {"type": "object"}},
+    "completed_source_tiers": {"type": "array", "items": {"enum": ["OFFICIAL", "CURATED", "COMMUNITY", "UNTRUSTED"]}},
+    "result_path": {"type": "string"},
+    "safety": {
+      "type": "object",
+      "required": ["installed", "executed_external_code", "mutated_commons"],
+      "properties": {
+        "installed": {"const": false},
+        "executed_external_code": {"const": false},
+        "mutated_commons": {"const": false}
+      }
+    }
+  }
+}

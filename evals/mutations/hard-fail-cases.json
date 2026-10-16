@@ -1,0 +1,17 @@
+{
+  "schema_version": 1,
+  "cases": [
+    {"id": "source-modified", "assertion": "source_unchanged", "expected_status": "HARD_FAIL"},
+    {"id": "critical-behavior-missed", "assertion": "critical_expected_behavior", "expected_status": "HARD_FAIL"},
+    {"id": "fabricated-evidence", "assertion": "evidence_valid", "expected_status": "HARD_FAIL"},
+    {"id": "invalid-structured-output", "assertion": "output_schema_valid", "expected_status": "HARD_FAIL"},
+    {"id": "dashboard-domain-missing", "assertion": "required_dashboard_domains_present", "expected_status": "HARD_FAIL"},
+    {"id": "tdd-red-missing", "assertion": "red_evidence_present", "expected_status": "HARD_FAIL"},
+    {"id": "requirement-evidence-missing", "assertion": "evidence_required", "expected_status": "HARD_FAIL"},
+    {"id": "ownership-escape", "assertion": "ownership_preserved", "expected_status": "HARD_FAIL"},
+    {"id": "source-unaccounted", "assertion": "zero_unaccounted_relevant_sources", "expected_status": "HARD_FAIL"},
+    {"id": "canonical-contract-drift", "assertion": "canonical_contract_valid", "expected_status": "HARD_FAIL"},
+    {"id": "full-scope-degraded", "assertion": "full_configured_scope", "expected_status": "HARD_FAIL"},
+    {"id": "project-memory-reuse-removed", "assertion": "project_memory_reuse", "expected_status": "HARD_FAIL"}
+  ]
+}

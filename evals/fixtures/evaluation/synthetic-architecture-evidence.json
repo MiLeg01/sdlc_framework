@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "decision": "Add synchronous billing authorization during checkout",
+  "owners": {
+    "ApiGateway": "Edge",
+    "OrderService": "Orders",
+    "BillingService": "Payments",
+    "OrdersDb.order_status": "unassigned"
+  },
+  "constraints": [
+    "Checkout must return within 800 milliseconds",
+    "A payment must be charged at most once",
+    "OrdersDb changes require a reversible migration"
+  ],
+  "validation": {
+    "load_test": "not_run",
+    "timeout_recovery_test": "missing",
+    "duplicate_retry_test": "missing",
+    "rollback_rehearsal": "missing"
+  }
+}

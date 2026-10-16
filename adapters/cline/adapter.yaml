@@ -1,0 +1,32 @@
+{
+  "schema_version": 1,
+  "id": "cline",
+  "display_name": "Cline",
+  "verified_on": "2026-08-18",
+  "documentation": [
+    "https://docs.cline.bot/customization/cline-rules",
+    "https://docs.cline.bot/customization/skills",
+    "https://docs.cline.bot/features/subagents",
+    "https://docs.cline.bot/mcp/mcp-overview",
+    "https://docs.cline.bot/getting-started/config"
+  ],
+  "concepts": {
+    "global_instructions": "native",
+    "project_instructions": "native",
+    "skills": "native",
+    "custom_agents": "mapped-to-skill",
+    "mcp": "native",
+    "project_memory": "commons-project-local",
+    "archetypes": "commons",
+    "evals": "commons"
+  },
+  "installation": {"skills": "generated-thin-wrapper", "agents": "generated-role-skill", "global_instructions": "managed-section"},
+  "user_paths": {
+    "global_instructions": [".agents", "AGENTS.md"],
+    "skills": [".cline", "skills"],
+    "agents": [".cline", "skills"]
+  },
+  "project": {"instructions": "AGENTS.md", "skills": ".cline/skills", "rules": ".clinerules", "mcp": "~/.cline/mcp.json for CLI or the IDE-managed MCP settings file"},
+  "precedence": "Workspace rules override conflicting global rules; global skills override project skills with the same name.",
+  "limitations": ["The documented subagent feature is experimental and exposes read-only research workers, not reusable custom subagent definitions.", "Official documentation does not promise symlinked skill discovery, so the adapter generates wrappers instead."]
+}

@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "actors": ["Citizen", "Caseworker", "AnalyticsVendor"],
+  "components": ["PublicPortal", "CaseApi", "AuditLogger", "CaseDatabase", "ExportWorker"],
+  "trust_boundaries": [
+    {"id": "TB-1", "from": "Citizen", "to": "PublicPortal", "control": "TLS and OIDC"},
+    {"id": "TB-2", "from": "CaseApi", "to": "AnalyticsVendor", "control": "API key only"}
+  ],
+  "flows": [
+    {"id": "F-1", "from": "Citizen", "to": "CaseApi", "data": ["name", "email", "health_status"], "purpose": "submit case"},
+    {"id": "F-2", "from": "CaseApi", "to": "AuditLogger", "data": ["full_request_body"], "purpose": "diagnostics"},
+    {"id": "F-3", "from": "ExportWorker", "to": "AnalyticsVendor", "data": ["case_id", "postal_code", "health_status"], "purpose": "service analytics"}
+  ],
+  "stores": [
+    {"id": "CaseDatabase", "data": ["name", "email", "health_status", "case_notes"], "retention": "indefinite", "encryption_at_rest": true},
+    {"id": "AuditLogger", "data": ["full_request_body"], "retention": "90 days", "access": "all support engineers"}
+  ],
+  "known_controls": ["OIDC for portal users", "TLS in transit", "database encryption at rest"],
+  "unknowns": ["analytics deletion SLA", "export consent basis", "incident log redaction"]
+}

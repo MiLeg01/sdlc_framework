@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "project": "synthetic-project",
+  "candidates": [
+    {
+      "id": "CAND-SYN-001",
+      "path": ".agents/skills/verify-release/SKILL.md",
+      "behavior": "Verify a release against evidence-linked gates and produce a machine-readable report.",
+      "usage_count": 4,
+      "license": "MIT",
+      "sensitivity": "NONE"
+    },
+    {
+      "id": "CAND-SYN-002",
+      "path": ".agents/skills/client-approval/SKILL.md",
+      "behavior": "Apply one synthetic client's proprietary approval rules.",
+      "usage_count": 3,
+      "license": "INTERNAL_ONLY",
+      "sensitivity": "CLIENT_SPECIFIC"
+    },
+    {
+      "id": "CAND-SYN-003",
+      "path": "tools/inventory_wrapper.py",
+      "behavior": "Enumerate files and hashes with the same semantics as inventory-codebase.",
+      "usage_count": 2,
+      "license": "MIT",
+      "sensitivity": "NONE"
+    }
+  ]
+}

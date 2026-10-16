@@ -1,0 +1,38 @@
+{
+  "schema_version": 1,
+  "manifest_format": "json-compatible-yaml",
+  "base": {
+    "files": ["AGENTS.md", ".agent-commons.yaml", "README.md", ".gitignore"],
+    "capabilities": {"skills": [], "agents": [], "tools": [], "templates": []}
+  },
+  "capability_levels": ["required", "default", "recommended", "optional"],
+  "default_levels": ["required", "default"],
+  "capability_kinds": ["skills", "agents", "tools", "templates"],
+  "archetypes": {
+    "development": {"path": "development/archetype.yaml"},
+    "legacy-migration": {"path": "legacy-migration/archetype.yaml", "aliases": ["legacy"]},
+    "presentation": {"path": "presentation/archetype.yaml"},
+    "research": {"path": "research/archetype.yaml"}
+  },
+  "overlays": {
+    "architecture-documentation": {"path": "overlays/architecture-documentation/overlay.yaml"},
+    "bilingual-client-delivery": {"path": "overlays/bilingual-client-delivery/overlay.yaml"},
+    "branded-html": {"path": "overlays/branded-html/overlay.yaml"},
+    "consulting-delivery": {"path": "overlays/consulting-delivery/overlay.yaml"},
+    "durable-state": {"path": "overlays/durable-state/overlay.yaml"},
+    "evidence-traceability": {"path": "overlays/evidence-traceability/overlay.yaml"},
+    "living-dashboard": {"path": "overlays/living-dashboard/overlay.yaml"},
+    "public-sector-client-delivery": {"path": "overlays/public-sector-client-delivery/overlay.yaml"},
+    "sales-storytelling": {"path": "overlays/sales-storytelling/overlay.yaml"}
+  },
+  "resolution": {
+    "hybrids": "select multiple archetypes; do not create combination archetypes",
+    "deduplicate_by": ["capability_kind", "capability_id"],
+    "level_precedence": ["required", "default", "recommended", "optional"],
+    "source_order": ["base", "archetypes", "overlays", "activated_conditions"],
+    "conditional_capabilities": "include only when the condition id is explicitly activated",
+    "explicit_exclusions": "remove only explicitly named default or recommended capabilities; required capabilities cannot be excluded",
+    "tiny_scale": "record archetypes but suppress their default and recommended capabilities; explicit overlays remain active",
+    "unknown_ids": "fail explicitly without guessing a fallback"
+  }
+}

@@ -1,0 +1,85 @@
+{
+  "schema_version": 1,
+  "module": "tax_calculator.py",
+  "suites": {
+    "weak": "tax_calculator_weak_suite",
+    "hardened": "tax_calculator_hardened_suite"
+  },
+  "requirement": "REQ-017",
+  "specification": "SPEC-004",
+  "criticality": "FINANCIAL_OR_CALCULATION",
+  "cases": [
+    {
+      "id": "MUT-001",
+      "operator": "CONDITIONAL_BOUNDARY",
+      "mutation": "reduced-rate threshold comparison < replaced with <=",
+      "acceptance_criterion": "AC-004-3",
+      "search": "    if net_amount < REDUCED_RATE_THRESHOLD:",
+      "replacement": "    if net_amount <= REDUCED_RATE_THRESHOLD:",
+      "expected": {
+        "weak": "SURVIVED",
+        "hardened": "KILLED"
+      },
+      "classification": "TEST_GAP",
+      "hardening": "assert the tax rate at 99.99, exactly 100.00, and 100.01"
+    },
+    {
+      "id": "MUT-002",
+      "operator": "CONDITIONAL_BOUNDARY",
+      "mutation": "maximum discount comparison > replaced with >=",
+      "acceptance_criterion": "AC-004-1",
+      "search": "discount_rate > MAX_DISCOUNT_RATE:",
+      "replacement": "discount_rate >= MAX_DISCOUNT_RATE:",
+      "expected": {
+        "weak": "SURVIVED",
+        "hardened": "KILLED"
+      },
+      "classification": "TEST_GAP",
+      "hardening": "assert that the maximum rate is accepted and a rate above it is rejected"
+    },
+    {
+      "id": "MUT-003",
+      "operator": "NEGATIVE_GUARD_WEAKENED",
+      "mutation": "lower discount bound moved from 0 to -1, disabling the negative-rate rejection",
+      "acceptance_criterion": "AC-004-1",
+      "search": "if discount_rate < 0 or",
+      "replacement": "if discount_rate < -1 or",
+      "expected": {
+        "weak": "SURVIVED",
+        "hardened": "KILLED"
+      },
+      "classification": "TEST_GAP",
+      "hardening": "assert that a negative discount rate is rejected"
+    },
+    {
+      "id": "MUT-004",
+      "operator": "CONSTANT_REPLACEMENT",
+      "mutation": "standard tax rate changed from 0.20 to 0.25",
+      "acceptance_criterion": "AC-004-3",
+      "search": "STANDARD_RATE = 0.20",
+      "replacement": "STANDARD_RATE = 0.25",
+      "expected": {
+        "weak": "KILLED",
+        "hardened": "KILLED"
+      },
+      "classification": "KILLED_BY_BASELINE",
+      "hardening": "none required; the existing suite already detects this defect"
+    },
+    {
+      "id": "MUT-005",
+      "operator": "CONDITION_REORDER",
+      "mutation": "the two pure disjuncts of the discount guard are swapped",
+      "acceptance_criterion": "AC-004-1",
+      "search": "if discount_rate < 0 or discount_rate > MAX_DISCOUNT_RATE:",
+      "replacement": "if discount_rate > MAX_DISCOUNT_RATE or discount_rate < 0:",
+      "expected": {
+        "weak": "SURVIVED",
+        "hardened": "SURVIVED"
+      },
+      "classification": "EQUIVALENT_MUTANT",
+      "accepted_reason": "both disjuncts are side-effect free and total, so the rejection set is identical for every admissible input; order cannot be observed",
+      "hardening": "none; killing this mutant would require asserting evaluation order, which no acceptance criterion requires"
+    }
+  ],
+  "suite_naming_note": "The suites deliberately avoid the test_*.py pattern so the repository's own test discovery does not collect this fixture as its own test module; the benchmark runner invokes them explicitly."
+}

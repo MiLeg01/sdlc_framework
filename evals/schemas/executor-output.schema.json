@@ -1,0 +1,44 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/agent-commons/executor-output.schema.json",
+  "title": "Semantic executor output",
+  "type": "object",
+  "required": ["generated_result", "evidence"],
+  "properties": {
+    "generated_result": {"type": "object"},
+    "evidence": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "source", "locator"],
+        "properties": {
+          "id": {"type": "string", "minLength": 1},
+          "source": {"type": "string", "minLength": 1},
+          "locator": {"type": "string", "minLength": 1},
+          "claim": {"type": "string", "minLength": 1}
+        },
+        "additionalProperties": false
+      }
+    },
+    "tokens": {"type": "integer", "minimum": 0},
+    "performance": {
+      "type": "object",
+      "properties": {
+        "llm_calls": {"type": "integer", "minimum": 0},
+        "input_tokens": {"type": "integer", "minimum": 0},
+        "output_tokens": {"type": "integer", "minimum": 0},
+        "subagents_launched": {"type": "integer", "minimum": 0},
+        "context_compactions": {"type": "integer", "minimum": 0},
+        "source_files_read": {"type": "integer", "minimum": 0},
+        "duplicate_source_reads": {"type": "integer", "minimum": 0},
+        "dashboard_renders": {"type": "integer", "minimum": 0},
+        "external_searches": {"type": "integer", "minimum": 0},
+        "model": {"type": "string", "minLength": 1},
+        "runtime": {"type": "string", "minLength": 1},
+        "duration_seconds": {"type": "number", "minimum": 0}
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

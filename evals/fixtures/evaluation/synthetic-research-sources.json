@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "decision_date": "2030-01-15",
+  "question": "Select a durable event transport for the synthetic service.",
+  "sources": [
+    {
+      "id": "SRC-TRANSPORT-001",
+      "authority": "Synthetic platform standard",
+      "revision": "2029-12-12",
+      "fact": "Managed queue A provides at-least-once delivery and per-key ordering."
+    },
+    {
+      "id": "SRC-OPERATIONS-002",
+      "authority": "Synthetic operations benchmark",
+      "revision": "2030-01-04",
+      "fact": "Queue A met the recovery objective but requires idempotent consumers."
+    },
+    {
+      "id": "SRC-RISK-003",
+      "authority": "Synthetic security assessment",
+      "revision": "2030-01-09",
+      "fact": "Queue B simplifies local operations but does not meet the documented regional durability requirement."
+    }
+  ],
+  "conflict": "Queue B has lower operational complexity, while Queue A is the only option evidenced to meet durability and ordering constraints."
+}

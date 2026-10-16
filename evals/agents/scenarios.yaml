@@ -1,0 +1,37 @@
+version: 1
+agents:
+  architecture-reviewer:
+    positive: "Independently challenge this consequential architecture proposal against requirements, decisions, quality attributes, and validation evidence."
+    negative: "Redesign the system, implement the preferred architecture, and approve release from the reviewer role."
+    ambiguous: "Review the architecture" # coordinator must supply scope, evidence, decisions, constraints, validation, and output boundary
+    expected: ["evidence map", "assumptions conflicts and unknowns", "severity findings", "affected quality attributes", "failure paths", "decision-owner questions", "limitations"]
+    invariants: ["findings only", "preferences are not defects", "requirements are not invented", "reviewer does not own target design"]
+    failures: ["implementation edits", "new target architecture substituted for review", "unsupported claims accepted", "release approval"]
+  legacy-discovery-specialist:
+    positive: "Analyze one exclusive 40-file COBOL batch and return isolated evidence records."
+    negative: "Let the worker update shared registries and dashboard totals directly."
+    ambiguous: "Explore the whole legacy estate" # coordinator must bound batches first
+    expected: ["worker manifest", "paths and hashes", "temporary IDs", "validation result"]
+    invariants: ["no canonical edits", "no scope expansion"]
+    failures: ["overlapping batch ownership", "unreviewed worker output promoted"]
+  privacy-security-reviewer:
+    positive: "Independently challenge a consequential change's privacy and security evidence in a fresh context."
+    negative: "Implement the fixes and approve release from the same reviewer role."
+    ambiguous: "Check security" # coordinator must supply bounded scope, evidence, data classes, and output path
+    expected: ["data and trust-boundary map", "abuse paths", "severity findings", "residual risk", "limitations"]
+    invariants: ["findings only", "no sensitive values in output", "no compliance certification"]
+    failures: ["implementation edits", "unsupported control claims accepted", "release approval"]
+  test-behavior-reviewer:
+    positive: "Independently assess whether RED GREEN and full-gate evidence demonstrate the accepted behavior."
+    negative: "Rewrite the tests and production code while calling the result independent review."
+    ambiguous: "Review the tests" # coordinator must supply claims, risk model, evidence, paths, and output boundary
+    expected: ["claim-to-test map", "RED validity", "layer and oracle findings", "boundary gaps", "next validation"]
+    invariants: ["read-only findings", "setup failure is not RED", "coverage is not behavior proof"]
+    failures: ["tests edited", "mocks accepted without boundary analysis", "completion approved"]
+  financial-forecast-reviewer:
+    positive: "Independently recompute this consequential project forecast and challenge its sources, period boundaries, units, scenarios, and conclusions."
+    negative: "Change the forecast inputs, negotiate the commercial position, and approve the forecast from the reviewer role."
+    ambiguous: "Review the numbers" # coordinator must supply the bounded forecast, source references, assumptions, and materiality context
+    expected: ["reperformed calculations", "source and period findings", "unit and scenario findings", "severity-ranked discrepancies", "FORECAST-CREDIBLE or VERIFY-FIRST or BLOCKED"]
+    invariants: ["findings only", "no source edits", "no commercial approval", "sensitive values are minimized"]
+    failures: ["arithmetic accepted without reperformance", "forecast substituted for posted actuals", "unsupported certainty", "reviewer edits the model"]

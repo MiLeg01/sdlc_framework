@@ -1,0 +1,11 @@
+{
+  "schemaVersion": "1.0.0",
+  "evidenceStatus": "EXAMPLE_ONLY",
+  "product": {"criticalJourneys": [], "supportedEnvironments": []},
+  "designGuide": {"tokenSource": null, "componentLibrary": null, "accessibilityTarget": null},
+  "runtime": {"rendering": null, "offline": null, "browserSupport": []},
+  "data": {"freshness": null, "persistence": null, "resetBehavior": null},
+  "constraints": [],
+  "decisions": [],
+  "unknowns": []
+}

@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "selection": {
+    "candidate_id": "CAND-SYN-001",
+    "explicitly_approved": true
+  },
+  "candidate": {
+    "name": "synthetic-release-verification",
+    "kind": "skill",
+    "behavior": "Verify a release against evidence-linked gates and emit a machine-readable report.",
+    "source_revision": "synthetic-rev-1",
+    "license": "MIT",
+    "contains_confidential_data": false,
+    "semantic_overlap": "No existing capability covers the release-specific aggregation boundary."
+  },
+  "required_outputs": [
+    "canonical skill",
+    "positive negative ambiguous and failure evaluation cases",
+    "catalog registration",
+    "runtime adapter synchronization evidence",
+    "promotion report"
+  ]
+}

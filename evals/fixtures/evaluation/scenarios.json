@@ -1,0 +1,346 @@
+{
+  "schema_version": 1,
+  "initialize-project": {
+    "prompt": "Initialize a synthetic repository from a concise approved project brief.",
+    "source_artifacts": ["evals/initialization/scenarios.yaml", "evals/initialization/natural-language-scenarios.yaml"],
+    "inputs": {
+      "repository_state": "nearly-empty",
+      "brief": "Initialize a synthetic research-to-presentation workspace for public-sector technology executives.",
+      "approved_archetypes": ["research", "presentation"],
+      "approved_capabilities": ["deep-research", "sales-storytelling", "create-branded-html-artifact"],
+      "output_policy": {"dashboard": false, "presentation": true, "language": "en"},
+      "next_action": "Run deep-research for the supplied decision question."
+    },
+    "constraints": ["Use only synthetic data", "Preserve existing files", "Inspect the pre-existing workspace before initialization and report the inspected paths and observed repository state", "Include inspection evidence with exact workspace paths before describing any created or preserved artifact", "Trace the approved brief to every selected archetype and capability ID, every created artifact, and the single bounded next action using exact workspace paths"],
+    "workspace_policy": {
+      "writable_artifacts": [".agent-commons.yaml", ".gitignore", "README.md"],
+      "generated_prefixes": [".agent-commons/memory"]
+    }
+  },
+  "continue-project": {
+    "prompt": "Resume a synthetic initialized project and identify the next dependency-ready lifecycle action.",
+    "source_artifacts": ["evals/skills/scenarios.yaml", "evals/fixtures/queue.json"],
+    "inputs": {"project_state": "initialized", "requested_reference": "REQ-SYN-001"},
+    "constraints": ["Do not invent completion evidence", "State the supplied lifecycle state exactly once as: Project lifecycle state: initialized.", "The requested reference REQ-SYN-001 is absent from the supplied queue. Do not substitute another item. State exactly one concrete next action: ask the caller to correct REQ-SYN-001 or select one of the existing queue IDs REQ-001, REQ-002, REQ-003, or REQ-004 before continuing"]
+  },
+  "analyze-legacy-system": {
+    "prompt": "Analyze a bounded synthetic legacy application from its supplied inventory and evidence slices.",
+    "source_artifacts": ["evals/fixtures/evaluation/synthetic-legacy-inventory.json", "evals/fixtures/legacy-structure/sample.cbl", "evals/fixtures/legacy-structure/Sample.java", "evals/fixtures/legacy-structure/sample.sql"],
+    "inputs": {"scope": "all files classified as included by evals/fixtures/evaluation/synthetic-legacy-inventory.json", "inventory": "evals/fixtures/evaluation/synthetic-legacy-inventory.json", "known_relations": ["SAMPLE calls STATIC-PROG", "refresh_data moves app.source_table rows into app.target_table"]},
+    "constraints": ["Separate evidence from interpretation", "Report uncovered scope", "Return exactly six evidence-backed observations and no additional findings: inventory coverage with zero unaccounted relevant sources; the COBOL static call; the COBOL dynamic call; the Java Worker construction and service.execute invocation; the SQL source-to-target insert; and one cross-language synthesis", "Do not report an inventory hash mismatch: preserve the exact supplied SHA-256 value and treat matching inventory and artifact-manifest hashes as consistent", "Do not add recommendations, risks, benefits, or process narration"]
+  },
+  "analyze-legacy-reference-prior": {
+    "prompt": "Analyze how a separate reference application may guide target discovery without becoming target evidence.",
+    "source_artifacts": [
+      "evals/fixtures/legacy-reference/target-and-reference.json",
+      "skills/analyze-legacy-system/references/reference-applications.md"
+    ],
+    "inputs": {
+      "reference_and_target_evidence": "evals/fixtures/legacy-reference/target-and-reference.json"
+    },
+    "constraints": [
+      "Keep every reference observation in REFERENCE_PATTERN state",
+      "Use the reference only as a discovery prior and cite target evidence for every target fact",
+      "Return exactly three evidence-backed observations: the corroborated adapter registration, the scheduler non-match, and the queue pattern that remains unresolved",
+      "Record both matches and non-matches",
+      "Do not create a target dependency, requirement, metric, confidence change, or completeness claim from reference-only evidence"
+    ]
+  },
+  "inventory-codebase": {
+    "prompt": "Produce a deterministic inventory for a synthetic mixed-language source tree.",
+    "source_artifacts": ["evals/fixtures/sample-codebase/package.json", "evals/fixtures/sample-codebase/src/example.py"],
+    "inputs": {"root": "evals/fixtures/sample-codebase", "exclusions": ["generated", "vendor"]},
+    "constraints": [
+      "Hash included files",
+      "Report exclusions",
+      "Record how unreadable paths remain visible failures even when this sample has none",
+      "Record the canonicalization and root-containment policy for symlinks even when this sample has none",
+      "State explicitly that path classifications are metadata only and no behavior is inferred from paths",
+      "Ground every result observation in a supplied source or the generated inventory"
+    ],
+    "workspace_policy": {"writable_artifacts": ["inventory.json"], "generated_prefixes": []}
+  },
+  "coordinate-parallel-agents": {
+    "prompt": "Plan parallel analysis of independent synthetic source slices and integrate their handoffs.",
+    "source_artifacts": ["evals/skills/scenarios.yaml", "evals/fixtures/legacy-structure/sample.cbl", "evals/fixtures/legacy-structure/Sample.java", "evals/fixtures/legacy-structure/sample.sql"],
+    "inputs": {
+      "slices": ["billing", "identity", "reporting"],
+      "concurrency_limit": 2,
+      "dependencies": {"reporting": ["billing", "identity"]},
+      "shared_surfaces": ["canonical evidence index", "final integrated report"]
+    },
+    "constraints": ["Assign exclusive ownership", "Keep integration coordinator-owned"]
+  },
+  "maintain-project-memory": {
+    "prompt": "Update synthetic project memory after a validated milestone without promoting unverified claims.",
+    "source_artifacts": ["evals/skills/scenarios.yaml", "evals/fixtures/trace-graph-valid.json", "evals/fixtures/evaluation/synthetic-memory-evidence.json"],
+    "inputs": {"milestone": "VALIDATION_COMPLETE", "memory_evidence": "evals/fixtures/evaluation/synthetic-memory-evidence.json", "evidence": [{"id": "E-SYN-001", "status": "PASS", "source": "evals/fixtures/trace-graph-valid.json"}]},
+    "constraints": ["Preserve provenance", "Keep retrieval compact", "Propagate invalidation from stale evidence to dependent claims", "Exclude secrets and raw conversations", "Use a lock plus temporary-file and atomic-replace semantics for writes", "Use this exact non-factual summary sentence: Project memory update complete; see the three cited observations below.", "Return exactly three evidence-backed observations and no additional factual statements", "Observation 1 must state only that the supplied milestone is VALIDATION_COMPLETE and the L0 synopsis remains a single compact sentence; cite evals/fixtures/evaluation/synthetic-memory-evidence.json#/milestone", "Observation 2 must state only that MEM-SYN-001 retains its E-SYN-001 dependency pointer but becomes stale because sha256:old-source differs from sha256:new-source; cite evals/fixtures/evaluation/synthetic-memory-evidence.json#/records/0/depends_on, evals/fixtures/evaluation/synthetic-memory-evidence.json#/records/0/source_fingerprint, and evals/fixtures/evaluation/synthetic-memory-evidence.json#/current_sources/0/fingerprint", "Observation 3 must state only that credentials, secret values, and raw conversations remain excluded and that writes use an exclusive lock, temporary file, and atomic replacement; cite evals/fixtures/evaluation/synthetic-memory-evidence.json#/exclusions and evals/fixtures/evaluation/synthetic-memory-evidence.json#/write_contract", "Do not add recommendations, benefits, uncited assumptions, or process narration beyond those three observations"],
+    "workspace_policy": {"writable_artifacts": [], "generated_prefixes": [".agent-commons/memory"]}
+  },
+  "derive-modernization-requirements": {
+    "prompt": "Derive modernization requirements from synthetic legacy behavior and interface evidence.",
+    "source_artifacts": ["evals/fixtures/legacy-structure/sample.cbl", "evals/fixtures/legacy-structure/Sample.java", "evals/fixtures/trace-graph-valid.json", "evals/fixtures/evaluation/synthetic-modernization-evidence.json"],
+    "inputs": {"evidence_set": "evals/fixtures/evaluation/synthetic-modernization-evidence.json", "target_boundary": "behavioral parity", "existing_trace_ids": ["REQ-001", "SPEC-001"], "new_requirement_id": "REQ-SYN-HOST-002"},
+    "constraints": ["Create exactly one new requirement using REQ-SYN-HOST-002 for host-call behavioral parity and include observable acceptance criteria for both the COBOL STATIC-PROG call and the Java service.execute call", "Expose gaps and confidence", "Reconcile the duplicate host-call observations and preserve missing-response retry behavior as an explicit unknown outside the acceptance criteria", "Preserve existing requirement and specification IDs from the trace graph; do not present REQ-001 or SPEC-001 as newly derived output", "Preserve approved lifecycle states from the trace graph and do not downgrade an existing approved requirement or specification", "Treat missing-response retry behavior as an explicit unknown rather than a blocker or state change for an existing requirement", "Use this exact non-factual summary sentence: Modernization requirements derived; see the cited observations below.", "Every factual statement must cite the exact supplied source artifact path and a resolving line locator; do not treat the scenario input labels as source locators", "Write each observation value as one single factual statement with its exact path and locator in the same sentence", "Do not invent revision hashes, generated revision identifiers, or metadata absent from the supplied artifacts"]
+  },
+  "specify-openspec-change": {
+    "prompt": "Specify a synthetic behavioral change for approval before implementation.",
+    "source_artifacts": [
+      "evals/skills/scenarios.yaml",
+      "evals/fixtures/projects/development-delivery/input/requirements.md",
+      "evals/fixtures/projects/development-delivery/input/openspec.md"
+    ],
+    "inputs": {
+      "change": "Reject expired access tokens",
+      "approved_requirement": "REQ-AUTH-003",
+      "existing_spec": "evals/fixtures/projects/development-delivery/input/openspec.md"
+    },
+    "constraints": ["Define scope and non-goals", "Use testable scenarios", "Write requirement-to-scenario and scenario-to-task links into the approved change artifact", "The approved requirement and existing specification do not define the equality boundary where expiry equals the current instant. Record that equality behavior as an unresolved product decision and an explicit blocker to approval and implementation of this change; do not place it outside the change, infer an outcome, or mark the change implementation-ready"],
+    "workspace_policy": {"writable_artifacts": ["evals/fixtures/projects/development-delivery/input/openspec.md"], "generated_prefixes": []}
+  },
+  "implement-ready-slice": {
+    "prompt": "Implement one dependency-ready synthetic vertical slice from an approved queue.",
+    "source_artifacts": ["evals/fixtures/evaluation/synthetic-ready-slice.json", "evals/fixtures/projects/development-delivery/input/requirements.md", "evals/fixtures/projects/development-delivery/input/openspec.md", "evals/fixtures/projects/development-delivery/input/session_service.py", "evals/fixtures/projects/development-delivery/input/session_service_acceptance.py"],
+    "inputs": {"queue": "evals/fixtures/evaluation/synthetic-ready-slice.json", "slice": "AUTH-SYN-003", "acceptance_scenario": "expired session returns SESSION_EXPIRED", "focused_test_command": "python3 -m unittest evals/fixtures/projects/development-delivery/input/session_service_acceptance.py", "broader_test_command": "python3 -m unittest discover -s evals/fixtures/projects/development-delivery/input -p '*acceptance.py'"},
+    "constraints": ["Claim one slice", "Record behavior-relevant RED, identical GREEN, refactor, and broader validation evidence"],
+    "workspace_policy": {"writable_artifacts": ["evals/fixtures/evaluation/synthetic-ready-slice.json", "evals/fixtures/projects/development-delivery/input/session_service.py", "evals/fixtures/projects/development-delivery/input/session_service_acceptance.py"], "generated_prefixes": []}
+  },
+  "test-driven-development": {
+    "prompt": "Implement a synthetic behavior change using a strict red-green-refactor loop.",
+    "source_artifacts": ["evals/skills/scenarios.yaml"],
+    "inputs": {"behavior": "normalize empty labels", "test_command": "python3 -m unittest synthetic_test", "broader_test_command": "python3 -m unittest discover", "evidence_log": "tdd-command-results.txt"},
+    "constraints": ["Capture failing evidence before implementation", "Keep the test behavior-focused", "Write the observed RED, GREEN, and broader-gate command, exit code, and decisive output to tdd-command-results.txt, clearly separating setup failures from behavior-relevant assertion failures", "Return exactly three evidence-backed observations: the behavior-relevant RED failure, the identical focused test passing after implementation without weakened assertions, and the successful broader gate without claiming full specification verification"],
+    "workspace_policy": {"writable_artifacts": ["synthetic.py", "synthetic_test.py", "tdd-command-results.txt"], "generated_prefixes": []}
+  },
+  "mutation-testing": {
+    "prompt": "The invoice-totalling change is green and refactored and its suite passes. Assess whether those tests would detect a defect in the reduced-rate threshold, the inclusive maximum discount rate, and the negative-rate rejection, then report the test-quality gate.",
+    "source_artifacts": [
+      "evals/fixtures/mutation-quality/input/tax_calculator.py",
+      "evals/fixtures/mutation-quality/input/tax_calculator_weak_suite.py",
+      "skills/mutation-testing/references/survivor-classification.md",
+      "skills/mutation-testing/references/mutation-report-contract.md"
+    ],
+    "inputs": {
+      "scope": "tax_calculator.py",
+      "scope_profile": "PR",
+      "criticality": "FINANCIAL_OR_CALCULATION",
+      "requirement": "REQ-017",
+      "specification": "SPEC-004",
+      "baseline_test_command": "python3 -m unittest tax_calculator_weak_suite",
+      "mutation_findings": "mutation-findings.json"
+    },
+    "constraints": [
+      "Confirm the baseline suite passes before interpreting any survivor",
+      "Write the normalized run, every survivor classification with its reason, and the derived gate status to mutation-findings.json using the contract in skills/mutation-testing/references/mutation-report-contract.md",
+      "Classify each survivor explicitly; do not default to TEST_GAP",
+      "For each meaningful survivor, name the missing behavior and the linked acceptance criterion rather than reporting a score",
+      "Do not modify tax_calculator.py, and do not propose implementation-coupled assertions",
+      "Return exactly three evidence-backed observations: that the suite is green yet meaningful mutants survive, the classification and linked criterion for each meaningful survivor, and the derived gate status with its reason"
+    ],
+    "workspace_policy": {
+      "writable_artifacts": [
+        "mutation-findings.json",
+        "tax_calculator_hardened_suite.py"
+      ],
+      "generated_prefixes": []
+    }
+  },
+  "design-test-strategy": {
+    "prompt": "Design a bounded test strategy for synthetic legacy-derived obligations with mixed oracle authority and readiness.",
+    "source_artifacts": [
+      "evals/fixtures/legacy-test-strategy/oracle-evidence.json",
+      "skills/design-test-strategy/references/legacy-oracle-readiness.md"
+    ],
+    "inputs": {
+      "legacy_obligations": "evals/fixtures/legacy-test-strategy/oracle-evidence.json"
+    },
+    "constraints": [
+      "Return exactly four risk-to-test rows keyed by the supplied obligation IDs",
+      "Permit expected-outcome execution only for OBL-APPROVED",
+      "Keep OBL-CONFLICT as characterization evidence and preserve approved target intent as authoritative",
+      "Keep OBL-GENERIC scenario-only because its generated outcome is not an observable oracle",
+      "Keep OBL-DEFECT review-required until an accountable defect disposition exists",
+      "Select the lowest credible test layer but do not confuse layer choice with readiness",
+      "Report artifact generation and execution status separately and do not claim compilation, execution, or passing results"
+    ]
+  },
+  "build-living-dashboard": {
+    "prompt": "Regenerate a synthetic read-only dashboard from canonical project state.",
+    "source_artifacts": [
+      "skills/build-living-dashboard/assets/dashboard-data.example.json",
+      "evals/fixtures/dashboard/visual-reference-states.json",
+      "skills/build-living-dashboard/scripts/capture_dashboard_visual_qa.mjs",
+      "skills/continue-project/scripts/resolve_project_continuation.py",
+      "skills/localize-client-artifact/assets/bilingual-runtime.js"
+    ],
+    "inputs": {
+      "canonical_state": "skills/build-living-dashboard/assets/dashboard-data.example.json",
+      "visual_states": "skills/build-living-dashboard/assets/dashboard-visual-contract.json",
+      "build_command": "python3 skills/build-living-dashboard/scripts/build_dashboard.py --data skills/build-living-dashboard/assets/dashboard-data.example.json --dashboard-mode full-legacy-modernization --output dashboard/index.html",
+      "browser_command": "node skills/build-living-dashboard/scripts/capture_dashboard_visual_qa.mjs --html dashboard/index.html --contract skills/build-living-dashboard/assets/dashboard-visual-contract.json --output dashboard/visual-qa.json --screenshot-dir dashboard/screenshots"
+    },
+    "constraints": ["Detect drift", "Do not invent status", "Run the supplied deterministic build, drift, structure, semantic, and static visual commands", "Create the complete browser input artifact; the trusted evaluation runner executes browser_command after the sandboxed work and appends its authoritative report"],
+    "workspace_policy": {"writable_artifacts": [], "generated_prefixes": ["dashboard"]}
+  },
+  "create-branded-html-artifact": {
+    "prompt": "Create a synthetic branded HTML executive artifact from approved evidence.",
+    "source_artifacts": ["evals/fixtures/branding/resolved-public-sector-profile.json", "evals/fixtures/branding/mock-brand-site/index.html", "evals/fixtures/branding/branded-evaluation-template.html", "evals/fixtures/branding/render_and_capture_brand_qa.mjs", "skills/create-branded-html-artifact/scripts/render_branded_html.py", "skills/build-living-dashboard/scripts/brand_profile.py", "skills/validate-visual-artifact/scripts/validate_html.py", "skills/validate-visual-artifact/scripts/capture_brand_qa.mjs"],
+    "inputs": {"brand": "evals/fixtures/branding/resolved-public-sector-profile.json", "content": [{"claim": "The sample service has two traced interfaces", "evidence": "E-SYN-002"}], "output": "artifact/index.html", "browser_command": "node evals/fixtures/branding/render_and_capture_brand_qa.mjs --template evals/fixtures/branding/branded-evaluation-template.html --brand-profile evals/fixtures/branding/resolved-public-sector-profile.json --html artifact/index.html --output artifact/brand-qa.json --artifact-kind presentation"},
+    "constraints": ["Keep claims evidence-linked", "Do not create artifact/index.html inside the sandbox; the trusted evaluation runner executes browser_command to render the supplied branded evaluation template, run static validation, capture browser QA, and append authoritative evidence", "Use The sample service has two traced interfaces as the only factual service claim and render its exact evidence ID E-SYN-002 in the same visible claim block", "Do not add uncited factual claims, outcomes, recommendations, provenance statements, or brand assertions to the artifact or final response", "Deliver offline", "Use this exact non-factual summary sentence: Branded artifact creation prepared; the trusted runner will append validation evidence.", "Return exactly two generated_result.observations before trusted validation and no other factual statements. Do not add a third observation", "Observation 1 must state only that the supplied deterministic template contains The sample service has two traced interfaces with E-SYN-002 in the same visible claim block; cite evals/fixtures/branding/branded-evaluation-template.html", "Observation 2 must state only that the resolved profile supplies embedded safe inline SVG favicon and logo assets captured from the ordinary brand site; cite evals/fixtures/branding/resolved-public-sector-profile.json#/source/resolved_url, evals/fixtures/branding/resolved-public-sector-profile.json#/assets/favicon, evals/fixtures/branding/resolved-public-sector-profile.json#/assets/logo, and evals/fixtures/branding/resolved-public-sector-profile.json#/evidence", "Do not predict or claim responsive, accessible, static, brand, or browser validation success before the trusted runner appends artifact/brand-qa.json"],
+    "workspace_policy": {"writable_artifacts": [], "generated_prefixes": ["artifact"]}
+  },
+  "estimate-adm-modernization": {
+    "prompt": "Estimate a synthetic modernization scope using non-overlapping outcome-based work units.",
+    "source_artifacts": ["evals/fixtures/adm-estimation/valid-package.json"],
+    "inputs": {"estimate_package": "evals/fixtures/adm-estimation/valid-package.json", "output": "outputs/adm-estimate-summary.json"},
+    "constraints": ["Use three-point estimates", "Expose assumptions", "Treat empty assumption arrays as explicit evidence gaps: identify the missing scenario-level and unit-level assumptions needed for a publishable estimate instead of treating confidence labels as assumptions", "Use the supplied assumptions and unknowns as the evidence boundary: do not invent generic missing assumptions, missing artifacts, or additional coverage gaps when the fixture already provides a concrete assumption or unresolved question", "Keep the deliverable concise and limited to work-unit boundaries, supplied three-point values and rounded rollups, supplied assumptions and confidence, the explicit unresolved evidence gap, and review status; do not add a generalized audit checklist", "Each observation with one evidence_id must contain only claims directly supported by that one source; split cross-source calculations or conclusions into separate observations", "Round published work-unit and rollup person-day values to whole days and do not imply unsupported decimal precision", "Write the generated summary only to outputs/adm-estimate-summary.json"],
+    "workspace_policy": {"writable_artifacts": ["outputs/adm-estimate-summary.json"], "generated_prefixes": []}
+  },
+  "deep-research": {
+    "prompt": "Research a synthetic technology decision using revision-aware authoritative sources. Produce a summary, observations, alternatives, risks, and recommendation, with inline source-ID citations in every section.",
+    "source_artifacts": ["evals/skills/scenarios.yaml", "evals/fixtures/evaluation/synthetic-research-sources.json"],
+    "inputs": {"question": "Select a durable event transport", "decision_date": "2030-01-15", "source_snapshot": "evals/fixtures/evaluation/synthetic-research-sources.json"},
+    "constraints": ["State the complete research question and a compact evidence plan explicitly before the findings", "Use this exact non-factual summary sentence: Research synthesis complete; see the classified and cited observations below.", "Distinguish source facts from inference", "Treat the top-level conflict field as supplied synthesis, not as a source fact. Any statement that Queue A is the only option evidenced to meet the constraints must be labeled synthesis or inference, never source fact, in every section including alternatives and recommendation", "Use source fact only for the three atomic facts in the sources array, and make every observation label identify both its requested section and its classification as source fact, synthesis, inference, or uncertainty", "Report uncertainty", "Cite supplied source IDs inline for every factual claim, including every factual sentence in the summary and recommendation", "Do not invent or rename source IDs; use SRC-TRANSPORT-001, SRC-OPERATIONS-002, and SRC-RISK-003 exactly", "State only the source revisions supplied in the snapshot; do not invent a retrieval date"]
+  },
+  "sales-storytelling": {
+    "prompt": "Turn synthetic evidence into an audience-specific sales narrative.",
+    "source_artifacts": [
+      "evals/skills/scenarios.yaml",
+      "evals/fixtures/branding/resolved-public-sector-profile.json",
+      "evals/fixtures/evaluation/sales-evidence.json"
+    ],
+    "inputs": {
+      "audience": "public-sector technology executives",
+      "evidence": "evals/fixtures/evaluation/sales-evidence.json",
+      "renderer_handoff": "create-branded-html-artifact"
+    },
+    "constraints": ["Do not fabricate proof", "Use this exact non-factual summary sentence: Sales narrative complete; see the three cited claims below.", "Return exactly three evidence-backed narrative claims and no additional claims: the narrative is for public-sector technology executives citing evals/fixtures/evaluation/sales-evidence.json:11; all twelve synthetic requirements are fully traced citing evals/fixtures/evaluation/sales-evidence.json:3-9; the evidence-supported call to action is to approve a bounded discovery and validation pilot with a create-branded-html-artifact handoff citing evals/fixtures/evaluation/sales-evidence.json:12-16", "Treat the twelve fully traced synthetic requirements as the only proven outcome; do not claim that traceability reduces audit uncertainty, delivery risk, cost, effort, or time", "Do not include projected benefits, causal effects, recommendations beyond the supplied call to action, or uncited factual commentary", "Cite every factual claim with the exact evidence path and line locator from evals/fixtures/evaluation/sales-evidence.json", "The third observation must end with this exact evidence-supported call to action: Approve a bounded discovery and validation pilot. Do not add a separate closing line after the three observations"]
+  },
+  "validate-visual-artifact": {
+    "prompt": "Independently validate a completed synthetic HTML artifact in a real browser.",
+    "source_artifacts": ["evals/fixtures/localization/bilingual-dashboard.html", "evals/fixtures/localization/visual-states.json", "skills/validate-visual-artifact/scripts/validate_html.py", "skills/validate-visual-artifact/scripts/capture_visual_matrix.mjs", "skills/localize-client-artifact/assets/bilingual-runtime.js"],
+    "inputs": {
+      "artifact": "evals/fixtures/localization/bilingual-dashboard.html",
+      "states": "evals/fixtures/localization/visual-states.json",
+      "static_validation_command": "python3 skills/validate-visual-artifact/scripts/validate_html.py evals/fixtures/localization/bilingual-dashboard.html --json",
+      "browser_command": "node skills/validate-visual-artifact/scripts/capture_visual_matrix.mjs --html evals/fixtures/localization/bilingual-dashboard.html --states evals/fixtures/localization/visual-states.json --output visual-qa/report.json --screenshot-dir visual-qa/screenshots",
+      "viewports": ["desktop", "mobile"]
+    },
+    "constraints": ["Report exactly three evidence-backed observations and no additional findings: static and browser checks are separated; responsive states are inspected; findings cite observable evidence", "Use the exact non-factual summary sentence: Visual validation complete; see the three cited observations.", "Limit the final response to that exact summary and the exactly three observations, with no other sections or commentary", "Do not include recommendations, next steps, limitations, assumptions, questions, redesign commentary, or unobserved accessibility, business, visual-quality, or cross-browser claims", "Do not redesign the artifact", "Run the supplied static validator", "The trusted evaluation runner executes browser_command after the sandboxed work and appends its authoritative report"],
+    "workspace_policy": {"writable_artifacts": [], "generated_prefixes": ["visual-qa"]}
+  },
+  "verify-openspec-implementation": {
+    "prompt": "Verify a synthetic implementation against its approved OpenSpec change.",
+    "source_artifacts": ["evals/fixtures/projects/development-delivery/input/requirements.md", "evals/fixtures/projects/development-delivery/input/openspec.md", "evals/fixtures/projects/development-delivery/input/session_service.py", "evals/fixtures/projects/development-delivery/input/session_service_acceptance.py"],
+    "inputs": {"change": "SPEC-AUTH-003", "implementation": "evals/fixtures/projects/development-delivery/input/session_service.py", "test_command": "python3 -m unittest evals/fixtures/projects/development-delivery/input/session_service_acceptance.py", "verification_outputs": ["verification-command-result.txt", "verification-findings.txt"]},
+    "constraints": ["Check every requirement, scenario, task, design decision, implementation path, and test result", "Run the supplied test command", "Write command evidence and findings only to the two declared verification_outputs paths", "Do not rewrite the spec to match code", "Support every verification conclusion with the exact source artifact path and a resolving line locator", "Every summary sentence and every observation value must contain the exact supporting source path and resolving line locator in that same sentence", "Return exactly six observations covering: reconciliation of requirement, scenarios, tasks, code, and tests; the explicit implementation mismatch; the FAIL and NOT_READY decision; unchanged specification; no implementation performed during review; and why passing evidence for one path would not prove all acceptance criteria", "Distinguish observed test execution from source inspection and report the command result separately", "Limit source-backed conclusions to the supplied requirement, scenarios, implementation, and acceptance assertions; report synthesis only when its contributing source locators appear in the same sentence", "Do not invent revision identifiers, environment facts, quality scores, readiness claims, or uncited conclusions"],
+    "workspace_policy": {"writable_artifacts": ["verification-command-result.txt", "verification-findings.txt"], "generated_prefixes": []}
+  },
+  "update-commons-presentation": {
+    "prompt": "Refresh a synthetic canonical-library presentation after meaningful catalog changes.",
+    "source_artifacts": ["catalog/capabilities.yaml", "presentation/index.html", "presentation/assets/library-data.js", "presentation/visual-contract.json", "tools/refresh_commons_presentation.py", "tools/sync_presentation.py", "tools/check_presentation_visual_contract.py", "evals/tools/test_presentation_visual_contract.py"],
+    "workspace_dependencies": ["VERSION", "install", "adapters", "agents", "archetypes", "skills", "templates", "tools", "evals/skills/scenarios.yaml", "evals/agents/scenarios.yaml", "evals/archetypes", "evals/evaluation", "evals/external", "evals/initialization", "evals/installation", "evals/tools", "external/sources.yaml", "external/index/capabilities.json"],
+    "inputs": {"catalog_delta": {"changed_ids": ["inventory-codebase"]}, "presentation": "presentation/index.html", "refresh_command": "python3 tools/refresh_commons_presentation.py", "sync_check_command": "python3 tools/sync_presentation.py --check", "visual_contract_command": "python3 tools/check_presentation_visual_contract.py"},
+    "constraints": ["Refresh generated facts first", "Preserve the immutable visual contract", "Run the supplied refresh, sync, and visual-contract commands"],
+    "workspace_policy": {"writable_artifacts": ["presentation/assets/library-data.js", "presentation/agent-commons.html"], "generated_prefixes": []}
+  },
+  "review-for-commons": {
+    "prompt": "Review a synthetic project for proven reusable agent-engineering capabilities.",
+    "source_artifacts": ["evals/fixtures/evaluation/synthetic-project-review.json", "catalog/capabilities.yaml"],
+    "inputs": {"project": "evals/fixtures/evaluation/synthetic-project-review.json", "commons_catalog": "catalog/capabilities.yaml"},
+    "constraints": ["Sanitize project specifics", "For every candidate state the evidence, classification and comparison result, privacy and license assessment, recommendation, and handoff validation", "Identify duplicates and project-local candidates explicitly", "Propose rather than promote"],
+    "workspace_policy": {"writable_artifacts": ["docs/commons-review.md", "docs/commons-review.json"], "generated_prefixes": []}
+  },
+  "promote-to-commons": {
+    "prompt": "Promote one explicitly selected synthetic capability proposal into canonical commons.",
+    "source_artifacts": ["evals/fixtures/evaluation/synthetic-capability-proposal.json", "catalog/capabilities.yaml", "adapters/codex/adapter.yaml", "evals/skills/scenarios.yaml"],
+    "workspace_dependencies": ["VERSION", "install", "adapters", "agents", "archetypes", "skills", "templates", "tools", "evals/agents/scenarios.yaml", "evals/archetypes", "evals/evaluation", "evals/external", "evals/initialization", "evals/installation", "evals/tools", "external/sources.yaml", "external/index/capabilities.json", "presentation/index.html", "presentation/assets/library-data.js", "presentation/visual-contract.json"],
+    "inputs": {"proposal": "evals/fixtures/evaluation/synthetic-capability-proposal.json", "selected_candidate_id": "CAND-SYN-001", "target": "canonical-library", "refresh_command": "python3 tools/refresh_commons_presentation.py", "sync_check_command": "python3 tools/sync_presentation.py --check", "visual_contract_command": "python3 tools/check_presentation_visual_contract.py"},
+    "constraints": ["Revalidate provenance, license, confidentiality, and semantic overlap", "Update positive, negative, ambiguous, and failure evaluations", "Synchronize runtime adapters and write a promotion report", "Run the supplied presentation refresh, sync check, and visual-contract check after canonical changes", "Use this exact non-factual summary sentence: Promotion complete; see the evidence-linked observations below.", "Every generated_result observation must cite an exact source-artifact JSON pointer, generated artifact path, or observed validation result that directly supports the full observation; do not add uncited process narration, benefits, or success claims", "Modify only the listed writable artifacts and generated prefixes; explicitly report every changed path and confirm from the observed workspace diff that no path outside the writable artifacts or generated prefixes changed. Do not report workspace dependencies as changed unless they are also explicitly writable"],
+    "workspace_policy": {"writable_artifacts": ["catalog/capabilities.yaml", "evals/skills/scenarios.yaml", "adapters/codex/adapter.yaml", "presentation/assets/library-data.js", "presentation/agent-commons.html"], "generated_prefixes": ["skills/synthetic-release-verification", "reports/promotions"]}
+  },
+  "architecture-reviewer": {
+    "prompt": "Independently review a synthetic architecture change for boundary and ownership risks.",
+    "source_artifacts": [
+      "evals/agents/scenarios.yaml",
+      "evals/fixtures/evaluation/synthetic-architecture.md",
+      "evals/fixtures/evaluation/synthetic-architecture-evidence.json"
+    ],
+    "inputs": {
+      "design": "evals/fixtures/evaluation/synthetic-architecture.md",
+      "evidence": "evals/fixtures/evaluation/synthetic-architecture-evidence.json"
+    },
+    "constraints": ["Remain read-only", "Prioritize actionable findings", "Report evidence facts, reviewer decisions, assumptions, conflicts, and unknowns as distinct labeled fields within each finding", "Report only the evidenced risks as exactly six severity-ranked findings in this exact order: CRITICAL shared-schema ownership cited to evals/fixtures/evaluation/synthetic-architecture.md:12 and evals/fixtures/evaluation/synthetic-architecture-evidence.json:/owners/OrdersDb.order_status; CRITICAL synchronous request cycle cited to evals/fixtures/evaluation/synthetic-architecture.md:13; CRITICAL retry idempotency cited to evals/fixtures/evaluation/synthetic-architecture.md:18-19 and evals/fixtures/evaluation/synthetic-architecture-evidence.json:/constraints/1; HIGH timeout reconciliation cited to evals/fixtures/evaluation/synthetic-architecture.md:17-18 and evals/fixtures/evaluation/synthetic-architecture-evidence.json:/validation/timeout_recovery_test; HIGH reversible migration cited to evals/fixtures/evaluation/synthetic-architecture.md:19 and evals/fixtures/evaluation/synthetic-architecture-evidence.json:/constraints/2; MEDIUM unvalidated 800 millisecond constraint cited to evals/fixtures/evaluation/synthetic-architecture-evidence.json:/constraints/0 and /validation/load_test", "Do not add unranked risks or merge two supplied risks into one finding", "Do not propose a replacement architecture, implementation plan, release approval, or generic best-practice findings", "Support every finding with the exact source path and line locator, and keep questions limited to a named decision owner", "Every factual sentence in the summary, findings, assumptions, conflicts, unknowns, questions, and limitations must cite one exact supplied source path and resolving line locator"]
+  },
+  "legacy-discovery-specialist": {
+    "prompt": "Analyze one bounded synthetic legacy slice and return a structured evidence handoff.",
+    "source_artifacts": ["evals/agents/scenarios.yaml", "evals/fixtures/legacy-structure/sample.cbl"],
+    "inputs": {"slice": ["evals/fixtures/legacy-structure/sample.cbl"], "ownership": "worker-result.json only"},
+    "constraints": ["Do not define overall completion", "Stay within assigned ownership"],
+    "workspace_policy": {"writable_artifacts": ["worker-result.json"], "generated_prefixes": []}
+  },
+  "privacy-security-reviewer": {
+    "prompt": "Independently review a synthetic system change for privacy and security risks.",
+    "source_artifacts": [
+      "evals/agents/scenarios.yaml",
+      "evals/fixtures/anonymization/rules.json",
+      "evals/fixtures/evaluation/synthetic-data-flow.json"
+    ],
+    "inputs": {
+      "change": "synthetic-data-export",
+      "data_flow": "evals/fixtures/evaluation/synthetic-data-flow.json"
+    },
+    "constraints": ["Remain read-only", "Use the exact non-factual summary sentence: Privacy and security review complete; see the three cited findings below.", "Return exactly three severity-ranked findings and no additional findings", "Finding 1 must state only that TB-2 crosses from CaseApi to AnalyticsVendor with API key only while F-3 sends case_id, postal_code, and health_status to AnalyticsVendor; cite evals/fixtures/evaluation/synthetic-data-flow.json#/trust_boundaries/1 and evals/fixtures/evaluation/synthetic-data-flow.json#/flows/2", "Finding 2 must state only that F-2 sends full_request_body to AuditLogger and that the AuditLogger store retains it for 90 days with access for all support engineers; cite evals/fixtures/evaluation/synthetic-data-flow.json#/flows/1 and evals/fixtures/evaluation/synthetic-data-flow.json#/stores/1", "Finding 3 must propose only this negative validation: verify the export is blocked while the analytics deletion SLA and export consent basis remain unknown; cite evals/fixtures/evaluation/synthetic-data-flow.json#/unknowns/0 and evals/fixtures/evaluation/synthetic-data-flow.json#/unknowns/1, and do not present either unknown as a confirmed absent control", "Support every finding with the exact source artifact path and JSON pointer", "Do not add recommendations, benefits, uncited assumptions, or extra risk statements", "Do not claim certification, do not repeat secret values, and write only isolated findings"]
+  },
+  "test-behavior-reviewer": {
+    "prompt": "Independently review a synthetic completed change for test and behavior evidence gaps.",
+    "source_artifacts": [
+      "evals/agents/scenarios.yaml",
+      "evals/fixtures/trace-graph-valid.json",
+      "evals/fixtures/evaluation/synthetic-test-evidence.json"
+    ],
+    "inputs": {
+      "change": "synthetic-token-validation-fix",
+      "test_evidence": "evals/fixtures/evaluation/synthetic-test-evidence.json"
+    },
+    "constraints": ["Remain read-only", "Challenge false confidence", "Use this exact non-factual summary sentence: Test behavior review complete; see the three cited observations below.", "Return exactly three evidence-backed observations: one assessing whether the recorded RED demonstrates the intended behavior, one assessing test-layer choice and the listed boundary gaps, and one distinguishing the passing test evidence from acceptance of both declared scenarios", "Do not add recommendations, next steps, benefits, risks, assumptions, limitations, or process narration beyond those three observations"]
+  },
+  "manage-project-delivery": {
+    "prompt": "Produce an evidence-based delivery status from a synthetic multi-workstream project register.",
+    "source_artifacts": ["evals/fixtures/project-controls/delivery-valid.json", "skills/manage-project-delivery/SKILL.md"],
+    "inputs": {"delivery_register": "evals/fixtures/project-controls/delivery-valid.json", "reporting_period": "2026-08"},
+    "constraints": ["Separate evidence assumptions conflicts and unknowns", "Derive health from dependencies blockers overdue work and risk", "Do not implement tasks or mutate an external tracker", "Keep organization-specific terminology project-local"]
+  },
+  "forecast-project-financials": {
+    "prompt": "Build and explain a synthetic project financial forecast with base downside and upside scenarios.",
+    "source_artifacts": ["evals/fixtures/project-controls/financial-valid.json", "skills/forecast-project-financials/SKILL.md"],
+    "inputs": {"forecast_model": "evals/fixtures/project-controls/financial-valid.json", "reporting_period": "2026-02"},
+    "constraints": ["Separate baseline actual and remaining forecast", "Reconcile EAC variance margin and earned-value metrics", "Expose assumptions and unavailable metrics", "Request independent review for consequential use", "Do not claim statutory accounting tax investment advice or commercial approval"]
+  },
+  "financial-forecast-reviewer": {
+    "prompt": "Independently review a synthetic project financial forecast and report findings only.",
+    "source_artifacts": ["evals/fixtures/project-controls/financial-valid.json", "agents/financial-forecast-reviewer.yaml"],
+    "inputs": {"forecast_model": "evals/fixtures/project-controls/financial-valid.json", "materiality": "synthetic consequential forecast"},
+    "constraints": ["Reperform material calculations", "Check source period unit scenario and reconciliation integrity", "Do not edit inputs or grant commercial approval", "Return one bounded verdict"]
+  },
+  "commons-governance": {
+    "prompt": "Execute a synthetic commons-governance workflow from proposal review through validated promotion and presentation synchronization.",
+    "source_artifacts": ["evals/fixtures/evaluation/synthetic-project-review.json", "evals/fixtures/evaluation/synthetic-capability-proposal.json", "catalog/capabilities.yaml", "adapters/codex/adapter.yaml", "evals/skills/scenarios.yaml", "presentation/visual-contract.json", "tools/refresh_commons_presentation.py", "tools/check_presentation_visual_contract.py", "evals/tools/test_capability_index.py", "evals/installation/test_installer.py", "evals/tools/test_presentation_sync.py"],
+    "workspace_dependencies": ["VERSION", "install", "adapters", "agents", "archetypes", "skills", "templates", "tools", "evals/agents/scenarios.yaml", "evals/archetypes", "evals/evaluation", "evals/external", "evals/initialization", "evals/installation", "evals/tools", "external/sources.yaml", "external/index/capabilities.json", "presentation/index.html", "presentation/assets/library-data.js"],
+    "inputs": {"project_review": "evals/fixtures/evaluation/synthetic-project-review.json", "proposal": "evals/fixtures/evaluation/synthetic-capability-proposal.json", "selected_candidate_id": "CAND-SYN-001", "library": "synthetic-commons", "validation_command": "python3 tools/validate_commons.py", "presentation_refresh_command": "python3 tools/refresh_commons_presentation.py", "visual_contract_command": "python3 tools/check_presentation_visual_contract.py"},
+    "constraints": ["Keep canonical content runtime-neutral", "Require explicit selection", "Synchronize the Codex adapter", "Write project review and promotion reports", "Refresh presentation facts and prove the immutable visual contract", "Run the supplied validation commands", "When updating evals/skills/scenarios.yaml, add synthetic-release-verification as a sibling of the existing skill entries, preserve every promote-to-commons scenario under promote-to-commons, and use unique mapping keys with exactly one expected key per scenario. Repair any duplicate key or indentation drift before reporting success", "Return only a numbered six-step workflow using these exact labels in this exact order: review-for-commons, promote-to-commons, evals, catalog, installer, presentation-refresh", "After the six steps, explicitly confirm all four invariants in an Invariants section with exactly these statements and no omissions: promotion is explicitly selected; catalog and adapters stay synchronized; golden expectations are not silently weakened; presentation visual contract remains unchanged"],
+    "workspace_policy": {
+      "writable_artifacts": [
+        "catalog/capabilities.yaml",
+        "adapters/codex/adapter.yaml",
+        "evals/installation/test_installer.py",
+        "evals/skills/scenarios.yaml",
+        "evals/tools/test_capability_index.py",
+        "evals/tools/test_presentation_sync.py",
+        "presentation/agent-commons.html"
+      ],
+      "generated_prefixes": ["skills/synthetic-release-verification", "reports/reviews", "reports/promotions", "presentation/assets"]
+    }
+  }
+}

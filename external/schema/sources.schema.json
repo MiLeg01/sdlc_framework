@@ -1,0 +1,53 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://agent-commons.local/schema/external-sources-v1.json",
+  "title": "Agent Commons external source registry",
+  "type": "object",
+  "required": ["schema_version", "discovery", "github", "sources"],
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {"const": 1},
+    "discovery": {
+      "type": "object",
+      "required": ["official_sources", "curated_sources", "github_search", "general_web_search"],
+      "additionalProperties": false,
+      "properties": {
+        "official_sources": {"type": "boolean"},
+        "curated_sources": {"type": "boolean"},
+        "github_search": {"type": "boolean"},
+        "general_web_search": {"type": "boolean"}
+      }
+    },
+    "github": {
+      "type": "object",
+      "required": ["minimum_remaining", "repository_cache_ttl_seconds", "stop_after_candidates"],
+      "additionalProperties": false,
+      "properties": {
+        "minimum_remaining": {"type": "integer", "minimum": 0},
+        "repository_cache_ttl_seconds": {"type": "integer", "minimum": 0},
+        "stop_after_candidates": {"type": "integer", "minimum": 1, "maximum": 20}
+      }
+    },
+    "sources": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "tier", "type", "location", "trust", "enabled", "description", "capability_categories", "last_reviewed", "notes"],
+        "additionalProperties": false,
+        "properties": {
+          "id": {"type": "string", "pattern": "^[a-z0-9][a-z0-9-]*$"},
+          "tier": {"type": "integer", "minimum": 1, "maximum": 4},
+          "type": {"enum": ["github-repository", "github-organization", "github-search", "registry", "website", "web-discovery"]},
+          "location": {"type": "string", "minLength": 1},
+          "repository": {"type": "string", "pattern": "^[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+$"},
+          "trust": {"enum": ["OFFICIAL", "CURATED", "COMMUNITY", "UNTRUSTED"]},
+          "enabled": {"type": "boolean"},
+          "description": {"type": "string", "minLength": 20},
+          "capability_categories": {"type": "array", "items": {"type": "string"}, "minItems": 1, "uniqueItems": true},
+          "last_reviewed": {"type": "string", "format": "date"},
+          "notes": {"type": "string"}
+        }
+      }
+    }
+  }
+}

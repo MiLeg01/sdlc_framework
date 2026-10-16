@@ -1,0 +1,36 @@
+{
+  "schema_version": 1,
+  "mutation_run": {
+    "scope_profile": "PR",
+    "scope": "example/payment/tax_calculator.py",
+    "changed_scope_only": true,
+    "criticality": "FINANCIAL_OR_CALCULATION",
+    "technology": "python",
+    "tool": "mutmut",
+    "tool_version": "2.4.4",
+    "commit": "b17c3de",
+    "baseline_tests": "PASS",
+    "baseline_test_command": "python3 -m unittest discover -s tests",
+    "tool_execution": "VALID"
+  },
+  "metrics": {"total_mutants": 24, "killed": 23, "survived": 1},
+  "performance": {"runtime_seconds": 41.6, "affected_tests": 7, "timeouts": 0, "excluded": []},
+  "survivors": [
+    {
+      "id": "MUT-005",
+      "component": "example.payment.tax_calculator.apply_discount",
+      "location": "example/payment/tax_calculator.py:29",
+      "operator": "CONDITION_REORDER",
+      "mutation": "the two pure disjuncts of the discount guard are swapped",
+      "classification": "EQUIVALENT_MUTANT",
+      "criticality": "FINANCIAL_OR_CALCULATION",
+      "requirement": "REQ-017",
+      "specification": "SPEC-004",
+      "acceptance_criterion": "AC-004-1",
+      "affected_tests": ["HardenedTaxCalculatorTests.test_maximum_discount_rate_is_inclusive"],
+      "evidence": ["mutation-report/MUT-005.json"],
+      "accepted_reason": "both disjuncts are side-effect free and total, so the rejection set is identical for every admissible input; evaluation order is not observable",
+      "recommended_action": "accept; killing this mutant would require asserting evaluation order, which no acceptance criterion requires"
+    }
+  ]
+}

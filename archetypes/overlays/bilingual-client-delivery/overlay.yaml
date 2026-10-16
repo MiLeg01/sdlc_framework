@@ -1,0 +1,39 @@
+{
+  "schema_version": 1,
+  "id": "bilingual-client-delivery",
+  "kind": "overlay",
+  "title": "Bilingual client delivery",
+  "purpose": "Keep internal HTML work lightweight and English-first while delivering one offline German/English client artifact with a persistent accessible language switch and bilingual QA. Public-sector dashboards select this automatically; public-sector sales presentations select it only by explicit bilingual override.",
+  "compatible_archetypes": ["development", "legacy-migration", "presentation", "research"],
+  "initialization": {
+    "ask_if_unresolved": [
+      "working language, client-facing language, whether both languages must remain available, and client default",
+      "client glossary or established terminology, offline constraint, and language-selection persistence"
+    ]
+  },
+  "configuration": {
+    "working_language": "en",
+    "languages": ["resolved-German-locale", "en"],
+    "client_default": "resolved-German-locale",
+    "offline": true,
+    "persistence": "localStorage-with-safe-fallback"
+  },
+  "capabilities": {
+    "required": {"skills": [], "agents": [], "tools": [], "templates": []},
+    "default": {
+      "skills": ["localize-client-artifact", "validate-visual-artifact"],
+      "agents": [],
+      "tools": ["validate-client-localization", "validate-html"],
+      "templates": ["bilingual-artifact-runtime", "localization-manifest-example"]
+    },
+    "recommended": {"skills": [], "agents": [], "tools": [], "templates": []},
+    "optional": {"skills": [], "agents": [], "tools": [], "templates": []}
+  },
+  "conditions": [],
+  "outputs": [
+    "one bilingual standalone HTML artifact",
+    "English and locale-appropriate German localization data with freshness hashes",
+    "accessible persistent language control",
+    "semantic and bilingual visual-validation evidence"
+  ]
+}

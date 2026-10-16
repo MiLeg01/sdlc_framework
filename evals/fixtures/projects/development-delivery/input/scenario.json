@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "prompt": "Implement the approved expired-session behavior in the supplied small service using OpenSpec and strict TDD evidence.",
+  "source_artifacts": [
+    "evals/fixtures/projects/development-delivery/input/requirements.md",
+    "evals/fixtures/projects/development-delivery/input/openspec.md",
+    "evals/fixtures/projects/development-delivery/input/session_service.py",
+    "evals/fixtures/projects/development-delivery/input/session_service_acceptance.py"
+  ],
+  "inputs": {"requirement_id": "REQ-AUTH-003", "specification_id": "SPEC-AUTH-003"},
+  "workspace_policy": {
+    "writable_artifacts": [
+      "evals/fixtures/projects/development-delivery/input/session_service.py",
+      "evals/fixtures/projects/development-delivery/input/session_service_acceptance.py"
+    ],
+    "generated_prefixes": [
+      "evals/fixtures/projects/development-delivery/input/build",
+      "evals/fixtures/projects/development-delivery/input/target",
+      ".gradle"
+    ]
+  },
+  "constraints": ["Capture behavior-relevant RED before implementation", "Run the identical test for GREEN", "Retain refactor and broader validation evidence"]
+}

@@ -1,0 +1,42 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/agent-commons/eval-result.schema.json",
+  "title": "Agent Commons evaluation result",
+  "type": "object",
+  "required": ["capability", "subject_kind", "scenario", "level", "run", "deterministic", "status", "severity", "score", "threshold", "duration_seconds", "tokens", "reason", "failure_reason", "metrics", "performance_metrics"],
+  "properties": {
+    "capability": {"type": "string"},
+    "subject_kind": {"type": "string"},
+    "scenario": {"type": "string"},
+    "level": {"type": "integer", "minimum": 1, "maximum": 4},
+    "run": {"type": "integer", "minimum": 1},
+    "deterministic": {"type": "boolean"},
+    "status": {"enum": ["PASS", "WARNING", "REGRESSION_FAIL", "HARD_FAIL"]},
+    "severity": {"enum": ["PASS", "WARNING", "REGRESSION_FAIL", "HARD_FAIL"]},
+    "score": {"type": ["number", "null"]},
+    "threshold": {},
+    "duration_seconds": {"type": "number", "minimum": 0},
+    "tokens": {"type": ["integer", "null"], "minimum": 0},
+    "reason": {"type": ["string", "null"]},
+    "failure_reason": {"type": ["string", "null"]},
+    "metrics": {"type": "object"},
+    "performance_metrics": {"type": "object"},
+    "failure_type": {
+      "type": ["string", "null"],
+      "enum": [null, "QUALITY_REGRESSION", "DETERMINISTIC_FAILURE", "INFRASTRUCTURE_FAILURE", "PROTOCOL_FAILURE"]
+    },
+    "attempts": {
+      "type": "object",
+      "properties": {
+        "executor": {"type": "integer", "minimum": 1},
+        "judge": {"type": "integer", "minimum": 1}
+      },
+      "additionalProperties": false
+    },
+    "logs": {
+      "type": "object",
+      "additionalProperties": {"type": "string"}
+    }
+  },
+  "additionalProperties": false
+}

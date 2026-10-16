@@ -1,0 +1,46 @@
+{
+  "schema_version": 1,
+  "id": "living-dashboard",
+  "kind": "overlay",
+  "title": "Living dashboard",
+  "purpose": "Add a deterministic read-only stakeholder view generated from canonical project state.",
+  "compatible_archetypes": ["development", "legacy-migration", "presentation", "research"],
+  "initialization": {
+    "ask_if_unresolved": ["canonical data source, dashboard audience when visibility materially differs, decisions supported, brand, language, refresh trigger, and drift gate"],
+    "known_defaults": [
+      "canonical Agent Commons section hierarchy and order",
+      "five-domain grouped navigation with mobile bottom adaptation",
+      "shared detail-dialog interaction family",
+      "honest pending, not-observed, and not-applicable states for standard sections"
+    ]
+  },
+  "capabilities": {
+    "required": {"skills": [], "agents": [], "tools": [], "templates": []},
+    "default": {
+      "skills": ["build-living-dashboard", "validate-visual-artifact", "accessibility-review"],
+      "agents": [],
+      "tools": [
+        "build-dashboard",
+        "validate-dashboard-structure",
+        "validate-dashboard-visual",
+        "validate-html"
+      ],
+      "templates": [
+        "dashboard-data-example",
+        "dashboard-structure",
+        "dashboard-shell"
+      ]
+    },
+    "recommended": {"skills": [], "agents": [], "tools": [], "templates": []},
+    "optional": {"skills": [], "agents": [], "tools": [], "templates": []}
+  },
+  "conditions": [],
+  "outputs": ["canonical dashboard data", "canonical section profile", "generated read-only HTML", "structural drift and visual validation evidence"],
+  "invariants": [
+    "instantiate the canonical living-dashboard structure rather than inventing a project layout",
+    "full legacy-modernization renders every standard section; archetypes determine applicability without redefining order",
+    "project-specific sections use controlled extension points",
+    "branding and localization remain presentation-layer configuration with exact asset and fidelity validation",
+    "VALIDATED requires matching structure static brand visual accessibility and localization QA evidence where applicable"
+  ]
+}

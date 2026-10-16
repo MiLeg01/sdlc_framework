@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "nodes": [],
+  "edges": [],
+  "lifecycle_rules": [],
+  "generated_views": [
+    {
+      "id": "stakeholder-dashboard",
+      "expected_fingerprint": "sha256:canonical-001",
+      "actual_fingerprint": "sha256:stale-001"
+    }
+  ]
+}

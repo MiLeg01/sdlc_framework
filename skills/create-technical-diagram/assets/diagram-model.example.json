@@ -1,0 +1,74 @@
+{
+  "schema_version": 1,
+  "diagram": {
+    "type": "system-landscape",
+    "title": "Synthetic order landscape",
+    "purpose": "Explain the verified order path and one unresolved external dependency.",
+    "audience": ["engineering", "architecture"],
+    "scope": "Current production order submission boundary",
+    "status": "CURRENT",
+    "generated_from": "Synthetic contracts and configuration"
+  },
+  "evidence": [
+    {
+      "id": "E-001",
+      "source": "contracts/orders.yaml",
+      "locator": "POST /orders"
+    },
+    {
+      "id": "E-002",
+      "source": "config/integrations.json",
+      "locator": "paymentGateway.endpoint"
+    }
+  ],
+  "nodes": [
+    {
+      "id": "web",
+      "label": "Web client",
+      "kind": "actor",
+      "confidence": "VERIFIED",
+      "evidence_ids": ["E-001"]
+    },
+    {
+      "id": "orders",
+      "label": "Order service",
+      "kind": "system",
+      "confidence": "VERIFIED",
+      "evidence_ids": ["E-001"]
+    },
+    {
+      "id": "payments",
+      "label": "Payment gateway",
+      "kind": "external-system",
+      "confidence": "VERIFIED",
+      "evidence_ids": ["E-002"]
+    }
+  ],
+  "relationships": [
+    {
+      "id": "submit-order",
+      "source": "web",
+      "target": "orders",
+      "label": "HTTPS POST /orders",
+      "confidence": "VERIFIED",
+      "evidence_ids": ["E-001"]
+    },
+    {
+      "id": "authorize-payment",
+      "source": "orders",
+      "target": "payments",
+      "label": "HTTPS authorization",
+      "confidence": "INFERRED",
+      "evidence_ids": ["E-002"],
+      "rationale": "The configured endpoint and service responsibility imply this call; runtime tracing is pending."
+    }
+  ],
+  "views": [
+    {
+      "id": "overview",
+      "title": "Order path overview",
+      "node_ids": ["web", "orders", "payments"],
+      "relationship_ids": ["submit-order", "authorize-payment"]
+    }
+  ]
+}

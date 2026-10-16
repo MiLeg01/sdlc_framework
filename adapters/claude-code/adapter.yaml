@@ -1,0 +1,32 @@
+{
+  "schema_version": 1,
+  "id": "claude-code",
+  "display_name": "Claude Code",
+  "verified_on": "2026-08-18",
+  "documentation": [
+    "https://code.claude.com/docs/en/memory",
+    "https://code.claude.com/docs/en/skills",
+    "https://code.claude.com/docs/en/sub-agents",
+    "https://code.claude.com/docs/en/mcp",
+    "https://code.claude.com/docs/en/settings"
+  ],
+  "concepts": {
+    "global_instructions": "native",
+    "project_instructions": "native-import-adapter",
+    "skills": "native",
+    "custom_agents": "native",
+    "mcp": "native",
+    "project_memory": "commons-project-local-with-native-memory-optimizations-optional",
+    "archetypes": "commons",
+    "evals": "commons"
+  },
+  "installation": {"skills": "documented-symlink", "agents": "generated-native", "global_instructions": "managed-section"},
+  "user_paths": {
+    "global_instructions": [".claude", "CLAUDE.md"],
+    "skills": [".claude", "skills"],
+    "agents": [".claude", "agents"]
+  },
+  "project": {"instructions": "CLAUDE.md importing AGENTS.md", "agent_directory": ".claude/agents", "mcp": ".mcp.json", "settings": ".claude/settings.json"},
+  "precedence": "Managed settings, command line, local, project, user; project CLAUDE.md content follows user content and closer directory instructions load later.",
+  "limitations": ["External CLAUDE.md imports can require trust approval; Windows symlinks may require Developer Mode or administrator privileges."]
+}

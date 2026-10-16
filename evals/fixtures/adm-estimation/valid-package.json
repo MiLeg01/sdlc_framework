@@ -1,0 +1,55 @@
+{
+  "schemaVersion": "1.0.0",
+  "batchId": "BATCH-SYNTHETIC",
+  "repositoryFingerprint": "sha256:synthetic",
+  "status": "ESTIMATED",
+  "scenario": {
+    "name": "Synthetic modernization",
+    "outcome": "Replace one legacy capability",
+    "strategy": "REWRITE",
+    "targetArchitecture": "Service and web client",
+    "deliveryModel": "Incremental slices",
+    "unit": "person-days",
+    "included": ["implementation", "testing"],
+    "excluded": ["production hosting"],
+    "assumptions": [
+      "The existing delivery team is available and familiar with the target stack.",
+      "The service interface remains stable during the estimated implementation window."
+    ]
+  },
+  "calibration": {"basis": "EXPERT_JUDGMENT", "source": "synthetic panel", "confidence": "MEDIUM"},
+  "units": [
+    {
+      "id": "UNIT-1",
+      "name": "Implement behavior",
+      "kind": "FUNCTIONAL_SLICE",
+      "workstream": "application",
+      "outcome": "Accepted behavior works",
+      "traceIds": ["REQ-1", "EVD-1"],
+      "unresolvedQuestionIds": [],
+      "complexityDrivers": [{"dimension": "behavior", "rating": "MEDIUM", "rationale": "branches", "evidenceIds": ["EVD-1"]}],
+      "assumptions": [
+        "The supplied requirements and behavior evidence are sufficient for implementation and testing."
+      ],
+      "confidence": "MEDIUM",
+      "estimate": {"optimistic": 3, "mostLikely": 5, "pessimistic": 9, "basis": "expert judgment"}
+    },
+    {
+      "id": "UNIT-2",
+      "name": "Prepare cutover",
+      "kind": "CUTOVER",
+      "workstream": "delivery",
+      "outcome": "Reversible release",
+      "traceIds": ["REQ-2"],
+      "unresolvedQuestionIds": ["Q-1"],
+      "complexityDrivers": [{"dimension": "volume", "rating": "UNKNOWN", "rationale": "not measured", "evidenceIds": []}],
+      "assumptions": [
+        "Cutover remains unestimated until unresolved question Q-1 supplies the missing volume evidence."
+      ],
+      "confidence": "LOW",
+      "estimate": null
+    }
+  ],
+  "risks": [],
+  "review": {"status": "NOT_REVIEWED", "findings": []}
+}

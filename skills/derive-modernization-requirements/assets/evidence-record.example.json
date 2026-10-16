@@ -1,0 +1,14 @@
+{
+  "id": "EVID-EXAMPLE-001",
+  "artifact": "legacy/module/example.ext",
+  "artifact_hash": "sha256-placeholder",
+  "coordinate": {"start": 10, "end": 14, "symbol": "EXAMPLE"},
+  "type": "source",
+  "observation": "Synthetic factual observation.",
+  "interpretation": null,
+  "authority": "primary",
+  "confidence": "high",
+  "related_ids": ["REQ-EXAMPLE-001"],
+  "redacted": false
+}
+

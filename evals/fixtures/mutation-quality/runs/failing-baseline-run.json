@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "mutation_run": {
+    "scope_profile": "PR",
+    "scope": "example/payment/tax_calculator.py",
+    "changed_scope_only": true,
+    "criticality": "FINANCIAL_OR_CALCULATION",
+    "technology": "python",
+    "tool": "mutmut",
+    "tool_version": "2.4.4",
+    "commit": "e5518aa",
+    "baseline_tests": "FAIL",
+    "baseline_test_command": "python3 -m unittest discover -s tests",
+    "tool_execution": "VALID"
+  },
+  "metrics": {"total_mutants": 0, "killed": 0, "survived": 0},
+  "survivors": []
+}

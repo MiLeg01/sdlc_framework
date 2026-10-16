@@ -1,0 +1,2575 @@
+<!doctype html>
+<html lang="en" data-theme="dark" data-visual-thesis="agent-commons-ultraviolet">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Agent Commons Library — a reusable runtime-neutral engineering capability system.">
+  <meta name="theme-color" content="#050008">
+  <link rel="icon" type="image/svg+xml" sizes="any" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cpath d='M8 8h24l24 24-24 24H8l24-24z' fill='%23a100ff'/%3E%3C/svg%3E">
+  <title>Agent Commons Library — reusable engineering knowledge compounds</title>
+  <style>
+    /* Single source of colour for the ultraviolet stage. There is exactly one
+       palette; the deck does not ship a light theme. */
+    :root {
+      color-scheme: dark;
+      --void: #050008;
+      --void-soft: #0d0314;
+      --ultraviolet: #a100ff;
+      --ultraviolet-hot: #c62cff;
+      --ice: #f8f4ff;
+      --ice-muted: #cfc5d8;
+      --aqua: #05f2db;
+      --pink: #ff50a0;
+      --glass-line: rgba(255, 255, 255, .14);
+      --purple: var(--ultraviolet);
+      --purple-deep: #c2a3ff;
+      --purple-pale: #e6dcff;
+      --black: #000;
+      --ink: var(--ice);
+      --gray: #a79dac;
+      --line: var(--glass-line);
+      --paper: var(--void);
+      --wash: var(--void-soft);
+      --blue: var(--aqua);
+      --display: "Arial Narrow", "Helvetica Neue Condensed", "Helvetica Neue", Arial, sans-serif;
+      --body: "Helvetica Neue", Arial, Helvetica, sans-serif;
+      --mono: "Courier New", Courier, monospace;
+      --page: min(1420px, calc(100vw - 96px));
+      --header: 68px;
+    }
+
+    * { box-sizing: border-box; }
+    /* Announced by assistive tech, never painted. Used for the concise status
+       lines that replaced aria-live on whole panels. */
+    .sr-only { position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; border: 0; clip-path: inset(50%); overflow: hidden; white-space: nowrap; }
+    /* `proximity`, not `mandatory`: chapters can be taller than the viewport and
+       mandatory snapping would fight the reader mid-section. */
+    html { scroll-behavior: smooth; scroll-snap-type: y proximity; }
+    body {
+      position: relative;
+      isolation: isolate;
+      margin: 0;
+      /* `clip`, not `hidden`: `hidden` makes <body> a scroll container, which
+         silently breaks position:sticky on .tax-statement. */
+      overflow-x: clip;
+      background:
+        radial-gradient(circle at 10% 12%, rgba(161, 0, 255, .16), transparent 28rem),
+        radial-gradient(circle at 88% 42%, rgba(5, 242, 219, .055), transparent 32rem),
+        var(--void);
+      color: var(--ice);
+      font-family: var(--body);
+      font-size: 16px;
+      font-weight: 500;
+      line-height: 1.45;
+      -webkit-font-smoothing: antialiased;
+    }
+    button, a { font: inherit; }
+    button { border-radius: 0; }
+    a { color: inherit; }
+    a:focus-visible, button:focus-visible, summary:focus-visible {
+      outline: 3px solid var(--blue);
+      outline-offset: 3px;
+    }
+    ::selection { background: var(--purple); color: white; }
+
+    .skip {
+      position: fixed;
+      z-index: 100;
+      top: 8px;
+      left: 16px;
+      padding: 10px 14px;
+      transform: translateY(-150%);
+      background: var(--aqua);
+      color: var(--void);
+    }
+    .skip:focus { transform: none; }
+
+    .site-head {
+      position: fixed;
+      z-index: 50;
+      inset: 0 0 auto 0;
+      height: var(--header);
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: center;
+      padding: 0 42px;
+      border-bottom: 1px solid var(--line);
+      background: rgba(255,255,255,.96);
+    }
+    .brand-mark { width: 40px; height: 40px; display: block; }
+    .site-title { font-size: .72rem; letter-spacing: .02em; text-align: center; }
+    .head-meta { justify-self: end; display: flex; align-items: center; gap: 16px; }
+    .chapter-count { font-family: var(--mono); font-size: 0.76rem; color: var(--gray); }
+    .key-hint { padding: 5px 9px; border: 1px solid var(--line); font: 700 0.7rem/1 var(--mono); letter-spacing: .04em; color: var(--gray); white-space: nowrap; }
+    .focus-button {
+      min-height: 38px;
+      padding: 0 14px;
+      border: 1px solid var(--black);
+      background: white;
+      cursor: pointer;
+    }
+    .focus-button:hover { background: var(--black); color: white; }
+    .progress { position: fixed; z-index: 60; top: var(--header); left: 0; width: 100%; height: 3px; }
+    .progress > span { display: block; width: 0; height: 100%; background: var(--purple); }
+
+    .chapter-nav {
+      position: fixed;
+      z-index: 45;
+      right: 20px;
+      top: 50%;
+      transform: translateY(-50%);
+      display: grid;
+      gap: 8px;
+    }
+    .chapter-nav a {
+      display: block;
+      width: 18px;
+      height: 3px;
+      background: var(--line);
+      transition: width .18s ease, background .18s ease;
+      font-size: 0;
+    }
+    .chapter-nav a:hover, .chapter-nav a[aria-current="true"] { width: 34px; background: var(--purple); }
+
+    main { padding-top: var(--header); }
+    .page { width: var(--page); margin-inline: auto; }
+    .chapter {
+      position: relative;
+      min-height: calc(100svh - var(--header));
+      padding: clamp(88px, 10vw, 150px) 0;
+      scroll-margin-top: var(--header);
+      scroll-snap-align: start;
+      border-bottom: 1px solid var(--line);
+    }
+    .chapter.soft { background: var(--wash); }
+    .chapter.purple { background: var(--purple-deep); color: white; }
+    .chapter.black { background: var(--black); color: white; }
+    .kicker {
+      margin: 0 0 20px;
+      color: var(--purple-deep);
+      font-size: .72rem;
+      font-weight: 700;
+      letter-spacing: .035em;
+    }
+    .purple .kicker { color: white; }
+    .black .kicker { color: var(--purple-pale); }
+    h1, h2, h3, h4, p { margin-top: 0; }
+    h1, h2, h3, h4 { text-transform: none; }
+    h1 {
+      max-width: 1060px;
+      margin-bottom: 38px;
+      font-family: var(--display);
+      font-size: clamp(4.8rem, 10vw, 9.8rem);
+      font-weight: 700;
+      letter-spacing: -.075em;
+      line-height: .86;
+    }
+    h2 {
+      max-width: 980px;
+      margin-bottom: 32px;
+      font-family: var(--display);
+      font-size: clamp(3.2rem, 6.2vw, 6.8rem);
+      font-weight: 400;
+      letter-spacing: -.06em;
+      line-height: .94;
+    }
+    h3 { margin-bottom: 14px; font-size: clamp(1.35rem, 2vw, 1.8rem); line-height: 1.12; }
+    h4 { margin-bottom: 8px; font-size: 1rem; }
+    .lede { max-width: 760px; font-size: clamp(1.15rem, 1.7vw, 1.45rem); line-height: 1.4; }
+    .muted { color: var(--gray); }
+    .purple .muted { color: white; }
+    .black .muted { color: var(--purple-pale); }
+    .mono { font-family: var(--mono); }
+
+    /* Hero */
+    .hero { display: flex; align-items: center; padding-top: 78px; }
+    .hero-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.35fr) minmax(340px, .65fr);
+      grid-template-rows: auto 1fr auto;
+      column-gap: 64px;
+      row-gap: 30px;
+      align-items: start;
+    }
+    .hero h1 span { display: block; }
+    .hero h1 .zero { position: relative; display: inline-block; color: var(--black); z-index: 0; }
+    .hero h1 .zero::before {
+      content: "";
+      position: absolute;
+      z-index: -1;
+      inset: .04em -.08em -.02em -.04em;
+      background: var(--purple);
+    }
+    .hero-copy { padding: 35px 0 26px; }
+    .hero-kicker {
+      position: static;
+      grid-column: 1 / -1;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 8px 32px;
+      white-space: nowrap;
+    }
+    .hero-kicker span { flex: 0 0 auto; }
+    .hero-kicker span:last-child { margin-left: auto; color: var(--aqua); }
+    .hero-machine {
+      position: relative;
+      min-height: 350px;
+      border-left: 3px solid var(--black);
+      padding: 0 0 0 34px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .hero-machine::before {
+      content: "";
+      position: absolute;
+      left: -3px;
+      top: 0;
+      width: 3px;
+      height: 38%;
+      background: var(--purple);
+    }
+    .machine-label { font-family: var(--mono); font-size: .7rem; color: var(--gray); }
+    .start-comparison { display: grid; grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr); gap: 16px; align-items: stretch; flex: 1; margin-top: 24px; }
+    .start-state { display: flex; flex-direction: column; justify-content: space-between; min-width: 0; padding: 22px 18px; border: 1px solid var(--line); }
+    .start-state small { font: 600 0.72rem/1 var(--mono); letter-spacing: .08em; text-transform: uppercase; color: var(--gray); }
+    .start-state strong { display: block; max-width: 330px; margin-top: 14px; font-size: clamp(1.45rem, 2.2vw, 2.35rem); line-height: .98; letter-spacing: -.045em; }
+    .start-state p { margin: 18px 0 0; font: 500 0.76rem/1.5 var(--mono); letter-spacing: .035em; text-transform: uppercase; color: var(--gray); }
+    .start-state.old { opacity: .58; }
+    .start-state.new { border-left: 3px solid var(--purple); }
+    .start-state.new strong { color: var(--purple-deep); }
+    .start-shift { display: grid; grid-template-rows: 1fr auto 1fr; gap: 10px; place-items: center; width: 58px; padding: 16px 0; border: 0; }
+    .start-shift span { align-self: end; font: 600 0.70rem/1.25 var(--mono); letter-spacing: .06em; text-align: center; text-transform: uppercase; color: var(--purple); }
+    .start-shift i { display: grid; place-items: center; width: 36px; height: 36px; border: 1px solid var(--purple); border-radius: 50%; font-style: normal; color: var(--purple); }
+    .hero-proof {
+      grid-column: 1 / -1;
+      margin-top: 18px;
+      padding-top: 24px;
+      border-top: 2px solid var(--black);
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 28px;
+      font-size: .82rem;
+    }
+    .hero-proof span { flex: 1 1 250px; }
+    .hero-proof strong { color: var(--purple-deep); }
+
+    /* Repeated project foundation */
+    .tax-layout { display: grid; grid-template-columns: .68fr 1.32fr; gap: 72px; align-items: start; }
+    .tax-statement { position: sticky; top: calc(var(--header) + 60px); }
+    .tax-statement strong {
+      display: block;
+      margin-top: 48px;
+      font-family: var(--display);
+      font-size: clamp(4rem, 8vw, 8rem);
+      letter-spacing: -.08em;
+      line-height: .82;
+      color: var(--purple);
+    }
+    .repeat-stack { border-top: 2px solid var(--black); }
+    .repeat-caption {
+      display: flex;
+      justify-content: space-between;
+      gap: 24px;
+      padding: 14px 0 16px;
+      border-bottom: 1px solid var(--line);
+      font-family: var(--mono);
+      font-size: 0.76rem;
+      letter-spacing: .04em;
+      text-transform: uppercase;
+    }
+    .repeat-caption span { color: var(--gray); }
+    .project-stack {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+      padding: 26px 0 34px;
+    }
+    .project-card {
+      position: relative;
+      min-height: 238px;
+      padding: 22px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.7);
+    }
+    .project-card::after {
+      content: "";
+      position: absolute;
+      left: 50%;
+      bottom: -35px;
+      width: 1px;
+      height: 34px;
+      background: var(--purple);
+    }
+    .project-card > small { font: 600 0.72rem/1 var(--mono); letter-spacing: .08em; color: var(--purple); text-transform: uppercase; }
+    .project-card h3 { margin: 16px 0 20px; font-size: clamp(1.1rem, 1.5vw, 1.45rem); line-height: 1.05; }
+    .project-work { display: flex; flex-wrap: wrap; gap: 7px; }
+    .project-work span { padding: 7px 9px; border: 1px solid var(--line); font: 500 0.76rem/1.15 var(--mono); }
+    .common-foundation {
+      padding: 24px 26px 26px;
+      border: 1px solid var(--purple);
+      border-top-width: 5px;
+      background: rgba(91,63,216,.08);
+    }
+    .common-foundation > span { display: block; font: 600 0.72rem/1 var(--mono); letter-spacing: .08em; color: var(--purple); text-transform: uppercase; }
+    .common-foundation strong { display: block; margin-top: 9px; font-size: clamp(1.25rem, 2vw, 1.9rem); line-height: 1.1; }
+    .foundation-work { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px; }
+    .foundation-work span { padding: 8px 10px; border: 1px solid var(--purple); background: white; font: 600 0.76rem/1 var(--mono); }
+    .repeat-summary {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 24px;
+      align-items: center;
+      padding: 22px 0;
+      border-bottom: 2px solid var(--black);
+    }
+    .repeat-summary strong { font-family: var(--display); font-size: clamp(1.8rem, 3vw, 3rem); line-height: .9; letter-spacing: -.05em; }
+    .repeat-summary span { max-width: 360px; font-size: .8rem; color: var(--gray); }
+    .repeat-consequence { margin-top: 30px; padding-top: 18px; border-top: 1px solid var(--black); font: 600 .72rem/1.5 var(--mono); letter-spacing: .04em; text-transform: uppercase; }
+    .repeat-consequence span { color: var(--purple); }
+
+    /* Commons boundary */
+    .engine-head { display: grid; grid-template-columns: 1.25fr .75fr; gap: 80px; align-items: end; margin-bottom: 52px; }
+    .engine-head p { max-width: 430px; margin: 0 0 8px; color: var(--purple-pale); }
+    .boundary-rule {
+      margin: 0 0 30px;
+      padding: 18px 22px;
+      border-left: 4px solid white;
+      background: rgba(0,0,0,.12);
+      font-size: clamp(1.15rem, 2vw, 1.8rem);
+      line-height: 1.25;
+    }
+    .commons-boundary {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+      gap: 22px;
+      align-items: stretch;
+    }
+    .boundary-panel { min-height: 320px; padding: 26px 28px; border: 1px solid rgba(255,255,255,.34); background: rgba(0,0,0,.12); }
+    .boundary-panel.commons { border-color: white; background: rgba(255,255,255,.09); box-shadow: inset 0 4px 0 var(--aqua); }
+    .boundary-panel > small { font: 600 0.72rem/1 var(--mono); letter-spacing: .08em; color: var(--purple-pale); text-transform: uppercase; }
+    .boundary-panel.commons > small { color: var(--aqua); }
+    .boundary-panel h3 { margin: 16px 0 20px; font-size: clamp(1.45rem, 2.4vw, 2.25rem); line-height: .98; }
+    .boundary-panel ul { list-style: none; margin: 0; padding: 0; }
+    .boundary-panel li { padding: 9px 0; border-top: 1px solid rgba(255,255,255,.16); font-size: .8rem; }
+    .boundary-panel footer { margin-top: 18px; padding: 14px 0 0; border-top: 1px solid rgba(255,255,255,.34); background: transparent; color: inherit; font: 600 0.76rem/1.45 var(--mono); text-transform: uppercase; }
+    /* Laid out as real grid rows. The label used to be position:absolute with
+       no positioned ancestor, so it resolved against .chapter and only landed
+       correctly by accident. */
+    .boundary-divider { display: grid; grid-auto-flow: row; align-content: center; justify-items: center; row-gap: 26px; width: 86px; }
+    .boundary-divider span { display: grid; place-items: center; width: 62px; height: 62px; border: 1px solid white; color: var(--aqua); font-size: 1.8rem; }
+    .boundary-divider small { font: 600 0.70rem/1.35 var(--mono); letter-spacing: .06em; text-align: center; text-transform: uppercase; }
+    .earned { margin: 34px 0 0; padding-top: 24px; border-top: 1px solid rgba(255,255,255,.3); font-family: Georgia, serif; font-size: clamp(1.8rem, 3vw, 3.2rem); }
+
+    /* Anatomy */
+    .anatomy-head { display: grid; grid-template-columns: 1.2fr .8fr; gap: 70px; align-items: end; margin-bottom: 60px; }
+    .anatomy-head .lede { margin-bottom: 6px; }
+    .type-ledger { border-top: 3px solid var(--black); }
+    .type-line {
+      display: grid;
+      grid-template-columns: 180px 1fr 1fr;
+      gap: 34px;
+      align-items: baseline;
+      padding: 21px 0;
+      border-bottom: 1px solid var(--line);
+    }
+    .type-line strong { color: var(--purple-deep); font-size: 1.25rem; }
+    .type-line span { font-size: .9rem; }
+    .type-line q { font-family: Georgia, serif; color: var(--gray); }
+    .inside-grid {
+      display: grid;
+      grid-template-columns: minmax(380px, .9fr) minmax(0, 1.1fr);
+      margin-top: 100px;
+      border: 2px solid var(--black);
+    }
+    .repo-tree { padding: 32px; background: var(--black); color: white; font-family: var(--mono); }
+    .tree-root { margin-bottom: 16px; color: var(--purple-pale); font-weight: 700; }
+    .tree-branch { width: 100%; min-height: 45px; padding: 10px 12px; border: 0; background: transparent; color: white; text-align: left; cursor: pointer; }
+    .tree-branch:hover, .tree-branch[aria-pressed="true"] { background: var(--purple-deep); }
+    .tree-branch span { float: right; color: var(--line); }
+    .repo-detail { min-height: 520px; padding: 52px; display: flex; flex-direction: column; justify-content: space-between; }
+    .repo-detail code { color: var(--purple-deep); font-size: .75rem; }
+    .repo-detail h3 { max-width: 570px; margin-top: 24px; font-family: var(--display); font-size: clamp(2.5rem, 4vw, 4.2rem); font-weight: 400; letter-spacing: -.05em; }
+    .repo-detail p { max-width: 570px; font-size: 1.05rem; }
+    .repo-meta { display: grid; grid-template-columns: 1fr 1fr; border-top: 1px solid var(--black); }
+    .repo-meta div { padding: 18px 18px 0 0; font-size: .72rem; }
+    .repo-meta strong { display: block; margin-top: 8px; color: var(--purple-deep); font-size: 1.25rem; }
+    /* Capability network */
+    .network-head { display: grid; grid-template-columns: 1.2fr .8fr; gap: 72px; align-items: end; margin-bottom: 52px; }
+    .network-head p { margin-bottom: 8px; }
+    .network-shell { border: 2px solid var(--black); background: var(--black); color: white; }
+    .network-toolbar { display: grid; grid-template-columns: minmax(250px, .72fr) 1.28fr auto; gap: 20px; align-items: end; padding: 24px 26px; border-bottom: 1px solid rgba(255,255,255,.22); }
+    .network-search label, .capability-search label { display: block; margin-bottom: 9px; font: 700 0.72rem/1 var(--mono); color: var(--purple-pale); text-transform: uppercase; }
+    /* `appearance: none` strips the Safari/iOS search chrome (inset shadow,
+       forced rounding, native clear button metrics) that ignores the rules below. */
+    .network-search input, .capability-search input { appearance: none; -webkit-appearance: none; width: 100%; min-height: 48px; padding: 11px 14px; border: 1px solid currentColor; border-radius: 0; background: transparent; color: inherit; font: 700 .78rem/1.3 var(--mono); }
+    .network-search input::-webkit-search-decoration, .capability-search input::-webkit-search-decoration { -webkit-appearance: none; }
+    .network-search input::placeholder, .capability-search input::placeholder { color: inherit; opacity: .62; }
+    .network-search input:focus, .capability-search input:focus { outline: 2px solid var(--blue); outline-offset: 3px; }
+    .network-filters, .capability-type-list { display: flex; flex-wrap: wrap; gap: 7px; }
+    .network-filters button, .network-reset, .capability-type-list button, .preview-tabs button {
+      min-height: 38px;
+      padding: 8px 11px;
+      border: 1px solid currentColor;
+      background: transparent;
+      color: inherit;
+      font: 700 0.72rem/1 var(--mono);
+      cursor: pointer;
+    }
+    .network-filters button[aria-pressed="true"], .network-filters button:hover, .network-reset:hover { border-color: var(--purple-pale); background: var(--purple); color: white; }
+    .network-stage { position: relative; min-height: 640px; overflow: hidden; border: 1px solid #342b39; background: #08060a; }
+    .capability-graph { display: block; width: 100%; min-height: 640px; touch-action: pan-y; }
+    .graph-edge { stroke: rgba(255,255,255,.16); stroke-width: 1; vector-effect: non-scaling-stroke; transition: opacity .18s ease, stroke .18s ease; }
+    .graph-edge.is-related { stroke: #05f2db; stroke-width: 2; opacity: .9; }
+    .graph-edge.is-dimmed { opacity: .035; }
+    .graph-node { cursor: pointer; outline: none; transition: opacity .18s ease; }
+    .graph-node:focus-visible circle { stroke: #ffef69; stroke-width: 4; }
+    .graph-node:focus-visible { outline: 2px solid var(--aqua); outline-offset: 4px; }
+    .graph-node circle { stroke: white; stroke-width: 1.5; vector-effect: non-scaling-stroke; transition: r .18s ease, fill .18s ease, stroke-width .18s ease; }
+    .graph-node[data-type="skill"] circle { fill: var(--purple); }
+    .graph-node[data-type="agent"] circle { fill: #05f2db; }
+    .graph-node[data-type="tool"] circle { fill: white; }
+    .graph-node[data-type="archetype"] circle { fill: #ffca28; }
+    .graph-node[data-type="overlay"] circle { fill: #ff6bd6; }
+    .graph-node[data-type="adapter"] circle { fill: var(--blue); }
+    .graph-node[data-type="eval"] circle { fill: #ff6b35; }
+    .graph-node[data-type="template"] circle { fill: #9aa0aa; }
+    .graph-node[data-type="external"] circle { fill: #1dca78; }
+    .graph-node text { display: none; fill: white; font: 700 12px/1 var(--mono); paint-order: stroke; stroke: #050008; stroke-width: 4px; stroke-linejoin: round; pointer-events: none; }
+    .graph-node:hover text, .graph-node:focus text, .graph-node.is-selected text, .graph-node.is-match text { display: block; }
+    .graph-node:hover circle, .graph-node:focus circle, .graph-node.is-selected circle { r: 12; stroke-width: 3; }
+    .graph-node.is-match circle { stroke: #ffef69; stroke-width: 4; }
+    .graph-node.is-dimmed { opacity: .12; }
+    .graph-cluster-label { fill: rgba(255,255,255,.42); font: 700 11px/1 var(--mono); letter-spacing: .12em; text-transform: uppercase; }
+    .network-tooltip { position: absolute; z-index: 3; width: min(300px, calc(100% - 32px)); padding: 16px; border: 1px solid rgba(255,255,255,.45); background: rgba(5,0,8,.94); box-shadow: 0 16px 46px rgba(0,0,0,.42); pointer-events: none; }
+    .network-tooltip[hidden] { display: none; }
+    .network-tooltip small { color: var(--purple-pale); font: 700 0.72rem/1 var(--mono); }
+    .network-tooltip strong { display: block; margin-top: 9px; }
+    .network-tooltip span { display: block; margin-top: 8px; color: #d4cce0; font-size: .72rem; }
+    .network-inspector { position: absolute; z-index: 2; right: 22px; bottom: 22px; width: min(370px, calc(100% - 44px)); padding: 20px; border: 1px solid rgba(5,242,219,.55); background: rgba(5,0,8,.94); box-shadow: 0 18px 56px rgba(0,0,0,.48); }
+    .network-inspector[hidden] { display: none; }
+    .network-inspector small { color: var(--aqua); font: 700 0.72rem/1 var(--mono); }
+    .network-inspector strong { display: block; margin-top: 10px; font-size: 1.1rem; }
+    .network-inspector p { margin: 9px 0 16px; color: #d4cce0; font-size: .75rem; }
+    .network-inspector button { min-height: 38px; padding: 8px 11px; border: 1px solid var(--aqua); background: transparent; color: var(--aqua); font: 700 0.72rem/1 var(--mono); cursor: pointer; }
+    .network-inspector button:hover { background: var(--aqua); color: var(--void); }
+    .network-status { display: grid; grid-template-columns: repeat(4, 1fr); border-top: 1px solid rgba(255,255,255,.22); }
+    .network-status div { min-height: 88px; padding: 18px 20px; border-right: 1px solid rgba(255,255,255,.18); }
+    .network-status div:last-child { border-right: 0; }
+    .network-status strong { display: block; font-size: 1.55rem; }
+    .network-status span { color: #c9bed4; font-size: .7rem; }
+    .network-fallback { display: none; padding: 18px 22px; border-top: 1px solid rgba(255,255,255,.22); color: #d4cce0; }
+
+    /* Capability navigator */
+    .capability-explorer { margin-top: 42px; border: 2px solid var(--black); background: var(--paper); }
+    .capability-explorer-head { display: grid; grid-template-columns: 1fr minmax(300px, .72fr); gap: 32px; align-items: end; padding: 30px; border-bottom: 1px solid var(--line); }
+    .capability-explorer-head h3 { margin: 8px 0 0; font-family: var(--display); font-size: clamp(2rem, 3vw, 3.4rem); font-weight: 400; letter-spacing: -.05em; }
+    .capability-search label { color: var(--purple-deep); }
+    .capability-explorer-grid { display: grid; grid-template-columns: minmax(170px, .42fr) minmax(220px, .58fr) minmax(0, 1.4fr); min-height: 610px; }
+    .capability-types { padding: 22px 18px; border-right: 1px solid var(--line); background: var(--wash); }
+    .capability-types > small { display: block; margin-bottom: 16px; color: var(--purple-deep); font: 700 0.72rem/1 var(--mono); }
+    .capability-type-list { display: grid; gap: 6px; }
+    .capability-type-list button { display: flex; justify-content: space-between; width: 100%; border-color: var(--line); background: white; color: var(--ink); text-align: left; }
+    .capability-type-list button[aria-pressed="true"], .capability-type-list button:hover { border-color: var(--purple); background: var(--purple); color: white; }
+    .capability-list { max-height: 610px; overflow: auto; border-right: 1px solid var(--line); }
+    .capability-list button, .capability-links button { width: 100%; min-height: 54px; padding: 12px 16px; border: 0; border-bottom: 1px solid var(--line); background: transparent; color: var(--ink); text-align: left; cursor: pointer; }
+    .capability-list button strong { display: block; font: 700 .72rem/1.3 var(--mono); }
+    .capability-list button span { display: block; margin-top: 5px; color: var(--gray); font-size: 0.76rem; }
+    .capability-list button:hover, .capability-list button[aria-current="true"], .capability-links button:hover { background: #eee6f4; box-shadow: inset 4px 0 var(--purple); }
+    .capability-empty { padding: 22px 16px; color: var(--gray); font-size: .78rem; }
+    .capability-preview { min-width: 0; padding: 30px 32px; }
+    .capability-preview code { color: var(--blue); font-size: 0.76rem; overflow-wrap: anywhere; }
+    .capability-preview h4 { margin: 18px 0 12px; font-family: var(--display); font-size: clamp(2rem, 3vw, 3.2rem); font-weight: 400; letter-spacing: -.05em; }
+    .capability-preview > p { color: var(--gray); }
+    .preview-meta { display: flex; flex-wrap: wrap; gap: 7px; margin: 16px 0 22px; }
+    .preview-meta span, .capability-tags span { padding: 7px 9px; border: 1px solid var(--line); color: var(--purple-deep); font: 700 0.72rem/1.2 var(--mono); }
+    .preview-tabs { display: flex; border-bottom: 1px solid var(--black); }
+    .preview-tabs button { border: 0; border-right: 1px solid var(--black); color: var(--ink); }
+    .preview-tabs button[aria-selected="true"], .preview-tabs button:hover { background: var(--black); color: white; }
+    .preview-panel { padding-top: 22px; }
+    .preview-panel[hidden] { display: none; }
+    .preview-section { margin-bottom: 24px; }
+    .preview-section h5 { margin: 0 0 8px; color: var(--purple-deep); font: 700 0.72rem/1 var(--mono); text-transform: uppercase; }
+    .preview-section p { margin: 0; color: var(--gray); font-size: .82rem; }
+    .preview-section ul { margin: 0; padding-left: 18px; color: var(--gray); font-size: .78rem; }
+    .preview-section li + li { margin-top: 6px; }
+    .capability-tags { display: flex; flex-wrap: wrap; gap: 7px; }
+    .capability-source-preview { max-height: 390px; margin: 0; overflow: auto; padding: 18px; background: #09070b; color: #f4ecff; font: 500 .7rem/1.6 var(--mono); white-space: pre-wrap; overflow-wrap: anywhere; }
+    .capability-links { border-top: 1px solid var(--line); }
+    .capability-links button { display: grid; grid-template-columns: auto 1fr; gap: 10px; font: 700 0.76rem/1.3 var(--mono); }
+    .capability-links button span { color: var(--gray); font-weight: 400; }
+    .capability-links p { color: var(--gray); font-size: .76rem; }
+    .capability-source { margin: 0; padding: 14px 30px; border-top: 1px solid var(--line); color: var(--gray); font: 700 0.72rem/1.4 var(--mono); }
+
+    /* Architecture */
+    .architecture-lead { display: grid; grid-template-columns: 1.2fr .8fr; gap: 80px; align-items: end; }
+    .architecture-lead p { margin-bottom: 8px; }
+    .architecture-lead > .lede { padding-top: 20px; border-top: 1px solid var(--line); }
+    .architecture-stage { margin-top: 70px; border-block: 2px solid var(--black); }
+    .architecture-stage.is-detached { margin-top: 90px; }
+    .arch-row {
+      display: grid;
+      grid-template-columns: 1fr 86px 1fr 86px 1fr;
+      align-items: stretch;
+    }
+    /* The three stages are peers in one left-to-right flow, so they carry the
+       same panel treatment and their evidence blocks share a bottom baseline
+       even when a heading wraps to a different number of lines. */
+    .arch-column { position: relative; display: flex; flex-direction: column; min-height: 380px; padding: 34px 28px 32px; }
+    .arch-column .kicker { margin-bottom: 0; padding-right: 64px; }
+    .arch-step { position: absolute; top: 24px; right: 26px; font: 400 2.5rem/1 var(--display); font-style: normal; letter-spacing: -.05em; }
+    .arch-column h3 { margin: 14px 0 30px; font-family: var(--display); font-size: clamp(1.9rem, 2.7vw, 3rem); font-weight: 400; letter-spacing: -.045em; text-wrap: balance; }
+    .arch-column ul { padding: 0; margin: auto 0 0; list-style: none; border-top: 1px solid currentColor; }
+    .arch-column li { display: grid; grid-template-columns: 12px 1fr; gap: 12px; align-items: center; padding: 13px 0; border-bottom: 1px solid currentColor; font-family: var(--mono); font-size: .72rem; }
+    /* 2px, not 1px: rows land on fractional offsets, and a 1px rule blends
+       unevenly across device pixels so some markers render desaturated. */
+    .arch-column li::before { content: ""; height: 2px; background: currentColor; opacity: .55; }
+    .arch-arrow { position: relative; display: grid; place-items: center; color: var(--purple); font-size: 2.3rem; }
+    .arch-arrow span { display: block; line-height: 1; }
+    .arch-arrow::before, .arch-arrow::after { content: ""; position: absolute; top: 50%; width: 24px; height: 1px; background: currentColor; opacity: .5; }
+    .arch-arrow::before { left: 1px; }
+    .arch-arrow::after { right: 1px; }
+    .runtime-nodes { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: auto 0 0; padding-top: 22px; border-top: 1px solid currentColor; }
+    .runtime-node { position: relative; min-height: 74px; padding: 14px; border: 1px solid currentColor; display: flex; align-items: end; font: 700 .78rem/1.2 var(--mono); }
+    .runtime-node::before { content: ""; position: absolute; top: 15px; left: 15px; width: 7px; height: 7px; background: currentColor; }
+    .boundary {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1px;
+      background: var(--black);
+      border-top: 1px solid var(--black);
+    }
+    .boundary div { position: relative; padding: 30px 30px 32px; background: white; }
+    .boundary div::before { content: ""; position: absolute; inset: 0 auto 0 0; width: 3px; background: currentColor; opacity: .5; }
+    .boundary strong { display: block; color: var(--purple-deep); font-size: 1.3rem; letter-spacing: -.015em; }
+    .boundary span { display: block; margin-top: 9px; }
+    .architecture-governance { display: grid; grid-template-columns: 1fr auto 1fr auto 1fr auto 1fr; align-items: stretch; border-top: 1px solid var(--black); counter-reset: gov; }
+    .governance-node { position: relative; min-height: 168px; padding: 26px 22px 28px; background: white; transition: background .25s ease, box-shadow .25s ease; }
+    .governance-node small { display: block; color: var(--purple-deep); font: 700 0.72rem/1 var(--mono); letter-spacing: .1em; }
+    .governance-node small::before { counter-increment: gov; content: counter(gov, decimal-leading-zero) " · "; opacity: .55; }
+    .governance-node strong { display: block; margin-top: 16px; font-size: 1.02rem; }
+    .governance-node span { display: block; margin-top: 10px; color: var(--gray); font-size: .72rem; line-height: 1.55; }
+    .governance-arrow { position: relative; display: grid; place-items: center; min-width: 56px; color: var(--purple-pale); font-size: 1.4rem; }
+    .governance-arrow span { display: block; line-height: 1; }
+    .governance-arrow::before, .governance-arrow::after { content: ""; position: absolute; top: 50%; width: 13px; height: 1px; background: currentColor; opacity: .45; }
+    .governance-arrow::before { left: 3px; }
+    .governance-arrow::after { right: 3px; }
+    .diagram-capability { border-top: 1px solid var(--black); }
+    .diagram-capability-head { display: grid; grid-template-columns: 1fr .8fr; gap: 44px; align-items: end; padding: 40px 26px 44px; }
+    .diagram-capability-head h3 { margin: 8px 0 0; font-family: var(--display); font-size: clamp(2rem, 3vw, 3.2rem); font-weight: 400; letter-spacing: -.05em; }
+    .diagram-capability-head p { margin: 0; color: var(--gray); }
+    .diagram-pipeline { display: grid; grid-template-columns: repeat(9, auto); align-items: stretch; border-top: 1px solid var(--black); border-bottom: 1px solid var(--black); }
+    .diagram-stage { min-width: 0; padding: 22px 16px; background: white; }
+    .diagram-stage small { display: block; color: var(--purple-deep); font: 700 0.70rem/1 var(--mono); }
+    .diagram-stage strong { display: block; margin-top: 20px; }
+    .diagram-stage span { display: block; margin-top: 7px; color: var(--gray); font-size: 0.76rem; }
+    .diagram-arrow { display: grid; place-items: center; min-width: 38px; background: var(--black); color: var(--purple-pale); }
+    .diagram-family-grid { display: grid; grid-template-columns: repeat(6, 1fr); }
+    .diagram-family { min-height: 124px; padding: 20px 16px; border-right: 1px solid var(--line); background: var(--wash); }
+    .diagram-family:last-child { border-right: 0; }
+    .diagram-family small { color: var(--purple-deep); font: 700 0.70rem/1 var(--mono); }
+    .diagram-family strong { display: block; margin-top: 18px; font-size: .86rem; }
+
+    /* Product moment */
+    .product-head { display: grid; grid-template-columns: 1.3fr .7fr; gap: 80px; align-items: end; margin-bottom: 60px; }
+    .product-head p { margin-bottom: 8px; }
+    .product-demo { display: grid; grid-template-columns: .88fr 1.12fr; border: 2px solid var(--black); }
+    .terminal { min-height: 570px; padding: 38px; background: var(--black); color: white; font-family: var(--mono); }
+    .terminal-head { display: flex; justify-content: space-between; padding-bottom: 16px; border-bottom: 1px solid #484848; color: #bdbdbd; font-size: 0.76rem; }
+    .terminal-code { margin-top: 34px; line-height: 2; font-size: .78rem; }
+    .terminal-code b { color: var(--purple-pale); }
+    .command-block { margin-top: 48px; padding: 24px; background: var(--purple); font-family: var(--body); }
+    .command-block strong { display: block; font-family: var(--mono); font-size: 1.25rem; }
+    .command-block span { display: block; margin-top: 10px; font-size: .8rem; }
+    .initializer { padding: 38px; }
+    .scope-tabs { display: grid; grid-template-columns: repeat(5, 1fr); margin: 28px 0 30px; border: 1px solid var(--black); }
+    .scope-tabs button { min-height: 56px; border: 0; border-right: 1px solid var(--black); background: white; cursor: pointer; font-size: .76rem; }
+    .scope-tabs button:last-child { border-right: 0; }
+    .scope-tabs button[aria-selected="true"], .scope-tabs button:hover { background: var(--purple); color: white; }
+    .scope-panel { min-height: 182px; display: grid; grid-template-columns: 1fr 1fr; border: 1px solid var(--line); }
+    .scope-panel div { padding: 18px; border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+    .scope-panel div:nth-child(even) { border-right: 0; }
+    .scope-panel small { display: block; color: var(--gray); }
+    .scope-panel strong { display: block; margin-top: 10px; font-size: .9rem; }
+    .manifest-peek { margin-top: 26px; padding-top: 20px; border-top: 2px solid var(--black); }
+    .manifest-peek code { display: block; margin-top: 8px; color: var(--purple-deep); font-size: .73rem; }
+    .intake-story { margin-top: 58px; border: 2px solid var(--black); }
+    .intake-modes { display: grid; grid-template-columns: .72fr 1.28fr; }
+    .intake-mode { min-height: 290px; padding: 30px; }
+    .intake-mode + .intake-mode { border-left: 1px solid var(--black); }
+    .intake-mode.brief { background: var(--black); color: white; }
+    .intake-mode small, .intake-resolution > small { display: block; font: 700 0.72rem/1 var(--mono); color: var(--purple-deep); }
+    .intake-mode.brief small { color: var(--purple-pale); }
+    .intake-mode pre { margin: 28px 0 0; font: 700 .78rem/1.75 var(--mono); white-space: pre-wrap; }
+    .intake-arrow { margin-top: 22px; color: var(--purple-deep); font: 700 .7rem/1.5 var(--mono); text-transform: uppercase; }
+    .intake-mode.brief .intake-arrow { color: var(--purple-pale); }
+    .intake-resolution { padding: 28px 30px; border-top: 1px solid var(--black); }
+    .extraction-list { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; margin-top: 18px; background: var(--line); }
+    .extraction-list span { min-height: 58px; padding: 14px; background: white; font-size: .75rem; }
+    .extraction-list b { color: var(--purple-deep); font-family: var(--mono); }
+    .missing-brand { display: grid; grid-template-columns: .65fr 1.35fr; margin-top: 24px; border-top: 2px solid var(--black); }
+    .missing-brand > strong { padding: 20px 0; color: var(--purple-deep); font-family: var(--display); font-size: 1.35rem; }
+    .brand-choices { display: grid; grid-template-columns: repeat(4, 1fr); }
+    .brand-choices span { display: grid; place-items: center; min-height: 74px; padding: 10px; border-left: 1px solid var(--line); text-align: center; font: 700 0.72rem/1.35 var(--mono); }
+    .gap-story { margin-top: 58px; border: 2px solid var(--black); }
+    .gap-story-head { display: grid; grid-template-columns: .72fr 1.28fr; border-bottom: 1px solid var(--black); }
+    .gap-brief { padding: 28px; background: var(--purple); color: white; }
+    .gap-brief small, .gap-check small, .gap-path small { display: block; font: 700 0.72rem/1 var(--mono); }
+    .gap-brief strong { display: block; margin-top: 18px; font: 700 1.18rem/1.3 var(--mono); }
+    .gap-check { padding: 28px; }
+    .coverage-grid { display: grid; grid-template-columns: repeat(2, 1fr); margin-top: 18px; border-top: 1px solid var(--line); }
+    .coverage-grid span { padding: 12px 10px; border-bottom: 1px solid var(--line); font-size: .78rem; }
+    .coverage-grid b { display: inline-block; width: 22px; color: var(--purple-deep); font-family: var(--mono); }
+    .coverage-grid .gap b { color: #b90055; }
+    .gap-paths { display: grid; grid-template-columns: 1fr 1fr; }
+    .gap-path { min-height: 205px; padding: 26px 28px; border-right: 1px solid var(--black); }
+    .gap-path:last-child { border-right: 0; }
+    .gap-path strong { display: block; margin-top: 18px; font-size: 1rem; }
+    .gap-path span { display: block; margin-top: 12px; color: var(--gray); font-size: .78rem; }
+    .trust-equation { display: grid; grid-template-columns: 1fr auto 1fr auto 1fr; align-items: center; padding: 22px 28px; border-top: 1px solid var(--black); background: var(--black); color: white; text-align: center; }
+    .trust-equation strong { font: 700 .92rem/1 var(--mono); }
+    .trust-equation b { color: var(--purple-pale); font-size: 1.35rem; }
+    .promotion-path { padding: 18px 28px; border-top: 1px solid var(--black); font: 700 .7rem/1.7 var(--mono); text-align: center; }
+    .project-result {
+      display: grid;
+      grid-template-columns: .75fr 1.25fr;
+      gap: 52px;
+      margin-top: 52px;
+      padding-top: 30px;
+      border-top: 1px solid var(--black);
+    }
+    .project-result pre { margin: 0; font: .78rem/1.8 var(--mono); white-space: pre-wrap; }
+    .result-rules { display: grid; grid-template-columns: repeat(3, 1fr); }
+    .result-rules div { padding: 0 18px; border-left: 1px solid var(--line); }
+    .result-rules strong { display: block; color: var(--purple-deep); }
+    .result-rules span { display: block; margin-top: 8px; font-size: .8rem; }
+    .runtime-picks { display: flex; flex-wrap: wrap; gap: 8px; margin: 20px 0 28px; }
+    .runtime-pick { padding: 9px 12px; border: 1px solid var(--line); font: 700 0.76rem/1 var(--mono); }
+    .runtime-pick.selected { border-color: var(--purple); color: var(--purple-deep); }
+    .usage-rail { display: grid; grid-template-columns: repeat(6, 1fr); margin-top: 58px; border-block: 2px solid var(--black); }
+    .usage-step { min-height: 132px; padding: 20px 16px; border-right: 1px solid var(--line); }
+    .usage-step:last-child { border-right: 0; }
+    .usage-step small { display: block; font: 700 0.72rem/1 var(--mono); color: var(--purple-deep); }
+    .usage-step strong { display: block; margin-top: 28px; font-size: .88rem; }
+    .usage-step span { display: block; margin-top: 7px; color: var(--gray); font-size: .72rem; }
+
+    .initialize-flow { margin-top: 58px; border: 1px solid rgba(255,255,255,.28); background: rgba(255,255,255,.018); overflow: hidden; }
+    .initialize-flow-head { display: flex; justify-content: space-between; gap: 28px; align-items: end; padding: 24px 28px; border-bottom: 1px solid rgba(255,255,255,.18); }
+    .initialize-flow-head h3 { margin: 8px 0 0; font-family: var(--display); font-size: clamp(1.8rem, 3vw, 3rem); font-weight: 400; letter-spacing: -.04em; }
+    .initialize-flow-head > p { max-width: 520px; margin: 0; color: var(--ice-muted); }
+    .initialize-lane { display: grid; grid-template-columns: 142px repeat(7, minmax(0, 1fr)); min-height: 108px; border-bottom: 1px solid rgba(255,255,255,.15); align-items: stretch; }
+    .initialize-lane:last-child { border-bottom: 0; }
+    .initialize-lane-label { position: relative; display: grid; grid-template-columns: 34px 1fr; gap: 10px; align-content: center; align-items: center; padding: 18px 14px; border-right: 1px solid rgba(255,255,255,.15); color: var(--purple-pale); }
+    .initialize-lane-label b { display: grid; place-items: center; width: 30px; height: 30px; border: 1px solid currentColor; border-radius: 50%; font: 700 0.70rem/1 var(--mono); }
+    .initialize-lane-label strong { font: 700 0.70rem/1.3 var(--mono); letter-spacing: .08em; }
+    .initialize-lane:not(:last-child) .initialize-lane-label::after { content: "↓"; position: absolute; z-index: 2; left: 25px; bottom: -18px; display: grid; place-items: center; width: 30px; height: 34px; background: var(--void); color: var(--aqua); font-size: 1rem; }
+    .initialize-node { align-self: center; margin: 12px 8px; padding: 15px 16px; border: 2px solid var(--aqua); border-radius: 10px; background: rgba(5,0,8,.82); text-align: center; }
+    .initialize-node strong { display: block; font-size: .86rem; }
+    .initialize-node span { display: block; margin-top: 6px; color: var(--ice-muted); font: 0.72rem/1.35 var(--mono); }
+    .initialize-node.input { border-color: var(--purple-pale); }
+    .initialize-node.human { border-color: var(--ultraviolet-hot); }
+    .initialize-node.tool { border-color: var(--pink); }
+    .initialize-node.output { border-color: var(--aqua); background: linear-gradient(110deg, rgba(161,0,255,.23), rgba(5,242,219,.07)); }
+    .initialize-arrow { display: grid; place-items: center; color: var(--aqua); font-size: 1.45rem; }
+    .initialize-inputs { grid-column: 2 / 9; display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; align-items: center; padding: 4px 20px; }
+    .initialize-main-1 { grid-column: 2; }
+    .initialize-main-2 { grid-column: 4; }
+    .initialize-main-3 { grid-column: 6; }
+    .initialize-main-4 { grid-column: 8; }
+    .initialize-arrow-1 { grid-column: 3; }
+    .initialize-arrow-2 { grid-column: 5; }
+    .initialize-arrow-3 { grid-column: 7; }
+    .initialize-human { grid-column: 4 / 7; }
+    .initialize-tools { grid-column: 2 / 9; display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; align-items: center; padding: 4px 20px; }
+    .initialize-output { grid-column: 2 / 9; margin-inline: 20px; }
+
+    /* Use cases */
+    .use-head { display: grid; grid-template-columns: 1.25fr .75fr; gap: 70px; align-items: end; margin-bottom: 52px; }
+    .use-head p { margin-bottom: 8px; }
+    .use-tabs { display: grid; grid-template-columns: repeat(4, 1fr); border-block: 2px solid var(--black); }
+    .use-tabs button { min-height: 88px; padding: 18px 22px; border: 0; border-right: 1px solid var(--black); background: transparent; text-align: left; cursor: pointer; }
+    .use-tabs button:last-child { border-right: 0; }
+    .use-tabs button[aria-selected="true"], .use-tabs button:hover { background: var(--black); color: white; }
+    .use-tabs strong { display: block; }
+    .use-tabs span { display: block; margin-top: 6px; color: var(--gray); font-size: .72rem; }
+    .use-tabs button[aria-selected="true"] span { color: var(--line); }
+    .use-panel { padding-top: 54px; }
+    .use-panel[hidden] { display: none; }
+    .use-flow { position: relative; display: grid; grid-template-columns: repeat(7, 1fr); }
+    .use-flow::before { content: ""; position: absolute; left: 4%; right: 4%; top: 30px; height: 3px; background: var(--purple); }
+    .use-step { position: relative; min-height: 190px; padding-right: 16px; }
+    .use-step i { position: relative; z-index: 1; display: block; width: 18px; height: 18px; margin: 22px 0 42px; border: 4px solid white; outline: 2px solid var(--purple); background: var(--purple); }
+    .use-step small { display: block; font-family: var(--mono); color: var(--purple-deep); }
+    .use-step strong { display: block; max-width: 135px; margin-top: 8px; font-size: .84rem; line-height: 1.25; }
+    .use-proof { display: grid; grid-template-columns: 1.5fr .5fr; gap: 50px; padding-top: 24px; border-top: 1px solid var(--black); }
+    .use-proof p { margin: 0; }
+    #compose { padding-block: 56px 64px; }
+    #compose .use-tabs button { min-height: 72px; padding-block: 14px; }
+    .sequence-use-head { margin-bottom: 28px; }
+    .sequence-use-head h2 { font-size: clamp(3.8rem, 6vw, 6.8rem); line-height: .91; }
+    .sequence-use-head h2 code { display: block; margin-bottom: 12px; color: var(--aqua); font: 700 clamp(.72rem, 1.1vw, 1rem)/1 var(--mono); letter-spacing: .08em; }
+    .sequence-use-head h2 span { display: block; }
+    .sequence-panel { padding-top: 30px; }
+    .runtime-sequence { overflow: hidden; border: 1px solid rgba(194,163,255,.3); background: linear-gradient(145deg, rgba(161,0,255,.1), rgba(5,0,8,.82) 42%, rgba(5,242,219,.04)); box-shadow: 0 28px 80px rgba(0,0,0,.3); }
+    .sequence-prelude { display: grid; grid-template-columns: auto 1fr auto; gap: 18px; align-items: center; min-height: 52px; padding: 10px 18px; border-bottom: 1px solid rgba(194,163,255,.22); background: rgba(255,255,255,.035); }
+    .sequence-prelude small { color: var(--pink); font: 700 0.72rem/1 var(--mono); letter-spacing: .11em; }
+    .sequence-prelude strong { color: var(--ice); font-size: .82rem; }
+    .sequence-prelude span { color: var(--ice-muted); font-size: .72rem; text-align: right; }
+    .sequence-participants { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; padding: 16px 18px 8px; }
+    .sequence-participant { position: relative; min-width: 0; padding: 12px 14px; border: 1px solid rgba(194,163,255,.24); background: rgba(5,0,8,.7); text-align: center; }
+    .sequence-participant::after { content: ""; position: absolute; left: 50%; bottom: -280px; width: 1px; height: 279px; background: linear-gradient(rgba(5,242,219,.42), rgba(161,0,255,.16)); }
+    .sequence-participant small { display: block; color: var(--aqua); font: 700 0.70rem/1 var(--mono); letter-spacing: .12em; }
+    .sequence-participant strong { display: block; margin-top: 7px; color: var(--ice); font-size: .9rem; }
+    .sequence-participant span { display: block; margin-top: 4px; color: var(--ice-muted); font-size: 0.72rem; line-height: 1.25; }
+    .sequence-participant.runtime { border-color: rgba(255,80,160,.52); background: linear-gradient(145deg, rgba(255,80,160,.12), rgba(161,0,255,.14)); box-shadow: 0 0 28px rgba(161,0,255,.12); }
+    .sequence-participant.workers { border-style: dashed; }
+    .sequence-stage { position: relative; height: 276px; margin: 0 18px; }
+    .sequence-messages { position: absolute; inset: 0; margin: 0; padding: 0; list-style: none; }
+    .sequence-message { position: absolute; height: 1px; border-top: 1px solid var(--aqua); filter: drop-shadow(0 0 5px rgba(5,242,219,.35)); }
+    .sequence-message::after { content: ""; position: absolute; right: -1px; top: -5px; border-top: 5px solid transparent; border-bottom: 5px solid transparent; border-left: 8px solid var(--aqua); }
+    .sequence-message.reverse::after { right: auto; left: -1px; border-right: 8px solid var(--pink); border-left: 0; }
+    .sequence-message.reverse { border-top-color: var(--pink); filter: drop-shadow(0 0 5px rgba(255,80,160,.35)); }
+    .sequence-message .message-copy { position: absolute; left: 50%; top: -18px; z-index: 2; width: max-content; max-width: 330px; padding: 3px 9px 4px; transform: translateX(-50%); border: 1px solid rgba(194,163,255,.2); background: rgba(5,0,8,.96); box-shadow: 0 7px 22px rgba(0,0,0,.35); text-align: center; }
+    .sequence-message small { display: block; color: var(--aqua); font: 700 0.70rem/1.15 var(--mono); letter-spacing: .06em; }
+    .sequence-message.reverse small { color: var(--pink); }
+    .sequence-message strong { display: block; margin-top: 3px; color: var(--ice); font-size: .71rem; line-height: 1.15; }
+    .sequence-message.m1 { top: 22px; left: 10%; width: 20%; }
+    .sequence-message.m2 { top: 60px; left: 30%; width: 20%; }
+    .sequence-message.m3 { top: 98px; left: 30%; width: 20%; }
+    .sequence-message.m4 { top: 136px; left: 30%; width: 40%; }
+    .sequence-message.m5 { top: 174px; left: 30%; width: 40%; }
+    .sequence-message.m6 { top: 208px; left: 30%; width: 60%; }
+    .sequence-message.m7 { top: 244px; left: 10%; width: 80%; }
+    .sequence-rule { display: grid; grid-template-columns: repeat(3, 1fr); border-top: 1px solid rgba(194,163,255,.22); }
+    .sequence-rule span { padding: 10px 14px; border-right: 1px solid rgba(194,163,255,.18); color: var(--ice-muted); font-size: 0.76rem; text-align: center; }
+    .sequence-rule span:last-child { border-right: 0; }
+    .sequence-rule b { color: var(--aqua); font-weight: 700; }
+
+    /* External capability intelligence */
+    .external-head, .trust-head { display: grid; grid-template-columns: 1.2fr .8fr; gap: 76px; align-items: end; margin-bottom: 60px; }
+    .external-head p, .trust-head p { margin-bottom: 8px; }
+    .source-grid { display: grid; grid-template-columns: repeat(4, 1fr); border-block: 2px solid currentColor; }
+    .source-card { position: relative; min-height: 156px; padding: 24px 20px; border-right: 1px solid var(--line); }
+    .source-card:last-child { border-right: 0; }
+    .source-card small { display: block; font: 700 0.72rem/1 var(--mono); color: var(--purple-deep); }
+    .source-card strong { display: block; margin-top: 24px; font-size: 1.08rem; }
+    .source-card span { display: block; margin-top: 8px; color: var(--gray); font-size: .75rem; }
+    /* Card 04 is the decision, not a disabled option. It reads as the outcome
+       of the three gates before it, so it is dashed rather than dimmed —
+       `opacity: .55` also pushed it below the contrast floor. */
+    .source-card.is-outcome small::after { content: " / OUTCOME"; }
+    .intelligence-funnel { width: min(900px, 88%); margin: 44px auto 0; }
+    .funnel-step { position: relative; min-height: 62px; margin: 0 auto; padding: 19px 26px; border: 1px solid var(--line); text-align: center; font-weight: 700; }
+    .funnel-step + .funnel-step { margin-top: 18px; }
+    .funnel-step + .funnel-step::before { content: "↓"; position: absolute; left: 50%; top: -22px; transform: translateX(-50%); color: var(--purple); }
+    .funnel-step:nth-child(1) { width: 100%; }
+    .funnel-step:nth-child(2) { width: 88%; }
+    .funnel-step:nth-child(3) { width: 76%; }
+    .funnel-step:nth-child(4) { width: 64%; }
+    .decision-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; width: min(900px, 88%); margin: 18px auto 0; }
+    .decision-card { min-height: 142px; padding: 24px; border: 1px solid var(--line); }
+    .decision-card small { font: 700 0.72rem/1 var(--mono); color: var(--purple-deep); }
+    .decision-card strong { display: block; margin-top: 20px; font-size: 1.25rem; }
+    .decision-card span { display: block; margin-top: 8px; color: var(--gray); font-size: .78rem; }
+    .decision-card.novel { border-color: var(--purple); }
+    .promotion-mini { display: grid; grid-template-columns: repeat(3, 1fr); width: min(900px, 88%); margin: 16px auto 0; border-top: 1px solid var(--line); }
+    .promotion-mini span { padding: 16px 12px 0 0; font: 700 0.76rem/1.35 var(--mono); color: var(--purple-deep); }
+
+    /* Trust + one insight to every runtime */
+    .trust-layout { display: grid; grid-template-columns: .78fr 1.22fr; gap: 74px; align-items: start; }
+    .trust-stack { border-top: 2px solid currentColor; }
+    .trust-tier { display: grid; grid-template-columns: 110px 1fr; gap: 22px; min-height: 88px; padding: 18px 0; border-bottom: 1px solid var(--line); }
+    .trust-tier small { padding-left: 12px; font: 700 0.72rem/1.2 var(--mono); color: var(--purple-deep); }
+    .trust-tier strong { display: block; }
+    .trust-tier span { display: block; margin-top: 6px; color: var(--gray); font-size: .78rem; }
+    .trust-rule { margin-top: 24px; padding: 22px; border-left: 4px solid var(--pink); font-size: 1.05rem; }
+    .security-strip { display: grid; grid-template-columns: repeat(4, 1fr); margin-top: 22px; border: 1px solid var(--line); }
+    .security-strip span { min-height: 92px; padding: 16px 13px; border-right: 1px solid var(--line); font: 700 0.76rem/1.35 var(--mono); }
+    .security-strip span:last-child { border-right: 0; }
+    .insight-board { padding: 34px; border: 1px solid var(--line); }
+    .insight-board > small { font: 700 0.72rem/1 var(--mono); color: var(--purple-deep); }
+    .insight-pipeline { display: grid; grid-template-columns: 1fr 46px 1fr 46px 1fr; align-items: stretch; margin-top: 24px; }
+    .insight-node { min-height: 148px; padding: 22px; border: 1px solid var(--line); display: flex; flex-direction: column; justify-content: space-between; }
+    .insight-node strong { font-size: 1.04rem; }
+    .insight-node span { color: var(--gray); font-size: .75rem; }
+    .insight-arrow { display: grid; place-items: center; color: var(--purple); font-size: 1.7rem; }
+    .insight-technique { margin-top: 16px; padding: 18px; border-left: 4px solid var(--purple); }
+    .insight-technique strong { color: var(--purple-deep); }
+    .insight-runtime { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-top: 16px; }
+    .insight-runtime span { min-height: 64px; padding: 14px; border: 1px solid var(--line); display: flex; align-items: end; font: 700 .7rem/1 var(--mono); }
+
+    /* Dual learning loop */
+    .dual-loop { display: grid; gap: 14px; }
+    .loop-node { padding: 17px 20px; border: 1px solid rgba(255,255,255,.28); text-align: center; font-weight: 700; }
+    .loop-arrow { text-align: center; color: var(--aqua); line-height: 1; }
+    .loop-split { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .loop-branch { min-height: 136px; padding: 22px; border: 1px solid rgba(255,255,255,.24); }
+    .loop-branch small { font: 700 0.72rem/1 var(--mono); color: var(--aqua); }
+    .loop-branch strong { display: block; margin-top: 18px; }
+    .loop-branch span { display: block; margin-top: 8px; color: var(--purple-pale); font-size: .75rem; }
+    .practical-flow { margin-top: 34px; border-top: 2px solid var(--ultraviolet-hot); }
+    .practical-step { display: grid; grid-template-columns: 44px 120px 1fr; gap: 16px; align-items: center; min-height: 62px; border-bottom: 1px solid rgba(255,255,255,.16); }
+    .practical-step small { color: var(--aqua); font-family: var(--mono); }
+    .practical-step strong { font-size: .85rem; }
+    .practical-step span { color: var(--purple-pale); font-size: .76rem; }
+
+    /* Closing */
+    #payoff { padding-block: 38px 44px; }
+    .learning-layout { display: block; }
+    .learning-head { display: grid; grid-template-columns: 1.1fr .9fr; gap: 76px; align-items: center; }
+    .learning-head h2 { margin-bottom: 0; font-size: clamp(3.7rem, 5.8vw, 5.8rem); line-height: .92; }
+    .learning-head .lede { margin-bottom: 4px; }
+    .commons-map { position: relative; margin-top: 26px; }
+    .commons-release { width: min(520px, 100%); margin-inline: auto; padding: 13px 24px; border: 1px solid var(--aqua); background: linear-gradient(135deg, rgba(5,242,219,.11), rgba(161,0,255,.12)); text-align: center; box-shadow: 0 0 34px rgba(5,242,219,.08); }
+    .commons-release small, .project-node small, .commons-gate small { display: block; color: var(--aqua); font: 700 0.70rem/1 var(--mono); letter-spacing: .12em; }
+    .commons-release strong { display: block; margin-top: 8px; color: var(--ice); font-size: 1.35rem; }
+    .commons-release span { display: block; margin-top: 5px; color: var(--ice-muted); font-size: 0.76rem; }
+    .commons-fanout, .commons-fanin { display: grid; grid-template-columns: repeat(3, 1fr); align-items: center; width: 72%; margin-inline: auto; color: var(--aqua); text-align: center; }
+    .commons-fanout { min-height: 32px; }
+    .commons-fanin { min-height: 30px; }
+    .commons-fanout span, .commons-fanin span { font-size: 1rem; line-height: 1; }
+    .commons-fanout strong, .commons-fanin strong { grid-column: 1 / -1; grid-row: 1; color: var(--ice-muted); font: 700 0.70rem/1 var(--mono); letter-spacing: .08em; text-transform: uppercase; }
+    .commons-fanout span { grid-row: 2; }
+    .commons-fanin span { grid-row: 1; }
+    .commons-fanin strong { grid-row: 2; }
+    .project-network { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+    .project-node { min-height: 98px; padding: 14px 18px; border: 1px solid rgba(255,255,255,.26); background: rgba(255,255,255,.035); text-align: center; }
+    .project-node strong { display: block; margin-top: 12px; color: var(--ice); font-size: 1rem; }
+    .project-node span { display: block; margin-top: 7px; color: var(--ice-muted); font-size: 0.76rem; }
+    .project-node em { display: inline-block; margin-top: 8px; padding: 4px 8px; border: 1px solid rgba(5,242,219,.28); color: var(--aqua); font: 700 0.70rem/1 var(--mono); font-style: normal; text-transform: uppercase; }
+    .commons-promotion { position: relative; z-index: 2; width: min(520px, 100%); margin-inline: auto; }
+    .commons-gate { padding: 13px 22px; border: 1px solid var(--pink); background: rgba(255,80,160,.075); text-align: center; }
+    .commons-gate small { color: var(--pink); }
+    .commons-gate strong { display: block; margin-top: 8px; color: var(--ice); font-size: .92rem; }
+    .commons-return { position: absolute; z-index: 1; top: 48px; right: -16px; bottom: 105px; left: calc(50% + 260px); border-top: 1px solid var(--aqua); border-right: 1px solid var(--aqua); border-bottom: 1px solid var(--aqua); border-radius: 0 34px 34px 0; pointer-events: none; }
+    .commons-return::before { content: "←"; position: absolute; top: 0; left: -2px; color: var(--aqua); font-size: 1rem; line-height: 1; transform: translate(-50%, -50%); }
+    .commons-return span { position: absolute; top: 0; left: 52%; padding: 0 9px; background: var(--black); color: var(--aqua); font: 700 0.72rem/1 var(--mono); letter-spacing: .12em; transform: translate(-50%, -50%); }
+    .future-starts { width: min(850px, 100%); margin: 10px auto 0; padding: 9px 18px; border: 1px solid rgba(255,255,255,.18); color: var(--ice); font: 700 0.72rem/1.25 var(--mono); text-align: center; text-transform: uppercase; }
+    .map-rules { display: flex; justify-content: center; gap: 10px; margin-top: 8px; }
+    .map-rules span { padding: 6px 10px; background: rgba(161,0,255,.12); color: var(--purple-pale); font: 700 0.70rem/1 var(--mono); text-transform: uppercase; }
+    #payoff .benefit-grid { margin-top: 18px; }
+    #payoff .learning-rule { margin-top: 18px; font-family: var(--body); font-size: .9rem; text-align: center; }
+    .promotion-loop { border-top: 2px solid white; }
+    .promotion-step { display: grid; grid-template-columns: 48px 1fr; gap: 20px; align-items: center; min-height: 66px; border-bottom: 1px solid rgba(255,255,255,.45); }
+    .promotion-step span { font-family: var(--mono); font-size: 0.76rem; color: var(--purple-pale); }
+    .promotion-step strong { font-size: .9rem; }
+    .benefit-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-top: 34px; }
+    .benefit-grid div { min-height: 82px; padding: 14px; border: 1px solid rgba(255,255,255,.3); display: flex; flex-direction: column; justify-content: space-between; }
+    .benefit-grid strong { color: white; }
+    .benefit-grid span { color: var(--purple-pale); font: 0.76rem/1 var(--mono); text-transform: uppercase; }
+    .learning-rule { margin-top: 30px; color: var(--purple-pale); font-family: Georgia, serif; font-size: 1.55rem; line-height: 1.3; }
+    .closing {
+      min-height: calc(100svh - var(--header));
+      display: flex;
+      align-items: center;
+      border: 0;
+    }
+    .closing h2 { max-width: 1180px; font-size: clamp(4.7rem, 10vw, 10rem); font-weight: 700; }
+    .closing h2 span { display: block; color: var(--purple-pale); }
+    .closing-foot { display: grid; grid-template-columns: 1.5fr .5fr; gap: 70px; padding-top: 28px; border-top: 2px solid white; }
+    .closing-foot p { max-width: 760px; margin: 0; font-size: 1.1rem; }
+    .closing-foot code { align-self: end; font-size: 1rem; }
+    .closing-foot .closing-version { grid-column: 1 / -1; max-width: none; margin: 0; font: 700 0.72rem/1 var(--mono); letter-spacing: .08em; opacity: .72; text-transform: uppercase; }
+
+    footer { padding: 34px 0 48px; background: var(--black); color: white; }
+    .foot-grid { display: grid; grid-template-columns: 1.4fr 1fr 1fr; gap: 44px; }
+    footer p { margin: 0; color: #bdbdbd; font-size: .7rem; }
+    footer strong { display: block; margin-bottom: 8px; color: white; }
+
+    [data-focus="true"] .chapter-nav { display: none; }
+    [data-focus="true"] .site-head { height: 58px; display: flex; justify-content: flex-end; border: 0; background: transparent; pointer-events: none; }
+    [data-focus="true"] .brand-mark, [data-focus="true"] .site-title, [data-focus="true"] .chapter-count, [data-focus="true"] .key-hint { display: none; }
+    [data-focus="true"] .head-meta { pointer-events: auto; }
+    [data-focus="true"] main { padding-top: 0; }
+    [data-focus="true"] .progress { top: 0; }
+
+    @media (max-width: 1100px) {
+      :root { --page: calc(100vw - 64px); }
+      .chapter-nav { display: none; }
+      .hero-grid { grid-template-columns: 1fr 1fr; column-gap: 32px; }
+      .tax-layout { grid-template-columns: 1fr; gap: 54px; }
+      .tax-statement { position: static; }
+      .project-stack { grid-template-columns: 1fr; }
+      .project-card { min-height: auto; }
+      .project-card::after { display: none; }
+      .commons-boundary { grid-template-columns: 1fr; }
+      .boundary-divider { grid-auto-flow: column; justify-content: center; width: 100%; height: 72px; row-gap: 0; column-gap: 22px; }
+      .inside-grid { grid-template-columns: 1fr 1fr; }
+      .network-toolbar { grid-template-columns: 1fr 1fr; }
+      .network-reset { align-self: stretch; }
+      .capability-explorer-grid { grid-template-columns: minmax(160px, .42fr) minmax(210px, .58fr) minmax(0, 1fr); }
+      .arch-row { grid-template-columns: 1fr; gap: 18px; }
+      .arch-column { min-height: 0; }
+      .architecture-governance { grid-template-columns: 1fr; }
+      .governance-node { min-height: 0; }
+      /* Stacked flow: rotate only the glyph so the connector rules can be
+         re-anchored vertically instead of orbiting a rotated wide box. */
+      .arch-arrow { min-height: 66px; }
+      .governance-arrow { min-height: 48px; }
+      .arch-arrow span, .governance-arrow span { transform: rotate(90deg); }
+      .arch-arrow::before, .arch-arrow::after,
+      .governance-arrow::before, .governance-arrow::after {
+        top: auto; bottom: auto; left: 50%; right: auto; width: 1px; height: 14px;
+      }
+      .arch-arrow::before, .governance-arrow::before { top: 4px; }
+      .arch-arrow::after, .governance-arrow::after { bottom: 4px; }
+      .diagram-pipeline { grid-template-columns: 1fr; }
+      .diagram-arrow { min-height: 38px; }
+      .diagram-family-grid { grid-template-columns: repeat(3, 1fr); }
+      .product-demo { grid-template-columns: 1fr; }
+      .intake-modes { grid-template-columns: 1fr; }
+      .intake-mode + .intake-mode { border-left: 0; border-top: 1px solid var(--black); }
+      .gap-story-head { grid-template-columns: 1fr; }
+      .terminal { min-height: 430px; }
+      .usage-rail { grid-template-columns: repeat(3, 1fr); }
+      .initialize-flow-head { align-items: start; flex-direction: column; }
+      .initialize-lane { grid-template-columns: 92px 1fr; padding: 12px 0; }
+      .initialize-lane-label { grid-column: 1; grid-row: 1 / 20; grid-template-columns: 1fr; justify-items: center; text-align: center; }
+      .initialize-lane-label strong { font-size: 0.70rem; }
+      .initialize-lane:not(:last-child) .initialize-lane-label::after { left: 50%; bottom: -20px; transform: translateX(-50%); }
+      .initialize-inputs, .initialize-tools { grid-column: 2; display: grid; grid-template-columns: 1fr; gap: 10px; padding: 0 12px; }
+      .initialize-main-1, .initialize-main-2, .initialize-main-3, .initialize-main-4, .initialize-human, .initialize-output { grid-column: 2; margin-inline: 12px; }
+      .initialize-arrow-1, .initialize-arrow-2, .initialize-arrow-3 { grid-column: 2; min-height: 28px; transform: rotate(90deg); }
+      .usage-step:nth-child(3) { border-right: 0; }
+      .usage-step:nth-child(-n+3) { border-bottom: 1px solid var(--line); }
+      .use-flow { grid-template-columns: repeat(4, 1fr); }
+      .sequence-message .message-copy { max-width: 245px; }
+      .sequence-message strong { font-size: 0.76rem; }
+      .source-grid { grid-template-columns: 1fr 1fr; }
+      .source-card:nth-child(2) { border-right: 0; }
+      .source-card:nth-child(-n+2) { border-bottom: 1px solid var(--line); }
+      .trust-layout { grid-template-columns: 1fr; }
+      .insight-pipeline { grid-template-columns: 1fr; gap: 12px; }
+      .insight-arrow { transform: rotate(90deg); min-height: 32px; }
+      .learning-head { grid-template-columns: 1fr; gap: 18px; }
+      .commons-map { margin-top: 26px; }
+      .project-node { padding-inline: 12px; }
+
+      /* merged from the second max-width:1100px block */
+      .composition-formula { display: grid; grid-template-columns: repeat(2, 1fr); }
+      .formula-plus, .formula-arrow { display: none; }
+      .formula-result { grid-column: 1 / -1; }
+    }
+
+    @media (max-width: 760px) {
+      :root { --page: calc(100vw - 36px); --header: 64px; }
+      .site-head { grid-template-columns: 1fr auto; padding: 0 18px; }
+      .brand-mark { width: 31px; height: 33px; }
+      .site-title, .chapter-count, .key-hint { display: none; }
+      .focus-button { width: 40px; padding: 0; font-size: 0; }
+      .focus-button::after { content: "⛶"; font-size: 1rem; }
+      .chapter { min-height: auto; padding: 78px 0; }
+      h1 { font-size: clamp(4rem, 20vw, 6rem); }
+      h2 { font-size: clamp(3rem, 14vw, 4.5rem); }
+      h1, h2, h3, p, .kicker, .lede { min-width: 0; overflow-wrap: anywhere; text-wrap: wrap; }
+      .hero-grid { grid-template-columns: 1fr; }
+      .hero-machine { min-height: 400px; }
+      .hero-proof { display: block; }
+      .hero-proof span { display: block; margin-top: 9px; }
+      .repeat-caption { display: block; }
+      .repeat-caption span { display: block; margin-top: 6px; }
+      .repeat-summary { grid-template-columns: 1fr; gap: 10px; }
+      .engine-head, .anatomy-head, .architecture-lead, .product-head, .use-head, .network-head { grid-template-columns: minmax(0, 1fr); gap: 22px; }
+      .engine-head > *, .anatomy-head > *, .architecture-lead > *, .product-head > *, .use-head > *, .network-head > * { min-width: 0; }
+      .project-stack { padding-bottom: 22px; }
+      .project-card { padding: 20px; }
+      .common-foundation { padding: 22px 20px; }
+      .boundary-panel { min-height: auto; padding: 24px 22px; }
+      .boundary-divider small { display: none; }
+      .type-line { grid-template-columns: 1fr; gap: 8px; }
+      .inside-grid { grid-template-columns: minmax(0, 1fr); }
+      .inside-grid > * { min-width: 0; max-width: 100%; }
+      .repo-tree { overflow: hidden; }
+      .tree-branch { white-space: normal; overflow-wrap: anywhere; }
+      .repo-detail { min-height: 430px; padding: 34px 26px; }
+      .network-toolbar { grid-template-columns: 1fr; }
+      .network-stage, .capability-graph { min-height: 500px; }
+      .network-status { grid-template-columns: 1fr 1fr; }
+      .network-status div:nth-child(2) { border-right: 0; }
+      .network-status div:nth-child(-n+2) { border-bottom: 1px solid rgba(255,255,255,.18); }
+      .network-fallback { display: block; }
+      .capability-explorer-head, .capability-explorer-grid { grid-template-columns: 1fr; }
+      .capability-types { border-right: 0; border-bottom: 1px solid var(--line); }
+      .capability-type-list { grid-template-columns: 1fr 1fr; }
+      .capability-list { max-height: 280px; border-right: 0; border-bottom: 1px solid var(--line); }
+      .capability-preview { border-right: 0; }
+      .boundary { grid-template-columns: 1fr; }
+      .diagram-capability-head { grid-template-columns: 1fr; gap: 16px; }
+      .diagram-family-grid { grid-template-columns: 1fr 1fr; }
+      .diagram-family:nth-child(2n) { border-right: 0; }
+      .initializer, .terminal { padding: 28px 22px; }
+      .scope-tabs { grid-template-columns: 1fr 1fr; }
+      .scope-tabs button:nth-child(2) { border-right: 0; }
+      .scope-tabs button:nth-child(-n+2) { border-bottom: 1px solid var(--black); }
+      .scope-panel { grid-template-columns: 1fr; }
+      .scope-panel div { border-right: 0; }
+      .extraction-list { grid-template-columns: 1fr 1fr; }
+      .missing-brand { grid-template-columns: 1fr; }
+      .brand-choices { grid-template-columns: 1fr 1fr; }
+      .brand-choices span:nth-child(odd) { border-left: 0; }
+      .brand-choices span { border-top: 1px solid var(--line); }
+      .project-result { grid-template-columns: 1fr; gap: 30px; }
+      .coverage-grid, .gap-paths { grid-template-columns: 1fr; }
+      .gap-path { border-right: 0; border-bottom: 1px solid var(--black); }
+      .gap-path:last-child { border-bottom: 0; }
+      .trust-equation { grid-template-columns: 1fr; gap: 10px; }
+      .result-rules { grid-template-columns: 1fr; gap: 20px; }
+      .result-rules div { border-left: 3px solid var(--purple); }
+      .usage-rail { grid-template-columns: 1fr 1fr; }
+      .usage-step, .usage-step:nth-child(3) { border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+      .usage-step:nth-child(even) { border-right: 0; }
+      .usage-step:nth-last-child(-n+2) { border-bottom: 0; }
+      .use-tabs { grid-template-columns: 1fr; }
+      .use-tabs button { border-right: 0; border-bottom: 1px solid var(--black); }
+      #compose .use-tabs { display: flex; overflow-x: auto; border-bottom: 1px solid rgba(255,255,255,.28); scroll-snap-type: x mandatory; }
+      #compose .use-tabs button { flex: 0 0 82%; min-height: 72px; border-right: 1px solid rgba(255,255,255,.16); border-bottom: 0; scroll-snap-align: start; }
+      #compose .use-tabs button:last-child { border-right: 0; }
+      .use-flow { grid-template-columns: 1fr 1fr; }
+      .use-flow::before { display: none; }
+      .use-step { min-height: 130px; border-top: 2px solid var(--purple); }
+      .use-step i { margin: 14px 0 18px; }
+      .use-proof, .closing-foot { grid-template-columns: 1fr; gap: 24px; }
+      .sequence-use-head h2 { font-size: clamp(3rem, 15vw, 4.3rem); }
+      .sequence-prelude { grid-template-columns: 1fr; gap: 7px; padding: 14px; }
+      .sequence-prelude span { text-align: left; }
+      .sequence-participants { grid-template-columns: 1fr 1fr; }
+      .sequence-participant:last-child { grid-column: 1 / -1; }
+      .sequence-participant::after { display: none; }
+      .sequence-stage { height: auto; margin: 8px 14px 14px; }
+      .sequence-messages { position: static; display: grid; gap: 8px; }
+      .sequence-message, .sequence-message.reverse { position: relative; inset: auto; width: auto; height: auto; min-height: 58px; padding: 12px 14px 12px 48px; border: 1px solid rgba(194,163,255,.24); background: rgba(255,255,255,.035); filter: none; }
+      .sequence-message.m1, .sequence-message.m2, .sequence-message.m3, .sequence-message.m4, .sequence-message.m5, .sequence-message.m6, .sequence-message.m7 { top: auto; left: auto; width: auto; }
+      .sequence-message::after, .sequence-message.reverse::after { left: 18px; right: auto; top: 50%; border: 0; width: 10px; height: 10px; transform: translateY(-50%) rotate(45deg); background: var(--aqua); box-shadow: 0 0 14px rgba(5,242,219,.5); }
+      .sequence-message.reverse::after { background: var(--pink); box-shadow: 0 0 14px rgba(255,80,160,.5); }
+      .sequence-message .message-copy { position: static; width: auto; max-width: none; padding: 0; transform: none; background: transparent; text-align: left; }
+      .sequence-message strong { font-size: .76rem; }
+      .sequence-rule { grid-template-columns: 1fr; }
+      .sequence-rule span { border-right: 0; border-bottom: 1px solid rgba(194,163,255,.18); text-align: left; }
+      .sequence-rule span:last-child { border-bottom: 0; }
+      .external-head, .trust-head { grid-template-columns: 1fr; gap: 22px; }
+      .source-grid, .decision-grid, .promotion-mini, .security-strip, .insight-runtime, .loop-split { grid-template-columns: 1fr; }
+      .source-card, .source-card:nth-child(2) { border-right: 0; border-bottom: 1px solid var(--line); }
+      .source-card:last-child { border-bottom: 0; }
+      .intelligence-funnel, .decision-grid, .promotion-mini { width: 100%; }
+      .funnel-step:nth-child(n) { width: 100%; }
+      .security-strip span { border-right: 0; border-bottom: 1px solid var(--line); }
+      .security-strip span:last-child { border-bottom: 0; }
+      .practical-step { grid-template-columns: 34px 1fr; }
+      .practical-step span { grid-column: 2; }
+      .commons-map { margin-top: 24px; }
+      .commons-fanout, .commons-fanin { width: 100%; }
+      .project-network { grid-template-columns: 1fr; gap: 8px; }
+      .project-node { min-height: 0; text-align: left; }
+      .project-node em { margin-top: 8px; }
+      .commons-fanout span, .commons-fanin span { display: none; }
+      .commons-fanout, .commons-fanin { display: flex; min-height: 28px; justify-content: center; }
+      .commons-fanout::after, .commons-fanin::before { content: "↓"; color: var(--aqua); }
+      .commons-fanout strong, .commons-fanin strong { align-self: center; margin-inline: 10px; }
+      .commons-return { position: relative; inset: auto; display: flex; width: calc(100% - 36px); height: 36px; margin: 10px auto 0; border: 0; border-top: 1px solid var(--aqua); border-right: 1px solid var(--aqua); border-radius: 0 20px 0 0; align-items: flex-start; justify-content: center; }
+      .commons-return::before { content: "↖"; top: 0; left: 0; }
+      .commons-return span { position: static; margin-top: -5px; transform: none; }
+      .map-rules { flex-direction: column; align-items: stretch; text-align: center; }
+      .benefit-grid { grid-template-columns: 1fr 1fr; }
+      .closing h2 { max-width: 100%; font-size: clamp(3.05rem, 16vw, 4.25rem); overflow-wrap: anywhere; text-wrap: wrap; }
+      .foot-grid { grid-template-columns: 1fr; gap: 24px; }
+
+      /* merged from the second max-width:760px block */
+      .site-head { padding-inline: 18px; }
+      .focus-button { font-size: 0; }
+      .hero { padding-top: 90px; }
+      .hero::before { display: none; }
+      .hero-sigil { display: none; }
+      .hero-grid { grid-template-columns: minmax(0, 1fr); gap: 36px; }
+      .hero-copy { width: auto; min-width: 0; padding-top: 0; }
+      .hero-kicker {
+        position: static;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px 18px;
+        margin-bottom: -16px;
+        white-space: normal;
+      }
+      .hero-kicker span { flex: 1 1 100%; white-space: normal; }
+      .hero-kicker span:last-child { margin-left: auto; text-align: right; }
+      .hero-machine { width: auto; min-width: 0; min-height: 0; padding: 26px 22px; }
+      .start-comparison { grid-template-columns: 1fr; }
+      .start-shift { grid-template-columns: 1fr auto 1fr; grid-template-rows: auto; width: auto; padding: 8px 0; }
+      .start-shift span { align-self: center; }
+      .start-shift i { transform: rotate(90deg); }
+      .hero h1 { font-size: clamp(3.45rem, 18vw, 4.85rem); }
+      .composition-formula { grid-template-columns: 1fr; }
+      .formula-result { grid-column: auto; }
+      .research-demo, .reference-flow { grid-template-columns: 1fr; }
+      .reference-flow > .formula-arrow { display: block; transform: rotate(90deg); text-align: center; }
+    }
+
+    /* ── Ultraviolet stage ────────────────────────────────────────────────
+       Skin layer for the structural rules above. Colour only: geometry,
+       spacing and layout stay in the block above so there is one place to
+       change each concern. */
+
+    html { background: var(--void); overflow-x: clip; }
+    body::before {
+      content: "";
+      position: fixed;
+      z-index: -2;
+      inset: 0;
+      pointer-events: none;
+      background-image:
+        linear-gradient(rgba(161, 0, 255, .085) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(161, 0, 255, .085) 1px, transparent 1px);
+      background-size: 64px 64px;
+      mask-image: radial-gradient(ellipse at 50% 28%, black 8%, transparent 72%);
+      -webkit-mask-image: radial-gradient(ellipse at 50% 28%, black 8%, transparent 72%);
+      animation: grid-drift 34s linear infinite;
+    }
+    body::after {
+      content: "";
+      position: fixed;
+      z-index: -1;
+      width: 46vw;
+      height: 46vw;
+      left: -18vw;
+      top: 30vh;
+      pointer-events: none;
+      border-radius: 50%;
+      background: rgba(117, 0, 192, .38);
+      filter: blur(120px);
+      animation: aura-drift 18s ease-in-out infinite alternate;
+    }
+    @keyframes grid-drift { to { background-position: 64px 64px; } }
+    @keyframes aura-drift { to { transform: translate(24vw, 14vh) scale(.78); opacity: .5; } }
+
+    .site-head {
+      padding-inline: 34px;
+      border-bottom-color: rgba(255,255,255,.1);
+      background: rgba(5,0,8,.82);
+      backdrop-filter: blur(18px) saturate(135%);
+      -webkit-backdrop-filter: blur(18px) saturate(135%);
+    }
+    .brand-mark { filter: drop-shadow(0 0 14px rgba(161,0,255,.72)); }
+    .site-title { color: var(--ice); font-weight: 700; }
+    .chapter-count { color: var(--ice-muted); }
+    .key-hint { border-color: rgba(255,255,255,.2); color: var(--ice-muted); }
+    .focus-button {
+      border-color: rgba(194,163,255,.5);
+      background: rgba(161,0,255,.08);
+      color: var(--ice);
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      font-size: 0.76rem;
+    }
+    .focus-button:hover { border-color: var(--aqua); background: rgba(5,242,219,.1); color: var(--aqua); }
+    .progress > span { background: linear-gradient(90deg, var(--ultraviolet), var(--pink), var(--aqua)); box-shadow: 0 0 16px var(--ultraviolet); }
+    .chapter-nav a { background: rgba(255,255,255,.2); }
+    .chapter-nav a:hover, .chapter-nav a[aria-current="true"] { background: var(--aqua); box-shadow: 0 0 12px rgba(5,242,219,.6); }
+
+    .chapter {
+      border-bottom-color: rgba(255,255,255,.1);
+      background: transparent;
+    }
+    .chapter.soft { background: linear-gradient(135deg, rgba(70,0,115,.16), rgba(0,0,0,.1) 55%, rgba(5,242,219,.025)); }
+    .chapter.purple {
+      background:
+        radial-gradient(circle at 12% 20%, rgba(255,80,160,.12), transparent 32%),
+        linear-gradient(135deg, #3a005a 0%, #7100aa 42%, #170025 100%);
+      color: var(--ice);
+    }
+    .chapter.black { background: rgba(0,0,0,.72); color: var(--ice); }
+    .kicker {
+      color: var(--ultraviolet-hot);
+      text-transform: uppercase;
+      letter-spacing: .18em;
+      font-size: 0.76rem;
+      text-shadow: 0 0 20px rgba(161,0,255,.55);
+    }
+    .purple .kicker, .black .kicker { color: var(--aqua); }
+    h1, h2 { color: var(--ice); text-wrap: balance; }
+    h1 { text-shadow: 0 6px 30px rgba(0,0,0,.36); }
+    h2 { font-weight: 600; letter-spacing: -.055em; }
+    .lede { color: var(--ice-muted); }
+    .muted, .purple .muted, .black .muted { color: var(--ice-muted); }
+
+    /* The hero behaves like a capability launcher, not a metric dashboard. */
+    .hero {
+      overflow: hidden;
+      min-height: calc(100svh - var(--header));
+      background:
+        linear-gradient(90deg, rgba(5,0,8,.94) 0%, rgba(5,0,8,.7) 54%, rgba(70,0,115,.18) 100%);
+    }
+    .hero-grid { position: relative; z-index: 1; grid-template-columns: minmax(0, 1.2fr) minmax(330px, .8fr); align-items: center; }
+    .hero-copy { animation: hero-in .85s cubic-bezier(.2,.75,.2,1) both; }
+    @keyframes hero-in { from { opacity: 0; transform: translateY(30px); } }
+    .hero h1 { font-weight: 700; letter-spacing: -.065em; }
+    .hero h1 .zero {
+      color: var(--ice);
+      text-shadow: 0 0 36px rgba(161,0,255,.6);
+    }
+    .hero h1 .zero::before {
+      inset: .02em -.08em -.01em -.04em;
+      background: linear-gradient(100deg, var(--ultraviolet), #cb24ff 72%, var(--pink));
+      box-shadow: 0 0 58px rgba(161,0,255,.45);
+    }
+    .hero-machine {
+      min-height: 350px;
+      padding: 30px 32px;
+      border: 1px solid rgba(194,163,255,.28);
+      background: linear-gradient(145deg, rgba(255,255,255,.075), rgba(255,255,255,.018));
+      backdrop-filter: blur(15px) saturate(130%);
+      -webkit-backdrop-filter: blur(15px) saturate(130%);
+      box-shadow: 0 24px 90px rgba(70,0,115,.35), inset 0 1px rgba(255,255,255,.08);
+      animation: machine-in .95s .15s cubic-bezier(.2,.75,.2,1) both;
+    }
+    @keyframes machine-in { from { opacity: 0; transform: translateX(32px); } }
+    .hero-machine::before { left: -1px; top: -1px; width: 2px; height: 44%; background: linear-gradient(var(--pink), var(--ultraviolet), transparent); box-shadow: 0 0 18px var(--ultraviolet); }
+    .machine-label { color: var(--aqua); text-transform: uppercase; letter-spacing: .14em; }
+    .start-state small, .start-state p { color: var(--ice-muted); }
+    .start-state strong { color: var(--ice); }
+    .start-state.old { border-color: rgba(194,163,255,.2); background: rgba(255,255,255,.025); }
+    .start-state.new {
+      border-left-color: var(--aqua);
+      background: linear-gradient(90deg, rgba(5,242,219,.08), transparent 72%);
+    }
+    .start-state.new small { color: var(--aqua); }
+    .start-state.new strong { color: var(--ice); text-shadow: 0 0 28px rgba(5,242,219,.18); }
+    .start-shift { border-color: rgba(255,255,255,.14); }
+    .start-shift span { color: var(--pink); }
+    .start-shift i { border-color: var(--pink); color: var(--pink); box-shadow: 0 0 20px rgba(255,80,160,.18); }
+    .hero-proof strong { color: var(--aqua); }
+    .hero-proof { border-top-color: rgba(255,255,255,.25); color: var(--ice-muted); }
+
+    .tax-statement strong { color: var(--pink); text-shadow: 0 0 34px rgba(255,80,160,.32); }
+    .repeat-stack { border-top-color: rgba(255,255,255,.3); }
+    .repeat-caption { border-bottom-color: rgba(255,255,255,.12); }
+    .repeat-caption span { color: var(--ice-muted); }
+    .project-card {
+      border-color: rgba(194,163,255,.34);
+      background: rgba(161,0,255,.07);
+      box-shadow: inset 0 0 18px rgba(161,0,255,.05);
+    }
+    .project-card::after { background: var(--pink); }
+    .project-card > small { color: var(--aqua); }
+    .project-work span { border-color: rgba(194,163,255,.34); color: var(--ice-muted); }
+    .project-card:hover { border-color: var(--pink); background: rgba(255,80,160,.08); }
+    .common-foundation { border-color: var(--pink); background: rgba(255,80,160,.08); }
+    .common-foundation > span { color: var(--pink); }
+    .foundation-work span { border-color: rgba(5,242,219,.5); background: rgba(5,242,219,.06); color: var(--ice); }
+    .repeat-summary { border-bottom-color: rgba(255,255,255,.3); }
+    .repeat-summary strong { color: var(--pink); text-shadow: 0 0 26px rgba(255,80,160,.24); }
+    .repeat-summary span { color: var(--ice-muted); }
+    .repeat-consequence { border-top-color: rgba(255,255,255,.35); color: var(--ice-muted); }
+    .repeat-consequence span { color: var(--pink); }
+
+    /* Signature: the project boundary makes the reuse decision visible. */
+    .engine-head p { color: var(--ice-muted); }
+    .boundary-rule { border-left-color: var(--pink); color: var(--ice); }
+    .boundary-panel.commons { box-shadow: inset 0 4px 0 var(--aqua), 0 0 34px rgba(5,242,219,.1); }
+    .boundary-divider span { box-shadow: 0 0 26px rgba(5,242,219,.25); }
+    .earned { color: var(--aqua); font-family: var(--body); font-weight: 300; letter-spacing: -.04em; }
+
+    .type-ledger { border-top-color: rgba(255,255,255,.34); }
+    .type-line { border-bottom-color: rgba(255,255,255,.12); }
+    .type-line:hover { background: linear-gradient(90deg, rgba(161,0,255,.13), transparent 70%); }
+    .type-line strong { color: var(--ultraviolet-hot); }
+    .type-line span { color: var(--ice-muted); }
+    .type-line q { color: var(--aqua); }
+    .inside-grid, .product-demo {
+      border-color: rgba(194,163,255,.28);
+      background: rgba(255,255,255,.035);
+      box-shadow: 0 28px 90px rgba(70,0,115,.28);
+      backdrop-filter: blur(16px) saturate(125%);
+      -webkit-backdrop-filter: blur(16px) saturate(125%);
+    }
+    .repo-tree, .terminal { background: rgba(0,0,0,.72); }
+    .tree-root, .terminal-code b { color: var(--aqua); }
+    .tree-branch:hover, .tree-branch[aria-pressed="true"] { background: linear-gradient(90deg, rgba(161,0,255,.82), rgba(117,0,192,.4)); }
+    .repo-detail code, .repo-meta strong { color: var(--aqua); }
+    .repo-meta { border-top-color: rgba(255,255,255,.25); }
+    .capability-explorer { border-color: rgba(194,163,255,.28); background: rgba(255,255,255,.025); box-shadow: 0 28px 90px rgba(70,0,115,.28); }
+    .capability-explorer-head, .capability-types, .capability-list, .capability-source { border-color: rgba(255,255,255,.14); }
+    .capability-types { background: rgba(0,0,0,.28); }
+    .capability-types > small, .preview-section h5 { color: var(--aqua); }
+    .capability-type-list button { border-color: rgba(255,255,255,.14); background: rgba(255,255,255,.025); color: var(--ice); }
+    .capability-type-list button[aria-pressed="true"], .capability-type-list button:hover { border-color: var(--aqua); background: linear-gradient(110deg, var(--ultraviolet), #7400b7); color: white; }
+    .capability-list button, .capability-links button { border-color: rgba(255,255,255,.11); color: var(--ice); }
+    .capability-list button span, .capability-links button span, .capability-preview > p, .preview-section p, .preview-section ul, .capability-links p, .capability-source { color: var(--ice-muted); }
+    .capability-list button:hover, .capability-list button[aria-current="true"], .capability-links button:hover { background: linear-gradient(90deg, rgba(161,0,255,.3), rgba(5,242,219,.035)); box-shadow: inset 4px 0 var(--aqua); }
+    .capability-preview code { color: var(--aqua); }
+    .preview-meta span, .capability-tags span { border-color: rgba(255,255,255,.16); color: var(--aqua); background: rgba(5,242,219,.025); }
+    .preview-tabs { border-color: rgba(255,255,255,.22); }
+    .preview-tabs button { border-color: rgba(255,255,255,.18); color: var(--ice); }
+    .preview-tabs button[aria-selected="true"], .preview-tabs button:hover { background: linear-gradient(110deg, var(--ultraviolet), #620097); color: white; }
+
+    .architecture-stage { border-color: rgba(255,255,255,.28); }
+    /* One accent per stage: source ultraviolet, adapter pink, runtimes aqua.
+       Equal panel weight keeps the row reading as a flow, not as one card
+       flanked by two loose text blocks. */
+    .arch-column {
+      border: 1px solid rgba(194,163,255,.18);
+      background: linear-gradient(170deg, rgba(255,255,255,.06), rgba(255,255,255,.014));
+    }
+    .arch-column:nth-child(1) { box-shadow: inset 0 3px var(--ultraviolet); }
+    .arch-column:nth-child(3) { box-shadow: inset 0 3px var(--pink); background: linear-gradient(160deg, rgba(161,0,255,.2), rgba(255,255,255,.02) 66%); }
+    .arch-column:nth-child(5) { box-shadow: inset 0 3px var(--aqua); }
+    .arch-step { color: var(--ice); opacity: .15; }
+    .arch-column ul { border-top-color: rgba(255,255,255,.3); }
+    .arch-column li { border-bottom-color: rgba(255,255,255,.14); color: var(--ice-muted); }
+    .arch-column li::before { background: var(--aqua); opacity: .85; }
+    .arch-arrow { color: var(--aqua); text-shadow: 0 0 22px rgba(5,242,219,.55); }
+    .runtime-nodes { border-top-color: rgba(255,255,255,.3); }
+    .runtime-node { border-color: rgba(5,242,219,.45); color: var(--ice); background: rgba(5,242,219,.05); box-shadow: inset 0 -2px rgba(5,242,219,.3); }
+    .runtime-node::before { background: var(--aqua); box-shadow: 0 0 12px rgba(5,242,219,.85); }
+    .boundary { background: rgba(255,255,255,.13); border-top-color: rgba(255,255,255,.13); }
+    .boundary div { background: rgba(5,0,8,.82); }
+    .boundary div::before { background: var(--ultraviolet); }
+    .boundary .commons::before { background: var(--aqua); }
+    .boundary .project::before { background: var(--pink); }
+    .boundary strong { color: var(--aqua); }
+    .boundary .project strong { color: var(--pink); }
+    .boundary span { color: var(--ice-muted); }
+    .architecture-governance { border-color: rgba(255,255,255,.13); }
+    .governance-node { background: rgba(5,0,8,.82); }
+    .governance-node:hover { background: rgba(161,0,255,.14); box-shadow: inset 0 0 0 1px rgba(194,163,255,.3); }
+    .governance-node small { color: var(--aqua); }
+    .governance-node span { color: var(--ice-muted); }
+    .governance-arrow { color: var(--aqua); }
+    .diagram-capability { border-color: rgba(255,255,255,.18); }
+    .diagram-capability-head p, .diagram-stage span { color: var(--ice-muted); }
+    .diagram-pipeline { border-color: rgba(255,255,255,.18); }
+    .diagram-stage { background: rgba(5,0,8,.82); }
+    .diagram-stage small, .diagram-family small { color: var(--aqua); }
+    .diagram-arrow { background: rgba(161,0,255,.24); color: var(--aqua); }
+    .diagram-family { border-color: rgba(255,255,255,.12); background: rgba(255,255,255,.025); }
+
+    .terminal-head { color: var(--ice-muted); }
+    .command-block { background: linear-gradient(110deg, var(--ultraviolet), #6e00ab); box-shadow: 0 0 36px rgba(161,0,255,.3); }
+    .initializer { background: linear-gradient(145deg, rgba(255,255,255,.055), rgba(255,255,255,.012)); }
+    .scope-tabs { border-color: rgba(255,255,255,.26); }
+    .scope-tabs button {
+      border-right-color: rgba(255,255,255,.18);
+      background: rgba(255,255,255,.035);
+      color: var(--ice-muted);
+    }
+    .scope-tabs button[aria-selected="true"], .scope-tabs button:hover { background: linear-gradient(110deg, var(--ultraviolet), #7400b7); color: white; box-shadow: inset 0 -2px var(--aqua); }
+    .scope-panel { border-color: rgba(255,255,255,.16); }
+    .scope-panel div { border-color: rgba(255,255,255,.12); }
+    .scope-panel small { color: var(--ice-muted); }
+    .manifest-peek, .project-result { border-color: rgba(255,255,255,.24); }
+    .manifest-peek code, .result-rules strong { color: var(--aqua); }
+    .intake-story { border-color: rgba(255,255,255,.28); background: rgba(255,255,255,.018); }
+    .intake-mode + .intake-mode, .intake-resolution { border-color: rgba(255,255,255,.18); }
+    .intake-mode.brief { background: linear-gradient(145deg, rgba(161,0,255,.3), rgba(0,0,0,.58)); }
+    .intake-mode small, .intake-resolution > small, .intake-arrow, .extraction-list b, .missing-brand > strong { color: var(--aqua); }
+    .intake-mode.brief small, .intake-mode.brief .intake-arrow { color: var(--ice); }
+    .extraction-list { background: rgba(255,255,255,.14); }
+    .extraction-list span { background: rgba(255,255,255,.035); color: var(--ice-muted); }
+    .missing-brand { border-color: rgba(255,255,255,.26); }
+    .brand-choices span { border-color: rgba(255,255,255,.14); color: var(--ice-muted); }
+    .gap-story { border-color: rgba(255,255,255,.28); background: rgba(255,255,255,.018); }
+    .gap-story-head, .gap-path, .trust-equation, .promotion-path { border-color: rgba(255,255,255,.18); }
+    .gap-brief { background: linear-gradient(145deg, var(--ultraviolet), #5c008e); }
+    .gap-check small, .gap-path small { color: var(--aqua); }
+    .coverage-grid { border-color: rgba(255,255,255,.18); }
+    .coverage-grid span { border-color: rgba(255,255,255,.12); color: var(--ice-muted); }
+    .coverage-grid b { color: var(--aqua); }
+    .coverage-grid .gap b { color: var(--pink); }
+    .gap-path span { color: var(--ice-muted); }
+    .gap-path:first-child { background: rgba(5,242,219,.035); }
+    .gap-path:last-child { background: rgba(255,80,160,.035); }
+    .trust-equation { background: rgba(0,0,0,.42); }
+    .trust-equation b { color: var(--pink); }
+    .promotion-path { color: var(--ice-muted); }
+    .result-rules div { border-left-color: rgba(255,255,255,.15); }
+    .result-rules span { color: var(--ice-muted); }
+    .runtime-pick { border-color: rgba(255,255,255,.2); color: var(--ice-muted); }
+    .runtime-pick.selected { border-color: var(--aqua); color: var(--aqua); background: rgba(5,242,219,.06); }
+    .usage-rail { border-color: rgba(255,255,255,.28); }
+    .usage-step { border-color: rgba(255,255,255,.14); }
+    .usage-step small { color: var(--aqua); }
+    .usage-step span { color: var(--ice-muted); }
+
+    .use-tabs { border-color: rgba(255,255,255,.28); }
+    .use-tabs button { border-right-color: rgba(255,255,255,.16); color: var(--ice); }
+    .use-tabs span { color: var(--ice-muted); }
+    .use-tabs button[aria-selected="true"], .use-tabs button:hover { background: linear-gradient(120deg, rgba(161,0,255,.8), rgba(70,0,115,.56)); box-shadow: inset 0 -3px var(--aqua); }
+    .use-tabs button[aria-selected="true"] span { color: rgba(255,255,255,.72); }
+    .use-flow::before { background: linear-gradient(90deg, var(--pink), var(--ultraviolet), var(--aqua)); box-shadow: 0 0 14px rgba(161,0,255,.55); }
+    .use-step i { border-color: var(--void); outline-color: var(--ultraviolet-hot); background: var(--ultraviolet); box-shadow: 0 0 18px rgba(161,0,255,.65); }
+    .use-step small { color: var(--aqua); }
+    .use-proof { border-top-color: rgba(255,255,255,.24); }
+
+    .source-grid { border-color: rgba(255,255,255,.28); }
+    .source-card { border-color: rgba(255,255,255,.14); background: rgba(255,255,255,.025); }
+    .source-card:hover { background: linear-gradient(145deg, rgba(161,0,255,.16), rgba(5,242,219,.025)); }
+    .source-card.is-outcome { background: linear-gradient(160deg, rgba(161,0,255,.11), rgba(5,242,219,.03)); box-shadow: inset 0 2px var(--pink); }
+    .source-card.is-outcome small::after { color: var(--pink); }
+    .source-card small, .decision-card small, .promotion-mini span, .trust-tier small, .insight-board > small { color: var(--aqua); }
+    .source-card span, .decision-card span, .trust-tier span, .insight-node span { color: var(--ice-muted); }
+    .funnel-step { border-color: rgba(194,163,255,.28); background: rgba(161,0,255,.06); }
+    .funnel-step + .funnel-step::before { color: var(--aqua); }
+    .funnel-step:nth-child(3) { border-color: rgba(255,80,160,.45); box-shadow: inset 0 0 26px rgba(255,80,160,.05); }
+    .funnel-step:nth-child(4) { border-color: var(--aqua); box-shadow: 0 0 24px rgba(5,242,219,.08); }
+    .decision-card { border-color: rgba(255,255,255,.16); background: rgba(0,0,0,.18); }
+    .decision-card.novel { border-color: var(--aqua); background: rgba(5,242,219,.045); }
+    .promotion-mini { border-top-color: rgba(255,255,255,.22); }
+    .trust-stack { border-top-color: rgba(255,255,255,.3); }
+    .trust-tier { border-bottom-color: rgba(255,255,255,.14); }
+    .trust-tier:nth-child(1) { box-shadow: inset 4px 0 var(--aqua); }
+    .trust-tier:nth-child(2) { box-shadow: inset 4px 0 var(--ultraviolet-hot); }
+    .trust-tier:nth-child(3) { box-shadow: inset 4px 0 var(--pink); }
+    .trust-tier:nth-child(4) { box-shadow: inset 4px 0 #68606d; }
+    .trust-rule { background: rgba(255,80,160,.06); }
+    .security-strip, .security-strip span, .insight-board, .insight-node, .insight-runtime span { border-color: rgba(255,255,255,.16); }
+    .security-strip span { background: rgba(255,255,255,.025); color: var(--ice-muted); }
+    .insight-board { background: linear-gradient(145deg, rgba(161,0,255,.11), rgba(255,255,255,.02)); box-shadow: 0 24px 70px rgba(70,0,115,.25); }
+    .insight-node { background: rgba(0,0,0,.22); }
+    .insight-arrow { color: var(--aqua); text-shadow: 0 0 20px rgba(5,242,219,.5); }
+    .insight-technique { border-left-color: var(--pink); background: rgba(255,80,160,.05); }
+    .insight-technique strong { color: var(--pink); }
+    .insight-runtime span { border-color: rgba(5,242,219,.34); background: rgba(5,242,219,.04); color: var(--aqua); }
+
+    .promotion-loop { border-top-color: var(--ultraviolet-hot); }
+    .promotion-step { border-bottom-color: rgba(255,255,255,.16); }
+    .promotion-step span { color: var(--aqua); }
+    .promotion-step:hover { padding-left: 14px; background: linear-gradient(90deg, rgba(161,0,255,.16), transparent); }
+    .benefit-grid div { border-color: rgba(5,242,219,.36); background: rgba(5,242,219,.04); }
+    .benefit-grid span { color: var(--aqua); }
+    .learning-rule { color: var(--pink); font-family: var(--body); font-weight: 300; }
+    .closing {
+      background:
+        radial-gradient(circle at 78% 25%, rgba(5,242,219,.16), transparent 22%),
+        linear-gradient(125deg, #51007d, #a100ff 52%, #2d0046);
+    }
+    .closing .page { position: relative; z-index: 1; }
+    .closing h2 { text-shadow: 0 10px 50px rgba(0,0,0,.32); }
+    .closing h2 span { color: var(--aqua); }
+    .closing-foot { border-top-color: rgba(255,255,255,.48); }
+    footer { background: #030005; border-top: 1px solid rgba(255,255,255,.1); }
+    footer p { color: var(--ice-muted); }
+
+
+    /* Dark treatment for the later research and reference components. */
+    .formula-part, .formula-result { border-color: rgba(194,163,255,.28); background: rgba(255,255,255,.035); color: var(--ice); }
+    .formula-part small, .formula-result small { color: var(--aqua); }
+    .formula-plus, .formula-arrow { color: var(--pink); text-shadow: 0 0 18px rgba(255,80,160,.4); }
+    .formula-result { border-color: var(--aqua); background: linear-gradient(145deg, rgba(5,242,219,.09), rgba(161,0,255,.1)); }
+    .brief-card, .resolution-card, .reference-card { border-color: rgba(255,255,255,.2); background: rgba(0,0,0,.28); color: var(--ice); }
+    .purple .brief-card .kicker, .purple .resolution-card .kicker, .purple .reference-card .kicker { color: var(--aqua); }
+    .brief-card pre { color: var(--ice); }
+    .resolution-card li, .reference-card li { border-bottom-color: rgba(255,255,255,.12); color: var(--ice-muted); }
+    .resolution-card li::before { color: var(--aqua); }
+    .reference-flow > .formula-arrow { background: transparent; color: var(--pink); }
+    .reference-node { border-color: rgba(194,163,255,.3); border-top-color: var(--aqua); background: rgba(161,0,255,.06); }
+    .reference-node span { color: var(--ice-muted); }
+    .reference-note { border-left-color: var(--pink); color: var(--ice-muted); }
+    [data-focus="true"] .site-head { background: rgba(5,0,8,.22); }
+
+    /* Current editorial components. */
+    .composition-formula {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      align-items: stretch;
+      margin: 56px 0;
+    }
+    .formula-part, .formula-result {
+      flex: 1 1 130px;
+      min-height: 150px;
+      padding: 22px;
+      border: 1px solid var(--line);
+      background: var(--paper);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .formula-part { color: var(--ink); }
+    .formula-part small, .formula-result small { color: var(--purple-deep); font: 600 0.72rem/1.3 var(--mono); letter-spacing: .08em; }
+    .formula-part strong, .formula-result strong { font-size: 1.18rem; line-height: 1.12; }
+    .formula-plus, .formula-arrow { align-self: center; color: var(--purple); font-size: 1.8rem; }
+    .formula-result { border-color: var(--black); background: var(--black); color: white; }
+    .formula-result small { color: var(--purple-pale); }
+    .purple .formula-plus, .purple .formula-arrow { color: white; }
+    .research-demo { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; margin-top: 52px; }
+    .brief-card, .resolution-card, .reference-card {
+      padding: 30px;
+      border: 1px solid var(--line);
+      background: var(--paper);
+      color: var(--ink);
+    }
+    .purple .brief-card .kicker, .purple .resolution-card .kicker, .purple .reference-card .kicker { color: var(--purple-deep); }
+    .brief-card pre { margin: 20px 0 0; white-space: pre-wrap; color: var(--ink); font: 600 .78rem/1.7 var(--mono); }
+    .resolution-card ul, .reference-card ul { list-style: none; padding: 0; margin: 20px 0 0; }
+    .resolution-card li, .reference-card li { padding: 11px 0; border-bottom: 1px solid var(--line); color: var(--gray); }
+    .resolution-card li::before { content: "✓"; margin-right: 10px; color: var(--purple-deep); }
+    .reference-flow { display: grid; grid-template-columns: 1fr auto 1fr auto 1fr; gap: 18px; align-items: center; margin-top: 28px; }
+    .reference-flow > .formula-arrow { padding: .25rem .45rem; background: var(--paper); color: var(--black); }
+    .reference-node { padding: 24px; border: 1px solid var(--line); border-top: 3px solid var(--purple); background: var(--paper); }
+    .reference-node strong { display: block; margin-bottom: 8px; }
+    .reference-node span { color: var(--gray); font-size: .82rem; }
+    .reference-note { margin-top: 24px; padding-left: 18px; border-left: 3px solid var(--purple); color: var(--gray); }
+
+    @media (min-width: 761px) and (max-width: 900px) {
+      .hero-copy { padding-top: 0; }
+      .hero-machine { margin-top: 0; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; scroll-snap-type: none; }
+      *, *::before, *::after { transition-duration: .01ms !important; animation-duration: .01ms !important; }
+      .boundary-divider span { box-shadow: none; }
+    }
+
+    /* The deck has no light theme, so printing renders the ultraviolet stage as
+       it appears on screen. The previous rule only granted exact colour to a
+       handful of panels, which printed white paper under white body text. */
+    @media print {
+      @page { size: A4 landscape; margin: 10mm; }
+      *, *::before, *::after {
+        print-color-adjust: exact;
+        -webkit-print-color-adjust: exact;
+        animation: none !important;
+        transition: none !important;
+      }
+      html, body { background: var(--void); }
+      .site-head, .key-hint, .chapter-nav, .progress, .skip, .network-toolbar, .network-reset, .focus-button { display: none !important; }
+      main { padding: 0; }
+      .chapter, .closing { min-height: 0; padding: 22px 0; break-before: page; break-inside: avoid; }
+      .chapter:first-child { break-before: auto; }
+      .page { width: 100%; max-width: none; }
+      h1 { font-size: 4.2rem; }
+      h2 { font-size: 3.2rem; }
+      .tax-statement { position: static; }
+      .capability-list, .repo-tree, .terminal, .sequence-messages { max-height: none; overflow: visible; }
+      .network-fallback { display: block; }
+      a[href^="#"]::after { content: ""; }
+    }
+
+    /* Windows high-contrast and forced-colours modes strip the palette; keep
+       structure legible instead of letting borders vanish. */
+    @media (forced-colors: active) {
+      .chapter-nav a, .graph-node, .capability-item, .focus-button { forced-color-adjust: none; }
+      .chapter-nav a { background: ButtonFace; border: 1px solid ButtonText; }
+      .chapter-nav a[aria-current="true"] { background: Highlight; }
+      :is(a, button, [tabindex="0"]):focus-visible { outline: 3px solid Highlight; outline-offset: 2px; }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip" href="#main">Skip to the presentation</a>
+
+  <header class="site-head" aria-label="Presentation controls">
+    <svg class="brand-mark" role="img" aria-label="Accenture greater-than arrow" viewBox="0 0 64 64" width="40" height="40">
+      <title>Accenture greater-than arrow</title>
+      <path d="M8 8h24l24 24-24 24H8l24-24z" fill="var(--ultraviolet)"/>
+    </svg>
+    <div class="site-title">Agent Commons Library</div>
+    <div class="head-meta">
+      <span class="chapter-count" id="chapter-count">01 / 12</span>
+      <kbd class="key-hint" aria-label="Keyboard: arrow keys or page keys change chapter, F toggles focus mode">← → chapter &nbsp;·&nbsp; F focus</kbd>
+      <button class="focus-button" id="focus-button" type="button" aria-pressed="false">Focus</button>
+    </div>
+  </header>
+  <div class="progress" aria-hidden="true"><span id="progress-bar"></span></div>
+  <nav class="chapter-nav" aria-label="Presentation chapters">
+    <a href="#start" aria-label="Go to chapter 1"></a>
+    <a href="#tax" aria-label="Go to chapter 2"></a>
+    <a href="#engine" aria-label="Go to chapter 3"></a>
+    <a href="#inside" aria-label="Go to chapter 4"></a>
+    <a href="#network" aria-label="Go to chapter 5"></a>
+    <a href="#architecture" aria-label="Go to chapter 6"></a>
+    <a href="#initialize" aria-label="Go to chapter 7"></a>
+    <a href="#compose" aria-label="Go to chapter 8"></a>
+    <a href="#external" aria-label="Go to chapter 9"></a>
+    <a href="#trust" aria-label="Go to chapter 10"></a>
+    <a href="#payoff" aria-label="Go to chapter 11"></a>
+    <a href="#closing" aria-label="Go to chapter 12"></a>
+  </nav>
+
+  <p class="sr-only" id="live-status" role="status" aria-live="polite"></p>
+
+  <main id="main" tabindex="-1">
+    <section class="chapter hero" id="start" aria-labelledby="hero-title">
+      <div class="page hero-grid">
+        <p class="kicker hero-kicker"><span>Agent Commons Library / reusable engineering methods for AI-assisted delivery</span><span>Paul Curcean&nbsp; | &nbsp;25.08.2026</span></p>
+        <div class="hero-copy">
+          <h1 id="hero-title"><span>Start with the work.</span><span>Not the <span class="zero">setup.</span></span></h1>
+          <p class="lede">Agent Commons keeps proven engineering methods reusable and project context local—so work starts with the goal, evidence, and constraints.</p>
+        </div>
+        <aside class="hero-machine" aria-label="How Agent Commons changes a project's starting point">
+          <span class="machine-label">Share the method. Keep project context local.</span>
+          <div class="start-comparison">
+            <div class="start-state old"><small>Without Commons</small><strong>Rebuild the setup.</strong><p>Rules · tools · validation</p></div>
+            <div class="start-shift"><span>Share once</span><i aria-hidden="true">→</i></div>
+            <div class="start-state new"><small>With Commons</small><strong>Start the work.</strong><p>Goal · evidence · outcome</p></div>
+          </div>
+        </aside>
+        <div class="hero-proof">
+          <span><strong>Define the mission.</strong> Goal, constraints, sources, boundaries, and expected outcomes.</span>
+          <span><strong>Choose the method.</strong> Analysis, research, architecture, testing, dashboards, and presentations.</span>
+          <span><strong>Set the rules.</strong> Agent behavior, documentation, validation, and project conventions.</span>
+          <span><strong>Then build.</strong> The reusable setup should already exist before the real work starts.</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="chapter soft" id="tax" aria-labelledby="tax-title">
+      <div class="page tax-layout">
+        <div class="tax-statement">
+          <p class="kicker">The repetition problem</p>
+          <h2 id="tax-title">Every project rebuilds the same foundation.</h2>
+          <p class="lede">The work on top changes. The setup underneath—rules, agent behavior, documentation, and validation—keeps returning.</p>
+          <strong>3×</strong>
+          <p class="muted">Three different missions. One repeated foundation.</p>
+        </div>
+        <div>
+          <div class="repeat-stack" aria-label="Repeated project setup">
+            <div class="repeat-caption"><strong>Different work above</strong><span>the same setup underneath</span></div>
+            <div class="project-stack">
+              <article class="project-card"><small>Project A</small><h3>Legacy modernization</h3><div class="project-work"><span>inventory</span><span>architecture</span><span>requirements</span></div></article>
+              <article class="project-card"><small>Project B</small><h3>New development</h3><div class="project-work"><span>specifications</span><span>TDD</span><span>delivery</span></div></article>
+              <article class="project-card"><small>Project C</small><h3>Research &amp; presentation</h3><div class="project-work"><span>sources</span><span>synthesis</span><span>story</span></div></article>
+            </div>
+            <div class="common-foundation">
+              <span>Rebuilt inside every project</span>
+              <strong>Initialize the environment and teach it how to work.</strong>
+              <div class="foundation-work"><span>goal &amp; constraints</span><span>rules</span><span>agent behavior</span><span>documentation</span><span>validation</span></div>
+            </div>
+            <div class="repeat-summary"><strong>Reusable knowledge stays trapped.</strong><span>We recreate engineering methodology inside individual projects instead of maintaining it once for everyone.</span></div>
+          </div>
+          <div class="repeat-consequence"><span>Created</span> → copied → adapted → forgotten → <span>recreated</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="chapter purple" id="engine" aria-labelledby="engine-title">
+      <div class="page">
+        <div class="engine-head">
+          <div><p class="kicker">The central idea</p><h2 id="engine-title">Keep the facts local. Share the method.</h2></div>
+          <p>Each project keeps its source, decisions, and business context. Agent Commons shares only the reusable way of working.</p>
+        </div>
+        <p class="boundary-rule">Move the playbook—not the project data.</p>
+        <div class="commons-boundary" aria-label="Project-local and reusable capability boundary">
+          <article class="boundary-panel local">
+            <small>Stays inside the project</small>
+            <h3>The project facts</h3>
+            <ul><li>Client source code</li><li>Business rules and requirements</li><li>Credentials and integrations</li><li>Client brand and language</li><li>Project decisions</li></ul>
+            <footer>Private, specific, and owned by the project.</footer>
+          </article>
+          <div class="boundary-divider" aria-hidden="true"><span>→</span><small>extract the method</small></div>
+          <article class="boundary-panel commons">
+            <small>Reusable across projects</small>
+            <h3>The way we work</h3>
+            <ul><li>Analysis methodology</li><li>TDD workflow</li><li>Diagram generation</li><li>Dashboard structure</li><li>Validation methodology</li></ul>
+            <footer>Reviewed once, then available to future teams.</footer>
+          </article>
+        </div>
+        <p class="earned">The project stays private. The method gets better for everyone.</p>
+      </div>
+    </section>
+
+    <section class="chapter" id="inside" aria-labelledby="inside-title">
+      <div class="page">
+        <div class="anatomy-head">
+          <div><p class="kicker">What is what?</p><h2 id="inside-title">Plain-language building blocks, each with one job.</h2></div>
+          <p class="lede">The repository separates reusable methods, specialist roles, automation, structures, composition, runtime bridges, and evals. Catalogs hold stable IDs and relationships; installation exposes them safely; this presentation renders current facts.</p>
+        </div>
+        <div class="type-ledger">
+          <div class="type-line"><strong>Skill</strong><span>A reusable method—like a playbook for legacy analysis, TDD, diagrams, research, or dashboards.</span><q>HOW should this work be done?</q></div>
+          <div class="type-line"><strong>Agent</strong><span>A bounded specialist—like a colleague who independently investigates or validates one responsibility.</span><q>WHO should own this perspective?</q></div>
+          <div class="type-line"><strong>Tool</strong><span>Deterministic automation for inventory, counting, rendering, validation, merging, and other exact work.</span><q>What should a script calculate instead of an LLM guessing?</q></div>
+          <div class="type-line"><strong>Archetype</strong><span>An initialization-time project recipe that selects and prioritizes existing capabilities. It is recorded as configuration; it is not executed at runtime.</span><q>Which capability set fits this project family?</q></div>
+          <div class="type-line"><strong>Overlay</strong><span>A reusable cross-cutting rule such as branding, bilingual delivery, traceability, or a living dashboard.</span><q>What behavior applies across project types?</q></div>
+          <div class="type-line"><strong>Adapter</strong><span>The bridge that exposes the same runtime-neutral method to Codex, Claude Code, Cline, or OpenCode.</span><q>How does this AI tool discover it?</q></div>
+          <div class="type-line"><strong>Eval</strong><span>A behavior test that checks the initializer, analysis depth, dashboards, TDD, and other promises still hold.</span><q>How do we know the method still works?</q></div>
+          <div class="type-line"><strong>Template</strong><span>A reusable output shape—structure without pretending that structure itself supplies engineering judgment.</span><q>What should the result look like?</q></div>
+        </div>
+
+        <div class="inside-grid">
+          <div class="repo-tree" aria-label="Interactive repository structure">
+            <div class="tree-root">agent-commons-library/</div>
+            <button class="tree-branch" type="button" aria-pressed="true" data-navigator-type="skill" data-path="skills/" data-title="Bounded reusable workflows" data-copy="Engineering methods span modernization, delivery, TDD, architecture, research, presentations, privacy, accessibility, governance, and safe change." data-kind="Reusable judgment" data-proof="Generated from canonical skill sources">├── skills/ <span data-stat="skills">—</span></button>
+            <button class="tree-branch" type="button" aria-pressed="false" data-navigator-type="agent" data-path="agents/" data-title="Canonical roles with real boundaries" data-copy="Architecture, legacy discovery, privacy/security, and test/behavior review roles exist only where fresh independent judgment materially improves the result." data-kind="Independent ownership" data-proof="Generated from canonical agent definitions">├── agents/ <span data-stat="agents">—</span></button>
+            <button class="tree-branch" type="button" aria-pressed="false" data-navigator-type="adapter" data-path="adapters/" data-title="Thin runtime adapters" data-copy="Codex, Claude Code, Cline, and OpenCode map stable capability IDs to native instructions, skills, roles, and managed installation paths without copying canonical workflow bodies." data-kind="Runtime translation" data-proof="Generated from verified manifests">├── adapters/ <span data-stat="adapters">—</span></button>
+            <button class="tree-branch" type="button" aria-pressed="false" data-navigator-type="archetype" data-path="archetypes/" data-title="Project profiles and composable overlays" data-copy="Development, legacy migration, research, and presentation compose with durable state, evidence, dashboards, branded HTML, sales storytelling, and other validated overlays." data-kind="Selection guidance" data-proof="Generated from archetype and overlay manifests">├── archetypes/ <span><b data-stat="archetypes">—</b> + <b data-stat="overlays">—</b></span></button>
+            <button class="tree-branch" type="button" aria-pressed="false" data-navigator-type="tool" data-path="tools/ + skill scripts" data-title="Deterministic tools" data-copy="Ordinary CLIs handle initialization, runtime rendering, installation, composition, inventory, trace checks, migration manifests, anonymization, estimation, presentation refresh, and static validation." data-kind="Stable execution" data-proof="Generated from canonical tool sources">├── tools/ <span data-stat="tools">—</span></button>
+            <button class="tree-branch" type="button" aria-pressed="false" data-navigator-type="eval" data-path="evals/" data-title="Evaluation against false confidence" data-copy="Scenario suites and executable tests protect skills, agents, archetypes, initialization, installation, external review, and deterministic tooling." data-kind="Evaluation evidence" data-proof="Generated from scenario suites and executable tests">├── evals/ <span data-stat="evals">—</span></button>
+            <button class="tree-branch" type="button" aria-pressed="false" data-navigator-type="external" data-path="external/" data-title="Untrusted intelligence, outside the activation boundary" data-copy="A tiered source registry, revision-pinned metadata index, deliberate reviews, license and security classification, and a disposable cache let commons learn from OSS without installing it." data-kind="Discovery and review" data-proof="Generated from the external source registry">├── external/ <span data-stat="external_sources">—</span></button>
+            <button class="tree-branch" type="button" aria-pressed="false" data-path="install/agent_commons.py" data-title="One cross-platform managed installation" data-copy="Canonical capabilities stay portable across macOS and Windows. The shared installer adapts with verified symlinks or managed copies, then exposes the same Codex, Claude Code, Cline, and OpenCode runtime adapters." data-kind="Runtime integration" data-proof="macOS + Windows">└── install/</button>
+          </div>
+          <aside class="repo-detail" role="region" aria-labelledby="repo-title">
+            <div><code id="repo-path">skills/</code><h3 id="repo-title">Bounded reusable workflows</h3><p id="repo-copy">Modernization, delivery, TDD, architecture, research, presentations, privacy, accessibility, governance, and safe change are maintained once.</p></div>
+            <div class="repo-meta"><div>Responsibility<strong id="repo-kind">Reusable judgment</strong></div><div>Current evidence<strong id="repo-proof">Generated from canonical skill sources</strong></div></div>
+          </aside>
+        </div>
+        <section class="capability-explorer" aria-labelledby="capability-explorer-title">
+          <div class="capability-explorer-head">
+            <div><p class="kicker">Capability navigator</p><h3 id="capability-explorer-title">Search, select, and inspect what actually exists.</h3></div>
+            <div class="capability-search"><label for="capability-search">Search ID, description, tags, content</label><input id="capability-search" type="search" autocomplete="off" placeholder="Try TDD, legacy migration, research, HTML…"></div>
+          </div>
+          <div class="capability-explorer-grid">
+            <nav class="capability-types" aria-label="Capability types"><small>LIBRARY TREE</small><div class="capability-type-list" id="capability-types"></div></nav>
+            <nav class="capability-list" id="capability-list" aria-label="Capability results"></nav>
+            <article class="capability-preview" id="capability-preview" role="region" aria-labelledby="capability-title">
+              <code id="capability-path">skills/</code>
+              <h4 id="capability-title">Loading canonical metadata…</h4>
+              <p id="capability-description">The navigator is generated from the canonical catalog, manifests, definitions, scenario suites, and reviewed external registry.</p>
+              <div class="preview-meta" id="capability-meta"></div>
+              <div class="preview-tabs" role="tablist" aria-label="Capability preview tabs"><button id="capability-tab-overview" type="button" role="tab" aria-selected="true" aria-controls="capability-overview" tabindex="0">Overview</button><button id="capability-tab-source" type="button" role="tab" aria-selected="false" aria-controls="capability-source-panel" tabindex="-1">Source</button></div>
+              <div class="preview-panel" id="capability-overview" role="tabpanel" aria-labelledby="capability-tab-overview">
+                <div id="capability-sections"></div>
+                <div class="preview-section"><h5>Related capabilities</h5><div class="capability-links" id="capability-links"></div></div>
+                <div class="preview-section"><h5>Search terms</h5><div class="capability-tags" id="capability-tags" aria-label="Capability search terms"></div></div>
+              </div>
+              <div class="preview-panel" id="capability-source-panel" role="tabpanel" aria-labelledby="capability-tab-source" hidden><pre class="capability-source-preview" id="capability-source-preview"></pre></div>
+            </article>
+          </div>
+          <p class="capability-source">Search by capability or topic, select a result, then inspect its purpose, type, source-safe preview, related capabilities, and archetype usage. Everything is refreshed by <code>python3 tools/refresh_commons_presentation.py</code>.</p>
+        </section>
+      </div>
+    </section>
+
+    <section class="chapter black" id="network" aria-labelledby="network-title">
+      <div class="page">
+        <div class="network-head">
+          <div><p class="kicker">Capability network</p><h2 id="network-title">A connected system, not a folder of prompts.</h2></div>
+          <p class="lede">Search or filter, then select a node to reveal its direct neighborhood. Every edge comes from canonical catalogs, project composition, runtime support, evaluations, or governed external metadata—never from a fabricated relationship.</p>
+        </div>
+        <div class="network-shell">
+          <div class="network-toolbar">
+            <div class="network-search"><label for="network-search">Find a capability</label><input id="network-search" type="search" autocomplete="off" placeholder="TDD, legacy, research, requirements…"></div>
+            <div class="network-filters" id="network-filters" aria-label="Filter network by capability type"></div>
+            <button class="network-reset" id="network-reset" type="button">Reset focus</button>
+          </div>
+          <div class="network-stage" id="network-stage">
+            <svg class="capability-graph" id="capability-graph" viewBox="0 0 1200 720" role="group" tabindex="-1" aria-labelledby="network-title network-description">
+              <desc id="network-description">Interactive graph of canonical Agent Commons capabilities and evidence-backed relationships. Use search or type filters, then select a node to focus its direct relationships.</desc>
+            </svg>
+            <div class="network-tooltip" id="network-tooltip" role="presentation" aria-hidden="true" hidden></div>
+            <aside class="network-inspector" id="network-inspector" aria-live="polite" hidden><small id="network-inspector-type"></small><strong id="network-inspector-title"></strong><p id="network-inspector-copy"></p><button id="network-open-preview" type="button">Open full preview</button></aside>
+          </div>
+          <div class="network-status" aria-live="polite" aria-atomic="true">
+            <div><strong id="network-visible">0</strong><span>visible capabilities</span></div>
+            <div><strong data-stat="relationships">0</strong><span>verified relationships</span></div>
+            <div><strong id="network-focus-count">0</strong><span>direct relationships in focus</span></div>
+            <div><strong id="network-focus-name">All</strong><span>current network focus</span></div>
+          </div>
+          <p class="network-fallback" id="network-fallback">On narrow screens, search and filters remain available. Selecting a node opens the full capability preview in the navigator above.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="chapter soft" id="architecture" aria-labelledby="architecture-title">
+      <div class="page">
+        <div class="architecture-lead">
+          <div><p class="kicker">How it works</p><h2 id="architecture-title">One method. Adapted to each tool. Used inside the project.</h2></div>
+          <p class="lede">Agent Commons maintains one reviewed version of each method. Small adapters make it usable in Codex, Claude Code, Cline, and OpenCode while the method remains single-source.</p>
+        </div>
+        <div class="architecture-stage">
+          <div class="arch-row">
+            <article class="arch-column"><i class="arch-step" aria-hidden="true">01</i><span class="kicker">One shared source</span><h3>Agent Commons</h3><ul><li>reviewed playbooks</li><li>specialist roles</li><li>deterministic tools</li><li>project recipes</li><li>automated checks</li></ul></article>
+            <div class="arch-arrow" aria-hidden="true"><span>→</span></div>
+            <article class="arch-column"><i class="arch-step" aria-hidden="true">02</i><span class="kicker">A small adapter</span><h3>Fit it to the AI tool</h3><ul><li>put files where the tool expects</li><li>use native commands where possible</li><li>add a thin wrapper when needed</li><li>state feature limitations</li><li>check installation and drift</li></ul></article>
+            <div class="arch-arrow" aria-hidden="true"><span>→</span></div>
+            <article class="arch-column"><i class="arch-step" aria-hidden="true">03</i><span class="kicker">The tools teams use</span><h3>Same method, different tools</h3><div class="runtime-nodes" aria-label="Supported coding-agent runtimes"><div class="runtime-node">Codex</div><div class="runtime-node">Claude Code</div><div class="runtime-node">Cline</div><div class="runtime-node">OpenCode</div></div></article>
+          </div>
+          <div class="boundary"><div class="commons"><strong>Commons provides the playbook</strong><span>How to analyze, test, document, validate, and deliver.</span></div><div class="project"><strong>The project provides the facts</strong><span>Its source, requirements, integrations, decisions, and identity.</span></div></div>
+          <div class="architecture-governance" aria-label="How a project uses Agent Commons">
+            <div class="governance-node"><small>NEED</small><strong>Select project archetype(s)</strong><span><code>legacy-migration</code>, development, research, presentation, or a deliberate combination.</span></div><div class="governance-arrow" aria-hidden="true"><span>→</span></div>
+            <div class="governance-node"><small>COMPOSE</small><strong>Resolve canonical capabilities</strong><span>Archetypes, overlays, and conditions compile into stable skill, tool, agent, and template IDs.</span></div><div class="governance-arrow" aria-hidden="true"><span>→</span></div>
+            <div class="governance-node"><small>WORK</small><strong>Invoke one skill at runtime</strong><span>The runtime loads the canonical workflow; project configuration, evidence, and state remain local.</span></div><div class="governance-arrow" aria-hidden="true"><span>→</span></div>
+            <div class="governance-node"><small>VERIFY</small><strong>Deliver trusted results</strong><span>Tests and reviews support specifications, code, diagrams, dashboards, and presentations.</span></div>
+          </div>
+          <div class="diagram-capability" aria-labelledby="diagram-capability-title">
+            <div class="diagram-capability-head">
+              <div><p class="kicker">One source of truth</p><h3 id="diagram-capability-title">The evidence stays the same. The view changes for the audience.</h3></div>
+              <p>Engineers, architects, and leaders can see different views without creating different versions of the facts.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="chapter" id="initialize" aria-labelledby="initialize-title">
+      <div class="page">
+        <div class="product-head">
+          <div><p class="kicker">How do I start tomorrow?</p><h2 id="initialize-title">Install once. Initialize the project you actually have.</h2></div>
+          <p class="lede">An archetype is an initialization-time project recipe. $initialize-project selects one or more archetypes, then resolves their defaults, overlays, and conditions into stable capability IDs. At runtime, a person invokes a skill—not the archetype.</p>
+        </div>
+        <div class="product-demo">
+          <div class="terminal" aria-label="Typical terminal workflow">
+            <div class="terminal-head"><span>installer</span><span>macOS/Linux: python3 · Windows: py</span></div>
+            <div class="terminal-code"><div><b>$</b> python3 install/agent_commons.py install --all</div><div><b>$</b> python3 install/agent_commons.py status</div><div><b>$</b> python3 install/agent_commons.py doctor</div><div><b>$</b> python3 install/agent_commons.py verify</div></div>
+            <div class="command-block"><strong>$initialize-project</strong><span>Start the real run → let it continue → open the prepared initialized checkpoint of the same project</span></div>
+          </div>
+          <div class="initializer">
+            <p class="kicker">Explore the adaptive route</p>
+            <h3>Which runtime or runtimes?</h3>
+            <div class="runtime-picks" aria-label="Example runtime selection"><span class="runtime-pick selected">Codex</span><span class="runtime-pick selected">Claude Code</span><span class="runtime-pick">Cline</span><span class="runtime-pick">OpenCode</span></div>
+            <h3>Which archetype or combination describes the project?</h3>
+            <div class="scope-tabs" role="tablist" aria-label="Project scopes">
+              <button id="scope-tab-legacy" type="button" role="tab" aria-selected="true" aria-controls="scope-panel" data-scope="legacy" tabindex="0">Legacy</button>
+              <button id="scope-tab-development" type="button" role="tab" aria-selected="false" aria-controls="scope-panel" data-scope="development" tabindex="-1">Development</button>
+              <button id="scope-tab-research" type="button" role="tab" aria-selected="false" aria-controls="scope-panel" data-scope="research" tabindex="-1">Research</button>
+              <button id="scope-tab-presentation" type="button" role="tab" aria-selected="false" aria-controls="scope-panel" data-scope="presentation" tabindex="-1">Presentation</button>
+              <button id="scope-tab-hybrid" type="button" role="tab" aria-selected="false" aria-controls="scope-panel" data-scope="hybrid" tabindex="-1">Hybrid</button>
+            </div>
+            <div class="scope-panel" id="scope-panel" role="tabpanel" aria-labelledby="scope-tab-legacy">
+              <div><small>First unresolved question</small><strong id="scope-question">Languages and application boundary?</strong></div>
+              <div><small>Then clarify</small><strong id="scope-followup">Target, integrations, evidence depth, read-only sources</strong></div>
+              <div><small>Local output</small><strong id="scope-output">Docs and dashboard only when justified</strong></div>
+              <div><small>Default agents</small><strong>None — delegation remains task-time</strong></div>
+            </div>
+            <div class="manifest-peek"><small>.agent-commons.yaml records archetypes and resolved capability IDs—not executable runtime code</small><code id="scope-skills">inventory-codebase · analyze-legacy-system · external gaps searched without blocking setup</code></div>
+          </div>
+        </div>
+        <section class="initialize-flow" aria-labelledby="initialize-flow-title">
+          <div class="initialize-flow-head">
+            <div><p class="kicker">How composition becomes runtime capability</p><h3 id="initialize-flow-title">Archetype at initialization. Skills at runtime.</h3></div>
+            <p>Archetypes decide what normally applies. The resolver emits stable capability IDs; no archetype runs automatically.</p>
+          </div>
+          <div class="initialize-lane">
+            <div class="initialize-lane-label"><b>01</b><strong>HUMAN INPUT</strong></div>
+            <div class="initialize-inputs">
+              <div class="initialize-node input"><strong>Goal</strong><span>what outcome is needed</span></div>
+              <div class="initialize-node input"><strong>Workspace</strong><span>existing files and configuration</span></div>
+              <div class="initialize-node input"><strong>Constraints</strong><span>read-only paths, runtime, deliverables</span></div>
+            </div>
+          </div>
+          <div class="initialize-lane">
+            <div class="initialize-lane-label"><b>02</b><strong>INITIALIZE-PROJECT</strong></div>
+            <div class="initialize-node initialize-main-1"><strong>Inspect</strong><span>understand goal, workspace, and constraints</span></div><div class="initialize-arrow initialize-arrow-1" aria-hidden="true">→</div>
+            <div class="initialize-node initialize-main-2"><strong>Select archetype(s)</strong><span>choose the project-family composition profile</span></div><div class="initialize-arrow initialize-arrow-2" aria-hidden="true">→</div>
+            <div class="initialize-node initialize-main-3"><strong>Resolve capabilities</strong><span>deduplicate stable skill, tool, agent, and template IDs</span></div><div class="initialize-arrow initialize-arrow-3" aria-hidden="true">→</div>
+            <div class="initialize-node initialize-main-4"><strong>Write configuration</strong><span>persist governance, composition, state, and next action</span></div>
+          </div>
+          <div class="initialize-lane">
+            <div class="initialize-lane-label"><b>03</b><strong>HUMAN · IF NEEDED</strong></div>
+            <div class="initialize-node human initialize-human"><strong>Clarify only genuine gaps</strong><span>Confirm choices the request and workspace cannot answer safely.</span></div>
+          </div>
+          <div class="initialize-lane">
+            <div class="initialize-lane-label"><b>04</b><strong>DETERMINISTIC TOOLS</strong></div>
+            <div class="initialize-tools">
+              <div class="initialize-node tool"><strong>Inventory</strong><span>detect source, stack, and boundaries</span></div>
+              <div class="initialize-node tool"><strong>Compose</strong><span>archetypes + overlays → deduplicated stable IDs</span></div>
+              <div class="initialize-node tool"><strong>Validate</strong><span>check files, paths, configuration, and runtime exposure</span></div>
+            </div>
+          </div>
+          <div class="initialize-lane">
+            <div class="initialize-lane-label"><b>05</b><strong>OUTPUT</strong></div>
+            <div class="initialize-node output initialize-output"><strong>AGENTS.md + .agent-commons.yaml + resolved capabilities + exact next action</strong><span>At runtime, the agent invokes a canonical skill; the archetype remains configuration and provenance.</span></div>
+          </div>
+        </section>
+      </div>
+    </section>
+
+
+    <section class="chapter soft" id="compose" aria-labelledby="compose-title">
+      <div class="page">
+        <div class="use-head sequence-use-head">
+          <div><p class="kicker">How the analysis runs</p><h2 id="compose-title"><code>$analyze-legacy-system</code><span>From invocation to validated completion.</span></h2></div>
+          <p class="lede">One coordinator controls scope and shared state. Project context flows in, bounded evidence flows back, and the user receives a result only after deterministic gates pass.</p>
+        </div>
+        <div class="use-tabs" role="tablist" aria-label="Use cases">
+          <button id="use-tab-legacy" type="button" role="tab" aria-selected="true" aria-controls="use-legacy" tabindex="0"><strong>Legacy analysis</strong><span>$analyze-legacy-system, step by step</span></button>
+          <button id="use-tab-development" type="button" role="tab" aria-selected="false" aria-controls="use-development" tabindex="-1"><strong>OpenSpec + TDD</strong><span>contract to validated delivery</span></button>
+          <button id="use-tab-presentation" type="button" role="tab" aria-selected="false" aria-controls="use-presentation" tabindex="-1"><strong>Research → sales</strong><span>evidence to executive narrative</span></button>
+          <button id="use-tab-hybrid" type="button" role="tab" aria-selected="false" aria-controls="use-hybrid" tabindex="-1"><strong>Hybrid modernization</strong><span>analysis + build + communicate</span></button>
+        </div>
+        <section class="use-panel sequence-panel" id="use-legacy" role="tabpanel" aria-labelledby="use-tab-legacy">
+          <div class="runtime-sequence" aria-label="$analyze-legacy-system runtime sequence from invocation to validated completion">
+            <div class="sequence-prelude"><small>Before runtime:</small><strong>Archetype selects defaults → .agent-commons.yaml records capability IDs and constraints</strong><span>The archetype does not execute.</span></div>
+            <div class="sequence-participants" aria-label="Sequence participants">
+              <div class="sequence-participant"><small>ACTOR</small><strong>User</strong><span>invokes the skill and receives the next action</span></div>
+              <div class="sequence-participant runtime"><small>ORCHESTRATION</small><strong>Commons runtime</strong><span>loads the canonical skill by stable ID</span></div>
+              <div class="sequence-participant"><small>LOCAL CONTEXT</small><strong>Project + inventory</strong><span>governance, manifest, state, memory, evidence</span></div>
+              <div class="sequence-participant workers"><small>ISOLATED WORK</small><strong>Bounded workers</strong><span>owned slices; evidence packets only</span></div>
+              <div class="sequence-participant"><small>CONTROLLED OUTPUT</small><strong>Gate + outputs</strong><span>validation, checkpoint, dashboard, next action</span></div>
+            </div>
+            <div class="sequence-stage">
+              <ol class="sequence-messages" role="list">
+                <li class="sequence-message m1"><div class="message-copy"><small>01 / USER → RUNTIME</small><strong>Invoke $analyze-legacy-system</strong></div></li>
+                <li class="sequence-message m2"><div class="message-copy"><small>02 / AGENT → PROJECT</small><strong>Load governance, manifest, state, memory</strong></div></li>
+                <li class="sequence-message m3"><div class="message-copy"><small>03 / AGENT → INVENTORY</small><strong>Resolve mode + establish coverage</strong></div></li>
+                <li class="sequence-message m4"><div class="message-copy"><small>04 / COORD. → WORKERS</small><strong>Assign bounded independent slices</strong></div></li>
+                <li class="sequence-message reverse m5"><div class="message-copy"><small>05 / WORKERS → COORD.</small><strong>Return validated evidence packets</strong></div></li>
+                <li class="sequence-message m6"><div class="message-copy"><small>06 / COORD. → OUTPUTS</small><strong>Synthesize + refresh configured artifacts</strong></div></li>
+                <li class="sequence-message reverse m7"><div class="message-copy"><small>07 / GATE → USER</small><strong>Validate completeness + return next action</strong></div></li>
+              </ol>
+            </div>
+            <div class="sequence-rule"><span><b>ONE DENOMINATOR</b> inventory-backed coverage</span><span><b>ONE OWNER</b> coordinator updates shared state; workers return evidence packets only</span><span><b>ONE HARD GATE</b> No implementation begins.</span></div>
+          </div>
+        </section>
+        <section class="use-panel" id="use-development" role="tabpanel" aria-labelledby="use-tab-development" hidden>
+          <div class="use-flow"><div class="use-step"><i></i><small>01</small><strong>Requirement</strong></div><div class="use-step"><i></i><small>02</small><strong>OpenSpec</strong></div><div class="use-step"><i></i><small>03</small><strong>Acceptance Criteria</strong></div><div class="use-step"><i></i><small>04</small><strong>RED → GREEN → REFACTOR</strong></div><div class="use-step"><i></i><small>05</small><strong>implementation evidence</strong></div><div class="use-step"><i></i><small>06</small><strong>spec validation</strong></div><div class="use-step"><i></i><small>07</small><strong>completion</strong></div></div>
+          <div class="use-proof"><p><strong>Specifications drive implementation:</strong> tests provide executable evidence that the implementation satisfies the intended behavior.</p><p class="muted">OpenSpec and TDD are the opinionated default, while explicit project methodology overrides remain respected and visible.</p></div>
+        </section>
+        <section class="use-panel" id="use-presentation" role="tabpanel" aria-labelledby="use-tab-presentation" hidden>
+          <div class="use-flow"><div class="use-step"><i></i><small>01</small><strong>deep-research</strong></div><div class="use-step"><i></i><small>02</small><strong>evidence synthesis</strong></div><div class="use-step"><i></i><small>03</small><strong>sales-storytelling</strong></div><div class="use-step"><i></i><small>04</small><strong>brand discovery</strong></div><div class="use-step"><i></i><small>05</small><strong>create-branded-html</strong></div><div class="use-step"><i></i><small>06</small><strong>visual validation</strong></div><div class="use-step"><i></i><small>07</small><strong>offline delivery</strong></div></div>
+          <div class="use-proof"><p><strong>VALUE → PROOF → VALUE:</strong> research remains traceable, storytelling remains evidence-aware, and client identity remains a project-local input.</p><p class="muted">Client-aware delivery can combine brand and output behavior—for example, a German-default bilingual public-sector dashboard and a German-only sales narrative—without changing the engineering evidence.</p></div>
+        </section>
+        <section class="use-panel" id="use-hybrid" role="tabpanel" aria-labelledby="use-tab-hybrid" hidden>
+          <div class="use-flow"><div class="use-step"><i></i><small>01</small><strong>legacy-migration</strong></div><div class="use-step"><i></i><small>02</small><strong>research</strong></div><div class="use-step"><i></i><small>03</small><strong>development</strong></div><div class="use-step"><i></i><small>04</small><strong>evidence overlay</strong></div><div class="use-step"><i></i><small>05</small><strong>living dashboard</strong></div><div class="use-step"><i></i><small>06</small><strong>presentation</strong></div><div class="use-step"><i></i><small>07</small><strong>governed learning</strong></div></div>
+          <div class="use-proof"><p><strong>Composition beats a monolithic agent:</strong> discovery, analysis, implementation, stakeholder evidence, and executive communication share a goal while keeping distinct responsibilities.</p><p class="muted">Only the capabilities justified by the project brief are selected.</p></div>
+        </section>
+
+        <div class="architecture-stage is-detached">
+          <div class="boundary"><div><strong>Not one giant prompt</strong><span>Not copied project files, client data, uncontrolled internet code, or a replacement for engineering judgment.</span></div><div><strong>A governed capability layer</strong><span>Bounded skills, specialist agents when isolation matters, and deterministic tools where exact automation is better.</span></div></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="chapter" id="external" aria-labelledby="external-title">
+      <div class="page">
+        <div class="external-head">
+          <div><p class="kicker">Contribution: review-for-commons</p><h2 id="external-title">“I created something useful.” What now?</h2></div>
+          <p class="lede">Run review-for-commons at a meaningful milestone. It writes a sanitized project-local proposal; it does not move code, install anything, or mutate Agent Commons.</p>
+        </div>
+        <div class="source-grid" role="list" aria-label="The four questions that gate promotion into the commons">
+          <article class="source-card" role="listitem"><small>01 / REUSE</small><strong>Useful beyond this project?</strong><span>Require proven value that survives removal of client and application details.</span></article>
+          <article class="source-card" role="listitem"><small>02 / OVERLAP</small><strong>Already covered?</strong><span>Compare responsibility, workflow, outputs, validation, and routing—not names alone.</span></article>
+          <article class="source-card" role="listitem"><small>03 / SAFETY</small><strong>Safe to generalize?</strong><span>Remove credentials, private paths, business rules, source excerpts, identities, and proprietary assumptions.</span></article>
+          <article class="source-card is-outcome" role="listitem"><small>04 / ABSTRACTION</small><strong>What should it become?</strong><span>Skill, agent, tool, template, archetype, overlay, adapter, eval—or intentionally project-local.</span></article>
+        </div>
+        <div class="intelligence-funnel" aria-label="External capability review funnel">
+          <div class="funnel-step">Project-local capability — for example analyze-soap-contract-migration</div>
+          <div class="funnel-step">review-for-commons — evidence and semantic comparison</div>
+          <div class="funnel-step">Sanitized proposal — no Commons mutation</div>
+          <div class="funnel-step">User decision — select an exact candidate or keep it local</div>
+        </div>
+        <div class="decision-grid">
+          <article class="decision-card"><small>COMPARISON</small><strong>EXACT · OVERLAP · EXTENSION</strong><span>Or REPLACEMENT, NEW, and PROJECT_LOCAL—based on actual Commons behavior.</span></article>
+          <article class="decision-card novel"><small>PROJECT FINDING</small><strong>POTENTIALLY_REUSABLE · VARIATION</strong><span>Or PROJECT_LOCAL, LOCAL_DUPLICATE, and REJECTED when the evidence does not justify promotion.</span></article>
+        </div>
+        <div class="promotion-mini" aria-label="Project capability review sequence"><span>01 / PROJECT EXPERIENCE</span><span>02 / REVIEW + USER DECISION</span><span>03 / promote-to-commons</span></div>
+      </div>
+    </section>
+
+    <section class="chapter soft" id="trust" aria-labelledby="trust-title">
+      <div class="page">
+        <div class="trust-head">
+          <div><p class="kicker">Contribution: promote-to-commons</p><h2 id="trust-title">Generalize the experience. Do not copy the project.</h2></div>
+          <p class="lede">Promotion begins only after an explicit candidate selection. The workflow independently revalidates the evidence and may still block or decline the change.</p>
+        </div>
+        <div class="trust-layout">
+          <div>
+            <div class="trust-stack" role="list" aria-label="The four stages of promoting a project capability into the commons">
+              <div class="trust-tier" role="listitem"><small>SELECT</small><div><strong>Bind the exact candidate</strong><span>Approval applies only to the named capability—not an entire review report.</span></div></div>
+              <div class="trust-tier" role="listitem"><small>REVALIDATE</small><div><strong>Challenge reuse and overlap</strong><span>Inspect primary evidence, maturity, confidentiality, licensing, routing, and runtime neutrality.</span></div></div>
+              <div class="trust-tier" role="listitem"><small>GENERALIZE</small><div><strong>Extract the reusable method</strong><span>Remove project assumptions; create, update, merge, split, deprecate, or deliberately do not promote.</span></div></div>
+              <div class="trust-tier" role="listitem"><small>VALIDATE</small><div><strong>Protect the company asset</strong><span>Add evals, synchronize catalogs and adapters, refresh generated data, run gates, then commit.</span></div></div>
+            </div>
+            <p class="trust-rule"><strong>User approval authorizes revalidation.</strong> It never guarantees inclusion.</p>
+            <div class="security-strip" aria-label="Promotion blocking conditions"><span>BLOCK CONFIDENTIAL</span><span>BLOCK UNKNOWN LICENSE</span><span>BLOCK DUPLICATE</span><span>BLOCK WEAK EVIDENCE</span></div>
+          </div>
+          <article class="insight-board">
+            <small>ONE APPROVED EXPERIENCE → ONE GOVERNED COMPANY CAPABILITY</small>
+            <div class="insight-pipeline">
+              <div class="insight-node"><strong>Project experience</strong><span>A useful migration method has evidence, a clear boundary, and value beyond its original context.</span></div>
+              <div class="insight-arrow" aria-hidden="true">→</div>
+              <div class="insight-node"><strong>Reusable generalization</strong><span>Client assumptions disappear; overlaps reconcile; the smallest correct canonical abstraction remains.</span></div>
+              <div class="insight-arrow" aria-hidden="true">→</div>
+              <div class="insight-node"><strong>Validated canonical change</strong><span>Evals, relationships, adapters, documentation, generated presentation data, and a focused commit move together.</span></div>
+            </div>
+            <div class="insight-technique"><strong>SELECT → REVALIDATE → GENERALIZE → EVALUATE → SYNCHRONIZE → COMMIT</strong></div>
+            <div class="insight-runtime" aria-label="Runtimes that inherit a promoted external insight"><span>Codex</span><span>Claude Code</span><span>Cline</span><span>OpenCode</span></div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="chapter black" id="payoff" aria-labelledby="payoff-title">
+      <div class="page learning-layout">
+        <div class="learning-head">
+          <div><p class="kicker">Why this matters to the company</p><h2 id="payoff-title">One Commons. Independent projects.</h2></div>
+          <p class="lede">Projects can run in parallel. They share a validated baseline—not one another's live work. Only reviewed and promoted learning reaches future project starts.</p>
+        </div>
+        <div class="commons-map" aria-label="A shared Commons release feeds independent projects; reusable learning passes governance before joining a future release">
+          <div class="commons-release"><small>CURRENT SHARED BASELINE</small><strong>Agent Commons vN</strong><span>Validated capabilities available to every new project</span></div>
+          <div class="commons-fanout" aria-hidden="true"><strong>Projects start independently from the same baseline</strong><span>↓</span><span>↓</span><span>↓</span></div>
+          <div class="project-network" aria-label="Independent projects in flight">
+            <div class="project-node"><small>PROJECT A</small><strong>Runs independently</strong><span>Own scope, state, evidence, and outcomes</span><em>may propose learning</em></div>
+            <div class="project-node"><small>PROJECT B</small><strong>Runs independently</strong><span>Own scope, state, evidence, and outcomes</span><em>may propose learning</em></div>
+            <div class="project-node"><small>PROJECT C</small><strong>Runs independently</strong><span>Own scope, state, evidence, and outcomes</span><em>may propose learning</em></div>
+          </div>
+          <div class="commons-fanin" aria-hidden="true"><span>↓</span><span>↓</span><span>↓</span><strong>Evidence-backed proposals converge here</strong></div>
+          <div class="commons-promotion">
+            <div class="commons-gate"><small>ONE GOVERNANCE GATE</small><strong>Review → generalize → validate → promote</strong></div>
+          </div>
+          <div class="commons-return" aria-label="Validated promotion updates Agent Commons vN"><span>vN++</span></div>
+          <div class="future-starts">Future projects start with the updated validated baseline</div>
+          <div class="map-rules"><span>No project-to-project dependency</span><span>No automatic promotion</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="chapter purple closing" id="closing" aria-labelledby="closing-title">
+      <div class="page">
+        <p class="kicker">The company-wide default</p>
+        <h2 id="closing-title">Every project teaches us.<span>The next project should benefit.</span></h2>
+        <div class="closing-foot"><p>Every project can leave the next team a better starting point. If your team has a real use case, invite me for a deeper walkthrough and we can test the method against it.</p><code>project → learn → review → commons → next project</code><p class="closing-version">Agent Commons Library <span data-library-version>1.0.0</span></p></div>
+      </div>
+    </section>
+  </main>
+
+  <script src="assets/library-data.js"></script>
+
+  <script>
+    (function () {
+      "use strict";
+      var root = document.documentElement;
+      var progress = document.getElementById("progress-bar");
+      var count = document.getElementById("chapter-count");
+      var chapters = Array.prototype.slice.call(document.querySelectorAll("main > section[id]"));
+      var nav = Array.prototype.slice.call(document.querySelectorAll(".chapter-nav a"));
+      var liveStatus = document.getElementById("live-status");
+
+      // One shared status line. Panels used to be aria-live regions themselves,
+      // which made every click re-read an entire article.
+      function announce(message) {
+        if (!liveStatus) return;
+        liveStatus.textContent = "";
+        liveStatus.textContent = message;
+      }
+
+      function updateProgress() {
+        var max = document.documentElement.scrollHeight - innerHeight;
+        progress.style.width = (max > 0 ? Math.min(100, Math.max(0, scrollY / max * 100)) : 0) + "%";
+      }
+      addEventListener("scroll", updateProgress, { passive: true });
+      addEventListener("resize", updateProgress);
+      updateProgress();
+
+      if ("IntersectionObserver" in window) {
+        var observer = new IntersectionObserver(function (entries) {
+          entries.forEach(function (entry) {
+            if (!entry.isIntersecting) return;
+            var index = chapters.indexOf(entry.target);
+            nav.forEach(function (link) { link.removeAttribute("aria-current"); });
+            if (nav[index]) nav[index].setAttribute("aria-current", "true");
+            count.textContent = String(index + 1).padStart(2, "0") + " / " + String(chapters.length).padStart(2, "0");
+          });
+        }, { rootMargin: "-35% 0px -55% 0px" });
+        chapters.forEach(function (chapter) { observer.observe(chapter); });
+      }
+
+      var focusButton = document.getElementById("focus-button");
+      function setFocus(active) {
+        root.setAttribute("data-focus", active ? "true" : "false");
+        focusButton.setAttribute("aria-pressed", active ? "true" : "false");
+        focusButton.textContent = active ? "Exit" : "Focus";
+      }
+      focusButton.addEventListener("click", function () { setFocus(root.getAttribute("data-focus") !== "true"); });
+
+      function currentChapter() {
+        var midpoint = scrollY + innerHeight * .45;
+        var current = 0;
+        chapters.forEach(function (chapter, index) { if (chapter.offsetTop <= midpoint) current = index; });
+        return current;
+      }
+      function goToChapter(index) {
+        var target = chapters[Math.min(chapters.length - 1, Math.max(0, index))];
+        if (!target) return;
+        target.scrollIntoView({ behavior: "smooth", block: "start" });
+        var heading = target.querySelector("h1, h2");
+        announce("Chapter " + (chapters.indexOf(target) + 1) + " of " + chapters.length +
+          (heading ? ". " + heading.textContent.trim() : ""));
+      }
+
+      // Presentation remotes emit PageDown/PageUp or the horizontal arrows,
+      // never j/k, so a clicker previously could not drive the deck at all.
+      // ArrowUp/ArrowDown and Space stay unbound: this is a scrolling document
+      // and hijacking them would break ordinary keyboard reading.
+      var FORWARD = { j: 1, ArrowRight: 1, PageDown: 1 };
+      var BACKWARD = { k: 1, ArrowLeft: 1, PageUp: 1 };
+      document.addEventListener("keydown", function (event) {
+        if (event.key === "Escape" && root.getAttribute("data-focus") === "true") { setFocus(false); focusButton.focus(); return; }
+        if (event.target.matches("a,button,input,textarea,select,summary") || event.target.isContentEditable) return;
+        if (event.metaKey || event.ctrlKey || event.altKey) return;
+        if (event.key === "f" || event.key === "F") { setFocus(root.getAttribute("data-focus") !== "true"); event.preventDefault(); return; }
+        if (event.key === "Home") { goToChapter(0); event.preventDefault(); return; }
+        if (event.key === "End") { goToChapter(chapters.length - 1); event.preventDefault(); return; }
+        if (FORWARD[event.key]) { goToChapter(currentChapter() + 1); event.preventDefault(); return; }
+        if (BACKWARD[event.key]) { goToChapter(currentChapter() - 1); event.preventDefault(); }
+      });
+
+      var treeButtons = Array.prototype.slice.call(document.querySelectorAll(".tree-branch"));
+      treeButtons.forEach(function (button) {
+        button.addEventListener("click", function () {
+          treeButtons.forEach(function (item) { item.setAttribute("aria-pressed", "false"); });
+          button.setAttribute("aria-pressed", "true");
+          document.getElementById("repo-path").textContent = button.dataset.path;
+          document.getElementById("repo-title").textContent = button.dataset.title;
+          document.getElementById("repo-copy").textContent = button.dataset.copy;
+          document.getElementById("repo-kind").textContent = button.dataset.kind;
+          document.getElementById("repo-proof").textContent = button.dataset.proof;
+          announce(button.dataset.path + ": " + button.dataset.title);
+        });
+      });
+
+      var capabilityData = window.AGENT_COMMONS_DATA || { nodes: [], edges: [], stats: {} };
+      var capabilityNodes = capabilityData.nodes || [];
+      var capabilityEdges = capabilityData.edges || [];
+      var capabilityByKey = {};
+      var capabilityTypes = ["skill", "agent", "tool", "archetype", "overlay", "adapter", "eval", "template", "external"];
+      var capabilityTypeLabels = { skill: "Skills", agent: "Agents", tool: "Tools", archetype: "Archetypes", overlay: "Overlays", adapter: "Adapters", eval: "Evals", template: "Templates", external: "External" };
+      capabilityNodes.forEach(function (node) { capabilityByKey[node.key] = node; });
+      Array.prototype.slice.call(document.querySelectorAll("[data-library-version]")).forEach(function (node) { node.textContent = capabilityData.library_version; });
+      Array.prototype.slice.call(document.querySelectorAll("[data-stat]")).forEach(function (node) {
+        var value = capabilityData.stats[node.dataset.stat];
+        if (typeof value !== "undefined") node.textContent = String(value);
+      });
+
+      function nodeHaystack(node) {
+        var acronym = node.id.split("-").map(function (word) { return word.charAt(0); }).join("");
+        return [node.key, node.id, node.name, acronym, node.type, node.path, node.description, node.purpose, node.source_preview]
+          .concat(node.search_terms || [], node.tags || [], node.use_when || [], node.not_when || [], node.inputs || [], node.workflow || [], node.outputs || [], node.validation || [])
+          .join(" ").toLowerCase();
+      }
+      function nodeSearchScore(node, query) {
+        if (!query) return 1;
+        var acronym = node.id.split("-").map(function (word) { return word.charAt(0); }).join("");
+        var exact = [node.id, node.name, node.key, acronym].concat(node.search_terms || [], node.tags || []).map(function (value) { return String(value).toLowerCase(); });
+        if (exact.indexOf(query) >= 0) return 100;
+        if (exact.join(" ").indexOf(query) >= 0) return 80;
+        var descriptive = [node.path, node.description, node.purpose].concat(node.use_when || [], node.not_when || [], node.inputs || [], node.workflow || [], node.outputs || [], node.validation || []).join(" ").toLowerCase();
+        if (descriptive.indexOf(query) >= 0) return 50;
+        return String(node.source_preview || "").toLowerCase().indexOf(query) >= 0 ? 10 : 0;
+      }
+      function relatedEdges(key) {
+        return capabilityEdges.filter(function (edge) { return edge.source === key || edge.target === key; });
+      }
+      function otherEnd(edge, key) { return edge.source === key ? edge.target : edge.source; }
+      function replaceCapabilityHash(key) {
+        if (!history.replaceState) return;
+        history.replaceState(null, "", location.pathname + location.search + "#capability=" + encodeURIComponent(key));
+      }
+
+      var capabilityList = document.getElementById("capability-list");
+      var capabilitySearch = document.getElementById("capability-search");
+      var capabilityTypeList = document.getElementById("capability-types");
+      var selectedCapability = "";
+      var selectedCapabilityType = "all";
+      function buildPreviewList(title, values) {
+        if (!values || !values.length) return null;
+        var section = document.createElement("section");
+        section.className = "preview-section";
+        var heading = document.createElement("h5");
+        heading.textContent = title;
+        section.appendChild(heading);
+        if (values.length === 1) {
+          var paragraph = document.createElement("p");
+          paragraph.textContent = values[0];
+          section.appendChild(paragraph);
+        } else {
+          var list = document.createElement("ul");
+          values.forEach(function (value) { var item = document.createElement("li"); item.textContent = value; list.appendChild(item); });
+          section.appendChild(list);
+        }
+        return section;
+      }
+      function selectCapability(key, updateHash, linkGraph) {
+        var capability = capabilityByKey[key];
+        if (!capability) return;
+        selectedCapability = key;
+        Array.prototype.slice.call(capabilityList.querySelectorAll("button")).forEach(function (button) {
+          if (button.dataset.capability === key) button.setAttribute("aria-current", "true");
+          else button.removeAttribute("aria-current");
+        });
+        document.getElementById("capability-path").textContent = capability.path;
+        document.getElementById("capability-title").textContent = capability.name;
+        document.getElementById("capability-description").textContent = capability.description;
+        var meta = document.getElementById("capability-meta");
+        meta.textContent = "";
+        [capabilityTypeLabels[capability.type] || capability.type, capability.id].concat(capability.runtime_support && capability.runtime_support.length ? [capability.runtime_support.length + " runtimes"] : []).forEach(function (value) {
+          var item = document.createElement("span"); item.textContent = value; meta.appendChild(item);
+        });
+        var sections = document.getElementById("capability-sections");
+        sections.textContent = "";
+        [
+          buildPreviewList("Purpose", capability.purpose ? [capability.purpose] : []),
+          buildPreviewList("When to use", capability.use_when),
+          buildPreviewList("When not to use", capability.not_when),
+          buildPreviewList("Inputs", capability.inputs),
+          buildPreviewList("Workflow summary", capability.workflow),
+          buildPreviewList("Outputs", capability.outputs),
+          buildPreviewList("Validation and boundaries", capability.validation)
+        ].forEach(function (section) { if (section) sections.appendChild(section); });
+        var tags = document.getElementById("capability-tags");
+        tags.textContent = "";
+        [capability.id].concat(capability.search_terms || [], capability.tags || []).filter(function (tag, index, values) { return tag && values.indexOf(tag) === index; }).slice(0, 18).forEach(function (tag) { var item = document.createElement("span"); item.textContent = tag; tags.appendChild(item); });
+        document.getElementById("capability-source-preview").textContent = capability.source_preview || "No source preview is available.";
+        var links = document.getElementById("capability-links");
+        links.textContent = "";
+        var relations = relatedEdges(key);
+        if (!relations.length) {
+          var empty = document.createElement("p"); empty.textContent = "No direct relationship is declared in the generated graph."; links.appendChild(empty);
+        } else {
+          relations.slice(0, 24).forEach(function (edge) {
+            var relatedKey = otherEnd(edge, key);
+            var related = capabilityByKey[relatedKey];
+            if (!related) return;
+            var button = document.createElement("button");
+            button.type = "button";
+            var relation = document.createElement("b"); relation.textContent = edge.relationship;
+            var label = document.createElement("span"); label.textContent = related.name + " · " + related.type;
+            button.appendChild(relation); button.appendChild(label);
+            button.addEventListener("click", function () { selectedCapabilityType = "all"; renderCapabilityTypes(); renderCapabilityList(capabilitySearch.value); selectCapability(relatedKey, true); });
+            links.appendChild(button);
+          });
+        }
+        if (updateHash !== false) replaceCapabilityHash(key);
+        // Only a deliberate selection dims the graph. Restoring the initial
+        // preview used to dim it too, which is why boot had to call
+        // focusNetwork("") twice — once inline and once in a setTimeout.
+        if (linkGraph !== false) focusNetwork(key);
+      }
+      function renderCapabilityTypes() {
+        capabilityTypeList.textContent = "";
+        [{ id: "all", label: "All", count: capabilityNodes.length }].concat(capabilityTypes.map(function (type) {
+          return { id: type, label: capabilityTypeLabels[type], count: capabilityNodes.filter(function (node) { return node.type === type; }).length };
+        })).forEach(function (entry) {
+          var button = document.createElement("button");
+          button.type = "button"; button.dataset.type = entry.id; button.setAttribute("aria-pressed", selectedCapabilityType === entry.id ? "true" : "false");
+          var label = document.createElement("span"); label.textContent = entry.label;
+          var countNode = document.createElement("b"); countNode.textContent = String(entry.count);
+          button.appendChild(label); button.appendChild(countNode);
+          button.addEventListener("click", function () { selectedCapabilityType = entry.id; renderCapabilityTypes(); renderCapabilityList(capabilitySearch.value); });
+          capabilityTypeList.appendChild(button);
+        });
+      }
+      function renderCapabilityList(query) {
+        var normalized = query.trim().toLowerCase();
+        capabilityList.textContent = "";
+        var matches = capabilityNodes.filter(function (node) {
+          return (selectedCapabilityType === "all" || node.type === selectedCapabilityType) && nodeSearchScore(node, normalized) > 0;
+        }).sort(function (left, right) {
+          var score = nodeSearchScore(right, normalized) - nodeSearchScore(left, normalized);
+          return score || capabilityTypes.indexOf(left.type) - capabilityTypes.indexOf(right.type) || left.name.localeCompare(right.name);
+        });
+        if (!matches.length) {
+          var empty = document.createElement("p"); empty.className = "capability-empty"; empty.textContent = "No capability matches this type and search."; capabilityList.appendChild(empty); return;
+        }
+        matches.forEach(function (node) {
+          var button = document.createElement("button"); button.type = "button"; button.dataset.capability = node.key;
+          var name = document.createElement("strong"); name.textContent = node.name;
+          var detail = document.createElement("span"); detail.textContent = node.type.toUpperCase() + " · " + node.id;
+          button.appendChild(name); button.appendChild(detail);
+          button.addEventListener("click", function () { selectCapability(node.key, true); });
+          capabilityList.appendChild(button);
+        });
+        // Re-rendering the result list is not a selection gesture, so it must
+        // not re-dim the graph on every keystroke.
+        if (!matches.some(function (node) { return node.key === selectedCapability; })) selectCapability(matches[0].key, false, false);
+        else selectCapability(selectedCapability, false, false);
+      }
+      function wireKeyboardTabs(tabs) {
+        function sync(active) {
+          tabs.forEach(function (item) { item.tabIndex = item === active ? 0 : -1; });
+        }
+        tabs.forEach(function (tab, index) {
+          tab.addEventListener("click", function () { sync(tab); });
+          tab.addEventListener("keydown", function (event) {
+            var next = index;
+            if (event.key === "ArrowRight" || event.key === "ArrowDown") next = (index + 1) % tabs.length;
+            else if (event.key === "ArrowLeft" || event.key === "ArrowUp") next = (index - 1 + tabs.length) % tabs.length;
+            else if (event.key === "Home") next = 0;
+            else if (event.key === "End") next = tabs.length - 1;
+            else return;
+            event.preventDefault();
+            tabs[next].focus();
+            tabs[next].click();
+          });
+        });
+        sync(tabs.find(function (item) { return item.getAttribute("aria-selected") === "true"; }) || tabs[0]);
+      }
+      capabilitySearch.addEventListener("input", function () { renderCapabilityList(capabilitySearch.value); });
+      var previewTabs = Array.prototype.slice.call(document.querySelectorAll(".preview-tabs [role='tab']"));
+      previewTabs.forEach(function (tab) {
+        tab.addEventListener("click", function () {
+          previewTabs.forEach(function (item) { item.setAttribute("aria-selected", "false"); document.getElementById(item.getAttribute("aria-controls")).hidden = true; });
+          tab.setAttribute("aria-selected", "true"); document.getElementById(tab.getAttribute("aria-controls")).hidden = false;
+        });
+      });
+      wireKeyboardTabs(previewTabs);
+
+      var svgNS = "http://www.w3.org/2000/svg";
+      var graph = document.getElementById("capability-graph");
+      var networkSearch = document.getElementById("network-search");
+      var networkFilters = document.getElementById("network-filters");
+      var networkTooltip = document.getElementById("network-tooltip");
+      var networkInspector = document.getElementById("network-inspector");
+      var networkActiveTypes = {};
+      var networkPositions = {};
+      var networkNodeElements = {};
+      var networkEdgeElements = [];
+      var networkFocusedKey = "";
+      capabilityTypes.forEach(function (type) { networkActiveTypes[type] = true; });
+      // Loose phyllotaxis scatter: clusters read as organic drifts of related
+      // capability rather than tidy discs. Overlap is accepted — the graph is a
+      // texture of how dense the library is, and the tooltip carries the detail.
+      var anchors = {
+        skill: [190, 330, 165], agent: [965, 155, 78], tool: [1010, 385, 150], archetype: [600, 315, 76], overlay: [600, 510, 92], adapter: [940, 625, 92], eval: [600, 85, 125], template: [250, 105, 120], external: [220, 610, 112]
+      };
+      var networkDegree = {};
+      function layoutNetwork() {
+        capabilityEdges.forEach(function (edge) {
+          networkDegree[edge.source] = (networkDegree[edge.source] || 0) + 1;
+          networkDegree[edge.target] = (networkDegree[edge.target] || 0) + 1;
+        });
+        capabilityTypes.forEach(function (type) {
+          var group = capabilityNodes.filter(function (node) { return node.type === type; });
+          var anchor = anchors[type];
+          if (!anchor || !group.length) return;
+          group.forEach(function (node, index) {
+            var angle = index * 2.3999632297;
+            var radius = group.length === 1 ? 0 : Math.min(anchor[2], 26 + Math.sqrt(index + 1) * 24);
+            // Scatter is deliberate; being outside the viewBox is not. The SVG
+            // clips at overflow:hidden, so a node placed off-canvas is invisible
+            // while still sitting in the keyboard tab order.
+            networkPositions[node.key] = {
+              x: Math.max(14, Math.min(1186, anchor[0] + Math.cos(angle) * radius)),
+              y: Math.max(14, Math.min(706, anchor[1] + Math.sin(angle) * radius))
+            };
+          });
+        });
+      }
+      function svgElement(name, attributes) {
+        var element = document.createElementNS(svgNS, name);
+        Object.keys(attributes || {}).forEach(function (key) { element.setAttribute(key, attributes[key]); });
+        return element;
+      }
+      function moveNetworkTooltip(event) {
+        if (networkTooltip.hidden) return;
+        var stage = document.getElementById("network-stage").getBoundingClientRect();
+        // Measured, not assumed. The old clamp hardcoded 316px while the CSS
+        // width is min(300px, calc(100% - 32px)), so on a narrow stage the
+        // tooltip was clamped to a negative offset and sat off the panel.
+        var box = networkTooltip.getBoundingClientRect();
+        var left = event && event.clientX ? event.clientX - stage.left + 16 : (stage.width - box.width) * .5;
+        var top = event && event.clientY ? event.clientY - stage.top + 16 : 20;
+        networkTooltip.style.left = Math.max(16, Math.min(stage.width - box.width - 16, left)) + "px";
+        networkTooltip.style.top = Math.max(16, Math.min(stage.height - box.height - 16, top)) + "px";
+      }
+      function tooltipFor(node, event) {
+        networkTooltip.textContent = "";
+        var type = document.createElement("small"); type.textContent = (capabilityTypeLabels[node.type] || node.type).toUpperCase();
+        var title = document.createElement("strong"); title.textContent = node.name;
+        var copy = document.createElement("span"); copy.textContent = node.purpose;
+        var relations = document.createElement("span"); var directCount = relatedEdges(node.key).length;
+        relations.textContent = directCount + (directCount === 1 ? " direct relationship" : " direct relationships");
+        networkTooltip.appendChild(type); networkTooltip.appendChild(title); networkTooltip.appendChild(copy); networkTooltip.appendChild(relations);
+        networkTooltip.hidden = false;
+        moveNetworkTooltip(event);
+      }
+      function hideNetworkTooltip() { networkTooltip.hidden = true; }
+      // Keyboard order follows the on-screen reading order, not data order.
+      var networkTabOrder = [];
+      function setNetworkTabStop(key) {
+        networkTabOrder.forEach(function (candidate) {
+          var element = networkNodeElements[candidate];
+          if (element) element.setAttribute("tabindex", candidate === key ? "0" : "-1");
+        });
+      }
+      function moveNetworkTabStop(fromKey, step) {
+        var reachable = networkTabOrder.filter(function (candidate) {
+          var element = networkNodeElements[candidate];
+          return element && element.style.display !== "none";
+        });
+        if (!reachable.length) return;
+        var index = reachable.indexOf(fromKey);
+        var next = reachable[(index + step + reachable.length) % reachable.length];
+        setNetworkTabStop(next);
+        networkNodeElements[next].focus();
+      }
+
+      function renderNetwork() {
+        // Keep <desc>: #network-description is the target of aria-labelledby on
+        // the <svg>, and wiping textContent used to delete it on first render.
+        var description = graph.querySelector("desc");
+        graph.textContent = "";
+        if (description) graph.appendChild(description);
+
+        capabilityTypes.forEach(function (type) {
+          var anchor = anchors[type];
+          if (!anchor) return;
+          var above = anchor[1] - anchor[2] - 28;
+          var label = svgElement("text", {
+            x: anchor[0],
+            // Original placement, except that cy - maxRadius - 28 put EVALS at
+            // y=-68 and TEMPLATES at y=-43: outside the viewBox and therefore
+            // invisible. Those two drop below their cluster instead.
+            y: above >= 24 ? above : anchor[1] + anchor[2] + 26,
+            "text-anchor": "middle",
+            "class": "graph-cluster-label"
+          });
+          label.textContent = capabilityTypeLabels[type].toUpperCase(); graph.appendChild(label);
+        });
+
+        capabilityEdges.forEach(function (edge) {
+          var source = networkPositions[edge.source], target = networkPositions[edge.target];
+          if (!source || !target) return;
+          var line = svgElement("line", { x1: source.x, y1: source.y, x2: target.x, y2: target.y, "class": "graph-edge" });
+          line.dataset.source = edge.source; line.dataset.target = edge.target; graph.appendChild(line); networkEdgeElements.push(line);
+        });
+
+        var ordered = capabilityNodes.slice().sort(function (left, right) {
+          var a = networkPositions[left.key], b = networkPositions[right.key];
+          if (!a || !b) return 0;
+          return (a.y - b.y) || (a.x - b.x);
+        });
+        networkTabOrder = ordered.map(function (node) { return node.key; });
+
+        ordered.forEach(function (node) {
+          var position = networkPositions[node.key];
+          var degree = networkDegree[node.key] || 0;
+          // The nodes are real controls: focusable, named, and operable. They
+          // were previously tabindex="-1" and aria-hidden="true", which made
+          // the focus and keydown handlers below unreachable dead code.
+          var group = svgElement("g", {
+            transform: "translate(" + position.x + " " + position.y + ")",
+            "class": "graph-node",
+            tabindex: "-1", role: "button",
+            "aria-label": node.name + ", " + (capabilityTypeLabels[node.type] || node.type) + ", " + degree + (degree === 1 ? " relationship" : " relationships")
+          });
+          group.dataset.key = node.key; group.dataset.type = node.type;
+          group.appendChild(svgElement("circle", { r: node.type === "archetype" || node.type === "adapter" ? "9" : "7" }));
+          var label = svgElement("text", { x: "15", y: "4" });
+          label.textContent = node.name; group.appendChild(label);
+          group.addEventListener("mouseenter", function (event) { tooltipFor(node, event); });
+          group.addEventListener("mousemove", function (event) { moveNetworkTooltip(event); });
+          group.addEventListener("mouseleave", hideNetworkTooltip);
+          group.addEventListener("focus", function (event) { setNetworkTabStop(node.key); tooltipFor(node, event); });
+          group.addEventListener("blur", hideNetworkTooltip);
+          group.addEventListener("click", function () { selectNetworkNode(node.key); });
+          group.addEventListener("keydown", function (event) {
+            if (event.key === "Enter" || event.key === " ") { event.preventDefault(); selectNetworkNode(node.key); return; }
+            if (event.key === "ArrowRight" || event.key === "ArrowDown") { event.preventDefault(); moveNetworkTabStop(node.key, 1); return; }
+            if (event.key === "ArrowLeft" || event.key === "ArrowUp") { event.preventDefault(); moveNetworkTabStop(node.key, -1); return; }
+            if (event.key === "Escape") { hideNetworkTooltip(); graph.focus(); }
+          });
+          graph.appendChild(group); networkNodeElements[node.key] = group;
+        });
+        setNetworkTabStop(networkTabOrder[0]);
+      }
+      function renderNetworkFilters() {
+        networkFilters.textContent = "";
+        capabilityTypes.forEach(function (type) {
+          var button = document.createElement("button"); button.type = "button"; button.dataset.type = type; button.setAttribute("aria-pressed", networkActiveTypes[type] ? "true" : "false");
+          button.textContent = capabilityTypeLabels[type] + " " + capabilityNodes.filter(function (node) { return node.type === type; }).length;
+          button.addEventListener("click", function () { networkActiveTypes[type] = !networkActiveTypes[type]; renderNetworkFilters(); applyNetworkState(); });
+          networkFilters.appendChild(button);
+        });
+      }
+      function applyNetworkState() {
+        var query = networkSearch.value.trim().toLowerCase();
+        var visibleCount = 0;
+        capabilityNodes.forEach(function (node) {
+          var element = networkNodeElements[node.key];
+          var visible = networkActiveTypes[node.type];
+          element.style.display = visible ? "" : "none";
+          element.classList.toggle("is-match", !!query && nodeHaystack(node).indexOf(query) >= 0);
+          if (visible) visibleCount += 1;
+        });
+        networkEdgeElements.forEach(function (line) {
+          var source = capabilityByKey[line.dataset.source], target = capabilityByKey[line.dataset.target];
+          line.style.display = source && target && networkActiveTypes[source.type] && networkActiveTypes[target.type] ? "" : "none";
+        });
+        document.getElementById("network-visible").textContent = String(visibleCount);
+        // A filtered-out node must not keep the tab stop.
+        if (networkFocusedKey && networkNodeElements[networkFocusedKey] && networkNodeElements[networkFocusedKey].style.display !== "none") setNetworkTabStop(networkFocusedKey);
+        else {
+          var firstVisible = networkTabOrder.filter(function (key) { var element = networkNodeElements[key]; return element && element.style.display !== "none"; })[0];
+          if (firstVisible) setNetworkTabStop(firstVisible);
+        }
+        focusNetwork(networkFocusedKey);
+      }
+      function focusNetwork(key) {
+        networkFocusedKey = capabilityByKey[key] ? key : "";
+        var direct = {};
+        var relations = networkFocusedKey ? relatedEdges(networkFocusedKey) : [];
+        if (networkFocusedKey) {
+          direct[networkFocusedKey] = true;
+          relations.forEach(function (edge) { direct[otherEnd(edge, networkFocusedKey)] = true; });
+        }
+        capabilityNodes.forEach(function (node) {
+          var element = networkNodeElements[node.key];
+          if (!element) return;
+          element.classList.toggle("is-selected", node.key === networkFocusedKey);
+          element.classList.toggle("is-dimmed", !!networkFocusedKey && !direct[node.key]);
+        });
+        networkEdgeElements.forEach(function (line) {
+          var related = !!networkFocusedKey && (line.dataset.source === networkFocusedKey || line.dataset.target === networkFocusedKey);
+          line.classList.toggle("is-related", related);
+          line.classList.toggle("is-dimmed", !!networkFocusedKey && !related);
+        });
+        document.getElementById("network-focus-count").textContent = String(relations.length);
+        document.getElementById("network-focus-name").textContent = networkFocusedKey ? capabilityByKey[networkFocusedKey].name : "All";
+      }
+      function selectNetworkNode(key) {
+        var node = capabilityByKey[key]; if (!node) return;
+        focusNetwork(key); selectCapability(key, true);
+        document.getElementById("network-inspector-type").textContent = (capabilityTypeLabels[node.type] || node.type).toUpperCase() + " · " + node.path;
+        document.getElementById("network-inspector-title").textContent = node.name;
+        document.getElementById("network-inspector-copy").textContent = node.purpose;
+        networkInspector.hidden = false;
+      }
+      networkSearch.addEventListener("input", applyNetworkState);
+      networkSearch.addEventListener("keydown", function (event) {
+        if (event.key !== "Enter") return;
+        var query = networkSearch.value.trim().toLowerCase();
+        var match = capabilityNodes.filter(function (node) { return networkActiveTypes[node.type] && nodeSearchScore(node, query) > 0; }).sort(function (left, right) { return nodeSearchScore(right, query) - nodeSearchScore(left, query); })[0];
+        if (match) selectNetworkNode(match.key);
+      });
+      document.getElementById("network-reset").addEventListener("click", function () { networkSearch.value = ""; capabilityTypes.forEach(function (type) { networkActiveTypes[type] = true; }); networkInspector.hidden = true; renderNetworkFilters(); focusNetwork(""); applyNetworkState(); });
+      document.getElementById("network-open-preview").addEventListener("click", function () { document.getElementById("capability-explorer-title").scrollIntoView({ behavior: "smooth", block: "start" }); });
+
+      layoutNetwork(); renderNetwork(); renderNetworkFilters(); applyNetworkState(); renderCapabilityTypes(); renderCapabilityList("");
+      var initialCapability = "skill:initialize-project";
+      if (location.hash.indexOf("#capability=") === 0) initialCapability = decodeURIComponent(location.hash.slice(12));
+      if (!capabilityByKey[initialCapability]) initialCapability = capabilityNodes[0] ? capabilityNodes[0].key : "";
+      if (initialCapability) selectCapability(initialCapability, false, false);
+      focusNetwork("");
+
+      treeButtons.forEach(function (button) {
+        if (!button.dataset.navigatorType) return;
+        button.addEventListener("click", function () { selectedCapabilityType = button.dataset.navigatorType; capabilitySearch.value = ""; renderCapabilityTypes(); renderCapabilityList(""); });
+      });
+
+      var scopeData = {
+        legacy: ["Languages and application boundary?", "Target, integrations, evidence depth, read-only sources", "Docs and dashboard only when justified", "inventory · analysis · source/target/bridge check"],
+        development: ["Greenfield or existing—and what behavior matters?", "Stack, persistence, auth, tests, deployment, UI", "Base scaffold plus chosen artifact path", "implement-ready-slice · target capability check"],
+        research: ["What are we trying to learn?", "Audience, supported decision, scope, evidence depth", "Research plan · findings · sources · synthesis", "deep-research · presentation handoff when selected"],
+        presentation: ["Audience, decision, and evidence sources?", "Brand source, interaction, diagrams, delivery format", "presentation/index.html when HTML is chosen", "branded-html when HTML · no irrelevant search"],
+        hybrid: ["Which archetypes must compose around one goal?", "Shared constraints, deliverables, overlays, validation", "Smallest combined scaffold without duplicate skills", "composed skills · material gaps only"]
+      };
+      var scopeTabs = Array.prototype.slice.call(document.querySelectorAll(".scope-tabs [role='tab']"));
+      scopeTabs.forEach(function (tab) {
+        tab.addEventListener("click", function () {
+          var data = scopeData[tab.dataset.scope];
+          scopeTabs.forEach(function (item) { item.setAttribute("aria-selected", "false"); });
+          tab.setAttribute("aria-selected", "true");
+          document.getElementById("scope-panel").setAttribute("aria-labelledby", tab.id);
+          document.getElementById("scope-question").textContent = data[0];
+          document.getElementById("scope-followup").textContent = data[1];
+          document.getElementById("scope-output").textContent = data[2];
+          document.getElementById("scope-skills").textContent = data[3];
+        });
+      });
+      wireKeyboardTabs(scopeTabs);
+
+      var useTabs = Array.prototype.slice.call(document.querySelectorAll(".use-tabs [role='tab']"));
+      var usePanels = Array.prototype.slice.call(document.querySelectorAll(".use-panel"));
+      useTabs.forEach(function (tab) {
+        tab.addEventListener("click", function () {
+          useTabs.forEach(function (item) { item.setAttribute("aria-selected", "false"); });
+          usePanels.forEach(function (panel) { panel.hidden = true; });
+          tab.setAttribute("aria-selected", "true");
+          document.getElementById(tab.getAttribute("aria-controls")).hidden = false;
+        });
+      });
+      wireKeyboardTabs(useTabs);
+    }());
+  </script>
+</body>
+</html>

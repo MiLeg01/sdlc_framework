@@ -1,0 +1,29 @@
+{
+  "schema_version": 1,
+  "id": "consulting-delivery",
+  "kind": "overlay",
+  "title": "Consulting delivery controls",
+  "purpose": "Add evidence-based project-delivery governance and financial forecasting without embedding organization-specific operating models.",
+  "compatible_archetypes": ["development", "legacy-migration", "research"],
+  "initialization": {
+    "ask_if_unresolved": ["authoritative schedule and financial sources, reporting period, governance cadence, currency and units, scenario assumptions, and approval boundary"]
+  },
+  "capabilities": {
+    "required": {"skills": [], "agents": [], "tools": [], "templates": []},
+    "default": {
+      "skills": ["manage-project-delivery", "forecast-project-financials"],
+      "agents": ["financial-forecast-reviewer"],
+      "tools": ["analyze-project-delivery", "calculate-project-financial-forecast"],
+      "templates": []
+    },
+    "recommended": {"skills": [], "agents": [], "tools": [], "templates": []},
+    "optional": {"skills": [], "agents": [], "tools": [], "templates": []}
+  },
+  "conditions": [],
+  "invariants": [
+    "organization-specific role names, branding, rate cards, commercial thresholds, approval routes, and client identifiers remain project-local",
+    "delivery status and forecast claims identify their source period and assumptions",
+    "the independent reviewer reports findings and does not grant commercial approval"
+  ],
+  "outputs": ["delivery health and dependency view", "RAID and action view", "scenario-based project financial forecast", "independent forecast findings"]
+}

@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "expected_facts": [
+    {"id": "full-configured-scope", "severity": "CRITICAL", "text": "All seven supplied artifacts are accounted for; the first representative slice is not a completion boundary."},
+    {"id": "blank-request-validation", "severity": "CRITICAL", "text": "COBOL, PL/I, and Java reject a blank request identifier before downstream processing."},
+    {"id": "typed-routing", "severity": "MAJOR", "text": "COBOL and PL/I route request type P to PRICE01 and other types to STATUS01."},
+    {"id": "java-routing-gap", "severity": "MAJOR", "text": "The Java boundary delegates request type routing to RequestService, so direct equivalence is not proven from the supplied Java source."},
+    {"id": "api-contract", "severity": "MAJOR", "text": "POST /requests exposes submitRequest with 202 and 400 responses."},
+    {"id": "java-runtime", "severity": "MINOR", "text": "The Java build targets Java 21."},
+    {"id": "runtime-controls", "severity": "MINOR", "text": "Runtime configuration defines timeout, retry, and audit controls."},
+    {"id": "delivery-chain", "severity": "MAJOR", "text": "Requirements, complexity, estimation, roadmap, and dashboard outputs remain evidence-linked."}
+  ],
+  "required_sequence": ["inventory", "deep-analysis", "cross-language-synthesis", "requirements", "estimation", "roadmap", "dashboard"],
+  "invariants": ["source remains read-only", "evidence coordinates resolve", "unknown equivalence remains explicit", "dashboard includes test quality"],
+  "hard_assertions": ["source_unchanged", "zero_unaccounted_relevant_sources", "required_dashboard_domains_present", "full-configured-scope"]
+}

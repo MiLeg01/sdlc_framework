@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "evidence": [
+    {
+      "id": "E-SYN-COBOL-CALL",
+      "fact": "SAMPLE calls STATIC-PROG.",
+      "source": "evals/fixtures/legacy-structure/sample.cbl",
+      "locator": "evals/fixtures/legacy-structure/sample.cbl:5"
+    },
+    {
+      "id": "E-SYN-JAVA-CALL",
+      "fact": "Sample invokes service.execute.",
+      "source": "evals/fixtures/legacy-structure/Sample.java",
+      "locator": "evals/fixtures/legacy-structure/Sample.java:7"
+    },
+    {
+      "id": "E-SYN-DUPLICATE",
+      "fact": "The COBOL and Java observations describe the same required host-call boundary.",
+      "derived_from": ["E-SYN-COBOL-CALL", "E-SYN-JAVA-CALL"]
+    },
+    {
+      "id": "E-SYN-CONFLICT",
+      "fact": "The supplied sources do not establish whether a missing host response is retried.",
+      "status": "unknown"
+    }
+  ]
+}

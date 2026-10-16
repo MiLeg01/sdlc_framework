@@ -1,0 +1,109 @@
+{
+  "schema_version": 2,
+  "id": "synthetic-public-sector",
+  "name": "Synthetic public-sector identity",
+  "required": true,
+  "status": "resolved",
+  "resolution_method": "manual-evidence",
+  "source": {
+    "requested_url": "https://brand.example/",
+    "resolved_url": "https://brand.example/index.html",
+    "captured_at": "2026-08-19T00:00:00Z",
+    "html": {"url": "https://brand.example/index.html", "media_type": "text/html", "sha256": "9c4b62ff452af3df8c591a77ad104bdc1328b876c68b1b8bc32e56d132ec789b"},
+    "stylesheets": [
+      {"url": "https://brand.example/assets/brand.css", "media_type": "text/css", "sha256": "1aa2af15a248b1fe2a16e03c712fdb3b5d575e9bf2523c9c84a54ce7d7eecd02"}
+    ],
+    "manifest": {"url": "https://brand.example/site.webmanifest", "media_type": "application/manifest+json", "sha256": "78a27e3fd322de3fa6b54a25cfa4bb3646d4946ae639db5057bb5afb7e3bb59c"},
+    "metadata": {
+      "title": "Northstar Civic Systems",
+      "theme_colors": ["#123a52"],
+      "favicon_candidates": ["https://brand.example/assets/favicon.svg"],
+      "logo_candidate": "https://brand.example/assets/wordmark.svg"
+    }
+  },
+  "identity": {
+    "display_name": "Synthetic public-sector identity",
+    "logo_alt": "Synthetic public-sector identity"
+  },
+  "assets": {
+    "favicon": {
+      "role": "favicon",
+      "source_url": "https://brand.example/assets/favicon.svg",
+      "source_kind": "official",
+      "media_type": "image/svg+xml",
+      "sha256": "1bae703e1fc48c7e05e21088b6b90585133eac161034f7c2ff6f80df9e8dd06d",
+      "target": "embedded",
+      "data_uri": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMiAzMiIgcm9sZT0iaW1nIiBhcmlhLWxhYmVsPSJOb3J0aHN0YXIiPgogIDxyZWN0IHdpZHRoPSIzMiIgaGVpZ2h0PSIzMiIgcng9IjQiIGZpbGw9IiMxMjNhNTIiLz4KICA8cGF0aCBkPSJNMTYgNWwyLjQgNy4xSDI2bC02LjEgNC40IDIuMyA3LjItNi4yLTQuNS02LjIgNC41IDIuMy03LjJMNiAxMi4xaDcuNnoiIGZpbGw9IiNlMmE3MmUiLz4KPC9zdmc+Cg=="
+    },
+    "logo": {
+      "role": "logo",
+      "source_url": "https://brand.example/assets/wordmark.svg",
+      "source_kind": "official",
+      "media_type": "image/svg+xml",
+      "sha256": "1809bfff9af50e189606091f3a6014fba80df5b5579e86512b464721def5a65a",
+      "target": "embedded",
+      "data_uri": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzNjAgNzIiIHJvbGU9ImltZyIgYXJpYS1sYWJlbGxlZGJ5PSJ0aXRsZSI+CiAgPHRpdGxlIGlkPSJ0aXRsZSI+Tm9ydGhzdGFyIENpdmljIFN5c3RlbXM8L3RpdGxlPgogIDxyZWN0IHdpZHRoPSI3MiIgaGVpZ2h0PSI3MiIgcng9IjgiIGZpbGw9IiMxMjNhNTIiLz4KICA8cGF0aCBkPSJNMzYgMTFsNS4yIDE1LjRoMTYuMmwtMTMuMSA5LjUgNSAxNS41TDM2IDQxLjggMjIuNyA1MS40bDUtMTUuNS0xMy4xLTkuNWgxNi4yeiIgZmlsbD0iI2UyYTcyZSIvPgogIDx0ZXh0IHg9IjkyIiB5PSIzNCIgZm9udC1mYW1pbHk9IkFyaWFsLCBzYW5zLXNlcmlmIiBmb250LXNpemU9IjI0IiBmb250LXdlaWdodD0iNzAwIiBmaWxsPSIjMTIzYTUyIj5OT1JUSFNUQVI8L3RleHQ+CiAgPHRleHQgeD0iOTIiIHk9IjU2IiBmb250LWZhbWlseT0iQXJpYWwsIHNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMTUiIGZpbGw9IiM1NjZiNzYiPkNJVklDIFNZU1RFTVM8L3RleHQ+Cjwvc3ZnPgo="
+    }
+  },
+  "observed_colors": [
+    {"value": "#005f78", "usages": ["links"], "source_ref": "https://brand.example/assets/brand.css#--brand-link", "confidence": "high"},
+    {"value": "#005fcc", "usages": ["focus outline"], "source_ref": "https://brand.example/assets/brand.css#--brand-focus", "confidence": "high"},
+    {"value": "#006f8b", "usages": ["primary accent"], "source_ref": "https://brand.example/assets/brand.css#--brand-primary", "confidence": "high"},
+    {"value": "#123a52", "usages": ["text", "header"], "source_ref": "https://brand.example/assets/brand.css#--brand-ink", "confidence": "high"},
+    {"value": "#2d7452", "usages": ["success"], "source_ref": "https://brand.example/assets/brand.css#--brand-success", "confidence": "high"},
+    {"value": "#566b76", "usages": ["muted text", "strong line"], "source_ref": "https://brand.example/assets/brand.css#--brand-muted", "confidence": "high"},
+    {"value": "#91a9b5", "usages": ["boundaries"], "source_ref": "https://brand.example/assets/brand.css#--brand-line", "confidence": "high"},
+    {"value": "#a63b2b", "usages": ["danger"], "source_ref": "https://brand.example/assets/brand.css#--brand-danger", "confidence": "high"},
+    {"value": "#e2a72e", "usages": ["secondary accent"], "source_ref": "https://brand.example/assets/brand.css#--brand-secondary", "confidence": "high"},
+    {"value": "#f3f7f8", "usages": ["background", "soft surfaces"], "source_ref": "https://brand.example/assets/brand.css#--brand-paper", "confidence": "high"},
+    {"value": "#ffffff", "usages": ["surface", "card", "on dark"], "source_ref": "https://brand.example/assets/brand.css#--brand-surface", "confidence": "high"}
+  ],
+  "derived_tokens": [],
+  "evidence": [
+    {"id": "BRAND-EVID-001", "source_ref": "https://brand.example/index.html", "signal": "Official HTML, metadata, stylesheet, and manifest captured.", "confidence": "high"},
+    {"id": "BRAND-EVID-002", "source_ref": "https://brand.example/assets/brand.css", "signal": "Exact official color, typography, geometry, focus, link, and semantic variables observed.", "confidence": "high"},
+    {"id": "BRAND-EVID-003", "source_ref": "https://brand.example/assets/favicon.svg", "signal": "Official favicon bytes captured unchanged.", "confidence": "high"},
+    {"id": "BRAND-EVID-004", "source_ref": "https://brand.example/assets/wordmark.svg", "signal": "Official wordmark bytes captured unchanged.", "confidence": "high"}
+  ],
+  "theme": {
+    "colors": {
+      "ink": "#123a52", "ink_subtle": "#566b76", "paper": "#f3f7f8", "surface": "#ffffff",
+      "surface_subtle": "#f3f7f8", "card": "#ffffff", "line": "#91a9b5", "line_strong": "#566b76",
+      "accent": "#006f8b", "accent_soft": "#f3f7f8", "secondary": "#e2a72e", "risk": "#a63b2b",
+      "risk_soft": "#f3f7f8", "good": "#2d7452", "muted": "#566b76", "focus": "#005fcc",
+      "link": "#005f78", "header": "#123a52", "on_dark": "#ffffff"
+    },
+    "typography": {"display": "Arial Narrow, Arial, sans-serif", "body": "Arial, sans-serif", "data": "Courier New, monospace"},
+    "geometry": {"radius": "2px", "border_width": "1px"},
+    "signature": {"style": "rule", "color": "#e2a72e", "thickness": "6px"}
+  },
+  "mappings": [
+    {"token": "theme.colors.ink", "evidence_ids": ["BRAND-EVID-002"], "decision": "observed", "confidence": "high", "rationale": "Exact official token", "source_ref": "https://brand.example/assets/brand.css"},
+    {"token": "theme.colors.ink_subtle", "evidence_ids": ["BRAND-EVID-002"], "decision": "observed", "confidence": "high", "rationale": "Exact official token", "source_ref": "https://brand.example/assets/brand.css"},
+    {"token": "theme.colors.paper", "evidence_ids": ["BRAND-EVID-002"], "decision": "observed", "confidence": "high", "rationale": "Exact official token", "source_ref": "https://brand.example/assets/brand.css"},
+    {"token": "theme.colors.surface", "evidence_ids": ["BRAND-EVID-002"], "decision": "observed", "confidence": "high", "rationale": "Exact official token", "source_ref": "https://brand.example/assets/brand.css"},
+    {"token": "theme.colors.surface_subtle", "evidence_ids": ["BRAND-EVID-002"], "decision": "observed", "confidence": "high", "rationale": "Exact official token", "source_ref": "https://brand.example/assets/brand.css"},
+    {"token": "theme.colors.card", "evidence_ids": ["BRAND-EVID-002"], "decision": "observed", "confidence": "high", "rationale": "Exact official token", "source_ref": "https://brand.example/assets/brand.css"},
+    {"token": "theme.colors.line", "evidence_ids": ["BRAND-EVID-002"], "decision": "observed", "confidence": "high", "rationale": "Exact official token", "source_ref": "https://brand.example/assets/brand.css"},
+    {"token": "theme.colors.line_strong", "evidence_ids": ["BRAND-EVID-002"], "decision": "observed", "confidence": "high", "rationale": "Exact official token", "source_ref": "https://brand.example/assets/brand.css"},
+    {"token": "theme.colors.accent", "evidence_ids": ["BRAND-EVID-002"], "decision": "observed", "confidence": "high", "rationale": "Exact official token", "source_ref": "https://brand.example/assets/brand.css"},
+    {"token": "theme.colors.accent_soft", "evidence_ids": ["BRAND-EVID-002"], "decision": "observed", "confidence": "high", "rationale": "Exact official token", "source_ref": "https://brand.example/assets/brand.css"},
+    {"token": "theme.colors.secondary", "evidence_ids": ["BRAND-EVID-002"], "decision": "observed", "confidence": "high", "rationale": "Exact official token", "source_ref": "https://brand.example/assets/brand.css"},
+    {"token": "theme.colors.risk", "evidence_ids": ["BRAND-EVID-002"], "decision": "observed", "confidence": "high", "rationale": "Exact official token", "source_ref": "https://brand.example/assets/brand.css"},
+    {"token": "theme.colors.risk_soft", "evidence_ids": ["BRAND-EVID-002"], "decision": "observed", "confidence": "high", "rationale": "Exact official token", "source_ref": "https://brand.example/assets/brand.css"},
+    {"token": "theme.colors.good", "evidence_ids": ["BRAND-EVID-002"], "decision": "observed", "confidence": "high", "rationale": "Exact official token", "source_ref": "https://brand.example/assets/brand.css"},
+    {"token": "theme.colors.muted", "evidence_ids": ["BRAND-EVID-002"], "decision": "observed", "confidence": "high", "rationale": "Exact official token", "source_ref": "https://brand.example/assets/brand.css"},
+    {"token": "theme.colors.focus", "evidence_ids": ["BRAND-EVID-002"], "decision": "observed", "confidence": "high", "rationale": "Exact official token", "source_ref": "https://brand.example/assets/brand.css"},
+    {"token": "theme.colors.link", "evidence_ids": ["BRAND-EVID-002"], "decision": "observed", "confidence": "high", "rationale": "Exact official token", "source_ref": "https://brand.example/assets/brand.css"},
+    {"token": "theme.colors.header", "evidence_ids": ["BRAND-EVID-002"], "decision": "observed", "confidence": "high", "rationale": "Exact official token", "source_ref": "https://brand.example/assets/brand.css"},
+    {"token": "theme.colors.on_dark", "evidence_ids": ["BRAND-EVID-002"], "decision": "observed", "confidence": "high", "rationale": "Exact official token", "source_ref": "https://brand.example/assets/brand.css"},
+    {"token": "theme.typography.display", "evidence_ids": ["BRAND-EVID-002"], "decision": "observed", "confidence": "high", "rationale": "Exact official token", "source_ref": "https://brand.example/assets/brand.css"},
+    {"token": "theme.typography.body", "evidence_ids": ["BRAND-EVID-002"], "decision": "observed", "confidence": "high", "rationale": "Exact official token", "source_ref": "https://brand.example/assets/brand.css"},
+    {"token": "theme.typography.data", "evidence_ids": ["BRAND-EVID-002"], "decision": "observed", "confidence": "high", "rationale": "Exact official token", "source_ref": "https://brand.example/assets/brand.css"},
+    {"token": "theme.geometry.radius", "evidence_ids": ["BRAND-EVID-002"], "decision": "observed", "confidence": "high", "rationale": "Exact official token", "source_ref": "https://brand.example/assets/brand.css"},
+    {"token": "theme.geometry.border_width", "evidence_ids": ["BRAND-EVID-002"], "decision": "observed", "confidence": "high", "rationale": "Exact official token", "source_ref": "https://brand.example/assets/brand.css"},
+    {"token": "theme.signature.style", "evidence_ids": ["BRAND-EVID-002"], "decision": "derived", "confidence": "high", "rationale": "Rule treatment follows official signature tokens", "source_ref": "https://brand.example/assets/brand.css"},
+    {"token": "theme.signature.color", "evidence_ids": ["BRAND-EVID-002"], "decision": "observed", "confidence": "high", "rationale": "Exact official secondary token", "source_ref": "https://brand.example/assets/brand.css"},
+    {"token": "theme.signature.thickness", "evidence_ids": ["BRAND-EVID-002"], "decision": "observed", "confidence": "high", "rationale": "Exact official signature token", "source_ref": "https://brand.example/assets/brand.css"}
+  ]
+}

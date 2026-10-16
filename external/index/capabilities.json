@@ -1,0 +1,101 @@
+{
+  "schema_version": 1,
+  "source_registry_fingerprint": "d96ba1a12a72e4db595845d5c2c74d3d9af751f28cc5ab7cbd57ab2c82255fa8",
+  "updated_at": "2026-09-02T06:50:29Z",
+  "candidates": [
+    {
+      "id": "ext-github-community-discovery-footprintai-open-sdlc-skills",
+      "name": "open-sdlc project delivery roles",
+      "source_id": "github-community-discovery",
+      "repository": "FootprintAI/open-sdlc-skills",
+      "source_url": "https://github.com/FootprintAI/open-sdlc-skills",
+      "path": "pm/sprint-delivery.md",
+      "revision": "75b71b8bb038fdf45df07c9c3258bc08641f04fa",
+      "source_trust": "COMMUNITY",
+      "detected_runtime": "claude-code",
+      "capability_type": "composite package",
+      "purpose": "Evidence-based sprint planning, delivery coordination, stage gates, verification queues, and status reporting.",
+      "relevance_score": 30,
+      "relevance": [
+        "project delivery",
+        "project management",
+        "status reporting"
+      ],
+      "matched_gaps": [
+        "multi-workstream delivery governance",
+        "evidence-backed delivery status"
+      ],
+      "license": {
+        "status": "DETECTED",
+        "spdx": "Apache-2.0",
+        "scope": "repository LICENSE",
+        "copy_policy": "REVIEW_LICENSE_TERMS_BEFORE_COPYING"
+      },
+      "upstream": {
+        "default_branch": "main",
+        "last_commit_at": "2026-08-02T09:49:30Z"
+      },
+      "why_useful": "Adds reusable delivery cadence, evidence gates, dependency status, and action-oriented reporting patterns.",
+      "commons_overlap": [
+        "plan-work",
+        "coordinate-parallel-agents",
+        "implement-ready-slice",
+        "audit-delivery-traceability"
+      ],
+      "review_recommendation": "PROMOTED_GENERALIZED_IDEAS",
+      "security_class": "INSTRUCTIONS ONLY",
+      "status": "INCORPORATED",
+      "review_status": "CURRENT",
+      "review_path": "external/reviews/ext-github-community-discovery-footprintai-open-sdlc-skills.md",
+      "relationship": "INSPIRED-BY",
+      "discovered_at": "2026-09-02",
+      "last_checked": "2026-09-02"
+    },
+    {
+      "id": "ext-github-community-discovery-m-binimran-finance-pack",
+      "name": "finance-pack forecasting and review workflow",
+      "source_id": "github-community-discovery",
+      "repository": "m-binimran/finance-pack",
+      "source_url": "https://github.com/m-binimran/finance-pack",
+      "path": "skills/forecasting/SKILL.md",
+      "revision": "35ff1b49e7ffa1708296b84503a4e4236fbbff48",
+      "source_trust": "COMMUNITY",
+      "detected_runtime": "claude-code",
+      "capability_type": "composite package",
+      "purpose": "Driver-based project financial forecasting, budgeting, variance analysis, guardrails, and independent numerical review.",
+      "relevance_score": 32,
+      "relevance": [
+        "financial forecasting",
+        "budget planning",
+        "variance analysis"
+      ],
+      "matched_gaps": [
+        "project financial forecasting",
+        "independent financial forecast review"
+      ],
+      "license": {
+        "status": "DETECTED",
+        "spdx": "MIT",
+        "scope": "repository LICENSE",
+        "copy_policy": "REVIEW_LICENSE_TERMS_BEFORE_COPYING"
+      },
+      "upstream": {
+        "default_branch": "main",
+        "last_commit_at": "2026-06-14T18:46:14Z"
+      },
+      "why_useful": "Provides a coherent forecast, budget, variance, scenario, and independent review model absent from Commons.",
+      "commons_overlap": [
+        "estimate-adm-modernization",
+        "plan-work"
+      ],
+      "review_recommendation": "PROMOTED_GENERALIZED_IDEAS",
+      "security_class": "MCP/REMOTE TOOLING",
+      "status": "INCORPORATED",
+      "review_status": "CURRENT",
+      "review_path": "external/reviews/ext-github-community-discovery-m-binimran-finance-pack.md",
+      "relationship": "INSPIRED-BY",
+      "discovered_at": "2026-09-02",
+      "last_checked": "2026-09-02"
+    }
+  ]
+}

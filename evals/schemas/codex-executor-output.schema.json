@@ -1,0 +1,45 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/agent-commons/codex-executor-output.schema.json",
+  "title": "Codex semantic executor structured output",
+  "type": "object",
+  "required": ["generated_result", "evidence"],
+  "properties": {
+    "generated_result": {
+      "type": "object",
+      "required": ["summary", "observations"],
+      "properties": {
+        "summary": {"type": "string"},
+        "observations": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["label", "value", "evidence_id"],
+            "properties": {
+              "label": {"type": "string"},
+              "value": {"type": "string"},
+              "evidence_id": {"type": "string"}
+            },
+            "additionalProperties": false
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "evidence": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "source", "locator", "claim"],
+        "properties": {
+          "id": {"type": "string", "minLength": 1},
+          "source": {"type": "string", "minLength": 1},
+          "locator": {"type": "string", "minLength": 1},
+          "claim": {"type": "string", "minLength": 1}
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}

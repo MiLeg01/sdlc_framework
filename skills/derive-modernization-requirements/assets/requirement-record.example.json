@@ -1,0 +1,20 @@
+{
+  "id": "REQ-EXAMPLE-001",
+  "title": "Synthetic observable behavior",
+  "actor": "Authorized user",
+  "trigger": "A valid request is submitted",
+  "behavior": "The system validates the request and records the accepted outcome.",
+  "source_class": "observed",
+  "evidence_ids": ["EVID-EXAMPLE-001"],
+  "acceptance_scenarios": [
+    {"given": "a valid synthetic request", "when": "it is submitted", "then": "the accepted outcome is recorded"}
+  ],
+  "dependencies": [],
+  "exclusions": [],
+  "confidence": "high",
+  "lifecycle": "draft",
+  "revision": "sha256-synthetic-requirement-revision",
+  "implementation_status": "not-started",
+  "specification_ids": [],
+  "open_questions": []
+}

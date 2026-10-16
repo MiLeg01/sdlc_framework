@@ -1,0 +1,7 @@
+{
+  "schema_version": 1,
+  "commons-governance": {
+    "required_sequence": ["review-for-commons", "promote-to-commons", "evals", "catalog", "installer", "presentation-refresh"],
+    "invariants": ["promotion is explicitly selected", "catalog and adapters stay synchronized", "golden expectations are not silently weakened", "presentation visual contract remains unchanged"]
+  }
+}

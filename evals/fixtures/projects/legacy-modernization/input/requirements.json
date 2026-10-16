@@ -1,0 +1,7 @@
+{
+  "requirements": [
+    {"id": "REQ-001", "text": "Reject blank request identifiers before downstream processing."},
+    {"id": "REQ-002", "text": "Route price requests separately from status requests."},
+    {"id": "REQ-003", "text": "Expose request submission through the documented API contract."}
+  ]
+}

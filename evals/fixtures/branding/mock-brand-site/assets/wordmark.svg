@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 72" role="img" aria-labelledby="title">
+  <title id="title">Northstar Civic Systems</title>
+  <rect width="72" height="72" rx="8" fill="#123a52"/>
+  <path d="M36 11l5.2 15.4h16.2l-13.1 9.5 5 15.5L36 41.8 22.7 51.4l5-15.5-13.1-9.5h16.2z" fill="#e2a72e"/>
+  <text x="92" y="34" font-family="Arial, sans-serif" font-size="24" font-weight="700" fill="#123a52">NORTHSTAR</text>
+  <text x="92" y="56" font-family="Arial, sans-serif" font-size="15" fill="#566b76">CIVIC SYSTEMS</text>
+</svg>

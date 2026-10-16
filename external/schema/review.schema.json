@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://agent-commons.local/schema/external-review-v1.json",
+  "title": "Agent Commons external capability review metadata",
+  "type": "object",
+  "required": ["schema_version", "id", "source_id", "repository", "path", "revision", "trust", "license", "license_scope", "security_class", "relationship", "status", "reviewed_at"],
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {"const": 1},
+    "id": {"type": "string", "pattern": "^ext-[a-z0-9-]+$"},
+    "source_id": {"type": "string"},
+    "repository": {"type": "string"},
+    "path": {"type": "string"},
+    "revision": {"type": "string", "minLength": 7},
+    "trust": {"enum": ["OFFICIAL", "CURATED", "COMMUNITY", "UNTRUSTED"]},
+    "license": {"type": "string"},
+    "license_scope": {"type": "string"},
+    "security_class": {"enum": ["INSTRUCTIONS ONLY", "INSTRUCTIONS + SCRIPTS", "PLUGIN WITH HOOKS", "MCP/REMOTE TOOLING", "UNKNOWN"]},
+    "relationship": {"enum": ["COPIED", "ADAPTED", "INSPIRED-BY", "INDEPENDENT-REIMPLEMENTATION"]},
+    "status": {"enum": ["REVIEWED", "REJECTED", "PROMOTION-CANDIDATE", "INCORPORATED", "SUPERSEDED", "STALE"]},
+    "reviewed_at": {"type": "string", "format": "date"}
+  }
+}

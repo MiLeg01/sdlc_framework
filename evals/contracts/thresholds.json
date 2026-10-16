@@ -1,0 +1,40 @@
+{
+  "schema_version": 1,
+  "defaults": {
+    "nightly_repeat": 3,
+    "weekly_repeat": 5,
+    "minimum_stochastic_pass_rate": 0.8
+  },
+  "metrics": {
+    "correctness": {"minimum": 0.95, "regression_tolerance": 0.03},
+    "recall": {"minimum": 0.95, "regression_tolerance": 0.03},
+    "completeness": {"minimum": 0.95, "regression_tolerance": 0.03},
+    "evidence_grounding": {"minimum": 0.98, "regression_tolerance": 0.02},
+    "precision": {"minimum": 0.95, "regression_tolerance": 0.03},
+    "traceability": {"minimum": 0.95, "regression_tolerance": 0.03},
+    "scope_discipline": {"minimum": 0.98, "regression_tolerance": 0.02},
+    "handoff_quality": {"minimum": 0.9, "regression_tolerance": 0.05},
+    "ownership_discipline": {"minimum": 1.0, "regression_tolerance": 0.0},
+    "consistency": {"minimum": 0.8, "maximum_variance": 0.005, "regression_tolerance": 0.1},
+    "runtime": {"warning_increase_percent": 20.0, "fail_increase_percent": 60.0, "noise_floor_seconds": 1.0},
+    "token_context_efficiency": {"warning_increase_percent": 20.0, "fail_increase_percent": 50.0, "noise_floor_tokens": 100},
+    "visual_quality": {"minimum": 0.9, "regression_tolerance": 0.05}
+  },
+  "protected_paths": [
+    "evals/golden/",
+    "evals/fixtures/projects/legacy-modernization/golden/",
+    "evals/fixtures/projects/development-delivery/golden/",
+    "evals/fixtures/projects/research-corpus/golden/",
+    "evals/fixtures/projects/dashboard-quality/golden/",
+    "evals/fixtures/projects/public-sector-delivery/golden/",
+    "evals/contracts/thresholds.json",
+    "evals/mutations/hard-fail-cases.json",
+    "evals/mutations/methodology-cases.json",
+    "evals/baselines/v1.0.0.json"
+  ],
+  "exit_codes": {
+    "pass_or_warning": 0,
+    "regression_fail": 1,
+    "hard_fail": 2
+  }
+}

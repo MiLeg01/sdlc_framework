@@ -1,0 +1,315 @@
+{
+  "schema_version": 1,
+  "capabilities": {
+    "initialize-project": {
+      "kind": "skill",
+      "criticality": "critical",
+      "path": "skills/initialize-project/SKILL.md",
+      "applicable_metrics": ["correctness", "completeness", "scope_discipline", "handoff_quality", "traceability"],
+      "scenarios": [
+        {"id": "contract", "level": 1, "deterministic": true, "execution": {"kind": "source-contract"}, "golden": "evals/golden/critical-capabilities.json#initialize-project"},
+        {"id": "existing-tests", "level": 2, "deterministic": true, "execution": {"kind": "unittest", "modules": ["evals.initialization.test_initializer", "evals.initialization.test_natural_language_briefs", "evals.initialization.test_public_sector_delivery"]}},
+        {"id": "behavior", "level": 2, "deterministic": false, "execution": {"kind": "external"}, "judge": "independent-semantic", "fixture": "evals/fixtures/evaluation/scenarios.json#initialize-project", "golden": "evals/golden/critical-capabilities.json#initialize-project"}
+      ]
+    },
+    "continue-project": {
+      "kind": "skill", "criticality": "critical", "path": "skills/continue-project/SKILL.md",
+      "applicable_metrics": ["correctness", "completeness", "scope_discipline", "handoff_quality", "traceability"],
+      "scenarios": [
+        {"id": "contract", "level": 1, "deterministic": true, "execution": {"kind": "source-contract"}, "golden": "evals/golden/critical-capabilities.json#continue-project"},
+        {"id": "existing-tests", "level": 2, "deterministic": true, "execution": {"kind": "unittest", "modules": ["evals.tools.test_project_continuation"]}},
+        {"id": "behavior", "level": 2, "deterministic": false, "execution": {"kind": "external"}, "judge": "independent-semantic", "fixture": "evals/fixtures/evaluation/scenarios.json#continue-project", "golden": "evals/golden/critical-capabilities.json#continue-project"}
+      ]
+    },
+    "analyze-legacy-system": {
+      "kind": "skill", "criticality": "critical", "path": "skills/analyze-legacy-system/SKILL.md",
+      "applicable_metrics": ["correctness", "completeness", "evidence_grounding", "precision", "traceability", "scope_discipline", "handoff_quality", "consistency", "runtime", "token_context_efficiency"],
+      "scenarios": [
+        {"id": "contract", "level": 1, "deterministic": true, "execution": {"kind": "source-contract"}, "golden": "evals/golden/critical-capabilities.json#analyze-legacy-system"},
+        {"id": "existing-tests", "level": 2, "deterministic": true, "execution": {"kind": "unittest", "modules": ["evals.tools.test_analysis_coordinator", "evals.tools.test_legacy_structure_extractor", "evals.tools.test_legacy_evidence_boundaries"]}},
+        {"id": "behavior", "level": 2, "deterministic": false, "execution": {"kind": "external"}, "judge": "independent-semantic", "fixture": "evals/fixtures/evaluation/scenarios.json#analyze-legacy-system", "golden": "evals/golden/critical-capabilities.json#analyze-legacy-system"},
+        {"id": "reference-prior", "level": 2, "deterministic": false, "execution": {"kind": "external"}, "judge": "independent-semantic", "fixture": "evals/fixtures/evaluation/scenarios.json#analyze-legacy-reference-prior", "golden": "evals/golden/critical-capabilities.json#analyze-legacy-reference-prior"}
+      ]
+    },
+    "inventory-codebase": {
+      "kind": "skill", "criticality": "critical", "path": "skills/inventory-codebase/SKILL.md",
+      "applicable_metrics": ["correctness", "completeness", "evidence_grounding", "scope_discipline", "runtime"],
+      "scenarios": [
+        {"id": "contract", "level": 1, "deterministic": true, "execution": {"kind": "source-contract"}, "golden": "evals/golden/critical-capabilities.json#inventory-codebase"},
+        {"id": "behavior", "level": 2, "deterministic": false, "execution": {"kind": "external"}, "judge": "independent-semantic", "fixture": "evals/fixtures/evaluation/scenarios.json#inventory-codebase", "golden": "evals/golden/critical-capabilities.json#inventory-codebase"}
+      ]
+    },
+    "coordinate-parallel-agents": {
+      "kind": "skill", "criticality": "critical", "path": "skills/coordinate-parallel-agents/SKILL.md",
+      "applicable_metrics": ["correctness", "completeness", "scope_discipline", "handoff_quality", "ownership_discipline", "runtime", "token_context_efficiency"],
+      "scenarios": [
+        {"id": "contract", "level": 1, "deterministic": true, "execution": {"kind": "source-contract"}, "golden": "evals/golden/critical-capabilities.json#coordinate-parallel-agents"},
+        {"id": "existing-tests", "level": 2, "deterministic": true, "execution": {"kind": "unittest", "modules": ["evals.tools.test_parallel_execution_plan"]}},
+        {"id": "behavior", "level": 2, "deterministic": false, "execution": {"kind": "external"}, "judge": "independent-semantic", "fixture": "evals/fixtures/evaluation/scenarios.json#coordinate-parallel-agents", "golden": "evals/golden/critical-capabilities.json#coordinate-parallel-agents"}
+      ]
+    },
+    "maintain-project-memory": {
+      "kind": "skill", "criticality": "critical", "path": "skills/maintain-project-memory/SKILL.md",
+      "applicable_metrics": ["correctness", "completeness", "evidence_grounding", "traceability", "scope_discipline", "handoff_quality", "runtime", "token_context_efficiency"],
+      "scenarios": [
+        {"id": "contract", "level": 1, "deterministic": true, "execution": {"kind": "source-contract"}, "golden": "evals/golden/critical-capabilities.json#maintain-project-memory"},
+        {"id": "existing-tests", "level": 2, "deterministic": true, "execution": {"kind": "unittest", "modules": ["evals.tools.test_project_memory", "evals.tools.test_project_memory_benchmark"]}},
+        {"id": "behavior", "level": 2, "deterministic": false, "execution": {"kind": "external"}, "judge": "independent-semantic", "fixture": "evals/fixtures/evaluation/scenarios.json#maintain-project-memory", "golden": "evals/golden/critical-capabilities.json#maintain-project-memory"}
+      ]
+    },
+    "derive-modernization-requirements": {
+      "kind": "skill", "criticality": "critical", "path": "skills/derive-modernization-requirements/SKILL.md",
+      "applicable_metrics": ["correctness", "completeness", "evidence_grounding", "precision", "traceability", "scope_discipline", "handoff_quality"],
+      "scenarios": [
+        {"id": "contract", "level": 1, "deterministic": true, "execution": {"kind": "source-contract"}, "golden": "evals/golden/critical-capabilities.json#derive-modernization-requirements"},
+        {"id": "behavior", "level": 2, "deterministic": false, "execution": {"kind": "external"}, "judge": "independent-semantic", "fixture": "evals/fixtures/evaluation/scenarios.json#derive-modernization-requirements", "golden": "evals/golden/critical-capabilities.json#derive-modernization-requirements"}
+      ]
+    },
+    "specify-openspec-change": {
+      "kind": "skill", "criticality": "critical", "path": "skills/specify-openspec-change/SKILL.md",
+      "applicable_metrics": ["correctness", "completeness", "evidence_grounding", "traceability", "scope_discipline", "handoff_quality"],
+      "scenarios": [
+        {"id": "contract", "level": 1, "deterministic": true, "execution": {"kind": "source-contract"}, "golden": "evals/golden/critical-capabilities.json#specify-openspec-change"},
+        {"id": "behavior", "level": 2, "deterministic": false, "execution": {"kind": "external"}, "judge": "independent-semantic", "fixture": "evals/fixtures/evaluation/scenarios.json#specify-openspec-change", "golden": "evals/golden/critical-capabilities.json#specify-openspec-change"}
+      ]
+    },
+    "implement-ready-slice": {
+      "kind": "skill", "criticality": "critical", "path": "skills/implement-ready-slice/SKILL.md",
+      "applicable_metrics": ["correctness", "completeness", "traceability", "scope_discipline", "handoff_quality", "ownership_discipline"],
+      "scenarios": [
+        {"id": "contract", "level": 1, "deterministic": true, "execution": {"kind": "source-contract"}, "golden": "evals/golden/critical-capabilities.json#implement-ready-slice"},
+        {"id": "existing-tests", "level": 2, "deterministic": true, "execution": {"kind": "unittest", "modules": ["evals.tools.test_project_continuation"]}},
+        {"id": "behavior", "level": 2, "deterministic": false, "execution": {"kind": "external"}, "judge": "independent-semantic", "fixture": "evals/fixtures/evaluation/scenarios.json#implement-ready-slice", "golden": "evals/golden/critical-capabilities.json#implement-ready-slice"}
+      ]
+    },
+    "test-driven-development": {
+      "kind": "skill", "criticality": "critical", "path": "skills/test-driven-development/SKILL.md",
+      "applicable_metrics": ["correctness", "completeness", "evidence_grounding", "traceability", "scope_discipline", "handoff_quality"],
+      "scenarios": [
+        {"id": "contract", "level": 1, "deterministic": true, "execution": {"kind": "source-contract"}, "golden": "evals/golden/critical-capabilities.json#test-driven-development"},
+        {"id": "behavior", "level": 2, "deterministic": false, "execution": {"kind": "external"}, "judge": "independent-semantic", "fixture": "evals/fixtures/evaluation/scenarios.json#test-driven-development", "golden": "evals/golden/critical-capabilities.json#test-driven-development"}
+      ]
+    },
+    "mutation-testing": {
+      "kind": "skill",
+      "criticality": "critical",
+      "path": "skills/mutation-testing/SKILL.md",
+      "applicable_metrics": [
+        "correctness",
+        "completeness",
+        "evidence_grounding",
+        "traceability",
+        "scope_discipline",
+        "handoff_quality"
+      ],
+      "scenarios": [
+        {
+          "id": "contract",
+          "level": 1,
+          "deterministic": true,
+          "execution": {"kind": "source-contract"},
+          "golden": "evals/golden/critical-capabilities.json#mutation-testing"
+        },
+        {
+          "id": "gate",
+          "level": 1,
+          "deterministic": true,
+          "execution": {
+            "kind": "unittest",
+            "modules": ["evals.tools.test_mutation_quality"]
+          },
+          "golden": "evals/golden/evaluation-tools.json#mutation-testing"
+        },
+        {
+          "id": "behavior",
+          "level": 2,
+          "deterministic": false,
+          "execution": {"kind": "external"},
+          "judge": "independent-semantic",
+          "fixture": "evals/fixtures/evaluation/scenarios.json#mutation-testing",
+          "golden": "evals/golden/critical-capabilities.json#mutation-testing"
+        }
+      ]
+    },
+    "design-test-strategy": {
+      "kind": "skill",
+      "criticality": "high",
+      "path": "skills/design-test-strategy/SKILL.md",
+      "applicable_metrics": ["correctness", "completeness", "evidence_grounding", "traceability", "scope_discipline", "handoff_quality"],
+      "scenarios": [
+        {"id": "contract", "level": 1, "deterministic": true, "execution": {"kind": "source-contract"}, "golden": "evals/golden/critical-capabilities.json#design-test-strategy"},
+        {"id": "existing-tests", "level": 2, "deterministic": true, "execution": {"kind": "unittest", "modules": ["evals.tools.test_legacy_evidence_boundaries"]}},
+        {"id": "behavior", "level": 2, "deterministic": false, "execution": {"kind": "external"}, "judge": "independent-semantic", "fixture": "evals/fixtures/evaluation/scenarios.json#design-test-strategy", "golden": "evals/golden/critical-capabilities.json#design-test-strategy"}
+      ]
+    },
+    "build-living-dashboard": {
+      "kind": "skill", "criticality": "critical", "path": "skills/build-living-dashboard/SKILL.md",
+      "applicable_metrics": ["correctness", "completeness", "evidence_grounding", "traceability", "scope_discipline", "visual_quality", "runtime"],
+      "scenarios": [
+        {"id": "contract", "level": 1, "deterministic": true, "execution": {"kind": "source-contract"}, "golden": "evals/golden/critical-capabilities.json#build-living-dashboard"},
+        {"id": "existing-tests", "level": 2, "deterministic": true, "execution": {"kind": "unittest", "modules": ["evals.tools.test_dashboard", "evals.tools.test_dashboard_visual"]}},
+        {"id": "behavior", "level": 2, "deterministic": false, "execution": {"kind": "external"}, "judge": "independent-semantic", "fixture": "evals/fixtures/evaluation/scenarios.json#build-living-dashboard", "golden": "evals/golden/critical-capabilities.json#build-living-dashboard"}
+      ]
+    },
+    "create-branded-html-artifact": {
+      "kind": "skill", "criticality": "critical", "path": "skills/create-branded-html-artifact/SKILL.md",
+      "applicable_metrics": ["correctness", "completeness", "evidence_grounding", "scope_discipline", "visual_quality", "runtime"],
+      "scenarios": [
+        {"id": "contract", "level": 1, "deterministic": true, "execution": {"kind": "source-contract"}, "golden": "evals/golden/critical-capabilities.json#create-branded-html-artifact"},
+        {"id": "existing-tests", "level": 2, "deterministic": true, "execution": {"kind": "unittest", "modules": ["evals.tools.test_brand_fidelity_contract", "evals.tools.test_brand_validation"]}},
+        {"id": "behavior", "level": 2, "deterministic": false, "execution": {"kind": "external"}, "judge": "independent-semantic", "fixture": "evals/fixtures/evaluation/scenarios.json#create-branded-html-artifact", "golden": "evals/golden/critical-capabilities.json#create-branded-html-artifact"}
+      ]
+    },
+    "search-external-capabilities": {
+      "kind": "skill", "criticality": "high", "path": "skills/search-external-capabilities/SKILL.md",
+      "applicable_metrics": ["correctness", "completeness", "evidence_grounding", "precision", "scope_discipline", "runtime"],
+      "scenarios": [
+        {"id": "contract", "level": 1, "deterministic": true, "execution": {"kind": "source-contract"}, "golden": "evals/golden/critical-capabilities.json#search-external-capabilities"},
+        {"id": "existing-tests", "level": 2, "deterministic": true, "execution": {"kind": "unittest", "modules": ["evals.external.test_external_capabilities"]}}
+      ]
+    },
+    "estimate-adm-modernization": {
+      "kind": "skill", "criticality": "critical", "path": "skills/estimate-adm-modernization/SKILL.md",
+      "applicable_metrics": ["correctness", "completeness", "evidence_grounding", "precision", "traceability", "scope_discipline"],
+      "scenarios": [
+        {"id": "contract", "level": 1, "deterministic": true, "execution": {"kind": "source-contract"}, "golden": "evals/golden/critical-capabilities.json#estimate-adm-modernization"},
+        {"id": "existing-tests", "level": 2, "deterministic": true, "execution": {"kind": "unittest", "modules": ["evals.tools.test_adm_estimate"]}},
+        {"id": "behavior", "level": 2, "deterministic": false, "execution": {"kind": "external"}, "judge": "independent-semantic", "fixture": "evals/fixtures/evaluation/scenarios.json#estimate-adm-modernization", "golden": "evals/golden/critical-capabilities.json#estimate-adm-modernization"}
+      ]
+    },
+    "deep-research": {
+      "kind": "skill", "criticality": "critical", "path": "skills/deep-research/SKILL.md",
+      "applicable_metrics": ["correctness", "completeness", "evidence_grounding", "precision", "traceability", "scope_discipline"],
+      "scenarios": [
+        {"id": "contract", "level": 1, "deterministic": true, "execution": {"kind": "source-contract"}, "golden": "evals/golden/critical-capabilities.json#deep-research"},
+        {"id": "behavior", "level": 2, "deterministic": false, "execution": {"kind": "external"}, "judge": "independent-semantic", "fixture": "evals/fixtures/evaluation/scenarios.json#deep-research", "golden": "evals/golden/critical-capabilities.json#deep-research"}
+      ]
+    },
+    "sales-storytelling": {
+      "kind": "skill", "criticality": "critical", "path": "skills/sales-storytelling/SKILL.md",
+      "applicable_metrics": ["correctness", "completeness", "evidence_grounding", "precision", "scope_discipline", "handoff_quality"],
+      "scenarios": [
+        {"id": "contract", "level": 1, "deterministic": true, "execution": {"kind": "source-contract"}, "golden": "evals/golden/critical-capabilities.json#sales-storytelling"},
+        {"id": "behavior", "level": 2, "deterministic": false, "execution": {"kind": "external"}, "judge": "independent-semantic", "fixture": "evals/fixtures/evaluation/scenarios.json#sales-storytelling", "golden": "evals/golden/critical-capabilities.json#sales-storytelling"}
+      ]
+    },
+    "validate-visual-artifact": {
+      "kind": "skill", "criticality": "critical", "path": "skills/validate-visual-artifact/SKILL.md",
+      "applicable_metrics": ["correctness", "completeness", "evidence_grounding", "precision", "scope_discipline", "visual_quality"],
+      "scenarios": [
+        {"id": "contract", "level": 1, "deterministic": true, "execution": {"kind": "source-contract"}, "golden": "evals/golden/critical-capabilities.json#validate-visual-artifact"},
+        {"id": "existing-tests", "level": 2, "deterministic": true, "execution": {"kind": "unittest", "modules": ["evals.tools.test_presentation_visual_contract", "evals.tools.test_dashboard_visual"]}},
+        {"id": "behavior", "level": 2, "deterministic": false, "execution": {"kind": "external"}, "judge": "independent-semantic", "fixture": "evals/fixtures/evaluation/scenarios.json#validate-visual-artifact", "golden": "evals/golden/critical-capabilities.json#validate-visual-artifact"}
+      ]
+    },
+    "verify-openspec-implementation": {
+      "kind": "skill", "criticality": "critical", "path": "skills/verify-openspec-implementation/SKILL.md",
+      "applicable_metrics": ["correctness", "completeness", "evidence_grounding", "precision", "traceability", "scope_discipline", "handoff_quality"],
+      "scenarios": [
+        {"id": "contract", "level": 1, "deterministic": true, "execution": {"kind": "source-contract"}, "golden": "evals/golden/critical-capabilities.json#verify-openspec-implementation"},
+        {"id": "behavior", "level": 2, "deterministic": false, "execution": {"kind": "external"}, "judge": "independent-semantic", "fixture": "evals/fixtures/evaluation/scenarios.json#verify-openspec-implementation", "golden": "evals/golden/critical-capabilities.json#verify-openspec-implementation"}
+      ]
+    },
+    "update-commons-presentation": {
+      "kind": "skill", "criticality": "critical", "path": "skills/update-commons-presentation/SKILL.md",
+      "applicable_metrics": ["correctness", "completeness", "evidence_grounding", "scope_discipline", "visual_quality", "runtime"],
+      "scenarios": [
+        {"id": "contract", "level": 1, "deterministic": true, "execution": {"kind": "source-contract"}, "golden": "evals/golden/critical-capabilities.json#update-commons-presentation"},
+        {"id": "existing-tests", "level": 2, "deterministic": true, "execution": {"kind": "unittest", "modules": ["evals.tools.test_presentation_maintenance_contract", "evals.tools.test_presentation_sync", "evals.tools.test_presentation_visual_contract"]}},
+        {"id": "behavior", "level": 2, "deterministic": false, "execution": {"kind": "external"}, "judge": "independent-semantic", "fixture": "evals/fixtures/evaluation/scenarios.json#update-commons-presentation", "golden": "evals/golden/critical-capabilities.json#update-commons-presentation"}
+      ]
+    },
+    "review-for-commons": {
+      "kind": "skill", "criticality": "critical", "path": "skills/review-for-commons/SKILL.md",
+      "applicable_metrics": ["correctness", "completeness", "evidence_grounding", "precision", "scope_discipline", "handoff_quality"],
+      "scenarios": [
+        {"id": "contract", "level": 1, "deterministic": true, "execution": {"kind": "source-contract"}, "golden": "evals/golden/critical-capabilities.json#review-for-commons"},
+        {"id": "existing-tests", "level": 2, "deterministic": true, "execution": {"kind": "unittest", "modules": ["evals.tools.test_completeness_promotion"]}},
+        {"id": "behavior", "level": 2, "deterministic": false, "execution": {"kind": "external"}, "judge": "independent-semantic", "fixture": "evals/fixtures/evaluation/scenarios.json#review-for-commons", "golden": "evals/golden/critical-capabilities.json#review-for-commons"}
+      ]
+    },
+    "promote-to-commons": {
+      "kind": "skill", "criticality": "critical", "path": "skills/promote-to-commons/SKILL.md",
+      "applicable_metrics": ["correctness", "completeness", "evidence_grounding", "precision", "traceability", "scope_discipline", "handoff_quality", "ownership_discipline"],
+      "scenarios": [
+        {"id": "contract", "level": 1, "deterministic": true, "execution": {"kind": "source-contract"}, "golden": "evals/golden/critical-capabilities.json#promote-to-commons"},
+        {"id": "existing-tests", "level": 2, "deterministic": true, "execution": {"kind": "unittest", "modules": ["evals.tools.test_promote_to_commons"]}},
+        {"id": "behavior", "level": 2, "deterministic": false, "execution": {"kind": "external"}, "judge": "independent-semantic", "fixture": "evals/fixtures/evaluation/scenarios.json#promote-to-commons", "golden": "evals/golden/critical-capabilities.json#promote-to-commons"}
+      ]
+    },
+    "manage-project-delivery": {
+      "kind": "skill", "criticality": "high", "path": "skills/manage-project-delivery/SKILL.md",
+      "applicable_metrics": ["correctness", "completeness", "evidence_grounding", "precision", "traceability", "scope_discipline", "handoff_quality"],
+      "scenarios": [
+        {"id": "contract", "level": 1, "deterministic": true, "execution": {"kind": "source-contract"}, "golden": "evals/golden/critical-capabilities.json#manage-project-delivery"},
+        {"id": "existing-tests", "level": 2, "deterministic": true, "execution": {"kind": "unittest", "modules": ["evals.tools.test_project_controls"]}},
+        {"id": "behavior", "level": 2, "deterministic": false, "execution": {"kind": "external"}, "judge": "independent-semantic", "fixture": "evals/fixtures/evaluation/scenarios.json#manage-project-delivery", "golden": "evals/golden/critical-capabilities.json#manage-project-delivery"}
+      ]
+    },
+    "forecast-project-financials": {
+      "kind": "skill", "criticality": "critical", "path": "skills/forecast-project-financials/SKILL.md",
+      "applicable_metrics": ["correctness", "completeness", "evidence_grounding", "precision", "traceability", "scope_discipline", "handoff_quality"],
+      "scenarios": [
+        {"id": "contract", "level": 1, "deterministic": true, "execution": {"kind": "source-contract"}, "golden": "evals/golden/critical-capabilities.json#forecast-project-financials"},
+        {"id": "existing-tests", "level": 2, "deterministic": true, "execution": {"kind": "unittest", "modules": ["evals.tools.test_project_controls"]}},
+        {"id": "behavior", "level": 2, "deterministic": false, "execution": {"kind": "external"}, "judge": "independent-semantic", "fixture": "evals/fixtures/evaluation/scenarios.json#forecast-project-financials", "golden": "evals/golden/critical-capabilities.json#forecast-project-financials"}
+      ]
+    },
+    "analyze-project-delivery": {
+      "kind": "tool", "criticality": "high", "path": "skills/manage-project-delivery/scripts/analyze_project_delivery.py",
+      "applicable_metrics": ["correctness", "completeness", "precision", "scope_discipline", "runtime"],
+      "scenarios": [
+        {"id": "contract", "level": 1, "deterministic": true, "execution": {"kind": "source-contract"}, "golden": "evals/golden/evaluation-tools.json#analyze-project-delivery"},
+        {"id": "behavior", "level": 2, "deterministic": true, "execution": {"kind": "unittest", "modules": ["evals.tools.test_project_controls"]}}
+      ]
+    },
+    "calculate-project-financial-forecast": {
+      "kind": "tool", "criticality": "critical", "path": "skills/forecast-project-financials/scripts/calculate_project_forecast.py",
+      "applicable_metrics": ["correctness", "completeness", "precision", "scope_discipline", "runtime"],
+      "scenarios": [
+        {"id": "contract", "level": 1, "deterministic": true, "execution": {"kind": "source-contract"}, "golden": "evals/golden/evaluation-tools.json#calculate-project-financial-forecast"},
+        {"id": "behavior", "level": 2, "deterministic": true, "execution": {"kind": "unittest", "modules": ["evals.tools.test_project_controls"]}}
+      ]
+    },
+    "external-capabilities": {
+      "kind": "tool", "criticality": "high", "path": "tools/external_capabilities.py",
+      "applicable_metrics": ["correctness", "completeness", "evidence_grounding", "precision", "scope_discipline", "runtime"],
+      "scenarios": [
+        {"id": "contract", "level": 1, "deterministic": true, "execution": {"kind": "source-contract"}, "golden": "evals/golden/evaluation-tools.json#external-capabilities"},
+        {"id": "behavior", "level": 2, "deterministic": true, "execution": {"kind": "unittest", "modules": ["evals.external.test_external_capabilities"]}}
+      ]
+    },
+    "run-external-discovery": {
+      "kind": "tool", "criticality": "high", "path": "tools/run_external_discovery.py",
+      "applicable_metrics": ["correctness", "completeness", "scope_discipline", "runtime"],
+      "scenarios": [
+        {"id": "contract", "level": 1, "deterministic": true, "execution": {"kind": "source-contract"}, "golden": "evals/golden/evaluation-tools.json#run-external-discovery"},
+        {"id": "behavior", "level": 2, "deterministic": true, "execution": {"kind": "unittest", "modules": ["evals.external.test_external_capabilities"]}}
+      ]
+    },
+    "select-impacted-evaluations": {
+      "kind": "tool", "criticality": "high", "path": "tools/evals/select_impacted_evals.py",
+      "applicable_metrics": ["correctness", "completeness", "scope_discipline", "runtime"],
+      "scenarios": [
+        {"id": "contract", "level": 1, "deterministic": true, "execution": {"kind": "source-contract"}, "golden": "evals/golden/evaluation-tools.json#select-impacted-evaluations"},
+        {"id": "behavior", "level": 2, "deterministic": true, "execution": {"kind": "unittest", "modules": ["evals.evaluation.test_impact_selector"]}}
+      ]
+    },
+    "run-evaluations": {
+      "kind": "tool", "criticality": "high", "path": "tools/evals/run_evals.py",
+      "applicable_metrics": ["correctness", "completeness", "scope_discipline", "runtime"],
+      "scenarios": [
+        {"id": "contract", "level": 1, "deterministic": true, "execution": {"kind": "source-contract"}, "golden": "evals/golden/evaluation-tools.json#run-evaluations"},
+        {"id": "behavior", "level": 2, "deterministic": true, "execution": {"kind": "unittest", "modules": ["evals.evaluation.test_eval_contracts", "evals.evaluation.test_eval_runner", "evals.evaluation.test_benchmark_portfolio", "evals.evaluation.test_quality_baselines", "evals.evaluation.test_mutation_runner", "evals.evaluation.test_ci_profiles", "evals.evaluation.test_ci_aggregation", "evals.evaluation.test_azure_pipelines", "evals.evaluation.test_azure_setup"]}}
+      ]
+    },
+    "validate-commons": {
+      "kind": "tool", "criticality": "high", "path": "tools/validate_commons.py",
+      "applicable_metrics": ["correctness", "completeness", "scope_discipline", "runtime"],
+      "scenarios": [
+        {"id": "contract", "level": 1, "deterministic": true, "execution": {"kind": "source-contract"}, "golden": "evals/golden/evaluation-tools.json#validate-commons"},
+        {"id": "behavior", "level": 2, "deterministic": true, "execution": {"kind": "unittest", "modules": ["evals.tools.test_validate_commons"]}}
+      ]
+    }
+  }
+}

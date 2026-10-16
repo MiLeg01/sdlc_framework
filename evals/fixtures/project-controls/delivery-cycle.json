@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "as_of": "2026-09-02",
+  "workstreams": [
+    {
+      "id": "WS-A",
+      "title": "First",
+      "status": "PLANNED",
+      "owner": "lead-a",
+      "planned_start": "2026-09-02",
+      "planned_end": "2026-09-03",
+      "duration_days": 1,
+      "progress": 0.0,
+      "dependencies": ["WS-B"],
+      "evidence": []
+    },
+    {
+      "id": "WS-B",
+      "title": "Second",
+      "status": "PLANNED",
+      "owner": "lead-b",
+      "planned_start": "2026-09-03",
+      "planned_end": "2026-09-04",
+      "duration_days": 1,
+      "progress": 0.0,
+      "dependencies": ["WS-A"],
+      "evidence": []
+    }
+  ],
+  "risks": []
+}

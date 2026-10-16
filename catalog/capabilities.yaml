@@ -1,0 +1,432 @@
+{
+  "schema_version": 1,
+  "capability_kinds": ["skills", "agents", "tools", "templates"],
+  "skills": {
+    "accessibility-review": {
+      "version": 1,
+      "path": "skills/accessibility-review/SKILL.md",
+      "provides": ["accessibility-validation"]
+    },
+    "anonymize-data": {
+      "version": 1,
+      "path": "skills/anonymize-data/SKILL.md",
+      "provides": ["structured-data-anonymization", "deterministic-pseudonymization"],
+      "related": ["review-privacy-security", "generate-synthetic-fixtures"]
+    },
+    "analyze-legacy-system": {
+      "version": 1,
+      "path": "skills/analyze-legacy-system/SKILL.md",
+      "provides": [
+        "complete-legacy-system-analysis",
+        "resumable-analysis-coverage",
+        "legacy-semantic-analysis",
+        "dependency-analysis",
+        "business-rule-extraction",
+        "migration-boundary-analysis",
+        "reference-application-discovery-priors",
+        "reference-target-evidence-isolation",
+        "technology:cobol:source-semantic-analysis",
+        "technology:pli:source-semantic-analysis",
+        "technology:legacy-java:source-semantic-analysis"
+      ],
+      "keywords": ["analyze legacy system", "full analysis", "bounded analysis", "continue analysis", "coverage register", "cross-system synthesis", "reference application", "reference profile", "discovery prior"],
+      "related": ["inventory-codebase", "coordinate-parallel-agents", "derive-modernization-requirements", "build-living-dashboard", "audit-delivery-traceability"]
+    },
+    "audit-delivery-traceability": {
+      "version": 1,
+      "path": "skills/audit-delivery-traceability/SKILL.md",
+      "provides": ["evidence-traceability", "migration-validation", "acceptance-verification"]
+    },
+    "build-living-dashboard": {
+      "version": 1,
+      "path": "skills/build-living-dashboard/SKILL.md",
+      "provides": ["canonical-dashboard-structure", "canonical-dashboard-information-domains", "dashboard-domain-state-model", "semantic-dashboard-completeness-validation", "canonical-dashboard-design-language", "structural-dashboard-validation", "rendered-dashboard-visual-validation", "semantic-brand-role-validation", "lifecycle-dashboard-qa-gate", "bounded-large-registers", "requirements-dashboard", "specifications-dashboard", "owned-criterion-traceability", "stale-specification-detection", "deterministic-localization-coverage", "locale-aware-public-sector-dashboard"],
+      "keywords": ["dashboard", "canonical structure", "information domains", "semantic completeness", "pending", "not applicable", "information architecture", "navigation", "pagination", "traceability ownership", "brand roles", "accessibility gate", "localization coverage", "public sector", "German", "English", "language switch", "de-AT", "de-DE", "de-CH"],
+      "related": ["derive-modernization-requirements", "specify-openspec-change", "verify-openspec-implementation", "audit-delivery-traceability", "localize-client-artifact", "polish-html-artifact", "validate-visual-artifact"]
+    },
+    "coordinate-parallel-agents": {
+      "version": 1,
+      "path": "skills/coordinate-parallel-agents/SKILL.md",
+      "provides": ["bounded-parallel-agent-coordination"]
+    },
+    "continue-project": {
+      "version": 1,
+      "path": "skills/continue-project/SKILL.md",
+      "provides": ["project-lifecycle-continuation", "next-action-resolution", "project-object-resolution"],
+      "keywords": ["continue project", "next step", "next action", "resume project", "proceed", "what next", "requirement ID", "specification ID"],
+      "inputs": ["Agent Commons project manifest", "canonical structured project state", "optional stable ID or safe project-local path"],
+      "outputs": ["resolved lifecycle stage", "blockers or concise choices", "next canonical capability and subject"],
+      "related": ["initialize-project", "analyze-legacy-system", "derive-modernization-requirements", "specify-openspec-change", "implement-ready-slice", "implement-openspec-change", "verify-openspec-implementation", "build-living-dashboard"]
+    },
+    "create-branded-html-artifact": {"version": 1, "path": "skills/create-branded-html-artifact/SKILL.md", "related": ["polish-html-artifact", "validate-visual-artifact"]},
+    "create-class-diagram": {
+      "version": 1,
+      "path": "skills/create-class-diagram/SKILL.md",
+      "provides": ["class-diagram", "uml-class-model", "domain-model-visualization"],
+      "keywords": ["diagram", "UML", "class", "domain model", "inheritance", "composition"],
+      "inputs": ["selected object-oriented source or approved design", "scope and abstraction", "source evidence and exclusions"],
+      "outputs": ["editable class-diagram source", "rendered diagram", "evidence index, legend, and unknowns"],
+      "related": ["create-technical-diagram", "analyze-legacy-system", "validate-visual-artifact"]
+    },
+    "create-component-architecture-diagram": {
+      "version": 1,
+      "path": "skills/create-component-architecture-diagram/SKILL.md",
+      "provides": ["component-architecture-diagram", "application-architecture-diagram", "solution-architecture-view"],
+      "keywords": ["diagram", "architecture", "component", "application", "service", "module", "C4"],
+      "inputs": ["bounded solution evidence", "audience and component level", "current or proposed state"],
+      "outputs": ["editable component-diagram source", "rendered overview and drilldowns", "evidence and validation record"],
+      "related": ["create-technical-diagram", "create-system-landscape-diagram", "analyze-legacy-system", "validate-visual-artifact"]
+    },
+    "create-data-flow-diagram": {
+      "version": 1,
+      "path": "skills/create-data-flow-diagram/SKILL.md",
+      "provides": ["data-flow-diagram", "data-lineage-visualization", "etl-flow-visualization"],
+      "keywords": ["diagram", "data flow", "DFD", "lineage", "ETL", "batch", "SAS"],
+      "inputs": ["schemas, jobs, code, mappings, and runtime evidence", "pipeline boundary and audience"],
+      "outputs": ["editable data-flow source", "rendered lineage views", "evidence, unresolved lineage, and validation"],
+      "related": ["create-technical-diagram", "analyze-legacy-system", "review-privacy-security", "validate-visual-artifact"]
+    },
+    "create-er-diagram": {
+      "version": 1,
+      "path": "skills/create-er-diagram/SKILL.md",
+      "provides": ["entity-relationship-diagram", "database-schema-visualization", "data-model-visualization"],
+      "keywords": ["diagram", "ERD", "entity relationship", "database", "schema", "foreign key", "cardinality"],
+      "inputs": ["schema metadata, DDL, migrations, ORM, or data documentation", "selected domain and physical or logical level"],
+      "outputs": ["editable ER source", "rendered overview and schema drilldowns", "keys, evidence, conflicts, and unknowns"],
+      "related": ["create-technical-diagram", "analyze-legacy-system", "validate-visual-artifact"]
+    },
+    "create-sequence-diagram": {
+      "version": 1,
+      "path": "skills/create-sequence-diagram/SKILL.md",
+      "provides": ["sequence-diagram", "interaction-diagram", "request-flow-visualization"],
+      "keywords": ["diagram", "sequence", "interaction", "API flow", "call chain", "error flow"],
+      "inputs": ["bounded scenario", "code, contracts, traces, logs, tests, or specifications", "requested paths and state"],
+      "outputs": ["editable sequence source", "rendered interaction view", "scenario, evidence, and validation notes"],
+      "related": ["create-technical-diagram", "create-component-architecture-diagram", "analyze-legacy-system", "validate-visual-artifact"]
+    },
+    "create-system-landscape-diagram": {
+      "version": 1,
+      "path": "skills/create-system-landscape-diagram/SKILL.md",
+      "provides": ["system-landscape-diagram", "application-landscape-diagram", "integration-map"],
+      "keywords": ["diagram", "system landscape", "application landscape", "integration", "topology", "C4 context"],
+      "inputs": ["system and interface evidence", "scope, audience, and current/target/transition state"],
+      "outputs": ["editable landscape source", "rendered overview and drilldowns", "scope, lifecycle, evidence, and unknowns"],
+      "related": ["create-technical-diagram", "create-component-architecture-diagram", "analyze-legacy-system", "validate-visual-artifact"]
+    },
+    "create-technical-diagram": {
+      "version": 1,
+      "path": "skills/create-technical-diagram/SKILL.md",
+      "provides": ["technical-diagram-routing", "evidence-backed-diagramming", "diagram-format-selection"],
+      "keywords": ["diagram", "architecture", "UML", "ERD", "Mermaid", "PlantUML", "Graphviz", "SVG"],
+      "inputs": ["communication purpose and audience", "scope and architecture state", "source evidence", "destination and visual references"],
+      "outputs": ["selected diagram method", "lightweight evidence model", "editable source and rendered artifact", "semantic and visual validation"],
+      "related": [
+        "create-system-landscape-diagram",
+        "create-component-architecture-diagram",
+        "create-class-diagram",
+        "create-er-diagram",
+        "create-sequence-diagram",
+        "create-data-flow-diagram",
+        "build-living-dashboard",
+        "create-branded-html-artifact",
+        "validate-visual-artifact"
+      ]
+    },
+    "design-frontend-architecture": {
+      "version": 1,
+      "path": "skills/design-frontend-architecture/SKILL.md",
+      "provides": ["frontend-architecture-design"],
+      "related": ["frontend-design", "plan-work"]
+    },
+    "design-test-strategy": {
+      "version": 1,
+      "path": "skills/design-test-strategy/SKILL.md",
+      "provides": ["risk-based-test-strategy", "test-layer-selection", "legacy-oracle-authority", "legacy-test-readiness"],
+      "keywords": ["test strategy", "test layers", "legacy oracle", "characterization", "scenario only", "test readiness"],
+      "related": ["test-driven-development", "mutation-testing"]
+    },
+    "deep-research": {
+      "version": 1,
+      "path": "skills/deep-research/SKILL.md",
+      "provides": ["structured-research", "evidence-synthesis", "presentation-research-handoff"]
+    },
+    "deconstruct-problem-first-principles": {
+      "version": 1,
+      "path": "skills/deconstruct-problem-first-principles/SKILL.md",
+      "provides": ["problem-deconstruction", "root-cause-analysis", "intervention-level-selection"],
+      "keywords": ["first principles", "what is the actual problem", "root cause", "challenge assumptions", "symptom or structure"],
+      "related": ["plan-work", "deep-research", "design-test-strategy", "validate-work-item-assumptions"]
+    },
+    "derive-modernization-requirements": {
+      "version": 1,
+      "path": "skills/derive-modernization-requirements/SKILL.md",
+      "provides": ["requirements-extraction", "generic-migration-planning", "target-mapping-requirements"],
+      "related": ["analyze-legacy-system", "specify-openspec-change", "build-living-dashboard"]
+    },
+    "execute-safe-change": {
+      "version": 1,
+      "path": "skills/execute-safe-change/SKILL.md",
+      "provides": ["fail-closed-state-change"]
+    },
+    "estimate-adm-modernization": {
+      "version": 1,
+      "path": "skills/estimate-adm-modernization/SKILL.md",
+      "provides": ["adm-modernization-estimation", "modernization-effort-estimation"]
+    },
+    "frontend-design": {
+      "version": 1,
+      "path": "skills/frontend-design/SKILL.md",
+      "provides": ["frontend-product-design"]
+    },
+    "forecast-project-financials": {
+      "version": 1,
+      "path": "skills/forecast-project-financials/SKILL.md",
+      "provides": ["project-financial-forecasting", "estimate-at-completion", "forecast-scenario-analysis", "earned-value-analysis"],
+      "keywords": ["financial forecast", "project forecast", "EAC", "margin", "variance", "CPI", "SPI", "scenario"],
+      "related": ["manage-project-delivery", "estimate-adm-modernization"]
+    },
+    "generate-synthetic-fixtures": {
+      "version": 1,
+      "path": "skills/generate-synthetic-fixtures/SKILL.md",
+      "provides": ["synthetic-fixture-generation", "sensitive-source-test-data"],
+      "keywords": ["synthetic fixtures", "test data from sensitive documents", "allowlist specification", "deterministic fixture rendering"],
+      "related": ["anonymize-data", "review-privacy-security", "test-driven-development", "design-test-strategy"]
+    },
+    "complete-openspec-change": {
+      "version": 1,
+      "path": "skills/complete-openspec-change/SKILL.md",
+      "provides": ["openspec-change-completion", "openspec-archive-validation"],
+      "keywords": ["OpenSpec", "specification", "spec-driven", "spec-first", "change proposal", "archive", "close change"],
+      "inputs": ["verified active OpenSpec change", "completed tasks and validation evidence", "archive authorization"],
+      "outputs": ["archived OpenSpec change", "updated or intentionally skipped main specs", "closure evidence"],
+      "related": ["verify-openspec-implementation", "specify-openspec-change"]
+    },
+    "implement-ready-slice": {
+      "version": 1,
+      "path": "skills/implement-ready-slice/SKILL.md",
+      "provides": ["target-architecture-design", "target-implementation", "acceptance-validation"],
+      "related": ["implement-openspec-change", "test-driven-development", "verify-openspec-implementation", "mutation-testing"]
+    },
+    "implement-openspec-change": {
+      "version": 1,
+      "path": "skills/implement-openspec-change/SKILL.md",
+      "provides": ["openspec-guided-implementation", "specification-to-code-traceability"],
+      "keywords": ["OpenSpec", "specification", "spec-driven", "spec-first", "acceptance criteria", "implementation tasks"],
+      "inputs": ["approved implementation-ready OpenSpec change", "project source and tests", "validation commands"],
+      "outputs": ["implemented OpenSpec tasks", "requirement scenario code and test links", "validation handoff"],
+      "related": ["review-openspec-change", "verify-openspec-implementation", "test-driven-development", "implement-ready-slice", "mutation-testing"]
+    },
+    "initialize-project": {
+      "version": 1,
+      "path": "skills/initialize-project/SKILL.md",
+      "provides": ["adaptive-project-initialization", "client-sector-detection", "output-specific-language-policy"],
+      "keywords": ["initialize", "public sector", "client locale", "dashboard language", "presentation language"],
+      "related": ["continue-project"]
+    },
+    "inventory-codebase": {
+      "version": 1,
+      "path": "skills/inventory-codebase/SKILL.md",
+      "provides": ["repository-discovery", "source-inventory", "source-boundary-validation"]
+    },
+    "localize-client-artifact": {
+      "version": 1,
+      "path": "skills/localize-client-artifact/SKILL.md",
+      "provides": ["client-artifact-localization", "bilingual-html-delivery", "locale-aware-german-localization", "state-preserving-language-switch"],
+      "keywords": ["translation", "localization", "German", "German client", "Austrian German", "bilingual", "language switch", "de-AT", "de-DE", "de-CH", "English"],
+      "related": ["build-living-dashboard", "create-branded-html-artifact", "validate-visual-artifact"]
+    },
+    "maintain-project-memory": {
+      "version": 1,
+      "path": "skills/maintain-project-memory/SKILL.md",
+      "provides": ["persistent-project-knowledge", "hierarchical-context-retrieval", "project-checkpointing", "selective-memory-invalidation", "context-efficiency-benchmarking"],
+      "keywords": ["project memory", "persistent memory", "context package", "resume", "checkpoint", "compact", "retrieve prior findings"],
+      "related": ["continue-project", "analyze-legacy-system", "coordinate-parallel-agents"]
+    },
+    "manage-project-delivery": {
+      "version": 1,
+      "path": "skills/manage-project-delivery/SKILL.md",
+      "provides": ["project-delivery-governance", "dependency-aware-delivery-health", "raid-management", "steering-status"],
+      "keywords": ["project management", "delivery governance", "workstream", "milestone", "RAID", "status report", "steering"],
+      "related": ["plan-work", "coordinate-parallel-agents", "forecast-project-financials", "audit-delivery-traceability"]
+    },
+    "migrate-code-with-evidence": {
+      "version": 1,
+      "path": "skills/migrate-code-with-evidence/SKILL.md",
+      "provides": ["evidence-constrained-code-migration"],
+      "related": ["analyze-legacy-system", "derive-modernization-requirements", "test-driven-development"]
+    },
+    "mutation-testing": {
+      "version": 1,
+      "path": "skills/mutation-testing/SKILL.md",
+      "provides": ["mutation-test-quality", "test-strength-validation", "surviving-mutant-classification", "changed-code-mutation-scope", "mutation-quality-gate", "mutation-baseline-comparison", "characterization-test-strength"],
+      "keywords": ["mutation testing", "mutation score", "surviving mutants", "killed mutant", "equivalent mutant", "test quality", "test strength", "test adequacy", "test robustness", "PIT", "pitest", "Stryker", "mutmut", "test hardening"],
+      "inputs": ["stable green implementation", "passing baseline test command", "changed production scope", "linked requirement and specification IDs", "optional project mutation policy and accepted baseline"],
+      "outputs": ["normalized mutation run", "classified surviving mutants", "derived quality gate status", "test-hardening actions", "compact project-memory state"],
+      "related": ["test-driven-development", "design-test-strategy", "implement-ready-slice", "verify-openspec-implementation", "migrate-code-with-evidence", "build-living-dashboard"]
+    },
+    "plan-work": {
+      "version": 1,
+      "path": "skills/plan-work/SKILL.md",
+      "provides": ["implementation-planning", "task-decomposition"]
+    },
+    "polish-html-artifact": {
+      "version": 1,
+      "path": "skills/polish-html-artifact/SKILL.md",
+      "provides": ["html-visual-finesse", "structure-preserving-art-direction", "rendered-polish-loop"],
+      "keywords": ["polish HTML", "visual finesse", "premium dashboard", "premium presentation", "art direction", "typography", "spacing", "composition"],
+      "inputs": ["complete HTML artifact", "accepted structure or narrative", "brand authority", "target viewports and states"],
+      "outputs": ["refined tokens and components", "rendered before and after evidence", "preserved-invariant record", "independent validation handoff"],
+      "related": ["frontend-design", "build-living-dashboard", "create-branded-html-artifact", "validate-visual-artifact", "accessibility-review"]
+    },
+    "protect-git-work": {
+      "version": 1,
+      "path": "skills/protect-git-work/SKILL.md",
+      "provides": ["git-safety", "checkpoint-recovery"]
+    },
+    "review-external-capability": {
+      "version": 1,
+      "path": "skills/review-external-capability/SKILL.md",
+      "related": ["promote-to-commons"]
+    },
+    "review-code-change": {
+      "version": 1,
+      "path": "skills/review-code-change/SKILL.md",
+      "provides": ["evidence-backed-code-review"]
+    },
+    "promote-to-commons": {
+      "version": 1,
+      "path": "skills/promote-to-commons/SKILL.md",
+      "provides": ["controlled-commons-promotion", "promotion-revalidation"],
+      "keywords": ["commons promotion", "controlled mutation", "candidate revalidation"],
+      "related": ["review-for-commons", "review-external-capability", "initialize-project"]
+    },
+    "review-for-commons": {
+      "version": 1,
+      "path": "skills/review-for-commons/SKILL.md",
+      "related": ["promote-to-commons"]
+    },
+    "review-openspec-change": {
+      "version": 1,
+      "path": "skills/review-openspec-change/SKILL.md",
+      "provides": ["openspec-readiness-review", "specification-ambiguity-resolution"],
+      "keywords": ["OpenSpec", "specification", "spec-driven", "spec-first", "acceptance criteria", "change proposal", "readiness"],
+      "inputs": ["existing OpenSpec change", "main specifications", "project constraints and decisions"],
+      "outputs": ["readiness decision", "refined coherent artifacts", "requirement scenario task and test coverage"],
+      "related": ["specify-openspec-change", "implement-openspec-change"]
+    },
+    "review-privacy-security": {
+      "version": 1,
+      "path": "skills/review-privacy-security/SKILL.md",
+      "provides": ["privacy-security-review"]
+    },
+    "search-external-capabilities": {"version": 1, "path": "skills/search-external-capabilities/SKILL.md"},
+    "sales-storytelling": {
+      "version": 1,
+      "path": "skills/sales-storytelling/SKILL.md",
+      "provides": ["sales-presentation-methodology", "evidence-backed-sales-narrative", "native-client-language-sales-narrative", "public-sector-sales-tone"],
+      "keywords": ["sales presentation", "public sector", "German narrative", "client terminology", "restrained tone"]
+    },
+    "specify-openspec-change": {
+      "version": 1,
+      "path": "skills/specify-openspec-change/SKILL.md",
+      "provides": ["openspec-change-specification", "specification-first-development", "acceptance-scenario-definition"],
+      "keywords": ["OpenSpec", "specification", "spec-driven", "spec-first", "acceptance criteria", "change proposal", "delta spec"],
+      "inputs": ["requested software change", "project OpenSpec state", "current behavior and constraints"],
+      "outputs": ["OpenSpec proposal and delta specs", "design and implementation tasks", "validated pre-implementation handoff"],
+      "related": ["derive-modernization-requirements", "review-openspec-change", "implement-openspec-change", "test-driven-development", "build-living-dashboard", "plan-work"]
+    },
+    "test-driven-development": {
+      "version": 1,
+      "path": "skills/test-driven-development/SKILL.md",
+      "provides": ["test-driven-development", "behavior-first-implementation"],
+      "related": ["specify-openspec-change", "implement-openspec-change", "implement-ready-slice", "verify-openspec-implementation", "mutation-testing", "design-test-strategy"]
+    },
+    "update-commons-presentation": {
+      "version": 1,
+      "path": "skills/update-commons-presentation/SKILL.md",
+      "provides": ["presentation-narrative-maintenance", "presentation-impact-classification"],
+      "keywords": ["presentation refresh", "presentation update", "sales narrative", "visual QA"],
+      "related": ["promote-to-commons", "validate-visual-artifact"]
+    },
+    "verify-openspec-implementation": {
+      "version": 1,
+      "path": "skills/verify-openspec-implementation/SKILL.md",
+      "provides": ["openspec-implementation-verification", "specification-code-test-reconciliation"],
+      "keywords": ["OpenSpec", "specification", "spec-driven", "spec-first", "acceptance criteria", "implementation verification"],
+      "inputs": ["implemented active OpenSpec change", "code and tests", "validation evidence"],
+      "outputs": ["archive-readiness decision", "requirement scenario code and test map", "severity-ranked mismatches"],
+      "related": ["implement-openspec-change", "test-driven-development", "complete-openspec-change", "build-living-dashboard", "audit-delivery-traceability", "design-test-strategy", "mutation-testing"]
+    },
+    "validate-visual-artifact": {"version": 1, "path": "skills/validate-visual-artifact/SKILL.md"},
+    "validate-work-item-assumptions": {
+      "version": 1,
+      "path": "skills/validate-work-item-assumptions/SKILL.md",
+      "provides": ["work-item-assumption-validation", "pre-planning-staleness-check"],
+      "keywords": ["still valid", "stale item", "assumptions still hold", "before planning", "reopen item"],
+      "related": ["plan-work", "implement-ready-slice", "continue-project", "review-openspec-change"]
+    }
+  },
+  "agents": {
+    "architecture-reviewer": {"version": 1, "path": "agents/architecture-reviewer.yaml"},
+    "financial-forecast-reviewer": {"version": 1, "path": "agents/financial-forecast-reviewer.yaml"},
+    "legacy-discovery-specialist": {"version": 1, "path": "agents/legacy-discovery-specialist.yaml"},
+    "privacy-security-reviewer": {"version": 1, "path": "agents/privacy-security-reviewer.yaml"},
+    "test-behavior-reviewer": {"version": 1, "path": "agents/test-behavior-reviewer.yaml"}
+  },
+  "tools": {
+    "analyze-project-delivery": {"version": 1, "path": "skills/manage-project-delivery/scripts/analyze_project_delivery.py"},
+    "build-capability-index": {"version": 1, "path": "tools/build_capability_index.py"},
+    "run-evaluations": {"version": 1, "path": "tools/evals/run_evals.py"},
+    "select-impacted-evaluations": {"version": 1, "path": "tools/evals/select_impacted_evals.py"},
+    "anonymize-structured-data": {"version": 1, "path": "skills/anonymize-data/scripts/anonymize_data.py"},
+    "audit-trace-graph": {"version": 1, "path": "skills/audit-delivery-traceability/scripts/audit_trace_graph.py"},
+    "audit-trace-matrix": {"version": 1, "path": "skills/audit-delivery-traceability/scripts/audit_trace_matrix.py"},
+    "build-dashboard": {"version": 1, "path": "skills/build-living-dashboard/scripts/build_dashboard.py"},
+    "commit-policy": {"version": 1, "path": "tools/commit_policy.py"},
+    "validate-dashboard-structure": {"version": 1, "path": "skills/build-living-dashboard/scripts/validate_dashboard_structure.py"},
+    "validate-dashboard-semantics": {"version": 1, "path": "skills/build-living-dashboard/scripts/validate_dashboard_semantics.py"},
+    "external-capabilities": {"version": 1, "path": "tools/external_capabilities.py"},
+    "run-external-discovery": {"version": 1, "path": "tools/run_external_discovery.py"},
+    "extract-legacy-structure": {"version": 1, "path": "skills/analyze-legacy-system/scripts/extract_legacy_structure.py"},
+    "coordinate-legacy-analysis": {"version": 1, "path": "skills/analyze-legacy-system/scripts/coordinate_analysis.py"},
+    "inventory-codebase-tool": {"version": 1, "path": "skills/inventory-codebase/scripts/inventory_codebase.py"},
+    "manage-project-memory": {"version": 1, "path": "skills/maintain-project-memory/scripts/manage_project_memory.py"},
+    "validate-client-localization": {"version": 1, "path": "skills/localize-client-artifact/scripts/validate_localization.py"},
+    "validate-dashboard-visual": {"version": 1, "path": "skills/build-living-dashboard/scripts/validate_dashboard_visual.py"},
+    "project-runtime-manager": {"version": 1, "path": "tools/project_runtimes.py"},
+    "plan-parallel-execution": {"version": 1, "path": "tools/plan_parallel_execution.py"},
+    "resolve-project-continuation": {"version": 1, "path": "skills/continue-project/scripts/resolve_project_continuation.py"},
+    "rank-ready-slices": {"version": 1, "path": "skills/implement-ready-slice/scripts/rank_slices.py"},
+    "resolve-archetypes": {"version": 1, "path": "tools/resolve_archetypes.py"},
+    "resolve-capability-gaps": {"version": 1, "path": "tools/resolve_capability_gaps.py"},
+    "runtime-adapters": {"version": 1, "path": "tools/runtime_adapters.py"},
+    "refresh-commons-presentation": {"version": 1, "path": "tools/refresh_commons_presentation.py"},
+    "check-presentation-visual-contract": {"version": 1, "path": "tools/check_presentation_visual_contract.py"},
+    "calculate-project-financial-forecast": {"version": 1, "path": "skills/forecast-project-financials/scripts/calculate_project_forecast.py"},
+    "sync-presentation": {"version": 1, "path": "tools/sync_presentation.py"},
+    "summarize-adm-estimate": {"version": 1, "path": "skills/estimate-adm-modernization/scripts/summarize_adm_estimate.py"},
+    "validate-commons": {"version": 1, "path": "tools/validate_commons.py"},
+    "validate-migration-manifest": {"version": 1, "path": "skills/migrate-code-with-evidence/scripts/validate_migration_manifest.py"},
+    "validate-html": {"version": 1, "path": "skills/validate-visual-artifact/scripts/validate_html.py"},
+    "validate-diagram-model": {"version": 1, "path": "skills/create-technical-diagram/scripts/validate_diagram_model.py"}
+  },
+  "templates": {
+    "acceptance-audit-template": {"version": 1, "path": "templates/reports/acceptance-audit.template.md"},
+    "bilingual-artifact-runtime": {"version": 1, "path": "skills/localize-client-artifact/assets/bilingual-runtime.js"},
+    "dashboard-data-example": {"version": 1, "path": "skills/build-living-dashboard/assets/dashboard-data.example.json"},
+    "dashboard-structure": {"version": 1, "path": "skills/build-living-dashboard/assets/dashboard-structure.json"},
+    "dashboard-shell": {"version": 1, "path": "skills/build-living-dashboard/assets/dashboard-shell.html"},
+    "diagram-model-example": {"version": 1, "path": "skills/create-technical-diagram/assets/diagram-model.example.json"},
+    "editorial-html-shell": {"version": 1, "path": "skills/create-branded-html-artifact/assets/editorial-shell.html"},
+    "evidence-analysis-template": {"version": 1, "path": "templates/reports/evidence-analysis.template.md"},
+    "evidence-record-example": {"version": 1, "path": "skills/derive-modernization-requirements/assets/evidence-record.example.json"},
+    "project-instructions-template": {"version": 1, "path": "templates/agents/AGENTS.template.md"},
+    "localization-manifest-example": {"version": 1, "path": "skills/localize-client-artifact/assets/localization-manifest.example.json"},
+    "project-memory-template-set": {"version": 1, "path": "skills/maintain-project-memory/assets/project-memory"},
+    "requirement-record-example": {"version": 1, "path": "skills/derive-modernization-requirements/assets/requirement-record.example.json"},
+    "research-plan-template": {"version": 1, "path": "templates/research/research-plan.template.md"},
+    "research-synthesis-template": {"version": 1, "path": "templates/research/research-synthesis.template.md"},
+    "sales-narrative-template": {"version": 1, "path": "templates/presentations/sales-narrative.template.md"},
+    "visual-pattern-guidance": {"version": 1, "path": "templates/visual-patterns"}
+  }
+}

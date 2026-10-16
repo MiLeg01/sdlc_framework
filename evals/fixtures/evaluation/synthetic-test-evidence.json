@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "change": "Reject expired access tokens",
+  "acceptance_scenarios": [
+    {"id": "AUTH-SYN-003", "behavior": "expired token returns TOKEN_EXPIRED"},
+    {"id": "AUTH-SYN-004", "behavior": "active token remains accepted"}
+  ],
+  "red": {
+    "command": "python -m unittest synthetic_test.TokenValidationTest.test_expired_token",
+    "exit_code": 1,
+    "failure": "expected TOKEN_EXPIRED but received ACTIVE"
+  },
+  "green": {
+    "command": "python -m unittest synthetic_test.TokenValidationTest.test_expired_token",
+    "exit_code": 0,
+    "tests_run": 1
+  },
+  "broader_validation": {
+    "command": "python -m unittest synthetic_test",
+    "exit_code": 0,
+    "tests_run": 2
+  },
+  "coverage_gaps": [
+    "No boundary test for expiry exactly equal to the current instant",
+    "No test for malformed expiry values",
+    "No end-to-end authentication flow was run"
+  ]
+}

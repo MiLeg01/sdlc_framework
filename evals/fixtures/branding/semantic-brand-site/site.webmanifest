@@ -1,0 +1,6 @@
+{
+  "name": "Harbor Public Services",
+  "icons": [
+    {"src": "assets/favicon.svg", "type": "image/svg+xml", "sizes": "any"}
+  ]
+}

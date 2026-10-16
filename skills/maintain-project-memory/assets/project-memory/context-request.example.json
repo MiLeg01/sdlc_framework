@@ -1,0 +1,7 @@
+{
+  "task": "analyze-cobol",
+  "domains": ["cobol"],
+  "entities": ["BAQHRBKZ"],
+  "dependency_depth": 1,
+  "max_records": 40
+}

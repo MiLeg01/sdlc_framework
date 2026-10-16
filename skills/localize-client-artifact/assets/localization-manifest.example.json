@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "source_locale": "en",
+  "target_locales": ["de-AT"],
+  "default_locale": "de-AT",
+  "fallback_locale": "en",
+  "storage_key": "client-artifact-language",
+  "protected_terms": ["API", "Frontend", "Backend"],
+  "messages": {
+    "dashboard.title": {
+      "source": "Modernization Overview",
+      "source_hash": "sha256:3715babacda55c71c595f314e00f38de37d10a9e059688dc847c165048f7d810",
+      "translations": {
+        "de-AT": "Modernisierungsübersicht"
+      }
+    },
+    "status.complete": {
+      "source": "Complete",
+      "source_hash": "sha256:143b270a32602d412babf2724ec0640dda0d5a43485e5a7520b05b53fa94b303",
+      "translations": {
+        "de-AT": "Abgeschlossen"
+      }
+    },
+    "technical.call": {
+      "source": "OrderService calls PaymentGateway through /payments/authorize.",
+      "source_hash": "sha256:3389f325d68ee9b57ba68ebfc9b2a3e5b69fbc9011a09cb5d06fc271e6aeb0ab",
+      "protected_terms": ["OrderService", "PaymentGateway", "/payments/authorize"],
+      "translations": {
+        "de-AT": "Der OrderService ruft PaymentGateway über /payments/authorize auf."
+      }
+    },
+    "chart.summary": {
+      "source": "1,234.5 applications assessed",
+      "source_hash": "sha256:5ed0fb490593413ffe56c5dce95bb70dc2fc4da8578c0ccd0b34b788539ec4fd",
+      "translations": {
+        "de-AT": "1.234,5 Anwendungen bewertet"
+      }
+    }
+  }
+}
+

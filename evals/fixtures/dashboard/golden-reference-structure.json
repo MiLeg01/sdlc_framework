@@ -1,0 +1,21 @@
+{
+  "schema_version": 2,
+  "provenance": "Sanitized structural extraction from the original golden dashboard; no client content, branding, metrics, or source evidence retained.",
+  "chrome": {
+    "utility_strip": ["validation-state", "data-integrity-state", "read-only-state"],
+    "brand_header": ["official-logo-or-wordmark", "project-title", "optional-co-brand", "accessible-language-switch"],
+    "navigation": "fixed-grouped-navigation-with-mobile-adaptation",
+    "footer": ["generation-time", "canonical-state-fingerprint", "source-fingerprint"]
+  },
+  "navigation_groups": ["overview", "business", "estate", "architecture", "assurance"],
+  "core_sections": ["overview", "decision-brief", "stakeholder-questions", "progress", "evidence", "questions-risks"],
+  "reference_patterns": [
+    "fixed-header-grouped-rail-scrollspy",
+    "fixed-bottom-grouped-rail",
+    "executive-summary-to-detail-to-evidence",
+    "filterable-list-or-table-with-shared-detail-opener",
+    "modal-dialog"
+  ],
+  "required_overview_regions": ["project-context", "current-status", "key-findings", "next-actions", "denominator-metrics", "metric-tooltips"],
+  "required_extension_points": ["after-overview", "operational", "business-domain", "architecture-domain", "appendix-evidence"]
+}

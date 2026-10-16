@@ -1,0 +1,81 @@
+{
+  "schema_version": 1,
+  "mutation_run": {
+    "scope_profile": "PR",
+    "scope": "example/payment/tax_calculator.py",
+    "changed_scope_only": true,
+    "criticality": "FINANCIAL_OR_CALCULATION",
+    "technology": "python",
+    "tool": "mutmut",
+    "tool_version": "2.4.4",
+    "commit": "a02f118",
+    "baseline_tests": "PASS",
+    "baseline_test_command": "python3 -m unittest discover -s tests",
+    "tool_execution": "VALID"
+  },
+  "metrics": {"total_mutants": 24, "killed": 20, "survived": 4},
+  "performance": {"runtime_seconds": 39.2, "affected_tests": 4, "timeouts": 0, "excluded": []},
+  "survivors": [
+    {
+      "id": "MUT-001",
+      "component": "example.payment.tax_calculator.tax_rate",
+      "location": "example/payment/tax_calculator.py:21",
+      "operator": "CONDITIONAL_BOUNDARY",
+      "mutation": "reduced-rate threshold comparison < replaced with <=",
+      "classification": "TEST_GAP",
+      "criticality": "FINANCIAL_OR_CALCULATION",
+      "requirement": "REQ-017",
+      "specification": "SPEC-004",
+      "acceptance_criterion": "AC-004-3",
+      "affected_tests": ["WeakTaxCalculatorTests.test_standard_rate_applies_to_a_large_amount"],
+      "evidence": ["mutation-report/MUT-001.json"],
+      "recommended_action": "assert the tax rate at 99.99, exactly 100.00, and 100.01"
+    },
+    {
+      "id": "MUT-002",
+      "component": "example.payment.tax_calculator.apply_discount",
+      "location": "example/payment/tax_calculator.py:29",
+      "operator": "CONDITIONAL_BOUNDARY",
+      "mutation": "maximum discount comparison > replaced with >=",
+      "classification": "TEST_GAP",
+      "criticality": "FINANCIAL_OR_CALCULATION",
+      "requirement": "REQ-017",
+      "specification": "SPEC-004",
+      "acceptance_criterion": "AC-004-1",
+      "affected_tests": ["WeakTaxCalculatorTests.test_discount_reduces_the_net_amount"],
+      "evidence": ["mutation-report/MUT-002.json"],
+      "recommended_action": "assert that the maximum rate is accepted and a rate above it is rejected"
+    },
+    {
+      "id": "MUT-003",
+      "component": "example.payment.tax_calculator.apply_discount",
+      "location": "example/payment/tax_calculator.py:29",
+      "operator": "NEGATIVE_GUARD_WEAKENED",
+      "mutation": "lower discount bound moved from 0 to -1, disabling the negative-rate rejection",
+      "classification": "TEST_GAP",
+      "criticality": "FINANCIAL_OR_CALCULATION",
+      "requirement": "REQ-017",
+      "specification": "SPEC-004",
+      "acceptance_criterion": "AC-004-1",
+      "affected_tests": ["WeakTaxCalculatorTests.test_discount_reduces_the_net_amount"],
+      "evidence": ["mutation-report/MUT-003.json"],
+      "recommended_action": "assert that a negative discount rate is rejected"
+    },
+    {
+      "id": "MUT-005",
+      "component": "example.payment.tax_calculator.apply_discount",
+      "location": "example/payment/tax_calculator.py:29",
+      "operator": "CONDITION_REORDER",
+      "mutation": "the two pure disjuncts of the discount guard are swapped",
+      "classification": "EQUIVALENT_MUTANT",
+      "criticality": "FINANCIAL_OR_CALCULATION",
+      "requirement": "REQ-017",
+      "specification": "SPEC-004",
+      "acceptance_criterion": "AC-004-1",
+      "affected_tests": [],
+      "evidence": ["mutation-report/MUT-005.json"],
+      "accepted_reason": "both disjuncts are side-effect free and total, so the rejection set is identical for every admissible input; evaluation order is not observable",
+      "recommended_action": "accept; no acceptance criterion constrains evaluation order"
+    }
+  ]
+}

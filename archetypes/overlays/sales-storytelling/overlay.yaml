@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "id": "sales-storytelling",
+  "kind": "overlay",
+  "title": "Sales presentation storytelling",
+  "purpose": "Add evidence-backed persuasive narrative design, objection handling, differentiation, proof, a concrete call to action, and client-context-aware narrative language and tone.",
+  "compatible_archetypes": ["research", "presentation", "development", "legacy-migration"],
+  "initialization": {
+    "ask_if_unresolved": [
+      "what is proposed, target audience or customer, desired next action, and likely problem",
+      "known differentiators, objections, supporting proof, and which unknowns research should establish"
+    ]
+  },
+  "capabilities": {
+    "required": {"skills": [], "agents": [], "tools": [], "templates": []},
+    "default": {
+      "skills": ["sales-storytelling"],
+      "agents": [],
+      "tools": [],
+      "templates": ["sales-narrative-template"]
+    },
+    "recommended": {"skills": [], "agents": [], "tools": [], "templates": []},
+    "optional": {"skills": [], "agents": [], "tools": [], "templates": []}
+  },
+  "conditions": [],
+  "outputs": ["audience and decision brief", "evidence-mapped sales narrative in the resolved presentation language", "objection and proof map", "call to action"]
+}

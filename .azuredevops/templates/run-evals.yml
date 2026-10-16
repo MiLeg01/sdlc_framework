@@ -1,0 +1,101 @@
+parameters:
+- name: outputDir
+  type: string
+- name: evalProfile
+  type: string
+- name: selectionArguments
+  type: string
+  default: ''
+- name: repeat
+  type: number
+  default: 0
+- name: semanticPolicy
+  type: string
+  default: optional
+- name: compareBaseline
+  type: boolean
+  default: false
+- name: allowProtectedChanges
+  type: boolean
+  default: false
+
+steps:
+- bash: |
+    set -euo pipefail
+    mkdir -p '${{ parameters.outputDir }}'
+    args=(--profile '${{ parameters.evalProfile }}' --output '${{ parameters.outputDir }}')
+    selection_arguments='${{ parameters.selectionArguments }}'
+    if [ -n "$selection_arguments" ]; then
+      read -r -a selection <<< "$selection_arguments"
+      args+=("${selection[@]}")
+    fi
+    if [ '${{ parameters.repeat }}' -gt 0 ]; then
+      args+=(--repeat '${{ parameters.repeat }}')
+    fi
+    if [ '${{ parameters.compareBaseline }}' = 'True' ]; then
+      args+=(--compare-baseline "$(ResolvedBaselinePath)")
+    fi
+    if [ '${{ parameters.allowProtectedChanges }}' = 'True' ]; then
+      args+=(--allow-protected-eval-changes)
+    fi
+
+    semantic_policy='${{ parameters.semanticPolicy }}'
+    if [ "$semantic_policy" = required ]; then
+      python3 tools/evals/run_evals.py --check-config
+      args+=(--require-semantic)
+    elif [ "$semantic_policy" = optional ]; then
+      python3 tools/evals/run_evals.py --check-config || \
+        echo 'Semantic configuration is unavailable; selected semantic scenarios will report warnings.'
+    fi
+
+    set +e
+    python3 tools/evals/run_evals.py "${args[@]}" 2>&1 | tee '${{ parameters.outputDir }}/runner.log'
+    exit_code=${PIPESTATUS[0]}
+    set -e
+    if [ -s '${{ parameters.outputDir }}/failures.json' ]; then
+      echo 'Evaluation failures:'
+      python3 - '${{ parameters.outputDir }}/failures.json' <<'PY'
+    import json
+    import sys
+
+    for failure in json.load(open(sys.argv[1], encoding='utf-8')):
+        subject = failure.get('capability') or failure.get('workflow') or 'unknown-subject'
+        scenario = failure.get('scenario') or 'unknown-scenario'
+        status = failure.get('status') or 'UNKNOWN'
+        reason = failure.get('reason') or failure.get('failure_reason') or 'no reason recorded'
+        print(f"- {subject}:{scenario} [{status}] {reason}")
+    PY
+    fi
+    if [ "$exit_code" -eq 0 ]; then
+      echo '##vso[task.setvariable variable=failureClass]NONE'
+    elif [ -f '${{ parameters.outputDir }}/failures.json' ] && grep -qi 'infrastructure failure' '${{ parameters.outputDir }}/failures.json'; then
+      echo '##vso[task.setvariable variable=failureClass]INFRASTRUCTURE_FAILURE'
+    elif [ -f '${{ parameters.outputDir }}/failures.json' ]; then
+      echo '##vso[task.setvariable variable=failureClass]QUALITY_FAILURE'
+    else
+      echo '##vso[task.setvariable variable=failureClass]INFRASTRUCTURE_FAILURE'
+    fi
+    exit "$exit_code"
+  displayName: Run ${{ parameters.evalProfile }} evaluation profile
+  env:
+    EVAL_EXECUTOR_RUNTIME: $(EVAL_EXECUTOR_RUNTIME)
+    EVAL_EXECUTOR_PROVIDER: $(EVAL_EXECUTOR_PROVIDER)
+    EVAL_CODEX_BIN: $(EVAL_CODEX_BIN)
+    EVAL_EXECUTOR_MODEL: $(EVAL_EXECUTOR_MODEL)
+    EVAL_EXECUTOR_TIMEOUT_SECONDS: $(EVAL_EXECUTOR_TIMEOUT_SECONDS)
+    EVAL_PROVIDER: $(EVAL_PROVIDER)
+    EVAL_ENDPOINT: $(EVAL_ENDPOINT)
+    EVAL_API_VERSION: $(EVAL_API_VERSION)
+    EVAL_APIM_ALLOWED_HOST: $(EVAL_APIM_ALLOWED_HOST)
+    EVAL_JUDGE_MODEL: $(EVAL_JUDGE_MODEL)
+    EVAL_JUDGE_TIMEOUT_SECONDS: $(EVAL_JUDGE_TIMEOUT_SECONDS)
+    EVAL_JUDGE_MAX_EVIDENCE_BYTES: $(EVAL_JUDGE_MAX_EVIDENCE_BYTES)
+    OPENAI_API_KEY: $(OPENAI_API_KEY)
+    AZURE_OPENAI_API_KEY: $(AZURE_OPENAI_API_KEY)
+    EVAL_APIM_SUBSCRIPTION_KEY: $(EVAL_APIM_SUBSCRIPTION_KEY)
+    EVAL_APIM_CLIENT_USER_KEY: $(EVAL_APIM_CLIENT_USER_KEY)
+    EVAL_APIM_CLIENT_USERNAME: $(EVAL_APIM_CLIENT_USERNAME)
+    EVAL_API_KEY: $(EVAL_API_KEY)
+    EVAL_BEARER_TOKEN: $(EVAL_BEARER_TOKEN)
+    AGENT_COMMONS_NODE_MODULES: $(AGENT_COMMONS_NODE_MODULES)
+    BASELINE_PIPELINE_DEFINITION_ID: $(baselinePipelineDefinitionId)

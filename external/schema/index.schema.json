@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://agent-commons.local/schema/external-index-v1.json",
+  "title": "Agent Commons external capability index",
+  "type": "object",
+  "required": ["schema_version", "source_registry_fingerprint", "updated_at", "candidates"],
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {"const": 1},
+    "source_registry_fingerprint": {"type": "string"},
+    "updated_at": {"type": "string", "format": "date-time"},
+    "candidates": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "name", "source_id", "repository", "path", "revision", "source_trust", "detected_runtime", "capability_type", "purpose", "relevance", "license", "why_useful", "commons_overlap", "review_recommendation", "security_class", "status", "review_status", "discovered_at", "last_checked"],
+        "properties": {
+          "id": {"type": "string", "pattern": "^ext-[a-z0-9-]+$"},
+          "source_trust": {"enum": ["OFFICIAL", "CURATED", "COMMUNITY", "UNTRUSTED"]},
+          "security_class": {"enum": ["INSTRUCTIONS ONLY", "INSTRUCTIONS + SCRIPTS", "PLUGIN WITH HOOKS", "MCP/REMOTE TOOLING", "UNKNOWN"]},
+          "status": {"enum": ["DISCOVERED", "REVIEWED", "REJECTED", "PROMOTION-CANDIDATE", "INCORPORATED", "SUPERSEDED", "STALE"]},
+          "review_status": {"enum": ["NOT_REVIEWED", "CURRENT", "OUTDATED"]},
+          "relationship": {"enum": ["COPIED", "ADAPTED", "INSPIRED-BY", "INDEPENDENT-REIMPLEMENTATION"]}
+        }
+      }
+    }
+  }
+}

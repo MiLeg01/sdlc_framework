@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "id": "durable-state",
+  "kind": "overlay",
+  "title": "Durable project state",
+  "purpose": "Add concise repository-native memory for substantial multi-session or coordinated work.",
+  "compatible_archetypes": ["development", "legacy-migration", "presentation", "research"],
+  "initialization": {
+    "ask_if_unresolved": ["recovery cost, expected duration, coordination boundary, and canonical state sources"]
+  },
+  "capabilities": {
+    "required": {"skills": [], "agents": [], "tools": [], "templates": []},
+    "default": {
+      "skills": ["maintain-project-memory"],
+      "agents": [],
+      "tools": ["manage-project-memory"],
+      "templates": ["project-memory-template-set"]
+    },
+    "recommended": {"skills": [], "agents": [], "tools": [], "templates": []},
+    "optional": {"skills": [], "agents": [], "tools": [], "templates": []}
+  },
+  "conditions": [],
+  "outputs": ["L0 project synopsis", "L1 domain indexes", "L2 entity records", "evidence pointers", "validated checkpoints", "bounded context packages"]
+}

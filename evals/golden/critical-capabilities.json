@@ -1,0 +1,153 @@
+{
+  "schema_version": 1,
+  "initialize-project": {
+    "expected_facts": ["inspects existing workspace state", "records selected canonical capability IDs", "returns one bounded next action"],
+    "invariants": ["does not overwrite unrelated files", "does not execute selected capabilities automatically", "does not ask for facts already supplied"]
+  },
+  "continue-project": {
+    "expected_facts": ["resolves current lifecycle state", "selects a dependency-ready next action", "reports blockers"],
+    "invariants": ["does not bypass approvals or OpenSpec", "does not treat a dashboard as canonical truth", "does not start the whole backlog by default"]
+  },
+  "analyze-legacy-system": {
+    "expected_facts": ["accounts for every relevant inventoried source", "extracts behavior with evidence", "synthesizes cross-language findings", "COBOL SAMPLE statically calls STATIC-PROG and has a dynamic call", "Java Sample constructs Worker and invokes service.execute", "SQL refresh_data inserts from app.source_table into app.target_table"],
+    "invariants": ["source remains unchanged", "bounded analysis is explicit", "unsupported conclusions are not promoted"],
+    "hard_assertions": ["source_unchanged", "zero_unaccounted_relevant_sources", "cross_language_synthesis_present"]
+  },
+  "analyze-legacy-reference-prior": {
+    "expected_facts": [
+      "the reference profile retains REFERENCE_PATTERN state and its own fingerprint",
+      "the adapter registration becomes a target observation only because direct target evidence corroborates it",
+      "the scheduler non-match is recorded and direct target evidence overrides the reference prior",
+      "the queue pattern remains unresolved because no target evidence supports it"
+    ],
+    "invariants": [
+      "reference-only observations do not create target evidence dependencies requirements metrics confidence or completeness",
+      "matches and non-matches remain explicit",
+      "analysis without a configured reference profile remains target-only"
+    ]
+  },
+  "inventory-codebase": {
+    "expected_facts": ["every eligible path has a stable record", "counts reconcile", "exclusions and fingerprint are recorded", "the sample inventory includes package.json and src/example.py"],
+    "invariants": ["no path-based behavior inference", "unreadable paths remain visible failures", "symlinks cannot escape the root"]
+  },
+  "coordinate-parallel-agents": {
+    "expected_facts": ["tasks have mutually exclusive ownership", "dependencies and shared surfaces are explicit", "handoffs are structured"],
+    "invariants": ["workers do not rewrite coordinator-owned state", "unsafe parallel work is serialized", "integration remains coordinator-owned"]
+  },
+  "maintain-project-memory": {
+    "expected_facts": ["L0 stays compact", "records retain canonical evidence pointers", "dependency-aware invalidation marks stale knowledge"],
+    "invariants": ["memory never outranks source", "secrets and raw conversations are excluded", "writes are locked and atomic"]
+  },
+  "derive-modernization-requirements": {
+    "expected_facts": ["requirements trace to evidence", "acceptance criteria are observable", "duplicates and conflicts are reconciled"],
+    "invariants": ["unsupported requirements are not presented as facts", "unknowns remain explicit", "source evidence is not rewritten"],
+    "hard_assertions": ["evidence_required"]
+  },
+  "specify-openspec-change": {
+    "expected_facts": ["scope and non-goals are explicit", "acceptance scenarios are testable", "tasks trace to approved requirements"],
+    "invariants": ["implementation does not begin", "unresolved product decisions remain blockers", "existing changes are refined rather than duplicated"]
+  },
+  "implement-ready-slice": {
+    "expected_facts": ["the slice is dependency-ready", "RED GREEN REFACTOR evidence is recorded", "validation maps to acceptance"],
+    "invariants": ["ownership stays within assigned paths", "blocked work is not selected", "shared mutable surfaces are not used concurrently"]
+  },
+  "test-driven-development": {
+    "expected_facts": ["a behavior-relevant test fails first", "the identical focused test passes after implementation", "the broader gate is run"],
+    "invariants": ["setup failures do not count as RED", "assertions are not weakened to obtain GREEN", "green tests are not treated as full specification verification"],
+    "hard_assertions": ["red_evidence_present", "green_evidence_present"]
+  },
+  "mutation-testing": {
+    "expected_facts": [
+      "the baseline suite is confirmed passing and stable before mutation results are trusted",
+      "the mutated scope is selected by lifecycle profile and criticality rather than mutating everything",
+      "every surviving mutant is classified with evidence rather than defaulting to a test gap",
+      "meaningful survivors are linked to a requirement or specification and answered with a behavioral test",
+      "the gate status is derived from the run, policy, and baseline rather than asserted"
+    ],
+    "invariants": [
+      "passing tests alone are not evidence of test quality",
+      "coverage is not presented as mutation quality",
+      "mutation score is not the only quality gate",
+      "a critical surviving mutant fails validation regardless of the aggregate score",
+      "correct production behavior is never changed to kill a mutant",
+      "hardened tests assert behavior rather than private implementation details",
+      "an unsupported technology reports NOT_SUPPORTED and never a pass",
+      "an unstable baseline blocks instead of producing a score",
+      "application mutation results are never aggregated with Commons methodology mutation results"
+    ],
+    "hard_assertions": [
+      "critical_surviving_mutant_fails",
+      "unsupported_tooling_is_not_a_pass",
+      "flaky_baseline_blocks",
+      "every_survivor_classified"
+    ]
+  },
+  "design-test-strategy": {
+    "expected_facts": [
+      "approved intent with current evidence a concrete oracle and resolved bindings can be ready for expected-outcome testing",
+      "observed source behavior without approval remains characterization evidence",
+      "a generic generated outcome remains scenario-only and does not become an executable assertion",
+      "an undispositioned suspected defect requires review",
+      "artifact generation compilation execution and pass or fail status remain separate"
+    ],
+    "invariants": [
+      "the lowest credible layer is selected independently from oracle readiness",
+      "observed legacy behavior never silently replaces approved target intent",
+      "confidence priority and test count never upgrade oracle authority",
+      "ordinary non-legacy strategies remain compatible"
+    ]
+  },
+  "build-living-dashboard": {
+    "expected_facts": ["canonical domains remain visible", "status derives from canonical project data", "generated output is reproducible"],
+    "invariants": ["dashboard is read-only", "missing domains are explicit", "visual validation covers representative widths"],
+    "hard_assertions": ["required_dashboard_domains_present"]
+  },
+  "create-branded-html-artifact": {
+    "expected_facts": ["claims remain evidence-backed", "brand inputs are resolved from ordinary websites including safe inline SVG identity", "responsive and accessible states are validated"],
+    "invariants": ["no invented brand assets", "unsafe or externally referenced SVG is rejected", "optional color gaps do not erase a usable core identity", "no remote dependency is introduced without approval", "visual QA is independently evidenced"]
+  },
+  "search-external-capabilities": {
+    "expected_facts": ["searches official curated and community sources in trust order", "deduplicates privacy-safe capability-gap queries", "records structured rate-limit and cache evidence"],
+    "invariants": ["discovery installs and executes nothing", "client-specific information never enters external queries", "failed sources do not invalidate successful higher-trust results"]
+  },
+  "estimate-adm-modernization": {
+    "expected_facts": ["work units are non-overlapping", "three-point estimates reconcile", "assumptions and confidence are explicit"],
+    "invariants": ["evidence gaps are not hidden", "estimates do not claim false precision", "totals preserve unit-level provenance"]
+  },
+  "deep-research": {
+    "expected_facts": ["the research question and evidence plan are explicit", "claims link to authoritative sources", "conflicting evidence is retained"],
+    "invariants": ["search snippets are not treated as sources", "fact and synthesis remain distinct", "missing evidence is not invented"]
+  },
+  "sales-storytelling": {
+    "expected_facts": ["the narrative is audience-specific", "claims remain linked to supplied evidence", "the call to action follows the evidence"],
+    "invariants": ["proof is not fabricated", "visual artifacts are handed to an appropriate renderer", "unsupported certainty is avoided"]
+  },
+  "validate-visual-artifact": {
+    "expected_facts": ["static and browser checks are separated", "responsive states are inspected", "findings cite observable evidence"],
+    "invariants": ["validation does not redesign the artifact", "accessibility claims stay within observed evidence", "visual failures are not hidden by snapshots"]
+  },
+  "verify-openspec-implementation": {
+    "expected_facts": ["requirements scenarios tasks code and tests are reconciled", "mismatches are explicit", "the result is PASS PARTIAL FAIL or BLOCKED"],
+    "invariants": ["the specification is not rewritten to match code", "missing behavior is not implemented during review", "green tests alone do not prove acceptance"]
+  },
+  "update-commons-presentation": {
+    "expected_facts": ["generated facts refresh before narrative review", "authored text changes only when evidence warrants", "the visual contract is checked"],
+    "invariants": ["CSS structure and runtime remain locked", "development history is not added", "visual QA is not claimed without evidence"]
+  },
+  "review-for-commons": {
+    "expected_facts": ["reusable candidates are compared semantically", "privacy and license risks are classified", "recommendations are proposal-only"],
+    "invariants": ["project-specific content is not promoted", "duplicates are not proposed as new capabilities", "review does not mutate Commons"]
+  },
+  "manage-project-delivery": {
+    "expected_facts": ["authoritative sources and reporting period are explicit", "health follows dependencies blockers overdue work and risks", "status ends with owned actions and decisions"],
+    "invariants": ["governance does not implement work items", "unsupported certainty is avoided", "organization-specific operating details remain project-local", "no runtime-specific orchestration is canonical"]
+  },
+  "forecast-project-financials": {
+    "expected_facts": ["baseline actuals and remaining forecast reconcile", "EAC variance margin and scenarios are derived", "material assumptions and unavailable metrics are explicit", "consequential forecasts receive independent review"],
+    "invariants": ["missing actuals are not zero", "periods and units remain explicit", "the workflow does not provide statutory accounting tax investment advice or commercial approval", "organization-specific rate cards and thresholds remain project-local"]
+  },
+  "promote-to-commons": {
+    "expected_facts": ["selected candidates are revalidated", "canonical and adapter impacts are reconciled", "behavior changes include evaluations"],
+    "invariants": ["only explicitly selected capability is promoted", "generated artifacts are regenerated", "confidential or unlicensed content is rejected"]
+  }
+}

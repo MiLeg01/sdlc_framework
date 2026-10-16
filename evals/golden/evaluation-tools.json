@@ -1,0 +1,45 @@
+{
+  "schema_version": 1,
+  "analyze-project-delivery": {
+    "expected_facts": ["rejects invalid references and dependency cycles", "derives health blockers overdue ready work high risks and critical path deterministically"],
+    "invariants": ["input is not mutated", "unknown owners and unsupported states are explicit", "output ordering is stable"]
+  },
+  "calculate-project-financial-forecast": {
+    "expected_facts": ["separates actual and future periods", "calculates EAC variance margin EVM and scenarios with decimal arithmetic", "rejects missing required actuals and duplicate periods"],
+    "invariants": ["zero denominators produce null plus warning", "input is not mutated", "units and reporting period are preserved"]
+  },
+  "external-capabilities": {
+    "expected_facts": ["normalizes and deduplicates capability-gap queries", "reuses revision-aware repository and result caches", "stops provider requests when observed rate limits require it"],
+    "invariants": ["credentials and request URLs are not persisted", "irrelevant generic matches are rejected", "external code is never installed or executed"]
+  },
+  "run-external-discovery": {
+    "expected_facts": ["persists structured discovery state", "coordinates project-local discovery with a lease", "preserves retained candidates during partial provider failure"],
+    "invariants": ["lock contention cannot leave a newly launched run silently orphaned", "candidate review remains separate", "commons capabilities are not mutated"]
+  },
+  "select-impacted-evaluations": {
+    "expected_facts": ["changed paths resolve to canonical IDs", "direct and critical transitive impacts are deterministic", "affected workflows and protected changes are reported"],
+    "invariants": ["unknown IDs are not invented", "catalog relationship semantics are explicit", "output ordering is stable"]
+  },
+  "run-evaluations": {
+    "expected_facts": ["all four evaluation levels are executable", "deterministic checks run once", "machine-readable JUnit and quality-summary results are written", "Golden truth and last-green quality baselines remain distinct", "recall precision unsupported findings and critical misses are scored", "temporary harmful mutations produce a mutation score", "nightly aggregation reports current versus last-green quality and cost metrics", "capability impact regression classes and reproduction commands are reported", "retained Azure artifacts support seven-day and thirty-day trends"],
+    "invariants": ["hard and regression failures return non-zero", "executor and judge are independent commands", "executors cannot inspect Golden answer keys", "the PR runner cannot promote last-green state", "missing performance metrics remain not_available", "timing noise does not create failures", "infrastructure failures remain separate from capability quality regressions", "runtime or token improvement cannot offset lower correctness completeness or evidence grounding"]
+  },
+  "mutation-testing": {
+    "expected_facts": [
+      "the weak suite passes yet leaves the boundary, inclusive-maximum, and negative-rate mutants alive",
+      "the hardened suite kills every meaningful mutant while the equivalent mutant stays accepted",
+      "the gate derives PASS, WARNING, FAIL, BLOCKED, and NOT_SUPPORTED from the run rather than from prose",
+      "each supported ecosystem resolves to exactly one adapter and existing configuration is reused"
+    ],
+    "invariants": [
+      "an asserted mutation score in the run input is rejected",
+      "an unaccounted survivor cannot silently improve the score",
+      "a baseline for a different scope is not treated as a regression signal",
+      "no supported ecosystem does not exit zero"
+    ]
+  },
+  "validate-commons": {
+    "expected_facts": ["canonical manifests and referenced files are validated", "generated catalog and presentation drift are detected"],
+    "invariants": ["validation is deterministic", "private workstation paths are rejected", "errors produce a non-zero exit"]
+  }
+}

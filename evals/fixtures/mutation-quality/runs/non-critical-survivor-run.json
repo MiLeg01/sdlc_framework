@@ -1,0 +1,47 @@
+{
+  "schema_version": 1,
+  "mutation_run": {
+    "scope_profile": "NIGHTLY",
+    "scope": "example/reporting/label_formatter.py",
+    "changed_scope_only": false,
+    "criticality": "NORMAL_BUSINESS_LOGIC",
+    "technology": "python",
+    "tool": "mutmut",
+    "tool_version": "2.4.4",
+    "commit": "c41aa07",
+    "baseline_tests": "PASS",
+    "baseline_test_command": "python3 -m unittest discover -s tests",
+    "tool_execution": "VALID"
+  },
+  "metrics": {"total_mutants": 18, "killed": 16, "survived": 2},
+  "performance": {"runtime_seconds": 22.4, "affected_tests": 9, "timeouts": 0, "excluded": []},
+  "survivors": [
+    {
+      "id": "MUT-041",
+      "component": "example.reporting.label_formatter.short_label",
+      "location": "example/reporting/label_formatter.py:18",
+      "operator": "BOUNDARY",
+      "mutation": "truncation length boundary changed",
+      "classification": "TEST_GAP",
+      "criticality": "NORMAL_BUSINESS_LOGIC",
+      "requirement": "REQ-052",
+      "specification": "SPEC-019",
+      "affected_tests": ["LabelFormatterTests.test_shortens_a_long_label"],
+      "evidence": ["mutation-report/MUT-041.json"],
+      "recommended_action": "assert the label at exactly the truncation length"
+    },
+    {
+      "id": "MUT-042",
+      "component": "example.reporting.label_formatter.short_label",
+      "location": "example/reporting/label_formatter.py:24",
+      "operator": "RETURN_VALUE",
+      "mutation": "debug log message text replaced",
+      "classification": "LOW_VALUE_MUTATION",
+      "criticality": "PLUMBING_OR_TRIVIAL",
+      "affected_tests": [],
+      "evidence": ["mutation-report/MUT-042.json"],
+      "accepted_reason": "log text carries no contract and is not referenced by any acceptance criterion",
+      "recommended_action": "accept"
+    }
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "schema_version": 1,
+  "states": [
+    {"id": "filter-desktop", "selector": "#readiness-filter", "viewport": [1440, 1000]},
+    {"id": "evidence-desktop", "selector": "#evidence-details", "viewport": [1366, 768]},
+    {"id": "filter-mobile", "selector": "#readiness-filter", "viewport": [390, 844]},
+    {"id": "evidence-mobile", "selector": "#evidence-details", "viewport": [390, 844]},
+    {"id": "de-AT", "selector": "#readiness-filter", "viewport": [1440, 1000], "locale": "de-AT"},
+    {"id": "en", "selector": "#readiness-filter", "viewport": [1440, 1000], "locale": "en"}
+  ]
+}

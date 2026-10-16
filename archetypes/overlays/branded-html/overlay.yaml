@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "id": "branded-html",
+  "kind": "overlay",
+  "title": "Branded HTML artifact",
+  "purpose": "Add URL-resolved brand evidence, exact offline official assets, shared dashboard/presentation rendering, an Accenture fallback when branding is unavailable, mandatory HTML construction, and independent fidelity QA.",
+  "compatible_archetypes": ["development", "legacy-migration", "presentation", "research"],
+  "initialization": {
+    "ask_if_unresolved": ["artifact audience and decision", "brand sources and asset rights", "interaction, offline, print, and accessibility requirements"]
+  },
+  "capabilities": {
+    "required": {"skills": [], "agents": [], "tools": [], "templates": []},
+    "default": {
+      "skills": ["create-branded-html-artifact", "validate-visual-artifact"],
+      "agents": [],
+      "tools": ["validate-html"],
+      "templates": ["editorial-html-shell"]
+    },
+    "recommended": {"skills": [], "agents": [], "tools": [], "templates": []},
+    "optional": {"skills": [], "agents": [], "tools": [], "templates": []}
+  },
+  "conditions": [],
+  "outputs": ["version-2 brand profile or recorded unresolved brand source", "exact offline brand assets when resolved", "mandatory HTML artifact", "Accenture fallback when branding is absent or unavailable", "separate static, profile-consistency, fidelity, and browser QA evidence"]
+}

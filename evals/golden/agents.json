@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "architecture-reviewer": {
+    "expected_facts": ["reviews the supplied architecture scope", "identifies evidence-backed structural risks", "returns severity-ranked findings"],
+    "invariants": ["writes only the assigned review output", "does not redesign or implement", "separates facts decisions assumptions and unknowns"]
+  },
+  "financial-forecast-reviewer": {
+    "expected_facts": ["reperforms material calculations", "checks source period unit and scenario integrity", "returns severity-ranked findings and a bounded verdict"],
+    "invariants": ["findings only", "does not edit forecast inputs", "does not grant commercial approval", "minimizes sensitive values"]
+  },
+  "legacy-discovery-specialist": {
+    "expected_facts": ["covers every assigned source", "extracts known business rules and external calls", "returns a valid structured handoff"],
+    "invariants": ["does not modify source", "does not inspect unrelated scope unnecessarily", "writes only the assigned worker result"],
+    "hard_assertions": ["source_unchanged", "assigned_scope_complete", "ownership_preserved", "valid_handoff"]
+  },
+  "privacy-security-reviewer": {
+    "expected_facts": ["maps trust boundaries and sensitive data", "identifies abuse and leakage paths", "proposes evidence-linked validation"],
+    "invariants": ["does not claim certification", "does not repeat secrets", "writes only isolated findings"]
+  },
+  "test-behavior-reviewer": {
+    "expected_facts": ["checks behavior-relevant RED evidence", "challenges test-layer choice and boundary coverage", "distinguishes test evidence from acceptance"],
+    "invariants": ["does not implement fixes", "does not approve unsupported behavior", "writes only isolated findings"]
+  }
+}

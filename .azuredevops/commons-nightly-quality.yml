@@ -1,0 +1,141 @@
+name: commons-nightly-quality-$(Date:yyyyMMdd)$(Rev:.r)
+
+trigger: none
+pr: none
+
+schedules:
+- cron: '0 1 * * *'
+  displayName: Nightly full quality at 01:00 UTC
+  branches:
+    include:
+    - main
+  always: true
+
+variables:
+- group: agent-commons-evals
+- name: evalProfile
+  value: full
+- name: semanticPolicy
+  value: required
+
+stages:
+- stage: Static
+  jobs:
+  - template: templates/static-validation.yml
+
+- stage: SemanticSmoke
+  displayName: Production semantic wiring smoke test
+  dependsOn: Static
+  jobs:
+  - template: templates/semantic-smoke.yml
+
+- stage: FullQuality
+  displayName: Full quality in isolated parallel jobs
+  dependsOn: SemanticSmoke
+  jobs:
+  - template: templates/quality-shard.yml
+    parameters:
+      jobName: skills_foundation
+      displayName: Foundation and project lifecycle skills
+      selectionArguments: >-
+        --capability analyze-legacy-system
+        --capability continue-project
+        --capability coordinate-parallel-agents
+        --capability initialize-project
+        --capability inventory-codebase
+        --capability maintain-project-memory
+      evalProfile: full
+      repeat: 3
+      semanticPolicy: required
+  - template: templates/quality-shard.yml
+    parameters:
+      jobName: skills_delivery
+      displayName: Specification, implementation, and test-quality skills
+      selectionArguments: >-
+        --capability derive-modernization-requirements
+        --capability design-test-strategy
+        --capability forecast-project-financials
+        --capability implement-ready-slice
+        --capability mutation-testing
+        --capability specify-openspec-change
+        --capability test-driven-development
+        --capability verify-openspec-implementation
+      evalProfile: full
+      repeat: 3
+      semanticPolicy: required
+  - template: templates/quality-shard.yml
+    parameters:
+      jobName: skills_visual
+      displayName: Dashboard, visual, and architecture skills
+      selectionArguments: >-
+        --capability build-living-dashboard
+        --capability create-branded-html-artifact
+        --capability validate-visual-artifact
+      evalProfile: full
+      repeat: 3
+      semanticPolicy: required
+      installBrowser: true
+  - template: templates/quality-shard.yml
+    parameters:
+      jobName: skills_governance
+      displayName: Research, review, and Commons governance skills and tools
+      selectionArguments: >-
+        --capability deep-research
+        --capability estimate-adm-modernization
+        --capability manage-project-delivery
+        --capability promote-to-commons
+        --capability review-for-commons
+        --capability sales-storytelling
+        --capability search-external-capabilities
+        --capability update-commons-presentation
+        --kind tool
+      evalProfile: full
+      repeat: 3
+      semanticPolicy: required
+  - template: templates/quality-shard.yml
+    parameters:
+      jobName: agents
+      displayName: All canonical agent evaluations
+      selectionArguments: '--kind agent'
+      evalProfile: full
+      repeat: 3
+      semanticPolicy: required
+  - template: templates/quality-shard.yml
+    parameters:
+      jobName: workflows_delivery
+      displayName: Legacy, development, and dashboard workflows
+      selectionArguments: >-
+        --workflow legacy-modernization
+        --workflow development-delivery
+        --workflow dashboard-quality
+      evalProfile: full
+      repeat: 3
+      semanticPolicy: required
+      installBrowser: true
+  - template: templates/quality-shard.yml
+    parameters:
+      jobName: workflows_governance
+      displayName: Research, public-sector, and Commons governance workflows
+      selectionArguments: >-
+        --workflow research-presentation
+        --workflow public-sector-delivery
+        --workflow commons-governance
+      evalProfile: full
+      repeat: 3
+      semanticPolicy: required
+      installBrowser: true
+  - template: templates/visual-validation.yml
+
+- stage: Aggregate
+  displayName: Aggregate, compare, publish, and promote last-green
+  dependsOn: FullQuality
+  condition: always()
+  jobs:
+  - template: templates/aggregate-quality.yml
+    parameters:
+      evalProfile: full
+      repeat: 3
+      promoteBaseline: true
+      runMutations: false
+      weeklyReport: false
+      historyDays: 30

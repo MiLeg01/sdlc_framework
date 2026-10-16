@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "states": [
+    {"id": "overview-desktop", "selector": "#overview", "viewport": [1440, 1000]},
+    {"id": "overview-laptop", "selector": "#overview", "viewport": [1366, 768]},
+    {"id": "requirements-desktop", "selector": "#requirements", "viewport": [1440, 1000]},
+    {"id": "specifications-desktop", "selector": "#specifications", "viewport": [1440, 1000]},
+    {"id": "traceability-desktop", "selector": "#traceability", "viewport": [1440, 1000]},
+    {"id": "detail-opener", "selector": "#detail-dialog", "viewport": [1280, 900]},
+    {"id": "mobile", "selector": "#overview", "viewport": [390, 844]},
+    {"id": "detail-mobile", "selector": "#detail-dialog", "viewport": [390, 844]},
+    {"id": "de-AT", "selector": "#overview", "viewport": [1440, 1000], "locale": "de-AT"},
+    {"id": "en", "selector": "#overview", "viewport": [1440, 1000], "locale": "en"}
+  ]
+}

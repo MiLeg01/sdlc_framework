@@ -1,0 +1,56 @@
+{
+  "repositories": {
+    "anthropics/claude-plugins-official": {
+      "full_name": "anthropics/claude-plugins-official",
+      "html_url": "https://github.com/anthropics/claude-plugins-official",
+      "description": "Official Anthropic plugin marketplace for Claude Code.",
+      "default_branch": "main",
+      "license": "Apache-2.0",
+      "revision": "3411fb9108778ca0e950db59c6511d2f7020cbc8",
+      "updated_at": "2026-08-18T15:10:52Z",
+      "pushed_at": "2026-08-18T09:20:57Z",
+      "last_commit_at": "2026-08-18T09:20:57Z",
+      "stars": 10000,
+      "topics": ["claude-code", "plugins", "agents"],
+      "tree": [
+        "plugins/code-modernization/.claude-plugin/plugin.json",
+        "plugins/code-modernization/LICENSE",
+        "plugins/code-modernization/README.md",
+        "plugins/code-modernization/agents/legacy-analyst.md",
+        "plugins/code-modernization/commands/modernize-uplift.md",
+        "plugins/code-modernization/workflows/uplift-deltas.js",
+        "plugins/code-modernization/workflows/uplift-migrate.js",
+        "plugins/example-plugin/skills/example-command/SKILL.md"
+      ],
+      "files": {
+        "plugins/code-modernization/.claude-plugin/plugin.json": "{\"name\":\"code-modernization\",\"description\":\"Modernize legacy codebases with structured assessment, mapping, business-rule extraction, transformation, and pilot-first same-stack uplift workflows.\"}",
+        "plugins/code-modernization/README.md": "# Code modernization\n\nModernize legacy systems through evidence-backed discovery and controlled execution."
+      }
+    }
+  },
+  "community_search": [
+    {
+      "full_name": "community/agent-modernization-lab",
+      "html_url": "https://github.com/community/agent-modernization-lab",
+      "description": "Agent workflows for legacy modernization and characterization testing.",
+      "default_branch": "main",
+      "license": "MIT",
+      "revision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "updated_at": "2026-08-10T00:00:00Z",
+      "pushed_at": "2026-08-10T00:00:00Z",
+      "stars": 650,
+      "topics": ["legacy-modernization", "agent-workflows"]
+    },
+    {
+      "full_name": "random-user/random-prompts",
+      "html_url": "https://github.com/random-user/random-prompts",
+      "description": "Random legacy modernization prompts.",
+      "default_branch": "main",
+      "license": null,
+      "revision": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+      "updated_at": "2020-01-01T00:00:00Z",
+      "stars": 0,
+      "topics": []
+    }
+  ]
+}

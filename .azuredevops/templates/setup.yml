@@ -1,0 +1,68 @@
+parameters:
+- name: installBrowser
+  type: boolean
+  default: false
+- name: installSemanticRuntime
+  type: boolean
+  default: false
+- name: persistCredentials
+  type: boolean
+  default: false
+
+steps:
+- checkout: self
+  clean: true
+  fetchDepth: 0
+  persistCredentials: ${{ parameters.persistCredentials }}
+
+- task: UsePythonVersion@0
+  displayName: Use Python 3.11
+  inputs:
+    versionSpec: '3.11'
+    architecture: x64
+
+- ${{ if eq(parameters.installSemanticRuntime, true) }}:
+  - bash: |
+      set -euo pipefail
+      sudo apt-get update
+      sudo apt-get install -y bubblewrap apparmor-profiles apparmor-utils
+      sudo install -m 0644 \
+        /usr/share/apparmor/extra-profiles/bwrap-userns-restrict \
+        /etc/apparmor.d/bwrap-userns-restrict
+      sudo apparmor_parser -r /etc/apparmor.d/bwrap-userns-restrict
+      bwrap --unshare-net --ro-bind / / true
+    displayName: Configure Codex Linux sandbox
+
+  - task: UseNode@1
+    displayName: Use Node.js 22 for Codex CLI
+    inputs:
+      version: '22.14.0'
+
+  - bash: |
+      set -euo pipefail
+      npm install --prefix "$(Pipeline.Workspace)/agent-commons-codex" --no-save --no-package-lock \
+        @openai/codex@0.150.1
+      codex_bin="$(Pipeline.Workspace)/agent-commons-codex/node_modules/.bin/codex"
+      "$codex_bin" --version
+      echo "##vso[task.setvariable variable=EVAL_CODEX_BIN]$codex_bin"
+    displayName: Install pinned Codex semantic runtime
+
+- ${{ if eq(parameters.installBrowser, true) }}:
+  - task: UseNode@1
+    displayName: Use Node.js 22
+    inputs:
+      version: '22.14.0'
+
+  - task: Cache@2
+    displayName: Cache pinned Playwright dependency
+    inputs:
+      key: 'playwright | "$(Agent.OS)" | "1.62.1-pixelmatch-7.1.0-pngjs-7.0.0"'
+      path: '$(Pipeline.Workspace)/agent-commons-browser'
+
+  - bash: |
+      set -euo pipefail
+      npm install --prefix "$(Pipeline.Workspace)/agent-commons-browser" --no-save --no-package-lock \
+        playwright@1.62.1 pixelmatch@7.1.0 pngjs@7.0.0
+      "$(Pipeline.Workspace)/agent-commons-browser/node_modules/.bin/playwright" install --with-deps chromium
+      echo "##vso[task.setvariable variable=AGENT_COMMONS_NODE_MODULES]$(Pipeline.Workspace)/agent-commons-browser/node_modules"
+    displayName: Install pinned Chromium runtime

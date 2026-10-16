@@ -1,0 +1,19 @@
+{
+  "schemaVersion": "1.0.0",
+  "source": {"root": "source-system", "language": "legacy-language", "fingerprint": "sha256:synthetic", "readOnly": true},
+  "target": {"root": "migration-output", "language": "target-language", "constraints": ["preserve accepted behavior"]},
+  "scope": {"included": ["module-a"], "excluded": ["module-b"]},
+  "safety": {"credentials": "external", "network": "disabled-by-default", "writeBoundary": "isolated-target", "humanReviewRequired": true},
+  "slices": [
+    {
+      "id": "SLICE-1",
+      "status": "PLANNED",
+      "sourceArtifacts": ["SRC-1"],
+      "requirements": ["REQ-1"],
+      "acceptanceScenarios": ["SCN-1"],
+      "targetArtifacts": ["target/module-a"],
+      "tests": ["tests/module-a"],
+      "validationCommands": ["python -m unittest tests.module_a"]
+    }
+  ]
+}

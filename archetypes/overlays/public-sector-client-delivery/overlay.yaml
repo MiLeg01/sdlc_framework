@@ -1,0 +1,50 @@
+{
+  "schema_version": 1,
+  "id": "public-sector-client-delivery",
+  "kind": "overlay",
+  "title": "Public-sector client delivery",
+  "purpose": "Apply evidence-based public-sector client classification, locale-aware German delivery defaults, client branding, restrained sales tone, accessibility, and output-specific validation without turning public sector into a project archetype.",
+  "compatible_archetypes": ["development", "legacy-migration", "presentation", "research"],
+  "initialization": {
+    "discover": [
+      "explicit client-sector statements, client organization, official website and corporate-design sources, geography, existing project manifest, and client terminology"
+    ],
+    "ask_if_unresolved": [
+      "public-sector status only when evidence is genuinely uncertain and changes delivery",
+      "client locale only when geography or an explicit language requirement cannot resolve it"
+    ]
+  },
+  "configuration": {
+    "confidence_levels": ["CONFIRMED", "HIGH_CONFIDENCE", "UNCERTAIN", "NOT_PUBLIC_SECTOR"],
+    "locale_by_country": {"AT": "de-AT", "DE": "de-DE", "CH": "de-CH"},
+    "dashboard": {"german_default": true, "english_available": true, "language_switch": true},
+    "sales_presentation": {"german_only": true, "bilingual": false},
+    "precedence": [
+      "explicit-project-instruction",
+      "explicit-client-requirement",
+      "public-sector-client-default",
+      "archetype-default",
+      "neutral-commons-default"
+    ]
+  },
+  "capabilities": {
+    "required": {"skills": [], "agents": [], "tools": [], "templates": []},
+    "default": {
+      "skills": ["validate-visual-artifact", "accessibility-review"],
+      "agents": [],
+      "tools": [],
+      "templates": []
+    },
+    "recommended": {"skills": [], "agents": [], "tools": [], "templates": []},
+    "optional": {"skills": [], "agents": [], "tools": [], "templates": []}
+  },
+  "conditions": [],
+  "outputs": [
+    "persisted client-sector confidence, evidence, country, and locale",
+    "separate dashboard and presentation language policies",
+    "client-branded German-default bilingual dashboard when selected",
+    "client-branded German-only sales presentation when selected",
+    "identical official favicon, logo, palette, and brand fingerprints across localized outputs",
+    "public-sector semantic, accessibility, and visual QA evidence"
+  ]
+}

@@ -1,0 +1,19 @@
+       IDENTIFICATION DIVISION.
+       PROGRAM-ID. REQUEST01.
+       DATA DIVISION.
+       WORKING-STORAGE SECTION.
+       01 REQUEST-ID PIC X(20).
+       01 REQUEST-TYPE PIC X.
+       PROCEDURE DIVISION.
+           IF REQUEST-ID = SPACES
+               GO TO INVALID-REQUEST
+           END-IF
+           IF REQUEST-TYPE = 'P'
+               CALL 'PRICE01' USING REQUEST-ID
+           ELSE
+               CALL 'STATUS01' USING REQUEST-ID
+           END-IF
+           GOBACK.
+       INVALID-REQUEST.
+           MOVE 12 TO RETURN-CODE
+           GOBACK.

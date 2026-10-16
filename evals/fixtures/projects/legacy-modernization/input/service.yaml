@@ -1,0 +1,13 @@
+openapi: 3.0.3
+info:
+  title: Synthetic Request Service
+  version: 1.0.0
+paths:
+  /requests:
+    post:
+      operationId: submitRequest
+      responses:
+        '202':
+          description: Accepted
+        '400':
+          description: Invalid request identifier

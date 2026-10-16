@@ -1,0 +1,9 @@
+{
+  "schemaVersion": "1.0.0",
+  "caseSensitiveFields": false,
+  "rules": [
+    {"id": "name", "fieldNames": ["name"], "strategy": "drop", "required": true},
+    {"id": "email", "fieldNames": ["email"], "strategy": "stable-token", "prefix": "EMAIL", "required": true},
+    {"id": "customer", "fieldNames": ["customer_id"], "strategy": "redact", "replacement": "[REDACTED]", "required": true}
+  ]
+}

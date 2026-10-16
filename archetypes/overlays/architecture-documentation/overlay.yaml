@@ -1,0 +1,104 @@
+{
+  "schema_version": 1,
+  "id": "architecture-documentation",
+  "kind": "overlay",
+  "title": "Architecture documentation and technical diagrams",
+  "purpose": "Add evidence-backed architecture views with explicit scope, abstraction, editable source, rendered output, and semantic plus visual validation.",
+  "compatible_archetypes": ["development", "legacy-migration", "presentation", "research"],
+  "initialization": {
+    "ask_if_unresolved": [
+      "architecture documentation purpose, audience, current/target/transition state, and scope",
+      "required system, component, class, ER, sequence, data-flow, or migration-roadmap views",
+      "documentation, dashboard, presentation, source-analysis, and standalone/offline destinations"
+    ]
+  },
+  "capabilities": {
+    "required": {"skills": [], "agents": [], "tools": [], "templates": []},
+    "default": {
+      "skills": ["create-technical-diagram"],
+      "agents": [],
+      "tools": ["validate-diagram-model"],
+      "templates": ["diagram-model-example", "visual-pattern-guidance"]
+    },
+    "recommended": {"skills": [], "agents": [], "tools": [], "templates": []},
+    "optional": {"skills": [], "agents": [], "tools": [], "templates": []}
+  },
+  "conditions": [
+    {
+      "id": "system-landscape-view",
+      "when": "applications, systems, actors, scope, lifecycle state, or integrations must be shown",
+      "capabilities": {
+        "skills": ["create-system-landscape-diagram"],
+        "agents": [],
+        "tools": [],
+        "templates": []
+      }
+    },
+    {
+      "id": "component-architecture-view",
+      "when": "containers, modules, services, components, owned data, or dependencies must be shown",
+      "capabilities": {
+        "skills": ["create-component-architecture-diagram"],
+        "agents": [],
+        "tools": [],
+        "templates": []
+      }
+    },
+    {
+      "id": "class-model-view",
+      "when": "selected classes, interfaces, inheritance, composition, or domain relationships must be shown",
+      "capabilities": {
+        "skills": ["create-class-diagram"],
+        "agents": [],
+        "tools": [],
+        "templates": []
+      }
+    },
+    {
+      "id": "er-data-model-view",
+      "when": "database entities, tables, keys, relationships, or cardinalities must be shown",
+      "capabilities": {
+        "skills": ["create-er-diagram"],
+        "agents": [],
+        "tools": [],
+        "templates": []
+      }
+    },
+    {
+      "id": "sequence-interaction-view",
+      "when": "ordered calls, messages, alternatives, or error paths must be shown",
+      "capabilities": {
+        "skills": ["create-sequence-diagram"],
+        "agents": [],
+        "tools": [],
+        "templates": []
+      }
+    },
+    {
+      "id": "data-flow-view",
+      "when": "data sources, transformations, stores, destinations, or lineage must be shown",
+      "capabilities": {
+        "skills": ["create-data-flow-diagram"],
+        "agents": [],
+        "tools": [],
+        "templates": []
+      }
+    },
+    {
+      "id": "migration-roadmap-view",
+      "when": "migration waves, coexistence, transition architecture, gates, and legacy retirement must be shown",
+      "capabilities": {
+        "skills": ["create-system-landscape-diagram", "create-component-architecture-diagram", "plan-work"],
+        "agents": [],
+        "tools": [],
+        "templates": []
+      }
+    }
+  ],
+  "outputs": [
+    "architecture view brief and evidence index",
+    "editable diagram source and rendered artifacts",
+    "overview and drilldowns for large models",
+    "semantic and visual validation evidence"
+  ]
+}

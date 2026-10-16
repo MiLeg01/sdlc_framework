@@ -1,0 +1,2445 @@
+{
+  "schema_version": 1,
+  "generated_from": [
+    "catalog/capabilities.yaml",
+    "archetypes/composition.yaml",
+    "adapters/*/adapter.yaml"
+  ],
+  "capabilities": [
+    {
+      "id": "accessibility-review",
+      "type": "skill",
+      "description": "Independently review a completed interface or artifact for accessibility through automated checks, keyboard journeys, focus behavior, reflow, contrast, motion, semantics, and assistive-technology evidence, then prioritize and retest findings. Use before consequential UI acceptance or release.",
+      "trigger": "Independently review a completed interface or artifact for accessibility through automated checks, keyboard journeys, focus behavior, reflow, contrast, motion, semantics, and assistive-technology evidence, then prioritize and retest findings. Use before consequential UI acceptance or release.",
+      "non_trigger": "Do not use to invent the initial design, replace user research or formal conformance certification, or claim accessibility from visual inspection alone.",
+      "archetypes": [
+        "development",
+        "presentation"
+      ],
+      "overlays": [
+        "living-dashboard",
+        "public-sector-client-delivery"
+      ],
+      "dependencies": [],
+      "provides": [
+        "accessibility-validation"
+      ],
+      "runtime_availability": [
+        "claude-code",
+        "cline",
+        "codex",
+        "opencode"
+      ],
+      "path": "skills/accessibility-review/SKILL.md"
+    },
+    {
+      "id": "analyze-legacy-system",
+      "type": "skill",
+      "description": "Orchestrate complete configured evidence-first legacy analysis by default, using inventory-backed bounded slices, safe parallel fan-out, cross-system synthesis, requirements, selected OpenSpec preparation, dashboard refresh, and a hard coverage gate. Use as the high-level entry point for initialized legacy projects; use bounded mode only when the user explicitly limits scope.",
+      "trigger": "Orchestrate complete configured evidence-first legacy analysis by default, using inventory-backed bounded slices, safe parallel fan-out, cross-system synthesis, requirements, selected OpenSpec preparation, dashboard refresh, and a hard coverage gate. Use as the high-level entry point for initialized legacy projects; use bounded mode only when the user explicitly limits scope.",
+      "non_trigger": "Do not use for target-state invention, implementation, or analysis based only on filenames, comments, or memory.",
+      "archetypes": [
+        "legacy-migration"
+      ],
+      "overlays": [],
+      "dependencies": [
+        "audit-delivery-traceability",
+        "build-living-dashboard",
+        "coordinate-parallel-agents",
+        "derive-modernization-requirements",
+        "inventory-codebase"
+      ],
+      "provides": [
+        "business-rule-extraction",
+        "complete-legacy-system-analysis",
+        "dependency-analysis",
+        "legacy-semantic-analysis",
+        "migration-boundary-analysis",
+        "reference-application-discovery-priors",
+        "reference-target-evidence-isolation",
+        "resumable-analysis-coverage",
+        "technology:cobol:source-semantic-analysis",
+        "technology:legacy-java:source-semantic-analysis",
+        "technology:pli:source-semantic-analysis"
+      ],
+      "runtime_availability": [
+        "claude-code",
+        "cline",
+        "codex",
+        "opencode"
+      ],
+      "path": "skills/analyze-legacy-system/SKILL.md"
+    },
+    {
+      "id": "anonymize-data",
+      "type": "skill",
+      "description": "Design and apply bounded, configurable data anonymization or pseudonymization with field-scoped rules, deterministic local transforms, leakage-safe reports, and explicit residual-risk validation. Use before sharing structured sensitive data across a trust boundary.",
+      "trigger": "Design and apply bounded, configurable data anonymization or pseudonymization with field-scoped rules, deterministic local transforms, leakage-safe reports, and explicit residual-risk validation. Use before sharing structured sensitive data across a trust boundary.",
+      "non_trigger": "Do not use to claim legal anonymization, infer unknown identifiers from free text, or replace privacy review and data-minimization decisions.",
+      "archetypes": [
+        "development"
+      ],
+      "overlays": [],
+      "dependencies": [
+        "generate-synthetic-fixtures",
+        "review-privacy-security"
+      ],
+      "provides": [
+        "deterministic-pseudonymization",
+        "structured-data-anonymization"
+      ],
+      "runtime_availability": [
+        "claude-code",
+        "cline",
+        "codex",
+        "opencode"
+      ],
+      "path": "skills/anonymize-data/SKILL.md"
+    },
+    {
+      "id": "audit-delivery-traceability",
+      "type": "skill",
+      "description": "Independently and read-only audit forward and reverse traceability from source through evidence, requirements, specifications, scenarios, implementation, tests, verification, and commits. Use before consequential completion, handoff, reporting, migration acceptance, or completeness claims.",
+      "trigger": "Independently and read-only audit forward and reverse traceability from source through evidence, requirements, specifications, scenarios, implementation, tests, verification, and commits. Use before consequential completion, handoff, reporting, migration acceptance, or completeness claims.",
+      "non_trigger": "Do not use to repair findings, implement missing work, or treat a generated dashboard as canonical evidence.",
+      "archetypes": [],
+      "overlays": [
+        "evidence-traceability"
+      ],
+      "dependencies": [],
+      "provides": [
+        "acceptance-verification",
+        "evidence-traceability",
+        "migration-validation"
+      ],
+      "runtime_availability": [
+        "claude-code",
+        "cline",
+        "codex",
+        "opencode"
+      ],
+      "path": "skills/audit-delivery-traceability/SKILL.md"
+    },
+    {
+      "id": "build-living-dashboard",
+      "type": "skill",
+      "description": "Deterministically generate and synchronize a read-only project, technical, management, discovery, requirements, or migration dashboard from canonical state.",
+      "trigger": "Use when evolving canonical data needs a repeatable stakeholder view and drift check.",
+      "non_trigger": "Do not use for a one-off narrative presentation, as a lifecycle editor, or when no canonical input can be exported.",
+      "archetypes": [],
+      "overlays": [
+        "living-dashboard"
+      ],
+      "dependencies": [
+        "audit-delivery-traceability",
+        "derive-modernization-requirements",
+        "localize-client-artifact",
+        "polish-html-artifact",
+        "specify-openspec-change",
+        "validate-visual-artifact",
+        "verify-openspec-implementation"
+      ],
+      "provides": [
+        "bounded-large-registers",
+        "canonical-dashboard-design-language",
+        "canonical-dashboard-information-domains",
+        "canonical-dashboard-structure",
+        "dashboard-domain-state-model",
+        "deterministic-localization-coverage",
+        "lifecycle-dashboard-qa-gate",
+        "locale-aware-public-sector-dashboard",
+        "owned-criterion-traceability",
+        "rendered-dashboard-visual-validation",
+        "requirements-dashboard",
+        "semantic-brand-role-validation",
+        "semantic-dashboard-completeness-validation",
+        "specifications-dashboard",
+        "stale-specification-detection",
+        "structural-dashboard-validation"
+      ],
+      "runtime_availability": [
+        "claude-code",
+        "cline",
+        "codex",
+        "opencode"
+      ],
+      "path": "skills/build-living-dashboard/SKILL.md"
+    },
+    {
+      "id": "complete-openspec-change",
+      "type": "skill",
+      "description": "Safely complete and archive one verified OpenSpec change, merging or deliberately skipping spec deltas and confirming the archived state. Use only after implementation verification proves the change ready to close.",
+      "trigger": "Safely complete and archive one verified OpenSpec change, merging or deliberately skipping spec deltas and confirming the archived state. Use only after implementation verification proves the change ready to close.",
+      "non_trigger": "Do not use with incomplete tasks, unresolved spec or code mismatches, failing required gates, ambiguous change selection, or research and presentation work without an OpenSpec software change.",
+      "archetypes": [
+        "development"
+      ],
+      "overlays": [],
+      "dependencies": [
+        "specify-openspec-change",
+        "verify-openspec-implementation"
+      ],
+      "provides": [
+        "openspec-archive-validation",
+        "openspec-change-completion"
+      ],
+      "runtime_availability": [
+        "claude-code",
+        "cline",
+        "codex",
+        "opencode"
+      ],
+      "path": "skills/complete-openspec-change/SKILL.md"
+    },
+    {
+      "id": "continue-project",
+      "type": "skill",
+      "description": "Inspect canonical Agent Commons project state, resolve an optional requirement, specification, dashboard reference, or safe project-local path, and perform or recommend the next lifecycle step.",
+      "trigger": "Use when resuming an initialized project, asking what comes next, or continuing a specific delivery object.",
+      "non_trigger": "Do not use to bypass approval, specification, source protection, dependency ordering, or bounded implementation ownership.",
+      "archetypes": [
+        "development",
+        "legacy-migration"
+      ],
+      "overlays": [],
+      "dependencies": [
+        "analyze-legacy-system",
+        "build-living-dashboard",
+        "derive-modernization-requirements",
+        "implement-openspec-change",
+        "implement-ready-slice",
+        "initialize-project",
+        "specify-openspec-change",
+        "verify-openspec-implementation"
+      ],
+      "provides": [
+        "next-action-resolution",
+        "project-lifecycle-continuation",
+        "project-object-resolution"
+      ],
+      "runtime_availability": [
+        "claude-code",
+        "cline",
+        "codex",
+        "opencode"
+      ],
+      "path": "skills/continue-project/SKILL.md"
+    },
+    {
+      "id": "coordinate-parallel-agents",
+      "type": "skill",
+      "description": "Coordinate two or more bounded agents through mutually exclusive ownership, isolated outputs, explicit dependencies, structured handoffs, coordinator-only integration, validation, recovery, and concurrency limits.",
+      "trigger": "Use when independent work can materially reduce elapsed time.",
+      "non_trigger": "Do not use for overlapping edits, canonical-state decisions, tiny work, or runtime-specific orchestration syntax.",
+      "archetypes": [
+        "development",
+        "legacy-migration"
+      ],
+      "overlays": [],
+      "dependencies": [],
+      "provides": [
+        "bounded-parallel-agent-coordination"
+      ],
+      "runtime_availability": [
+        "claude-code",
+        "cline",
+        "codex",
+        "opencode"
+      ],
+      "path": "skills/coordinate-parallel-agents/SKILL.md"
+    },
+    {
+      "id": "create-branded-html-artifact",
+      "type": "skill",
+      "description": "Create a polished evidence-aware HTML executive presentation, sales story, dashboard shell, or interactive technical narrative using resolved client branding or the Accenture fallback.",
+      "trigger": "Use when HTML is the chosen substantial deliverable and visual identity matters.",
+      "non_trigger": "Do not use for deterministic canonical-state dashboard generation, non-HTML delivery, or styling without an audience, evidence source, and visual brief.",
+      "archetypes": [],
+      "overlays": [
+        "branded-html"
+      ],
+      "dependencies": [
+        "polish-html-artifact",
+        "validate-visual-artifact"
+      ],
+      "provides": [],
+      "runtime_availability": [
+        "claude-code",
+        "cline",
+        "codex",
+        "opencode"
+      ],
+      "path": "skills/create-branded-html-artifact/SKILL.md"
+    },
+    {
+      "id": "create-class-diagram",
+      "type": "skill",
+      "description": "Derive and validate a focused class or domain-model diagram from selected object-oriented source code, specifications, or approved target design. Use for Java, C#, Python, TypeScript, and similar languages when inheritance, interfaces, composition, aggregation, associations, cardinality, or important members must be explained.",
+      "trigger": "Derive and validate a focused class or domain-model diagram from selected object-oriented source code, specifications, or approved target design. Use for Java, C#, Python, TypeScript, and similar languages when inheritance, interfaces, composition, aggregation, associations, cardinality, or important members must be explained.",
+      "non_trigger": "Do not use for full-repository dumps, every getter and setter, database-only models, or proposed structures presented as verified source.",
+      "archetypes": [],
+      "overlays": [
+        "architecture-documentation"
+      ],
+      "dependencies": [
+        "analyze-legacy-system",
+        "create-technical-diagram",
+        "validate-visual-artifact"
+      ],
+      "provides": [
+        "class-diagram",
+        "domain-model-visualization",
+        "uml-class-model"
+      ],
+      "runtime_availability": [
+        "claude-code",
+        "cline",
+        "codex",
+        "opencode"
+      ],
+      "path": "skills/create-class-diagram/SKILL.md"
+    },
+    {
+      "id": "create-component-architecture-diagram",
+      "type": "skill",
+      "description": "Derive and validate an application or solution architecture view at container, component, module, service, or major package level from code, configuration, contracts, and approved design evidence. Use for backend, frontend/backend, microservice, modular-monolith, target, comparison, or modernization architecture views.",
+      "trigger": "Derive and validate an application or solution architecture view at container, component, module, service, or major package level from code, configuration, contracts, and approved design evidence. Use for backend, frontend/backend, microservice, modular-monolith, target, comparison, or modernization architecture views.",
+      "non_trigger": "Do not use for enterprise landscapes, exhaustive class detail, time-ordered interactions, or proposed dependencies presented as observed current architecture.",
+      "archetypes": [],
+      "overlays": [
+        "architecture-documentation"
+      ],
+      "dependencies": [
+        "analyze-legacy-system",
+        "create-system-landscape-diagram",
+        "create-technical-diagram",
+        "validate-visual-artifact"
+      ],
+      "provides": [
+        "application-architecture-diagram",
+        "component-architecture-diagram",
+        "solution-architecture-view"
+      ],
+      "runtime_availability": [
+        "claude-code",
+        "cline",
+        "codex",
+        "opencode"
+      ],
+      "path": "skills/create-component-architecture-diagram/SKILL.md"
+    },
+    {
+      "id": "create-data-flow-diagram",
+      "type": "skill",
+      "description": "Derive and validate a logical or physical data-flow and lineage diagram showing sources, transformations, stores, interfaces, destinations, and evidenced movement of data. Use for ETL, batch, SAS, integration-heavy legacy systems, migration, lineage, privacy/security analysis, or selected pipelines at overview or drilldown level.",
+      "trigger": "Derive and validate a logical or physical data-flow and lineage diagram showing sources, transformations, stores, interfaces, destinations, and evidenced movement of data. Use for ETL, batch, SAS, integration-heavy legacy systems, migration, lineage, privacy/security analysis, or selected pipelines at overview or drilldown level.",
+      "non_trigger": "Do not use for control-flow-only logic, static component dependencies without data movement, or transformations and destinations inferred without source, configuration, schema, job, or runtime evidence.",
+      "archetypes": [],
+      "overlays": [
+        "architecture-documentation"
+      ],
+      "dependencies": [
+        "analyze-legacy-system",
+        "create-technical-diagram",
+        "review-privacy-security",
+        "validate-visual-artifact"
+      ],
+      "provides": [
+        "data-flow-diagram",
+        "data-lineage-visualization",
+        "etl-flow-visualization"
+      ],
+      "runtime_availability": [
+        "claude-code",
+        "cline",
+        "codex",
+        "opencode"
+      ],
+      "path": "skills/create-data-flow-diagram/SKILL.md"
+    },
+    {
+      "id": "create-er-diagram",
+      "type": "skill",
+      "description": "Derive and validate an entity-relationship diagram from database schemas, DDL, migrations, ORM models, or authoritative data documentation. Use to show tables or entities, primary and foreign keys, join tables, ownership, important attributes, and defensible cardinalities at domain, core-entity, or selected-schema level.",
+      "trigger": "Derive and validate an entity-relationship diagram from database schemas, DDL, migrations, ORM models, or authoritative data documentation. Use to show tables or entities, primary and foreign keys, join tables, ownership, important attributes, and defensible cardinalities at domain, core-entity, or selected-schema level.",
+      "non_trigger": "Do not use to guess relationships from column names, flatten a large database into one canvas, or treat ORM convenience mappings as physical constraints without evidence.",
+      "archetypes": [],
+      "overlays": [
+        "architecture-documentation"
+      ],
+      "dependencies": [
+        "analyze-legacy-system",
+        "create-technical-diagram",
+        "validate-visual-artifact"
+      ],
+      "provides": [
+        "data-model-visualization",
+        "database-schema-visualization",
+        "entity-relationship-diagram"
+      ],
+      "runtime_availability": [
+        "claude-code",
+        "cline",
+        "codex",
+        "opencode"
+      ],
+      "path": "skills/create-er-diagram/SKILL.md"
+    },
+    {
+      "id": "create-sequence-diagram",
+      "type": "skill",
+      "description": "Trace and validate an interaction over time as participants, ordered messages, activations, alternatives, loops, asynchronous events, and failures. Use for API requests, authentication, business processes, legacy call chains, service interactions, error paths, or current-versus-target flow comparisons when ordering matters.",
+      "trigger": "Trace and validate an interaction over time as participants, ordered messages, activations, alternatives, loops, asynchronous events, and failures. Use for API requests, authentication, business processes, legacy call chains, service interactions, error paths, or current-versus-target flow comparisons when ordering matters.",
+      "non_trigger": "Do not use for static dependency maps, unsupported branches, or a flow reconstructed only from participant names without tracing code, contracts, logs, or specifications.",
+      "archetypes": [],
+      "overlays": [
+        "architecture-documentation"
+      ],
+      "dependencies": [
+        "analyze-legacy-system",
+        "create-component-architecture-diagram",
+        "create-technical-diagram",
+        "validate-visual-artifact"
+      ],
+      "provides": [
+        "interaction-diagram",
+        "request-flow-visualization",
+        "sequence-diagram"
+      ],
+      "runtime_availability": [
+        "claude-code",
+        "cline",
+        "codex",
+        "opencode"
+      ],
+      "path": "skills/create-sequence-diagram/SKILL.md"
+    },
+    {
+      "id": "create-system-landscape-diagram",
+      "type": "skill",
+      "description": "Derive and validate a high-level system or application landscape showing actors, systems, platforms, data stores, domains, scope, lifecycle state, and evidenced integrations. Use for enterprise landscapes, modernization discovery, current/target/transition views, integration maps, or executive architecture overviews.",
+      "trigger": "Derive and validate a high-level system or application landscape showing actors, systems, platforms, data stores, domains, scope, lifecycle state, and evidenced integrations. Use for enterprise landscapes, modernization discovery, current/target/transition views, integration maps, or executive architecture overviews.",
+      "non_trigger": "Do not use for internal component detail, message ordering, database schema structure, or relationships inferred only from names and proximity.",
+      "archetypes": [],
+      "overlays": [
+        "architecture-documentation"
+      ],
+      "dependencies": [
+        "analyze-legacy-system",
+        "create-component-architecture-diagram",
+        "create-technical-diagram",
+        "validate-visual-artifact"
+      ],
+      "provides": [
+        "application-landscape-diagram",
+        "integration-map",
+        "system-landscape-diagram"
+      ],
+      "runtime_availability": [
+        "claude-code",
+        "cline",
+        "codex",
+        "opencode"
+      ],
+      "path": "skills/create-system-landscape-diagram/SKILL.md"
+    },
+    {
+      "id": "create-technical-diagram",
+      "type": "skill",
+      "description": "Select, model, render, and validate an evidence-backed technical diagram at the right abstraction for documentation, analysis, dashboards, or presentations.",
+      "trigger": "Use when the requested view is ambiguous, spans multiple diagram families, or needs shared evidence, format, decomposition, and delivery decisions.",
+      "non_trigger": "Do not use for decorative illustration, unsupported target-state invention, generic charts, or a request that already belongs unambiguously to one specialized diagram skill.",
+      "archetypes": [],
+      "overlays": [
+        "architecture-documentation"
+      ],
+      "dependencies": [
+        "build-living-dashboard",
+        "create-branded-html-artifact",
+        "create-class-diagram",
+        "create-component-architecture-diagram",
+        "create-data-flow-diagram",
+        "create-er-diagram",
+        "create-sequence-diagram",
+        "create-system-landscape-diagram",
+        "validate-visual-artifact"
+      ],
+      "provides": [
+        "diagram-format-selection",
+        "evidence-backed-diagramming",
+        "technical-diagram-routing"
+      ],
+      "runtime_availability": [
+        "claude-code",
+        "cline",
+        "codex",
+        "opencode"
+      ],
+      "path": "skills/create-technical-diagram/SKILL.md"
+    },
+    {
+      "id": "deconstruct-problem-first-principles",
+      "type": "skill",
+      "description": "Deconstruct a stated problem before planning or implementing by separating known facts from inherited assumptions, restating it plainly, naming the violated invariant or unstated constraint behind it, checking where else that constraint applies, and choosing whether to intervene at the symptom, the root cause, or the structure.",
+      "trigger": "Use when the right approach is unclear, a defect's cause is not obvious, or a design carries trade-offs worth challenging.",
+      "non_trigger": "Do not use for a trivial or fully specified change, for topic research, for reviewing a design that already exists, or to produce the plan itself.",
+      "archetypes": [],
+      "overlays": [],
+      "dependencies": [
+        "deep-research",
+        "design-test-strategy",
+        "plan-work",
+        "validate-work-item-assumptions"
+      ],
+      "provides": [
+        "intervention-level-selection",
+        "problem-deconstruction",
+        "root-cause-analysis"
+      ],
+      "runtime_availability": [
+        "claude-code",
+        "cline",
+        "codex",
+        "opencode"
+      ],
+      "path": "skills/deconstruct-problem-first-principles/SKILL.md"
+    },
+    {
+      "id": "deep-research",
+      "type": "skill",
+      "description": "Conduct structured evidence-backed topic research for decisions, reports, dashboards, or presentations.",
+      "trigger": "Conduct structured evidence-backed topic research for decisions, reports, dashboards, or presentations.",
+      "non_trigger": "Do not use for external agent-capability discovery, unsupported factual invention, or a simple lookup that does not justify a research workflow.",
+      "archetypes": [
+        "research"
+      ],
+      "overlays": [],
+      "dependencies": [],
+      "provides": [
+        "evidence-synthesis",
+        "presentation-research-handoff",
+        "structured-research"
+      ],
+      "runtime_availability": [
+        "claude-code",
+        "cline",
+        "codex",
+        "opencode"
+      ],
+      "path": "skills/deep-research/SKILL.md"
+    },
+    {
+      "id": "derive-modernization-requirements",
+      "type": "skill",
+      "description": "Convert legacy behavior, documents, interfaces, and architecture evidence into deduplicated modernization requirements with acceptance criteria, provenance, confidence, gaps, and lifecycle state. Use after bounded evidence analysis to define or reconcile target behavior.",
+      "trigger": "Convert legacy behavior, documents, interfaces, and architecture evidence into deduplicated modernization requirements with acceptance criteria, provenance, confidence, gaps, and lifecycle state. Use after bounded evidence analysis to define or reconcile target behavior.",
+      "non_trigger": "Do not use to summarize source architecture, generate requirements from memory alone, or relabel recommendations as observed facts.",
+      "archetypes": [
+        "legacy-migration"
+      ],
+      "overlays": [
+        "evidence-traceability"
+      ],
+      "dependencies": [
+        "analyze-legacy-system",
+        "build-living-dashboard",
+        "specify-openspec-change"
+      ],
+      "provides": [
+        "generic-migration-planning",
+        "requirements-extraction",
+        "target-mapping-requirements"
+      ],
+      "runtime_availability": [
+        "claude-code",
+        "cline",
+        "codex",
+        "opencode"
+      ],
+      "path": "skills/derive-modernization-requirements/SKILL.md"
+    },
+    {
+      "id": "design-frontend-architecture",
+      "type": "skill",
+      "description": "Define configurable frontend boundaries, rendering and data-flow choices, state ownership, module contracts, route composition, failure states, and design-system consumption from verified product and design-guide constraints. Use before material frontend foundations or cross-feature changes.",
+      "trigger": "Define configurable frontend boundaries, rendering and data-flow choices, state ownership, module contracts, route composition, failure states, and design-system consumption from verified product and design-guide constraints. Use before material frontend foundations or cross-feature changes.",
+      "non_trigger": "Do not use for visual styling, task sequencing, a small local component edit, or target decisions unsupported by requirements.",
+      "archetypes": [
+        "development"
+      ],
+      "overlays": [],
+      "dependencies": [
+        "frontend-design",
+        "plan-work"
+      ],
+      "provides": [
+        "frontend-architecture-design"
+      ],
+      "runtime_availability": [
+        "claude-code",
+        "cline",
+        "codex",
+        "opencode"
+      ],
+      "path": "skills/design-frontend-architecture/SKILL.md"
+    },
+    {
+      "id": "design-test-strategy",
+      "type": "skill",
+      "description": "Design a risk-based test strategy that maps observable behavior and failure modes to the smallest credible portfolio of unit, contract, integration, browser, migration, security, performance, and end-to-end tests. Use before implementation, for coverage gaps, or when test-layer choice is disputed.",
+      "trigger": "Design a risk-based test strategy that maps observable behavior and failure modes to the smallest credible portfolio of unit, contract, integration, browser, migration, security, performance, and end-to-end tests. Use before implementation, for coverage gaps, or when test-layer choice is disputed.",
+      "non_trigger": "Do not use to write production behavior, inflate coverage metrics, mandate every test layer, or replace focused TDD execution.",
+      "archetypes": [
+        "development",
+        "legacy-migration"
+      ],
+      "overlays": [],
+      "dependencies": [
+        "mutation-testing",
+        "test-driven-development"
+      ],
+      "provides": [
+        "legacy-oracle-authority",
+        "legacy-test-readiness",
+        "risk-based-test-strategy",
+        "test-layer-selection"
+      ],
+      "runtime_availability": [
+        "claude-code",
+        "cline",
+        "codex",
+        "opencode"
+      ],
+      "path": "skills/design-test-strategy/SKILL.md"
+    },
+    {
+      "id": "estimate-adm-modernization",
+      "type": "skill",
+      "description": "Scope, calibrate, aggregate, and independently review evidence-linked ADM modernization effort using non-overlapping outcome-based work units and three-point person-day estimates. Use for application development and maintenance migration, rewrite, replatform, remediation, testing, data conversion, integration replacement, cutover, or decommissioning scenarios.",
+      "trigger": "Scope, calibrate, aggregate, and independently review evidence-linked ADM modernization effort using non-overlapping outcome-based work units and three-point person-day estimates. Use for application development and maintenance migration, rewrite, replatform, remediation, testing, data conversion, integration replacement, cutover, or decommissioning scenarios.",
+      "non_trigger": "Do not use before source coverage and target outcomes are bounded, to convert source size directly into effort, or to present an unreviewed range as a commitment, schedule, staffing plan, or cost.",
+      "archetypes": [
+        "legacy-migration"
+      ],
+      "overlays": [],
+      "dependencies": [],
+      "provides": [
+        "adm-modernization-estimation",
+        "modernization-effort-estimation"
+      ],
+      "runtime_availability": [
+        "claude-code",
+        "cline",
+        "codex",
+        "opencode"
+      ],
+      "path": "skills/estimate-adm-modernization/SKILL.md"
+    },
+    {
+      "id": "execute-safe-change",
+      "type": "skill",
+      "description": "Plan and execute an authorized state-changing operation with exact target binding, a genuinely non-mutating dry run, locks, idempotency, checkpoints, redacted audit evidence, bounded retries, verification, and rollback readiness. Use for consequential repository, infrastructure, account, data, or service mutations.",
+      "trigger": "Plan and execute an authorized state-changing operation with exact target binding, a genuinely non-mutating dry run, locks, idempotency, checkpoints, redacted audit evidence, bounded retries, verification, and rollback readiness. Use for consequential repository, infrastructure, account, data, or service mutations.",
+      "non_trigger": "Do not use for read-only analysis, vague bulk authorization, irreversible actions without an accepted recovery plan, or adapters whose dry-run path can still write.",
+      "archetypes": [
+        "development"
+      ],
+      "overlays": [],
+      "dependencies": [],
+      "provides": [
+        "fail-closed-state-change"
+      ],
+      "runtime_availability": [
+        "claude-code",
+        "cline",
+        "codex",
+        "opencode"
+      ],
+      "path": "skills/execute-safe-change/SKILL.md"
+    },
+    {
+      "id": "forecast-project-financials",
+      "type": "skill",
+      "description": "Build and maintain an evidence-backed project or engagement financial forecast from an approved baseline, actuals, remaining-work drivers, scenarios, and delivery evidence. Use for budget, revenue, cost, margin, cash, earned-value, variance, or estimate-at-completion decisions.",
+      "trigger": "Build and maintain an evidence-backed project or engagement financial forecast from an approved baseline, actuals, remaining-work drivers, scenarios, and delivery evidence. Use for budget, revenue, cost, margin, cash, earned-value, variance, or estimate-at-completion decisions.",
+      "non_trigger": "Do not use for statutory accounting, tax or investment advice, unsupported commitments, or forecasts whose source data and assumptions cannot be identified.",
+      "archetypes": [],
+      "overlays": [
+        "consulting-delivery"
+      ],
+      "dependencies": [
+        "estimate-adm-modernization",
+        "manage-project-delivery"
+      ],
+      "provides": [
+        "earned-value-analysis",
+        "estimate-at-completion",
+        "forecast-scenario-analysis",
+        "project-financial-forecasting"
+      ],
+      "runtime_availability": [
+        "claude-code",
+        "cline",
+        "codex",
+        "opencode"
+      ],
+      "path": "skills/forecast-project-financials/SKILL.md"
+    },
+    {
+      "id": "frontend-design",
+      "type": "skill",
+      "description": "Establish and implement a distinctive, intentional product-interface direction covering hierarchy, typography, responsive composition, component language, data density, and interaction states. Use for new application UI or material redesign where visual and product decisions are part of the work.",
+      "trigger": "Establish and implement a distinctive, intentional product-interface direction covering hierarchy, typography, responsive composition, component language, data density, and interaction states. Use for new application UI or material redesign where visual and product decisions are part of the work.",
+      "non_trigger": "Do not use for one-off narrative presentations, brand-only styling, small maintenance edits, or downstream validation of an already complete interface.",
+      "archetypes": [
+        "development"
+      ],
+      "overlays": [],
+      "dependencies": [],
+      "provides": [
+        "frontend-product-design"
+      ],
+      "runtime_availability": [
+        "claude-code",
+        "cline",
+        "codex",
+        "opencode"
+      ],
+      "path": "skills/frontend-design/SKILL.md"
+    },
+    {
+      "id": "generate-synthetic-fixtures",
+      "type": "skill",
+      "description": "Build committed test fixtures by generating them deterministically from a reviewed allowlist specification instead of scrubbing sensitive originals, keeping the behavioral signal tests depend on while every identity value is an approved synthetic one.",
+      "trigger": "Use when a suite needs realistic documents or records derived from sensitive material that will live in version control.",
+      "non_trigger": "Do not use to transform an existing structured dataset for analysis, to purge sensitive data already committed to history, or to sanitize prose.",
+      "archetypes": [],
+      "overlays": [],
+      "dependencies": [
+        "anonymize-data",
+        "design-test-strategy",
+        "review-privacy-security",
+        "test-driven-development"
+      ],
+      "provides": [
+        "sensitive-source-test-data",
+        "synthetic-fixture-generation"
+      ],
+      "runtime_availability": [
+        "claude-code",
+        "cline",
+        "codex",
+        "opencode"
+      ],
+      "path": "skills/generate-synthetic-fixtures/SKILL.md"
+    },
+    {
+      "id": "implement-openspec-change",
+      "type": "skill",
+      "description": "Implement one approved OpenSpec change task by task with scenario traceability, tests, and controlled artifact updates when learning invalidates the plan.",
+      "trigger": "Use when a specific existing change is implementation-ready and writable.",
+      "non_trigger": "Do not use for unapproved or ambiguous changes, speculative implementation before specs, bulk unrelated work, or silent divergence from the accepted specification.",
+      "archetypes": [
+        "development"
+      ],
+      "overlays": [],
+      "dependencies": [
+        "implement-ready-slice",
+        "mutation-testing",
+        "review-openspec-change",
+        "test-driven-development",
+        "verify-openspec-implementation"
+      ],
+      "provides": [
+        "openspec-guided-implementation",
+        "specification-to-code-traceability"
+      ],
+      "runtime_availability": [
+        "claude-code",
+        "cline",
+        "codex",
+        "opencode"
+      ],
+      "path": "skills/implement-openspec-change/SKILL.md"
+    },
+    {
+      "id": "implement-ready-slice",
+      "type": "skill",
+      "description": "Deterministically shortlist, claim, implement, validate, and hand off one dependency-ready vertical slice with acceptance-scenario traceability, using recorded red-green-refactor evidence by default. Use for an approved queue or an explicitly selected bounded feature.",
+      "trigger": "Deterministically shortlist, claim, implement, validate, and hand off one dependency-ready vertical slice with acceptance-scenario traceability, using recorded red-green-refactor evidence by default. Use for an approved queue or an explicitly selected bounded feature.",
+      "non_trigger": "Do not use for tiny unqueued edits, blocked or unapproved behavior, externally owned work, or tasks without a runnable validation path.",
+      "archetypes": [
+        "development"
+      ],
+      "overlays": [],
+      "dependencies": [
+        "implement-openspec-change",
+        "mutation-testing",
+        "test-driven-development",
+        "verify-openspec-implementation"
+      ],
+      "provides": [
+        "acceptance-validation",
+        "target-architecture-design",
+        "target-implementation"
+      ],
+      "runtime_availability": [
+        "claude-code",
+        "cline",
+        "codex",
+        "opencode"
+      ],
+      "path": "skills/implement-ready-slice/SKILL.md"
+    },
+    {
+      "id": "initialize-project",
+      "type": "skill",
+      "description": "Adaptively bootstrap an empty, nearly empty, or existing project for legacy modernization, development, research, presentations, or a composition.",
+      "trigger": "Use when explicitly initializing a workspace or selecting commons composition.",
+      "non_trigger": "Do not use for ordinary work in an established project, bulk-copy the library, overwrite existing files, or add durable process to a tiny task.",
+      "archetypes": [],
+      "overlays": [],
+      "dependencies": [
+        "continue-project"
+      ],
+      "provides": [
+        "adaptive-project-initialization",
+        "client-sector-detection",
+        "output-specific-language-policy"
+      ],
+      "runtime_availability": [
+        "claude-code",
+        "cline",
+        "codex",
+        "opencode"
+      ],
+      "path": "skills/initialize-project/SKILL.md"
+    },
+    {
+      "id": "inventory-codebase",
+      "type": "skill",
+      "description": "Build a deterministic, bounded inventory of a repository or legacy source tree before interpretation.",
+      "trigger": "Use when the denominator, exclusions, classifications, hashes, batches, or drift must be established for broad analysis.",
+      "non_trigger": "Do not use for a small already-supplied file set, to infer behavior from paths, or as a substitute for source analysis.",
+      "archetypes": [
+        "development",
+        "legacy-migration"
+      ],
+      "overlays": [],
+      "dependencies": [],
+      "provides": [
+        "repository-discovery",
+        "source-boundary-validation",
+        "source-inventory"
+      ],
+      "runtime_availability": [
+        "claude-code",
+        "cline",
+        "codex",
+        "opencode"
+      ],
+      "path": "skills/inventory-codebase/SKILL.md"
+    },
+    {
+      "id": "localize-client-artifact",
+      "type": "skill",
+      "description": "Transform an existing standalone client-facing HTML dashboard, presentation, technical narrative, or management artifact into one bilingual offline artifact while preserving design, data, evidence, interactions, and technical identifiers. Use for German/English client delivery, public-sector dashboard delivery, translation of an existing HTML artifact, or adding a persistent accessible language switch.",
+      "trigger": "Transform an existing standalone client-facing HTML dashboard, presentation, technical narrative, or management artifact into one bilingual offline artifact while preserving design, data, evidence, interactions, and technical identifiers. Use for German/English client delivery, public-sector dashboard delivery, translation of an existing HTML artifact, or adding a persistent accessible language switch.",
+      "non_trigger": "Do not use for ordinary sentence translation, runtime translation services, separate per-language HTML copies, initial artifact design, or non-HTML deliverables.",
+      "archetypes": [],
+      "overlays": [
+        "bilingual-client-delivery"
+      ],
+      "dependencies": [
+        "build-living-dashboard",
+        "create-branded-html-artifact",
+        "validate-visual-artifact"
+      ],
+      "provides": [
+        "bilingual-html-delivery",
+        "client-artifact-localization",
+        "locale-aware-german-localization",
+        "state-preserving-language-switch"
+      ],
+      "runtime_availability": [
+        "claude-code",
+        "cline",
+        "codex",
+        "opencode"
+      ],
+      "path": "skills/localize-client-artifact/SKILL.md"
+    },
+    {
+      "id": "maintain-project-memory",
+      "type": "skill",
+      "description": "Create, retrieve, validate, checkpoint, invalidate, compact, and rebuild hierarchical evidence-backed project knowledge for substantial multi-session work. Use automatically when recovery cost, repeated analysis, or coordinated workflows justify durable context.",
+      "trigger": "Create, retrieve, validate, checkpoint, invalidate, compact, and rebuild hierarchical evidence-backed project knowledge for substantial multi-session work. Use automatically when recovery cost, repeated analysis, or coordinated workflows justify durable context.",
+      "non_trigger": "Do not use for tiny tasks, hidden reasoning, a second source of truth, or replacement of canonical evidence, requirements, specifications, code, or tests.",
+      "archetypes": [],
+      "overlays": [
+        "durable-state"
+      ],
+      "dependencies": [
+        "analyze-legacy-system",
+        "continue-project",
+        "coordinate-parallel-agents"
+      ],
+      "provides": [
+        "context-efficiency-benchmarking",
+        "hierarchical-context-retrieval",
+        "persistent-project-knowledge",
+        "project-checkpointing",
+        "selective-memory-invalidation"
+      ],
+      "runtime_availability": [
+        "claude-code",
+        "cline",
+        "codex",
+        "opencode"
+      ],
+      "path": "skills/maintain-project-memory/SKILL.md"
+    },
+    {
+      "id": "manage-project-delivery",
+      "type": "skill",
+      "description": "Establish and operate evidence-backed delivery governance across workstreams, dependencies, milestones, decisions, risks, actions, and status reporting. Use for multi-workstream projects or programs that need repeatable coordination and truthful health reporting.",
+      "trigger": "Establish and operate evidence-backed delivery governance across workstreams, dependencies, milestones, decisions, risks, actions, and status reporting. Use for multi-workstream projects or programs that need repeatable coordination and truthful health reporting.",
+      "non_trigger": "Do not use to define product requirements, implement delivery tasks, replace an established tracker, or present schedule and health claims without current evidence.",
+      "archetypes": [],
+      "overlays": [
+        "consulting-delivery"
+      ],
+      "dependencies": [
+        "audit-delivery-traceability",
+        "coordinate-parallel-agents",
+        "forecast-project-financials",
+        "plan-work"
+      ],
+      "provides": [
+        "dependency-aware-delivery-health",
+        "project-delivery-governance",
+        "raid-management",
+        "steering-status"
+      ],
+      "runtime_availability": [
+        "claude-code",
+        "cline",
+        "codex",
+        "opencode"
+      ],
+      "path": "skills/manage-project-delivery/SKILL.md"
+    },
+    {
+      "id": "migrate-code-with-evidence",
+      "type": "skill",
+      "description": "Migrate one bounded code slice from a read-only source into an isolated target using reconstructed behavior, accepted requirements, traceable scenarios, strict TDD, deterministic manifests, and independent verification. Use for approved code-language or platform migration with a runnable validation path.",
+      "trigger": "Migrate one bounded code slice from a read-only source into an isolated target using reconstructed behavior, accepted requirements, traceable scenarios, strict TDD, deterministic manifests, and independent verification. Use for approved code-language or platform migration with a runnable validation path.",
+      "non_trigger": "Do not use for bulk prompt translation, direct source-tree rewrites, embedded credentials, or migrations whose behavior and authority are unresolved.",
+      "archetypes": [
+        "legacy-migration"
+      ],
+      "overlays": [],
+      "dependencies": [
+        "analyze-legacy-system",
+        "derive-modernization-requirements",
+        "test-driven-development"
+      ],
+      "provides": [
+        "evidence-constrained-code-migration"
+      ],
+      "runtime_availability": [
+        "claude-code",
+        "cline",
+        "codex",
+        "opencode"
+      ],
+      "path": "skills/migrate-code-with-evidence/SKILL.md"
+    },
+    {
+      "id": "mutation-testing",
+      "type": "skill",
+      "description": "Evaluate whether an existing test suite would actually detect defective implementation behavior by running targeted mutation analysis, classifying surviving mutants against approved specifications, and strengthening tests through a behavioral hardening loop. Use after implementation reaches a stable green and refactored state, when auditing an inherited or legacy-characterization suite, or as a changed-code quality gate.",
+      "trigger": "Evaluate whether an existing test suite would actually detect defective implementation behavior by running targeted mutation analysis, classifying surviving mutants against approved specifications, and strengthening tests through a behavioral hardening loop. Use after implementation reaches a stable green and refactored state, when auditing an inherited or legacy-characterization suite, or as a changed-code quality gate.",
+      "non_trigger": "Do not use during the initial RED phase, as a substitute for test-driven development or coverage, to justify changing correct production behavior so a mutant dies, or to raise a score with implementation-coupled assertions.",
+      "archetypes": [
+        "development",
+        "legacy-migration"
+      ],
+      "overlays": [],
+      "dependencies": [
+        "build-living-dashboard",
+        "design-test-strategy",
+        "implement-ready-slice",
+        "migrate-code-with-evidence",
+        "test-driven-development",
+        "verify-openspec-implementation"
+      ],
+      "provides": [
+        "changed-code-mutation-scope",
+        "characterization-test-strength",
+        "mutation-baseline-comparison",
+        "mutation-quality-gate",
+        "mutation-test-quality",
+        "surviving-mutant-classification",
+        "test-strength-validation"
+      ],
+      "runtime_availability": [
+        "claude-code",
+        "cline",
+        "codex",
+        "opencode"
+      ],
+      "path": "skills/mutation-testing/SKILL.md"
+    },
+    {
+      "id": "plan-work",
+      "type": "skill",
+      "description": "Turn an approved objective and current repository evidence into a bounded, dependency-aware, executable plan with goals, non-goals, assumptions, acceptance criteria, ownership, milestones, validation, risks, checkpoints, and recovery. Use before substantial implementation or when sequencing and handoff matter.",
+      "trigger": "Turn an approved objective and current repository evidence into a bounded, dependency-aware, executable plan with goals, non-goals, assumptions, acceptance criteria, ownership, milestones, validation, risks, checkpoints, and recovery. Use before substantial implementation or when sequencing and handoff matter.",
+      "non_trigger": "Do not use for a trivial one-step edit, to invent unresolved product decisions, or to treat a plan as evidence that work is complete.",
+      "archetypes": [
+        "development",
+        "legacy-migration"
+      ],
+      "overlays": [
+        "architecture-documentation"
+      ],
+      "dependencies": [],
+      "provides": [
+        "implementation-planning",
+        "task-decomposition"
+      ],
+      "runtime_availability": [
+        "claude-code",
+        "cline",
+        "codex",
+        "opencode"
+      ],
+      "path": "skills/plan-work/SKILL.md"
+    },
+    {
+      "id": "polish-html-artifact",
+      "type": "skill",
+      "description": "Perform a bounded visual-finesse pass on a structurally and factually complete HTML dashboard, presentation, or technical narrative without changing its information architecture, narrative, claims, or interaction model. Use after generation and before independent validation when the artifact is correct but not yet visually finished.",
+      "trigger": "Perform a bounded visual-finesse pass on a structurally and factually complete HTML dashboard, presentation, or technical narrative without changing its information architecture, narrative, claims, or interaction model. Use after generation and before independent validation when the artifact is correct but not yet visually finished.",
+      "non_trigger": "Do not use to invent content, redesign product structure, establish a client brand, or replace independent visual and accessibility review.",
+      "archetypes": [],
+      "overlays": [],
+      "dependencies": [
+        "accessibility-review",
+        "build-living-dashboard",
+        "create-branded-html-artifact",
+        "frontend-design",
+        "validate-visual-artifact"
+      ],
+      "provides": [
+        "html-visual-finesse",
+        "rendered-polish-loop",
+        "structure-preserving-art-direction"
+      ],
+      "runtime_availability": [
+        "claude-code",
+        "cline",
+        "codex",
+        "opencode"
+      ],
+      "path": "skills/polish-html-artifact/SKILL.md"
+    },
+    {
+      "id": "promote-to-commons",
+      "type": "skill",
+      "description": "Revalidate and implement explicitly selected reusable capability proposals in the canonical Agent Commons Library, including safe abstraction choice, confidentiality and license checks, evals, provenance, catalogs, adapters, documentation, validation, reporting, and a focused commit.",
+      "trigger": "Use when the user asks to promote named or clearly selected candidates from a commons review, completeness audit, external review, or explicit source path, or invokes the workflow without a candidate to inspect and choose from the latest project review.",
+      "non_trigger": "Do not use to discover candidates, promote an entire review implicitly, mutate source projects, copy unknown-license material, or bypass independent revalidation.",
+      "archetypes": [],
+      "overlays": [],
+      "dependencies": [
+        "initialize-project",
+        "review-external-capability",
+        "review-for-commons"
+      ],
+      "provides": [
+        "controlled-commons-promotion",
+        "promotion-revalidation"
+      ],
+      "runtime_availability": [
+        "claude-code",
+        "cline",
+        "codex",
+        "opencode"
+      ],
+      "path": "skills/promote-to-commons/SKILL.md"
+    },
+    {
+      "id": "protect-git-work",
+      "type": "skill",
+      "description": "Preserve and recover repository work through explicit dirty-state ownership, staged-diff review, secret checks, bounded checkpoints, safe integration conditions, abort rules, and exact handoff from a verified Git state. Use before or during substantial edits, rebases, merges, migrations, or multi-contributor work.",
+      "trigger": "Preserve and recover repository work through explicit dirty-state ownership, staged-diff review, secret checks, bounded checkpoints, safe integration conditions, abort rules, and exact handoff from a verified Git state. Use before or during substantial edits, rebases, merges, migrations, or multi-contributor work.",
+      "non_trigger": "Do not use to erase unknown changes, rewrite shared history without authorization, bypass repository policy, or treat an unverified commit as a safe checkpoint.",
+      "archetypes": [
+        "development",
+        "legacy-migration"
+      ],
+      "overlays": [],
+      "dependencies": [],
+      "provides": [
+        "checkpoint-recovery",
+        "git-safety"
+      ],
+      "runtime_availability": [
+        "claude-code",
+        "cline",
+        "codex",
+        "opencode"
+      ],
+      "path": "skills/protect-git-work/SKILL.md"
+    },
+    {
+      "id": "review-code-change",
+      "type": "skill",
+      "description": "Review a complete code or pull-request change with full diff coverage, local-standard checks, validation evidence, severity-ranked findings, and a separate factual change summary. Use for pre-merge review, consequential patches, or re-review after corrections.",
+      "trigger": "Review a complete code or pull-request change with full diff coverage, local-standard checks, validation evidence, severity-ranked findings, and a separate factual change summary. Use for pre-merge review, consequential patches, or re-review after corrections.",
+      "non_trigger": "Do not use to implement the change while claiming independence, post comments externally without explicit authorization, or review only filenames and generated summaries.",
+      "archetypes": [
+        "development"
+      ],
+      "overlays": [],
+      "dependencies": [],
+      "provides": [
+        "evidence-backed-code-review"
+      ],
+      "runtime_availability": [
+        "claude-code",
+        "cline",
+        "codex",
+        "opencode"
+      ],
+      "path": "skills/review-code-change/SKILL.md"
+    },
+    {
+      "id": "review-external-capability",
+      "type": "skill",
+      "description": "Perform a detailed, revision-pinned review of one selected external skill, agent, command, plugin, MCP integration, hook, script, template, eval, or composite package; classify provenance, license, runtime coupling, security, semantic commons overlap, and targeted promotion candidates. Use after external discovery selects a promising item.",
+      "trigger": "Perform a detailed, revision-pinned review of one selected external skill, agent, command, plugin, MCP integration, hook, script, template, eval, or composite package; classify provenance, license, runtime coupling, security, semantic commons overlap, and targeted promotion candidates. Use after external discovery selects a promising item.",
+      "non_trigger": "Do not use to install or execute the package, review many candidates superficially, bypass licensing, copy unknown-license content, or promote directly into canonical commons.",
+      "archetypes": [],
+      "overlays": [],
+      "dependencies": [
+        "promote-to-commons"
+      ],
+      "provides": [],
+      "runtime_availability": [
+        "claude-code",
+        "cline",
+        "codex",
+        "opencode"
+      ],
+      "path": "skills/review-external-capability/SKILL.md"
+    },
+    {
+      "id": "review-for-commons",
+      "type": "skill",
+      "description": "Inspect an active project and semantically compare its proven agent workflows, skills, roles, scripts, templates, evaluations, runtime adapters, and recurring practices with the canonical Agent Commons Library, then write a sanitized project-local proposal for new, updated, replaced, duplicate, local, or rejected capabilities. Use at a meaningful project milestone, before archival, or when deciding what this project should contribute back to commons.",
+      "trigger": "Inspect an active project and semantically compare its proven agent workflows, skills, roles, scripts, templates, evaluations, runtime adapters, and recurring practices with the canonical Agent Commons Library, then write a sanitized project-local proposal for new, updated, replaced, duplicate, local, or rejected capabilities. Use at a meaningful project milestone, before archival, or when deciding what this project should contribute back to commons.",
+      "non_trigger": "Do not use to promote or install capabilities, mutate the commons library, delete project-local assets, or turn speculative and one-off behavior into global guidance.",
+      "archetypes": [],
+      "overlays": [],
+      "dependencies": [
+        "promote-to-commons"
+      ],
+      "provides": [],
+      "runtime_availability": [
+        "claude-code",
+        "cline",
+        "codex",
+        "opencode"
+      ],
+      "path": "skills/review-for-commons/SKILL.md"
+    },
+    {
+      "id": "review-openspec-change",
+      "type": "skill",
+      "description": "Review and refine an existing OpenSpec change for implementation readiness, resolving scope, ambiguity, acceptance, delta correctness, design, tasks, and validation before code changes. Use after a change exists and before implementation approval.",
+      "trigger": "Review and refine an existing OpenSpec change for implementation readiness, resolving scope, ambiguity, acceptance, delta correctness, design, tasks, and validation before code changes. Use after a change exists and before implementation approval.",
+      "non_trigger": "Do not use to create duplicate changes, implement code, certify completed implementation, or approve unresolved product decisions by assumption.",
+      "archetypes": [
+        "development",
+        "legacy-migration"
+      ],
+      "overlays": [],
+      "dependencies": [
+        "implement-openspec-change",
+        "specify-openspec-change"
+      ],
+      "provides": [
+        "openspec-readiness-review",
+        "specification-ambiguity-resolution"
+      ],
+      "runtime_availability": [
+        "claude-code",
+        "cline",
+        "codex",
+        "opencode"
+      ],
+      "path": "skills/review-openspec-change/SKILL.md"
+    },
+    {
+      "id": "review-privacy-security",
+      "type": "skill",
+      "description": "Review a system, design, change, or workflow for privacy and security using evidence-backed data-flow mapping, trust boundaries, abuse paths, minimization, secrets, logging, retention, isolation, negative tests, and claim limits. Use before consequential delivery or when sensitive data and privileged operations are in scope.",
+      "trigger": "Review a system, design, change, or workflow for privacy and security using evidence-backed data-flow mapping, trust boundaries, abuse paths, minimization, secrets, logging, retention, isolation, negative tests, and claim limits. Use before consequential delivery or when sensitive data and privileged operations are in scope.",
+      "non_trigger": "Do not use as a compliance certification, a substitute for authorized penetration testing, or an implementation task presented as independent review.",
+      "archetypes": [
+        "development"
+      ],
+      "overlays": [],
+      "dependencies": [],
+      "provides": [
+        "privacy-security-review"
+      ],
+      "runtime_availability": [
+        "claude-code",
+        "cline",
+        "codex",
+        "opencode"
+      ],
+      "path": "skills/review-privacy-security/SKILL.md"
+    },
+    {
+      "id": "sales-storytelling",
+      "type": "skill",
+      "description": "Transform evidence and source material into a credible audience-specific sales presentation narrative and call to action.",
+      "trigger": "Transform evidence and source material into a credible audience-specific sales presentation narrative and call to action.",
+      "non_trigger": "Do not use to fabricate proof, force a generic sales-deck formula, or replace visual artifact construction and QA.",
+      "archetypes": [],
+      "overlays": [
+        "sales-storytelling"
+      ],
+      "dependencies": [],
+      "provides": [
+        "evidence-backed-sales-narrative",
+        "native-client-language-sales-narrative",
+        "public-sector-sales-tone",
+        "sales-presentation-methodology"
+      ],
+      "runtime_availability": [
+        "claude-code",
+        "cline",
+        "codex",
+        "opencode"
+      ],
+      "path": "skills/sales-storytelling/SKILL.md"
+    },
+    {
+      "id": "search-external-capabilities",
+      "type": "skill",
+      "description": "Search configured official, curated, and community sources for reusable open-source agent-engineering capabilities relevant to a topic or project, then return ranked revision-aware candidates without installing or promoting them. Use before designing substantial agent workflows when external precedent may reduce blind spots.",
+      "trigger": "Search configured official, curated, and community sources for reusable open-source agent-engineering capabilities relevant to a topic or project, then return ranked revision-aware candidates without installing or promoting them. Use before designing substantial agent workflows when external precedent may reduce blind spots.",
+      "non_trigger": "Do not use to install packages, trust discovery results, copy third-party content, crawl arbitrary websites, or modify canonical commons automatically.",
+      "archetypes": [],
+      "overlays": [],
+      "dependencies": [],
+      "provides": [],
+      "runtime_availability": [
+        "claude-code",
+        "cline",
+        "codex",
+        "opencode"
+      ],
+      "path": "skills/search-external-capabilities/SKILL.md"
+    },
+    {
+      "id": "specify-openspec-change",
+      "type": "skill",
+      "description": "Create or refine one OpenSpec change so intended behavior, scope, acceptance scenarios, design, and implementation tasks are agreed before code changes. Use for features, behavioral bug fixes, consequential technical changes, and explicitly OpenSpec-managed work.",
+      "trigger": "Create or refine one OpenSpec change so intended behavior, scope, acceptance scenarios, design, and implementation tasks are agreed before code changes. Use for features, behavioral bug fixes, consequential technical changes, and explicitly OpenSpec-managed work.",
+      "non_trigger": "Do not use for implementation, post-hoc specification of finished code, research or presentation work, or a trivial edit that does not justify durable change state.",
+      "archetypes": [
+        "development",
+        "legacy-migration"
+      ],
+      "overlays": [],
+      "dependencies": [
+        "build-living-dashboard",
+        "derive-modernization-requirements",
+        "implement-openspec-change",
+        "plan-work",
+        "review-openspec-change",
+        "test-driven-development"
+      ],
+      "provides": [
+        "acceptance-scenario-definition",
+        "openspec-change-specification",
+        "specification-first-development"
+      ],
+      "runtime_availability": [
+        "claude-code",
+        "cline",
+        "codex",
+        "opencode"
+      ],
+      "path": "skills/specify-openspec-change/SKILL.md"
+    },
+    {
+      "id": "test-driven-development",
+      "type": "skill",
+      "description": "Drive an approved behavior change through a strict, evidence-recorded red-green-refactor loop at the narrowest credible test level. Use for ordinary features, regressions, services, components, migrations, and unqueued bounded changes with a runnable test path.",
+      "trigger": "Drive an approved behavior change through a strict, evidence-recorded red-green-refactor loop at the narrowest credible test level. Use for ordinary features, regressions, services, components, migrations, and unqueued bounded changes with a runnable test path.",
+      "non_trigger": "Do not use for documentation-only edits, exploratory spikes with no asserted behavior, blocked decisions, or work whose environment cannot demonstrate a behavior-relevant RED state, and do not run the mutation quality check before meaningful implementation exists.",
+      "archetypes": [
+        "development",
+        "legacy-migration"
+      ],
+      "overlays": [],
+      "dependencies": [
+        "design-test-strategy",
+        "implement-openspec-change",
+        "implement-ready-slice",
+        "mutation-testing",
+        "specify-openspec-change",
+        "verify-openspec-implementation"
+      ],
+      "provides": [
+        "behavior-first-implementation",
+        "test-driven-development"
+      ],
+      "runtime_availability": [
+        "claude-code",
+        "cline",
+        "codex",
+        "opencode"
+      ],
+      "path": "skills/test-driven-development/SKILL.md"
+    },
+    {
+      "id": "update-commons-presentation",
+      "type": "skill",
+      "description": "Bring the standalone Agent Commons sales and technical presentation up to date after meaningful canonical-library changes by refreshing generated facts first, classifying narrative impact, making only warranted authored-content changes, preserving the locked visual system, and running technical and visual QA. Use after releases, promotions, new capabilities, architecture or governance changes, or when asked to refresh or update the Agent Commons presentation.",
+      "trigger": "Bring the standalone Agent Commons sales and technical presentation up to date after meaningful canonical-library changes by refreshing generated facts first, classifying narrative impact, making only warranted authored-content changes, preserving the locked visual system, and running technical and visual QA. Use after releases, promotions, new capabilities, architecture or governance changes, or when asked to refresh or update the Agent Commons presentation.",
+      "non_trigger": "Do not use for factual synchronization alone when the deterministic refresh tool is sufficient, to redesign the presentation, or to change claims without canonical evidence.",
+      "archetypes": [],
+      "overlays": [],
+      "dependencies": [
+        "promote-to-commons",
+        "validate-visual-artifact"
+      ],
+      "provides": [
+        "presentation-impact-classification",
+        "presentation-narrative-maintenance"
+      ],
+      "runtime_availability": [
+        "claude-code",
+        "cline",
+        "codex",
+        "opencode"
+      ],
+      "path": "skills/update-commons-presentation/SKILL.md"
+    },
+    {
+      "id": "validate-visual-artifact",
+      "type": "skill",
+      "description": "Independently validate a completed HTML dashboard, presentation, portal, or web UI through static checks and bounded real-browser inspection. Use after a complete artifact exists and before consequential review or release.",
+      "trigger": "Independently validate a completed HTML dashboard, presentation, portal, or web UI through static checks and bounded real-browser inspection. Use after a complete artifact exists and before consequential review or release.",
+      "non_trigger": "Do not use to invent the initial design, replace accessibility or business acceptance testing, or claim browser coverage when required states are unreachable.",
+      "archetypes": [],
+      "overlays": [
+        "bilingual-client-delivery",
+        "branded-html",
+        "living-dashboard",
+        "public-sector-client-delivery"
+      ],
+      "dependencies": [],
+      "provides": [],
+      "runtime_availability": [
+        "claude-code",
+        "cline",
+        "codex",
+        "opencode"
+      ],
+      "path": "skills/validate-visual-artifact/SKILL.md"
+    },
+    {
+      "id": "validate-work-item-assumptions",
+      "type": "skill",
+      "description": "Read-only check of whether a previously filed work item's stated assumptions about current system state still hold, returning confirmed, changed, and unverified claims plus one materiality verdict. Use before planning, estimating, reopening, or reviewing an item that was filed earlier than now.",
+      "trigger": "Read-only check of whether a previously filed work item's stated assumptions about current system state still hold, returning confirmed, changed, and unverified claims plus one materiality verdict. Use before planning, estimating, reopening, or reviewing an item that was filed earlier than now.",
+      "non_trigger": "Do not use to decide whether the work proceeds, to propose a revised approach, to edit the item or any other file, or to review a change that is already in progress.",
+      "archetypes": [],
+      "overlays": [],
+      "dependencies": [
+        "continue-project",
+        "implement-ready-slice",
+        "plan-work",
+        "review-openspec-change"
+      ],
+      "provides": [
+        "pre-planning-staleness-check",
+        "work-item-assumption-validation"
+      ],
+      "runtime_availability": [
+        "claude-code",
+        "cline",
+        "codex",
+        "opencode"
+      ],
+      "path": "skills/validate-work-item-assumptions/SKILL.md"
+    },
+    {
+      "id": "verify-openspec-implementation",
+      "type": "skill",
+      "description": "Independently verify that a completed implementation satisfies one OpenSpec change across requirements, scenarios, tasks, design, tests, and repository gates. Use after implementation and before archive or closure.",
+      "trigger": "Independently verify that a completed implementation satisfies one OpenSpec change across requirements, scenarios, tasks, design, tests, and repository gates. Use after implementation and before archive or closure.",
+      "non_trigger": "Do not use to implement missing behavior, rewrite the specification to match code, treat checked boxes as proof, or archive a change with unresolved critical mismatches.",
+      "archetypes": [
+        "development"
+      ],
+      "overlays": [],
+      "dependencies": [
+        "audit-delivery-traceability",
+        "build-living-dashboard",
+        "complete-openspec-change",
+        "design-test-strategy",
+        "implement-openspec-change",
+        "mutation-testing",
+        "test-driven-development"
+      ],
+      "provides": [
+        "openspec-implementation-verification",
+        "specification-code-test-reconciliation"
+      ],
+      "runtime_availability": [
+        "claude-code",
+        "cline",
+        "codex",
+        "opencode"
+      ],
+      "path": "skills/verify-openspec-implementation/SKILL.md"
+    },
+    {
+      "id": "architecture-reviewer",
+      "type": "agent",
+      "description": "",
+      "trigger": "",
+      "non_trigger": "",
+      "archetypes": [],
+      "overlays": [],
+      "dependencies": [],
+      "provides": [],
+      "runtime_availability": [
+        "claude-code",
+        "cline",
+        "codex",
+        "opencode"
+      ],
+      "path": "agents/architecture-reviewer.yaml"
+    },
+    {
+      "id": "financial-forecast-reviewer",
+      "type": "agent",
+      "description": "",
+      "trigger": "",
+      "non_trigger": "",
+      "archetypes": [],
+      "overlays": [],
+      "dependencies": [],
+      "provides": [],
+      "runtime_availability": [
+        "claude-code",
+        "cline",
+        "codex",
+        "opencode"
+      ],
+      "path": "agents/financial-forecast-reviewer.yaml"
+    },
+    {
+      "id": "legacy-discovery-specialist",
+      "type": "agent",
+      "description": "",
+      "trigger": "",
+      "non_trigger": "",
+      "archetypes": [],
+      "overlays": [],
+      "dependencies": [],
+      "provides": [],
+      "runtime_availability": [
+        "claude-code",
+        "cline",
+        "codex",
+        "opencode"
+      ],
+      "path": "agents/legacy-discovery-specialist.yaml"
+    },
+    {
+      "id": "privacy-security-reviewer",
+      "type": "agent",
+      "description": "",
+      "trigger": "",
+      "non_trigger": "",
+      "archetypes": [],
+      "overlays": [],
+      "dependencies": [],
+      "provides": [],
+      "runtime_availability": [
+        "claude-code",
+        "cline",
+        "codex",
+        "opencode"
+      ],
+      "path": "agents/privacy-security-reviewer.yaml"
+    },
+    {
+      "id": "test-behavior-reviewer",
+      "type": "agent",
+      "description": "",
+      "trigger": "",
+      "non_trigger": "",
+      "archetypes": [],
+      "overlays": [],
+      "dependencies": [],
+      "provides": [],
+      "runtime_availability": [
+        "claude-code",
+        "cline",
+        "codex",
+        "opencode"
+      ],
+      "path": "agents/test-behavior-reviewer.yaml"
+    },
+    {
+      "id": "analyze-project-delivery",
+      "type": "tool",
+      "description": "",
+      "trigger": "",
+      "non_trigger": "",
+      "archetypes": [],
+      "overlays": [],
+      "dependencies": [],
+      "provides": [],
+      "runtime_availability": [
+        "claude-code",
+        "cline",
+        "codex",
+        "opencode"
+      ],
+      "path": "skills/manage-project-delivery/scripts/analyze_project_delivery.py"
+    },
+    {
+      "id": "anonymize-structured-data",
+      "type": "tool",
+      "description": "",
+      "trigger": "",
+      "non_trigger": "",
+      "archetypes": [],
+      "overlays": [],
+      "dependencies": [],
+      "provides": [],
+      "runtime_availability": [
+        "claude-code",
+        "cline",
+        "codex",
+        "opencode"
+      ],
+      "path": "skills/anonymize-data/scripts/anonymize_data.py"
+    },
+    {
+      "id": "audit-trace-graph",
+      "type": "tool",
+      "description": "",
+      "trigger": "",
+      "non_trigger": "",
+      "archetypes": [],
+      "overlays": [],
+      "dependencies": [],
+      "provides": [],
+      "runtime_availability": [
+        "claude-code",
+        "cline",
+        "codex",
+        "opencode"
+      ],
+      "path": "skills/audit-delivery-traceability/scripts/audit_trace_graph.py"
+    },
+    {
+      "id": "audit-trace-matrix",
+      "type": "tool",
+      "description": "",
+      "trigger": "",
+      "non_trigger": "",
+      "archetypes": [],
+      "overlays": [],
+      "dependencies": [],
+      "provides": [],
+      "runtime_availability": [
+        "claude-code",
+        "cline",
+        "codex",
+        "opencode"
+      ],
+      "path": "skills/audit-delivery-traceability/scripts/audit_trace_matrix.py"
+    },
+    {
+      "id": "build-capability-index",
+      "type": "tool",
+      "description": "",
+      "trigger": "",
+      "non_trigger": "",
+      "archetypes": [],
+      "overlays": [],
+      "dependencies": [],
+      "provides": [],
+      "runtime_availability": [
+        "claude-code",
+        "cline",
+        "codex",
+        "opencode"
+      ],
+      "path": "tools/build_capability_index.py"
+    },
+    {
+      "id": "build-dashboard",
+      "type": "tool",
+      "description": "",
+      "trigger": "",
+      "non_trigger": "",
+      "archetypes": [],
+      "overlays": [],
+      "dependencies": [],
+      "provides": [],
+      "runtime_availability": [
+        "claude-code",
+        "cline",
+        "codex",
+        "opencode"
+      ],
+      "path": "skills/build-living-dashboard/scripts/build_dashboard.py"
+    },
+    {
+      "id": "calculate-project-financial-forecast",
+      "type": "tool",
+      "description": "",
+      "trigger": "",
+      "non_trigger": "",
+      "archetypes": [],
+      "overlays": [],
+      "dependencies": [],
+      "provides": [],
+      "runtime_availability": [
+        "claude-code",
+        "cline",
+        "codex",
+        "opencode"
+      ],
+      "path": "skills/forecast-project-financials/scripts/calculate_project_forecast.py"
+    },
+    {
+      "id": "check-presentation-visual-contract",
+      "type": "tool",
+      "description": "",
+      "trigger": "",
+      "non_trigger": "",
+      "archetypes": [],
+      "overlays": [],
+      "dependencies": [],
+      "provides": [],
+      "runtime_availability": [
+        "claude-code",
+        "cline",
+        "codex",
+        "opencode"
+      ],
+      "path": "tools/check_presentation_visual_contract.py"
+    },
+    {
+      "id": "commit-policy",
+      "type": "tool",
+      "description": "",
+      "trigger": "",
+      "non_trigger": "",
+      "archetypes": [],
+      "overlays": [],
+      "dependencies": [],
+      "provides": [],
+      "runtime_availability": [
+        "claude-code",
+        "cline",
+        "codex",
+        "opencode"
+      ],
+      "path": "tools/commit_policy.py"
+    },
+    {
+      "id": "coordinate-legacy-analysis",
+      "type": "tool",
+      "description": "",
+      "trigger": "",
+      "non_trigger": "",
+      "archetypes": [],
+      "overlays": [],
+      "dependencies": [],
+      "provides": [],
+      "runtime_availability": [
+        "claude-code",
+        "cline",
+        "codex",
+        "opencode"
+      ],
+      "path": "skills/analyze-legacy-system/scripts/coordinate_analysis.py"
+    },
+    {
+      "id": "external-capabilities",
+      "type": "tool",
+      "description": "",
+      "trigger": "",
+      "non_trigger": "",
+      "archetypes": [],
+      "overlays": [],
+      "dependencies": [],
+      "provides": [],
+      "runtime_availability": [
+        "claude-code",
+        "cline",
+        "codex",
+        "opencode"
+      ],
+      "path": "tools/external_capabilities.py"
+    },
+    {
+      "id": "extract-legacy-structure",
+      "type": "tool",
+      "description": "",
+      "trigger": "",
+      "non_trigger": "",
+      "archetypes": [],
+      "overlays": [],
+      "dependencies": [],
+      "provides": [],
+      "runtime_availability": [
+        "claude-code",
+        "cline",
+        "codex",
+        "opencode"
+      ],
+      "path": "skills/analyze-legacy-system/scripts/extract_legacy_structure.py"
+    },
+    {
+      "id": "inventory-codebase-tool",
+      "type": "tool",
+      "description": "",
+      "trigger": "",
+      "non_trigger": "",
+      "archetypes": [],
+      "overlays": [],
+      "dependencies": [],
+      "provides": [],
+      "runtime_availability": [
+        "claude-code",
+        "cline",
+        "codex",
+        "opencode"
+      ],
+      "path": "skills/inventory-codebase/scripts/inventory_codebase.py"
+    },
+    {
+      "id": "manage-project-memory",
+      "type": "tool",
+      "description": "",
+      "trigger": "",
+      "non_trigger": "",
+      "archetypes": [],
+      "overlays": [],
+      "dependencies": [],
+      "provides": [],
+      "runtime_availability": [
+        "claude-code",
+        "cline",
+        "codex",
+        "opencode"
+      ],
+      "path": "skills/maintain-project-memory/scripts/manage_project_memory.py"
+    },
+    {
+      "id": "plan-parallel-execution",
+      "type": "tool",
+      "description": "",
+      "trigger": "",
+      "non_trigger": "",
+      "archetypes": [],
+      "overlays": [],
+      "dependencies": [],
+      "provides": [],
+      "runtime_availability": [
+        "claude-code",
+        "cline",
+        "codex",
+        "opencode"
+      ],
+      "path": "tools/plan_parallel_execution.py"
+    },
+    {
+      "id": "project-runtime-manager",
+      "type": "tool",
+      "description": "",
+      "trigger": "",
+      "non_trigger": "",
+      "archetypes": [],
+      "overlays": [],
+      "dependencies": [],
+      "provides": [],
+      "runtime_availability": [
+        "claude-code",
+        "cline",
+        "codex",
+        "opencode"
+      ],
+      "path": "tools/project_runtimes.py"
+    },
+    {
+      "id": "rank-ready-slices",
+      "type": "tool",
+      "description": "",
+      "trigger": "",
+      "non_trigger": "",
+      "archetypes": [],
+      "overlays": [],
+      "dependencies": [],
+      "provides": [],
+      "runtime_availability": [
+        "claude-code",
+        "cline",
+        "codex",
+        "opencode"
+      ],
+      "path": "skills/implement-ready-slice/scripts/rank_slices.py"
+    },
+    {
+      "id": "refresh-commons-presentation",
+      "type": "tool",
+      "description": "",
+      "trigger": "",
+      "non_trigger": "",
+      "archetypes": [],
+      "overlays": [],
+      "dependencies": [],
+      "provides": [],
+      "runtime_availability": [
+        "claude-code",
+        "cline",
+        "codex",
+        "opencode"
+      ],
+      "path": "tools/refresh_commons_presentation.py"
+    },
+    {
+      "id": "resolve-archetypes",
+      "type": "tool",
+      "description": "",
+      "trigger": "",
+      "non_trigger": "",
+      "archetypes": [],
+      "overlays": [],
+      "dependencies": [],
+      "provides": [],
+      "runtime_availability": [
+        "claude-code",
+        "cline",
+        "codex",
+        "opencode"
+      ],
+      "path": "tools/resolve_archetypes.py"
+    },
+    {
+      "id": "resolve-capability-gaps",
+      "type": "tool",
+      "description": "",
+      "trigger": "",
+      "non_trigger": "",
+      "archetypes": [],
+      "overlays": [],
+      "dependencies": [],
+      "provides": [],
+      "runtime_availability": [
+        "claude-code",
+        "cline",
+        "codex",
+        "opencode"
+      ],
+      "path": "tools/resolve_capability_gaps.py"
+    },
+    {
+      "id": "resolve-project-continuation",
+      "type": "tool",
+      "description": "",
+      "trigger": "",
+      "non_trigger": "",
+      "archetypes": [],
+      "overlays": [],
+      "dependencies": [],
+      "provides": [],
+      "runtime_availability": [
+        "claude-code",
+        "cline",
+        "codex",
+        "opencode"
+      ],
+      "path": "skills/continue-project/scripts/resolve_project_continuation.py"
+    },
+    {
+      "id": "run-evaluations",
+      "type": "tool",
+      "description": "",
+      "trigger": "",
+      "non_trigger": "",
+      "archetypes": [],
+      "overlays": [],
+      "dependencies": [],
+      "provides": [],
+      "runtime_availability": [
+        "claude-code",
+        "cline",
+        "codex",
+        "opencode"
+      ],
+      "path": "tools/evals/run_evals.py"
+    },
+    {
+      "id": "run-external-discovery",
+      "type": "tool",
+      "description": "",
+      "trigger": "",
+      "non_trigger": "",
+      "archetypes": [],
+      "overlays": [],
+      "dependencies": [],
+      "provides": [],
+      "runtime_availability": [
+        "claude-code",
+        "cline",
+        "codex",
+        "opencode"
+      ],
+      "path": "tools/run_external_discovery.py"
+    },
+    {
+      "id": "runtime-adapters",
+      "type": "tool",
+      "description": "",
+      "trigger": "",
+      "non_trigger": "",
+      "archetypes": [],
+      "overlays": [],
+      "dependencies": [],
+      "provides": [],
+      "runtime_availability": [
+        "claude-code",
+        "cline",
+        "codex",
+        "opencode"
+      ],
+      "path": "tools/runtime_adapters.py"
+    },
+    {
+      "id": "select-impacted-evaluations",
+      "type": "tool",
+      "description": "",
+      "trigger": "",
+      "non_trigger": "",
+      "archetypes": [],
+      "overlays": [],
+      "dependencies": [],
+      "provides": [],
+      "runtime_availability": [
+        "claude-code",
+        "cline",
+        "codex",
+        "opencode"
+      ],
+      "path": "tools/evals/select_impacted_evals.py"
+    },
+    {
+      "id": "summarize-adm-estimate",
+      "type": "tool",
+      "description": "",
+      "trigger": "",
+      "non_trigger": "",
+      "archetypes": [],
+      "overlays": [],
+      "dependencies": [],
+      "provides": [],
+      "runtime_availability": [
+        "claude-code",
+        "cline",
+        "codex",
+        "opencode"
+      ],
+      "path": "skills/estimate-adm-modernization/scripts/summarize_adm_estimate.py"
+    },
+    {
+      "id": "sync-presentation",
+      "type": "tool",
+      "description": "",
+      "trigger": "",
+      "non_trigger": "",
+      "archetypes": [],
+      "overlays": [],
+      "dependencies": [],
+      "provides": [],
+      "runtime_availability": [
+        "claude-code",
+        "cline",
+        "codex",
+        "opencode"
+      ],
+      "path": "tools/sync_presentation.py"
+    },
+    {
+      "id": "validate-client-localization",
+      "type": "tool",
+      "description": "",
+      "trigger": "",
+      "non_trigger": "",
+      "archetypes": [],
+      "overlays": [],
+      "dependencies": [],
+      "provides": [],
+      "runtime_availability": [
+        "claude-code",
+        "cline",
+        "codex",
+        "opencode"
+      ],
+      "path": "skills/localize-client-artifact/scripts/validate_localization.py"
+    },
+    {
+      "id": "validate-commons",
+      "type": "tool",
+      "description": "",
+      "trigger": "",
+      "non_trigger": "",
+      "archetypes": [],
+      "overlays": [],
+      "dependencies": [],
+      "provides": [],
+      "runtime_availability": [
+        "claude-code",
+        "cline",
+        "codex",
+        "opencode"
+      ],
+      "path": "tools/validate_commons.py"
+    },
+    {
+      "id": "validate-dashboard-semantics",
+      "type": "tool",
+      "description": "",
+      "trigger": "",
+      "non_trigger": "",
+      "archetypes": [],
+      "overlays": [],
+      "dependencies": [],
+      "provides": [],
+      "runtime_availability": [
+        "claude-code",
+        "cline",
+        "codex",
+        "opencode"
+      ],
+      "path": "skills/build-living-dashboard/scripts/validate_dashboard_semantics.py"
+    },
+    {
+      "id": "validate-dashboard-structure",
+      "type": "tool",
+      "description": "",
+      "trigger": "",
+      "non_trigger": "",
+      "archetypes": [],
+      "overlays": [],
+      "dependencies": [],
+      "provides": [],
+      "runtime_availability": [
+        "claude-code",
+        "cline",
+        "codex",
+        "opencode"
+      ],
+      "path": "skills/build-living-dashboard/scripts/validate_dashboard_structure.py"
+    },
+    {
+      "id": "validate-dashboard-visual",
+      "type": "tool",
+      "description": "",
+      "trigger": "",
+      "non_trigger": "",
+      "archetypes": [],
+      "overlays": [],
+      "dependencies": [],
+      "provides": [],
+      "runtime_availability": [
+        "claude-code",
+        "cline",
+        "codex",
+        "opencode"
+      ],
+      "path": "skills/build-living-dashboard/scripts/validate_dashboard_visual.py"
+    },
+    {
+      "id": "validate-diagram-model",
+      "type": "tool",
+      "description": "",
+      "trigger": "",
+      "non_trigger": "",
+      "archetypes": [],
+      "overlays": [],
+      "dependencies": [],
+      "provides": [],
+      "runtime_availability": [
+        "claude-code",
+        "cline",
+        "codex",
+        "opencode"
+      ],
+      "path": "skills/create-technical-diagram/scripts/validate_diagram_model.py"
+    },
+    {
+      "id": "validate-html",
+      "type": "tool",
+      "description": "",
+      "trigger": "",
+      "non_trigger": "",
+      "archetypes": [],
+      "overlays": [],
+      "dependencies": [],
+      "provides": [],
+      "runtime_availability": [
+        "claude-code",
+        "cline",
+        "codex",
+        "opencode"
+      ],
+      "path": "skills/validate-visual-artifact/scripts/validate_html.py"
+    },
+    {
+      "id": "validate-migration-manifest",
+      "type": "tool",
+      "description": "",
+      "trigger": "",
+      "non_trigger": "",
+      "archetypes": [],
+      "overlays": [],
+      "dependencies": [],
+      "provides": [],
+      "runtime_availability": [
+        "claude-code",
+        "cline",
+        "codex",
+        "opencode"
+      ],
+      "path": "skills/migrate-code-with-evidence/scripts/validate_migration_manifest.py"
+    },
+    {
+      "id": "acceptance-audit-template",
+      "type": "template",
+      "description": "",
+      "trigger": "",
+      "non_trigger": "",
+      "archetypes": [],
+      "overlays": [],
+      "dependencies": [],
+      "provides": [],
+      "runtime_availability": [
+        "claude-code",
+        "cline",
+        "codex",
+        "opencode"
+      ],
+      "path": "templates/reports/acceptance-audit.template.md"
+    },
+    {
+      "id": "bilingual-artifact-runtime",
+      "type": "template",
+      "description": "",
+      "trigger": "",
+      "non_trigger": "",
+      "archetypes": [],
+      "overlays": [],
+      "dependencies": [],
+      "provides": [],
+      "runtime_availability": [
+        "claude-code",
+        "cline",
+        "codex",
+        "opencode"
+      ],
+      "path": "skills/localize-client-artifact/assets/bilingual-runtime.js"
+    },
+    {
+      "id": "dashboard-data-example",
+      "type": "template",
+      "description": "",
+      "trigger": "",
+      "non_trigger": "",
+      "archetypes": [],
+      "overlays": [],
+      "dependencies": [],
+      "provides": [],
+      "runtime_availability": [
+        "claude-code",
+        "cline",
+        "codex",
+        "opencode"
+      ],
+      "path": "skills/build-living-dashboard/assets/dashboard-data.example.json"
+    },
+    {
+      "id": "dashboard-shell",
+      "type": "template",
+      "description": "",
+      "trigger": "",
+      "non_trigger": "",
+      "archetypes": [],
+      "overlays": [],
+      "dependencies": [],
+      "provides": [],
+      "runtime_availability": [
+        "claude-code",
+        "cline",
+        "codex",
+        "opencode"
+      ],
+      "path": "skills/build-living-dashboard/assets/dashboard-shell.html"
+    },
+    {
+      "id": "dashboard-structure",
+      "type": "template",
+      "description": "",
+      "trigger": "",
+      "non_trigger": "",
+      "archetypes": [],
+      "overlays": [],
+      "dependencies": [],
+      "provides": [],
+      "runtime_availability": [
+        "claude-code",
+        "cline",
+        "codex",
+        "opencode"
+      ],
+      "path": "skills/build-living-dashboard/assets/dashboard-structure.json"
+    },
+    {
+      "id": "diagram-model-example",
+      "type": "template",
+      "description": "",
+      "trigger": "",
+      "non_trigger": "",
+      "archetypes": [],
+      "overlays": [],
+      "dependencies": [],
+      "provides": [],
+      "runtime_availability": [
+        "claude-code",
+        "cline",
+        "codex",
+        "opencode"
+      ],
+      "path": "skills/create-technical-diagram/assets/diagram-model.example.json"
+    },
+    {
+      "id": "editorial-html-shell",
+      "type": "template",
+      "description": "",
+      "trigger": "",
+      "non_trigger": "",
+      "archetypes": [],
+      "overlays": [],
+      "dependencies": [],
+      "provides": [],
+      "runtime_availability": [
+        "claude-code",
+        "cline",
+        "codex",
+        "opencode"
+      ],
+      "path": "skills/create-branded-html-artifact/assets/editorial-shell.html"
+    },
+    {
+      "id": "evidence-analysis-template",
+      "type": "template",
+      "description": "",
+      "trigger": "",
+      "non_trigger": "",
+      "archetypes": [],
+      "overlays": [],
+      "dependencies": [],
+      "provides": [],
+      "runtime_availability": [
+        "claude-code",
+        "cline",
+        "codex",
+        "opencode"
+      ],
+      "path": "templates/reports/evidence-analysis.template.md"
+    },
+    {
+      "id": "evidence-record-example",
+      "type": "template",
+      "description": "",
+      "trigger": "",
+      "non_trigger": "",
+      "archetypes": [],
+      "overlays": [],
+      "dependencies": [],
+      "provides": [],
+      "runtime_availability": [
+        "claude-code",
+        "cline",
+        "codex",
+        "opencode"
+      ],
+      "path": "skills/derive-modernization-requirements/assets/evidence-record.example.json"
+    },
+    {
+      "id": "localization-manifest-example",
+      "type": "template",
+      "description": "",
+      "trigger": "",
+      "non_trigger": "",
+      "archetypes": [],
+      "overlays": [],
+      "dependencies": [],
+      "provides": [],
+      "runtime_availability": [
+        "claude-code",
+        "cline",
+        "codex",
+        "opencode"
+      ],
+      "path": "skills/localize-client-artifact/assets/localization-manifest.example.json"
+    },
+    {
+      "id": "project-instructions-template",
+      "type": "template",
+      "description": "",
+      "trigger": "",
+      "non_trigger": "",
+      "archetypes": [],
+      "overlays": [],
+      "dependencies": [],
+      "provides": [],
+      "runtime_availability": [
+        "claude-code",
+        "cline",
+        "codex",
+        "opencode"
+      ],
+      "path": "templates/agents/AGENTS.template.md"
+    },
+    {
+      "id": "project-memory-template-set",
+      "type": "template",
+      "description": "",
+      "trigger": "",
+      "non_trigger": "",
+      "archetypes": [],
+      "overlays": [],
+      "dependencies": [],
+      "provides": [],
+      "runtime_availability": [
+        "claude-code",
+        "cline",
+        "codex",
+        "opencode"
+      ],
+      "path": "skills/maintain-project-memory/assets/project-memory"
+    },
+    {
+      "id": "requirement-record-example",
+      "type": "template",
+      "description": "",
+      "trigger": "",
+      "non_trigger": "",
+      "archetypes": [],
+      "overlays": [],
+      "dependencies": [],
+      "provides": [],
+      "runtime_availability": [
+        "claude-code",
+        "cline",
+        "codex",
+        "opencode"
+      ],
+      "path": "skills/derive-modernization-requirements/assets/requirement-record.example.json"
+    },
+    {
+      "id": "research-plan-template",
+      "type": "template",
+      "description": "",
+      "trigger": "",
+      "non_trigger": "",
+      "archetypes": [],
+      "overlays": [],
+      "dependencies": [],
+      "provides": [],
+      "runtime_availability": [
+        "claude-code",
+        "cline",
+        "codex",
+        "opencode"
+      ],
+      "path": "templates/research/research-plan.template.md"
+    },
+    {
+      "id": "research-synthesis-template",
+      "type": "template",
+      "description": "",
+      "trigger": "",
+      "non_trigger": "",
+      "archetypes": [],
+      "overlays": [],
+      "dependencies": [],
+      "provides": [],
+      "runtime_availability": [
+        "claude-code",
+        "cline",
+        "codex",
+        "opencode"
+      ],
+      "path": "templates/research/research-synthesis.template.md"
+    },
+    {
+      "id": "sales-narrative-template",
+      "type": "template",
+      "description": "",
+      "trigger": "",
+      "non_trigger": "",
+      "archetypes": [],
+      "overlays": [],
+      "dependencies": [],
+      "provides": [],
+      "runtime_availability": [
+        "claude-code",
+        "cline",
+        "codex",
+        "opencode"
+      ],
+      "path": "templates/presentations/sales-narrative.template.md"
+    },
+    {
+      "id": "visual-pattern-guidance",
+      "type": "template",
+      "description": "",
+      "trigger": "",
+      "non_trigger": "",
+      "archetypes": [],
+      "overlays": [],
+      "dependencies": [],
+      "provides": [],
+      "runtime_availability": [
+        "claude-code",
+        "cline",
+        "codex",
+        "opencode"
+      ],
+      "path": "templates/visual-patterns"
+    }
+  ]
+}

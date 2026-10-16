@@ -1,0 +1,11 @@
+{
+  "schema_version": 1,
+  "expected_facts": [
+    {"id": "all-state-domains", "severity": "CRITICAL", "text": "Languages, modules, complexity, requirements, specifications, open questions, tests, and architecture are represented."},
+    {"id": "test-quality-domain", "severity": "CRITICAL", "text": "Test quality remains a visible canonical dashboard domain."},
+    {"id": "read-only", "severity": "CRITICAL", "text": "The dashboard cannot mutate lifecycle state."},
+    {"id": "representative-visuals", "severity": "MAJOR", "text": "Overview, architecture, requirements, estimation, detail opener, and mobile states are captured."}
+  ],
+  "invariants": ["no browser errors", "no structural overflow", "canonical design grammar is preserved", "pixel-perfect equality is not the sole criterion"],
+  "hard_assertions": ["required_dashboard_domains_present", "ownership_preserved", "test-quality-domain", "read-only"]
+}

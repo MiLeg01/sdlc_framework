@@ -1,0 +1,53 @@
+{
+  "schema_version": 1,
+  "as_of": "2026-09-02",
+  "workstreams": [
+    {
+      "id": "WS-1",
+      "title": "Confirm delivery baseline",
+      "status": "DONE",
+      "owner": "delivery-lead",
+      "planned_start": "2026-08-24",
+      "planned_end": "2026-08-26",
+      "duration_days": 2,
+      "progress": 1.0,
+      "dependencies": [],
+      "evidence": ["baseline-approved"]
+    },
+    {
+      "id": "WS-2",
+      "title": "Integrate workstream outputs",
+      "status": "IN_PROGRESS",
+      "owner": "workstream-lead",
+      "planned_start": "2026-08-27",
+      "planned_end": "2026-09-01",
+      "duration_days": 4,
+      "progress": 0.6,
+      "dependencies": ["WS-1"],
+      "evidence": ["integration-checkpoint"]
+    },
+    {
+      "id": "WS-3",
+      "title": "Complete acceptance and handoff",
+      "status": "PLANNED",
+      "owner": "acceptance-owner",
+      "planned_start": "2026-09-02",
+      "planned_end": "2026-09-05",
+      "duration_days": 3,
+      "progress": 0.0,
+      "dependencies": ["WS-2"],
+      "evidence": []
+    }
+  ],
+  "risks": [
+    {
+      "id": "RISK-1",
+      "description": "Dependency output may arrive late",
+      "likelihood": 4,
+      "impact": 4,
+      "owner": "delivery-lead",
+      "status": "OPEN",
+      "mitigation": "Daily checkpoint until integration completes"
+    }
+  ]
+}

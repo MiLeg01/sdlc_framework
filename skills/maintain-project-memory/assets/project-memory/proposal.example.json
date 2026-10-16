@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "producer": {"id": "bounded-analysis-worker", "validation_status": "PASS"},
+  "domains": [{"id": "cobol", "summary": "Validated COBOL control flow and business rules."}],
+  "records": [
+    {
+      "id": "COMP-004",
+      "layer": "L2",
+      "domain": "cobol",
+      "entity": {"id": "BAQHRBKZ", "type": "COBOL_PROGRAM"},
+      "statement": "The program validates the request before invoking the host boundary.",
+      "confidence": "VERIFIED",
+      "canonical_refs": [{"path": "analysis/cobol/BAQHRBKZ.json", "id": "FLOW-012"}],
+      "evidence": [{"path": "client_input/BAQHRBKZ.cbl", "lines": "120-188", "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"}],
+      "relationships": [{"type": "PROGRAM_CALLS_API", "target": "API-007", "external": true}],
+      "tags": ["validation", "request-flow"]
+    }
+  ],
+  "checkpoint": {"id": "LANGUAGE_ANALYSIS_COMPLETE", "status": "VALIDATED", "canonical_refs": [{"path": "analysis/cobol/summary.json"}]}
+}

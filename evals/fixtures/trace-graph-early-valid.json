@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "nodes": [
+    {"id": "SRC-001", "type": "source", "status": "observed"},
+    {"id": "EVD-001", "type": "evidence", "status": "draft"}
+  ],
+  "edges": [
+    {"source": "SRC-001", "target": "EVD-001", "type": "supports", "reciprocal_type": "derived_from"},
+    {"source": "EVD-001", "target": "SRC-001", "type": "derived_from"}
+  ],
+  "lifecycle_rules": [],
+  "generated_views": []
+}

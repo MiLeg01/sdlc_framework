@@ -1,0 +1,83 @@
+{
+  "schema_version": 1,
+  "id": "agent-commons-living-dashboard-v3",
+  "basis": "Canonical Agent Commons visual and interaction grammar for substantial read-only engineering dashboards.",
+  "design_language": {
+    "thesis": "quiet technical editorial",
+    "composition": "flat hierarchy, bounded reading width, deliberate asymmetry, and dense progressive disclosure",
+    "content_width": "full-width sections with a shared bounded content field and readable text measures",
+    "navigation": "fixed utility and brand header plus compact grouped horizontal rail; bottom grouped rail on mobile",
+    "surfaces": "mostly flat sections and ruled registers with selective status, metric, action, and evidence-drawer surfaces",
+    "detail_pattern": "one shared modal evidence drawer anchored to the right edge",
+    "branding_policy": "brand tokens and identity may vary; geometry, section grammar, density, and interaction patterns may not"
+  },
+  "required_tokens": [
+    "--content-max",
+    "--measure",
+    "--space-section",
+    "--space-component",
+    "--type-display-xl",
+    "--type-display-lg",
+    "--type-body"
+  ],
+  "required_css_fragments": [
+    ".topbar{position:fixed;z-index:50;inset:0 0 auto;height:5.35rem",
+    ".rail{position:fixed;z-index:45;top:5.35rem;right:0;left:0;height:2.7rem",
+    ".nav-shell{display:flex;width:min(100%,58rem);height:100%;margin:auto}",
+    ".view{width:100%;min-width:0;padding:var(--space-section)",
+    ".view-overview{position:relative;overflow:hidden;background:var(--paper)}",
+    ".view-overview .section-body{display:grid;grid-template-columns:minmax(0,1.58fr) minmax(19rem,.42fr)",
+    ".view-overview [data-dashboard-region=denominator-metrics]{grid-column:1 / -1;grid-row:2}",
+    ".hero-card{padding:.2rem 0 1.6rem;background:transparent}",
+    ".view-decision-brief .section-body,.view-modernization .section-body{display:grid;grid-template-columns:repeat(12,minmax(0,1fr))",
+    ".record-list{display:grid;grid-template-columns:1fr;gap:0;border-top:1px solid var(--line-strong)}",
+    ".register-toolbar{display:flex;justify-content:space-between",
+    ".record-card{display:grid;grid-template-columns:minmax(15rem,.72fr) minmax(0,1.28fr)",
+    ".metric-grid{gap:1px;border:1px solid var(--line);background:var(--line)}",
+    "table{width:100%;border-collapse:collapse",
+    "dialog{width:min(44rem,calc(100% - 2rem));height:100dvh",
+    ".dialog-actions{display:flex;gap:.75rem;align-items:center}",
+    "@media(max-width:720px)",
+    ".rail{top:auto;bottom:0;height:3.75rem}",
+    ".record-meta{grid-template-columns:1fr}"
+  ],
+  "forbidden_css_patterns": [
+    "linear-gradient(",
+    "radial-gradient(",
+    "conic-gradient(",
+    "backdrop-filter:",
+    "filter:blur(",
+    "text-shadow:",
+    "animation:"
+  ],
+  "anti_drift": {
+    "maximum_default_radius_px": 4,
+    "allowed_pill_selectors": [".language-switch", ".language-switch button"],
+    "prohibit_every_fact_as_card": true,
+    "prohibit_decorative_gradients": true,
+    "prohibit_glassmorphism": true,
+    "prohibit_neon_palette": true,
+    "prohibit_oversized_empty_hero": true,
+    "require_flat_record_register": true,
+    "require_bounded_content_field": true
+    ,"require_bounded_large_registers": true,
+    "require_state_preserving_locale_switch": true,
+    "require_semantic_brand_roles": true,
+    "require_lifecycle_qa_gate": true
+  },
+  "required_rendered_states": [
+    {"id": "overview-desktop", "viewport": [1440, 1000], "selector": "#overview"},
+    {"id": "overview-laptop", "viewport": [1366, 768], "selector": "#overview"},
+    {"id": "decision-brief-desktop", "viewport": [1440, 1000], "selector": "#decision-brief"},
+    {"id": "stakeholder-questions-desktop", "viewport": [1440, 1000], "selector": "#stakeholder-questions"},
+    {"id": "modernization-desktop", "viewport": [1440, 1000], "selector": "#modernization"},
+    {"id": "requirements-desktop", "viewport": [1440, 1000], "selector": "#requirements"},
+    {"id": "specifications-desktop", "viewport": [1440, 1000], "selector": "#specifications"},
+    {"id": "application-map-desktop", "viewport": [1440, 1000], "selector": "#application-map"},
+    {"id": "traceability-desktop", "viewport": [1440, 1000], "selector": "#traceability"},
+    {"id": "detail-opener", "viewport": [1280, 900], "selector": "#detail-dialog"},
+    {"id": "mobile", "viewport": [390, 844], "selector": "#overview"},
+    {"id": "mobile-navigation", "viewport": [390, 844], "selector": ".rail"},
+    {"id": "detail-mobile", "viewport": [390, 844], "selector": "#detail-dialog"}
+  ]
+}

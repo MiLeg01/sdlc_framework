@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "scope": "all supplied artifacts",
+  "files": [
+    {
+      "path": "evals/fixtures/legacy-structure/sample.cbl",
+      "language": "COBOL",
+      "sha256": "02d70cd468f6aa2e4eafa33105ecc7c811e070cf46f6137e94b111f50bedb2f4"
+    },
+    {
+      "path": "evals/fixtures/legacy-structure/Sample.java",
+      "language": "Java",
+      "sha256": "20d4c32aadd29d6e4df40aed04ff3475c69e21acf4a25a61e8c43d4892dcf156"
+    },
+    {
+      "path": "evals/fixtures/legacy-structure/sample.sql",
+      "language": "SQL",
+      "sha256": "8490a3759344cdc20d347acf9fff3f1bd86078525944bf8149ef2670484a3ff0"
+    }
+  ],
+  "excluded": [],
+  "unreadable": [],
+  "expected_accounted_count": 3
+}

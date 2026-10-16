@@ -1,0 +1,749 @@
+version: 1
+skills:
+  initialize-project:
+    positive: "Start research followed by a client-branded sales presentation using supplied timeline and deck references; infer public-sector locale and output policy when evidence supports it."
+    negative: "Translate this sentence."
+    ambiguous: "Help me start a project" # inspect first, then ask adaptive scope/goal questions
+    expected: ["natural-language composition", "research and presentation settings", "structured project references", "canonical dashboard structure without a layout question", "separate client dashboard and presentation policies", "semantic capability comparison", "AGENTS.md project governance", ".agent-commons.yaml capability references", "stable canonical skill IDs", "bounded next action"]
+    invariants: ["no overwrite", "no automatic capability execution", "no re-asking supplied topic audience sector or locale", "explicit output override wins", "references project-local", "no external search before user choice", "Git only when absent and desired"]
+    failures: ["large questionnaire", "asking discoverable facts", "combination archetype proliferation", "client reference promoted globally", "discovery treated as installation"]
+  continue-project:
+    positive: "Continue this initialized migration project, or continue REQ-023 from its current lifecycle state."
+    negative: "Ignore the unresolved requirement and start coding the entire backlog."
+    ambiguous: "What should I do next?" # inspect canonical project state and return one exact safe action or concise choices
+    expected: ["project governance", "manifest and canonical state", "relevant project memory", "stable ID or safe path resolution", "lifecycle stage", "blockers", "canonical capability and subject", "explicit runtime invocation", "dashboard synchronization"]
+    invariants: ["orchestration only", "manifest does not execute automatically", "no unanchored coding", "OpenSpec before required implementation", "TDD remains canonical", "batch mode explicit", "unsafe parallelism rejected"]
+    failures: ["dashboard treated as editable truth", "arbitrary specification selected", "requirement without specification implemented", "path escape accepted", "entire backlog started by default"]
+    scenarios:
+      initialized_analysis_project:
+        fixture: "A legacy source is configured but analysis has not started."
+        expected: ["analyze-legacy-system", "exact next action"]
+      requirements_missing:
+        fixture: "Legacy analysis is complete but required requirements are missing."
+        expected: ["derive-modernization-requirements"]
+      specifications_missing:
+        fixture: "Approved requirements exist and migration preparation requires OpenSpec, but specifications are missing."
+        expected: ["specify-openspec-change", "no implementation"]
+      explicit_specification:
+        fixture: "SPEC-007 is ready and the user invokes continue-project SPEC-007."
+        expected: ["implement-openspec-change SPEC-007", "test-driven-development handoff"]
+      validation_pending:
+        fixture: "Implementation is complete but OpenSpec verification is incomplete."
+        expected: ["verify-openspec-implementation"]
+      everything_current:
+        fixture: "Every in-scope specification is implemented and validated."
+        expected: ["no required action", "optional actions only"]
+      explicit_batch:
+        fixture: "The user explicitly requests all ready specifications."
+        expected: ["dependency ordering", "safe concurrency analysis", "bounded slices", "validation", "dashboard refresh"]
+  deconstruct-problem-first-principles:
+    positive: "Before we plan this, work out what the actual problem is — the obvious fix feels like it is treating a symptom."
+    negative: "You have already worked out the cause; now write the implementation plan and sequence the tasks."
+    ambiguous: "This bug keeps coming back" # verify the stated claims against current evidence, then name the violated invariant before proposing anything
+    expected: ["claims verified against code, configuration, data, and history rather than the statement alone", "known separated from inherited framing", "problem restated in plain language", "violated invariant or unstated constraint named explicitly", "other sites where the same constraint applies", "intervention level chosen and justified"]
+    invariants: ["steps worked in order with no conclusion before step three", "failing test, error, and trace are not treated as complete truth", "requester framing is not adopted as constraint", "all three intervention levels remain legitimate", "the level choice is recorded rather than implicit", "analysis only, no implementation and no plan", "observed evidence separated from interpretation"]
+    failures: ["conclusion formed at step one and justified afterwards", "stated solution accepted as the requirement", "root cause asserted from the problem statement without grounding", "second site found but left unreported", "structural change recommended by default", "symptom patched with the choice left implicit", "deconstruction continued into a plan or a fix"]
+    scenarios:
+      solution_disguised_as_requirement:
+        fixture: "The request names a specific mechanism to add rather than the outcome it needs."
+        expected: ["framing marked as inherited", "underlying requirement recovered", "mechanism not adopted as a constraint"]
+      surface_is_not_origin:
+        fixture: "A failing test points at one component while the violated invariant lives in another."
+        expected: ["trace not treated as complete truth", "invariant named where it actually breaks"]
+      inversion_finds_second_site:
+        fixture: "The same assumption is relied on by another code path outside the reported scope."
+        expected: ["second site reported", "reported even though out of scope"]
+      local_patch_is_correct:
+        fixture: "The cheapest correct fix is at the symptom and a structural change would be disproportionate."
+        expected: ["symptom level chosen", "reason recorded", "not treated as a failure of the analysis"]
+      cannot_be_restated:
+        fixture: "The problem cannot be expressed in plain language without the existing implementation's vocabulary."
+        expected: ["reported as a finding", "not written around"]
+      constraint_is_a_product_decision:
+        fixture: "The real constraint turns out to be an unresolved business decision rather than a technical one."
+        expected: ["stopped and returned", "decision named", "no technical approach invented to cover it"]
+  deep-research:
+    positive: "Research the European banking modernization market, including supplied reports and diagrams, and produce evidence suitable for an executive presentation."
+    negative: "Search GitHub for agent skills and install the most popular one."
+    ambiguous: "Find out more about this market" # establish question, audience, decision, scope, and depth
+    expected: ["research question", "evidence plan", "attachment inventory and exact locators when supplied", "multiple perspectives", "structured findings", "claim provenance", "presentation-ready synthesis when selected"]
+    invariants: ["authoritative sources preferred where appropriate", "fact separated from synthesis", "contradictions retained", "no unsupported invention"]
+    failures: ["link list presented as synthesis", "search snippets cited as sources", "visual reference used as factual evidence"]
+  sales-storytelling:
+    positive: "Turn the validated modernization research into a native-German public-sector sales narrative for CIOs that earns a workshop."
+    negative: "Invent a customer case study and quantified ROI to make the deck persuasive."
+    ambiguous: "Make this presentation sell" # establish audience, desired action, evidence, proof, and objections
+    expected: ["persisted client language and terminology", "audience and decision", "specific message hierarchy", "proof and differentiation", "objection handling", "call to action"]
+    invariants: ["claims remain evidence-backed", "known German output authored natively rather than translated after drafting", "public-sector tone remains restrained and persuasive", "brand is not factual proof"]
+    failures: ["generic problem solution features benefits template", "fabricated customer pain", "unsupported proof"]
+  review-for-commons:
+    positive: "Review this active project against the current Agent Commons Library and propose only evidence-backed changes."
+    negative: "Promote every project skill into my global commons now."
+    ambiguous: "What should this project contribute back?" # inspect evidence and compare; zero proposals is valid
+    expected: ["commons-review.md", "commons-review.json", "stable candidate IDs", "semantic comparison", "prioritized proposal"]
+    invariants: ["commons remains unchanged", "project changes are report-only", "sensitive details excluded", "counts reconcile", "candidate IDs are selectors not approval"]
+    failures: ["promoting filenames instead of behavior", "automatic promotion", "forced candidates", "confidential excerpts"]
+    scenarios:
+      clearly_reusable_new_local_skill:
+        fixture: "A repeatedly used generic local skill has no semantic commons equivalent."
+        expected: ["NEW", "new candidate", "trigger", "non-trigger", "proposed type", "promotion evals"]
+      client_specific_local_skill:
+        fixture: "A local skill encodes one client's proprietary approval rules."
+        expected: ["PROJECT_LOCAL", "intentionally project-local", "no promotion"]
+      local_skill_duplicates_commons:
+        fixture: "A local repository inventory skill matches inventory-codebase behavior with no material improvement."
+        expected: ["EXACT or OVERLAP", "local duplicate or no-change update", "not a new skill"]
+      significant_existing_skill_improvement:
+        fixture: "Repeated project use reveals a missing validation step in an existing commons skill."
+        expected: ["EXTENSION", "existing update candidate", "concrete change", "compatibility", "evals required"]
+      no_reusable_learning:
+        fixture: "The project contains only ordinary application code and one-off instructions."
+        expected: ["zero priority proposals", "project-local or rejected findings", "no forced proposal"]
+      reusable_pattern_outside_agents:
+        fixture: "A deterministic script and repeated prompt workflow solve a generic problem but no local SKILL.md exists."
+        expected: ["candidate discovered", "source paths", "correct artifact type", "not limited to .agents"]
+      sensitive_material_mixed_with_reusable_workflow:
+        fixture: "A reusable validation workflow is mixed with client names, internal URLs, and proprietary schemas."
+        expected: ["sanitized abstraction or PROJECT_LOCAL", "no confidential content", "sensitive path segments redacted", "generalization recorded"]
+      better_dashboard_structure:
+        fixture: "A project dashboard repeatedly proves a stronger navigation or drill-down pattern than the canonical living-dashboard structure."
+        expected: ["structural comparison", "candidate improvement", "explicit promotion proposal", "no silent global redefinition", "branding differences rejected as structure evidence"]
+  promote-to-commons:
+    positive: "Promote the explicitly approved P0-001 TDD candidate from the current project's commons review."
+    negative: "Review this project and tell me what might be reusable someday."
+    ambiguous: "Promote to commons" # inspect the latest review, present choices, and make no mutation
+    collision: "Review an external capability for license and overlap, but do not promote it yet."
+    expected: ["explicit selection", "independent revalidation", "canonical disposition", "evals", "provenance", "catalog synchronization", "validation", "focused commit", "promotion report"]
+    invariants: ["review is not approval", "source project read-only", "unselected candidates untouched", "unknown license blocks copying", "failed validation blocks success", "no forced mutation"]
+    failures: ["promote entire review implicitly", "blindly trust proposal", "client leakage", "duplicate capability", "agent without delegation value", "unrelated changes committed"]
+    scenarios:
+      a_new_reusable_skill:
+        fixture: "The user explicitly selects one mature generic project workflow with no semantic commons equivalent."
+        expected: ["PROMOTE_NEW", "canonical skill", "positive negative collision and failure evals", "provenance", "catalog", "validation"]
+      b_existing_skill_update:
+        fixture: "The selected discovery adds one proven validation step to an existing commons skill."
+        expected: ["PROMOTE_UPDATE", "existing skill changed", "regression eval", "no duplicate or versioned skill"]
+      c_already_covered:
+        fixture: "The selected candidate is semantically covered by an existing capability."
+        expected: ["BLOCK_DUPLICATE", "no canonical behavior mutation", "explanation"]
+      d_client_specific:
+        fixture: "The selected workflow contains client approval rules and private system names."
+        expected: ["safe generalization or BLOCK_CONFIDENTIAL", "no client leakage", "source unchanged"]
+      e_external_valid_license:
+        fixture: "The selected external candidate has a revision-pinned compatible license and approved review."
+        expected: ["source revision trust and license", "relationship type", "smallest generalized change", "external provenance"]
+      f_external_unknown_license:
+        fixture: "The selected external candidate has no verified license."
+        expected: ["BLOCK_LICENSE", "no copied or adapted source", "no canonical activation"]
+      g_ambiguous_selection:
+        fixture: "The latest review contains three candidates and the user names none."
+        expected: ["concise selectable candidates", "no mutation", "ask for selection"]
+      h_select_one_of_many:
+        fixture: "The user selects P0-002 and explicitly excludes the migration helper."
+        expected: ["only P0-002 processed", "exclusion recorded", "other candidates untouched"]
+      i_agent_without_delegation_value:
+        fixture: "The proposal labels a workflow as an agent but it adds no independent role or isolation value."
+        expected: ["BLOCK_WRONG_ABSTRACTION or skill disposition", "no canonical agent wrapper"]
+      j_routing_collision:
+        fixture: "A proposed skill cannot state a distinct trigger from an existing testing skill."
+        expected: ["collision detected", "merge rewrite or block", "no synonym-only distinction"]
+      k_validation_failure:
+        fixture: "The canonical change is implemented but an affected adapter validation fails."
+        expected: ["validation failed", "no success claim", "no final promotion commit until resolved"]
+      l_tdd_promotion:
+        fixture: "The user explicitly selects TDD from a completeness audit that marks commons coverage partial."
+        expected: ["audit evidence read", "historical implementations inspected", "existing testing skills compared", "independent disposition", "no blind copy"]
+  inventory-codebase:
+    positive: "Inventory this legacy tree and create non-overlapping batches before analysis."
+    negative: "Explain this already supplied five-line function."
+    ambiguous: "Analyze the repository" # inventory when denominator or structure is unknown
+    expected: ["stable artifact records", "fingerprint", "counts", "batches"]
+    invariants: ["protected paths pruned", "one disposition per eligible path"]
+    failures: ["behavior inferred from names", "silent unreadable omissions", "symlink escape"]
+  maintain-project-memory:
+    positive: "Checkpoint this validated milestone, preserve evidence-backed project knowledge, and build the minimum context needed for the next task."
+    negative: "Use the handoff as proof of a business rule."
+    ambiguous: "Continue where we left off" # reconcile memory with Git and canonical state
+    expected: ["L0 synopsis", "selected L1/L2 retrieval", "verified current state", "source fingerprint", "checkpoint", "one next action"]
+    invariants: ["canonical state wins", "project-local storage", "no top-level memory directory", "no secrets or raw logs", "confidence preserved"]
+    failures: ["chat transcript", "one giant memory file", "worker rewrites global memory", "conflict overwritten", "future work recorded as complete", "vague continue step"]
+    scenarios:
+      automatic_substantial_project:
+        fixture: "A standard-scale legacy or development project is initialized."
+        expected: ["durable-state", "lazy .agent-commons/memory", "no memory opt-in question"]
+      tiny_task:
+        fixture: "A tiny single-session task has negligible recovery cost."
+        expected: ["project memory disabled", "no memory tree"]
+      selective_resume:
+        fixture: "Six validated slices are unchanged and three remain."
+        expected: ["L0 plus relevant domain context", "six slices reused", "only remaining work loaded"]
+      source_change:
+        fixture: "One shared copybook hash changes."
+        expected: ["direct and dependency-linked records STALE", "unrelated Java memory current"]
+      contradiction:
+        fixture: "Two validated workers disagree about one business rule."
+        expected: ["CONFLICTING", "both variants and evidence preserved", "synthesis required"]
+      compaction:
+        fixture: "Warm project memory has grown across phases."
+        expected: ["HOT summary rebuilt from structured records", "L2 and evidence retained", "no summary-of-summary drift"]
+  analyze-legacy-system:
+    positive: "Analyze this configured legacy system, including every in-scope language, support artifact, integration, and required downstream artifact."
+    negative: "Invent the target UI from class names."
+    ambiguous: "What does this old application do?" # resolve configured scope and default to FULL
+    expected: ["initialized project governance and manifest", "FULL and DEEP default", "one validated inventory", "bounded context packages", "safe parallel fan-out", "isolated evidence packets", "central cross-system synthesis", "coverage register", "depth register", "requirements/OpenSpec by project mode", "canonical dashboard refresh", "coverage-plus-depth completion gate", "explicit reference profile boundary when configured", "exact next action"]
+    invariants: ["source read-only", "manifest configures but does not execute", "observation separated from interpretation", "bounded mode explicit", "workers do not edit coverage requirements dashboard project memory lifecycle Git staging or commits", "canonical IDs allocated at fan-in", "no implementation during analysis", "MEASURED separated from ASSESSED", "reference application is a discovery prior and never target evidence"]
+    failures: ["first slice reported as complete system", "filename seen treated as analyzed", "validation exists without the rule", "comments treated as behavior", "dynamic calls silently dropped", "unaccounted source omitted", "critical PARTIAL component called complete", "worker rewrites dashboard", "reference-only observation promoted to target fact"]
+    scenarios:
+      full_default:
+        fixture: "The configured source root contains COBOL, PL/I, Java, contracts, copy/includes, and runtime configuration; the user supplies no scope limiter."
+        expected: ["FULL", "all eligible artifacts assigned", "parallel domain stage", "system synthesis", "no interaction between slices"]
+      explicit_bounded:
+        fixture: "The user explicitly asks to analyze only one COBOL program and operation."
+        expected: ["BOUNDED", "explicit selector", "other inventory artifacts recorded OUT-OF-SCOPE", "bounded completion wording"]
+      interrupted_full:
+        fixture: "Six validated slices exist in a nine-slice full checkpoint and source hashes are unchanged."
+        expected: ["CONTINUE", "six slices reused", "only remaining slices scheduled", "dependent fan-in resumes after validation"]
+      mixed_language_depth:
+        fixture: "COBOL, PL/I, and Java implement the same request flow with one divergent validation branch."
+        expected: ["independent deep analysis", "EQUIVALENT/PARTIALLY_EQUIVALENT/DIVERGENT/MISSING/UNKNOWN comparison", "business rules", "data mismatches", "defect decision", "unknowns"]
+      unaccounted_source:
+        fixture: "One eligible configured source artifact remains PENDING."
+        expected: ["completion failure", "artifact ID reported", "no complete claim"]
+      reference_pattern_target_match:
+        fixture: "A configured reference profile suggests a registration pattern and direct target configuration independently proves the same target behavior."
+        expected: ["REFERENCE_PATTERN retained separately", "target claim cites target evidence", "match recorded"]
+      reference_only_candidate:
+        fixture: "A reference application exposes a remote dependency but the target contains no corroborating source or configuration."
+        expected: ["search lead only", "UNRESOLVED", "no target dependency"]
+      reference_pattern_target_nonmatch:
+        fixture: "A reference profile suggests scheduled execution while direct target evidence exposes only an on-demand entry point."
+        expected: ["non-match recorded", "target evidence wins", "reference pattern not promoted"]
+      analysis_without_reference_profile:
+        fixture: "The project configures only target source and no separate reference application."
+        expected: ["normal target-only analysis", "no reference profile required", "existing coverage gate unchanged"]
+  derive-modernization-requirements:
+    positive: "Turn the traced approval behavior into deduplicated requirements and acceptance scenarios."
+    negative: "Write requirements from a project-memory summary only."
+    ambiguous: "We need feature requirements" # establish source class and evidence availability
+    expected: ["stable requirements", "requirement revision", "evidence links", "conflicts", "approval state", "OpenSpec handoff when implementation preparation is in scope"]
+    invariants: ["proposal is not observed fact", "links reciprocal", "analysis-only can stop before specification"]
+    failures: ["recommendations promoted to current behavior", "duplicate wording variants"]
+    scenarios:
+      parallel_candidate_fan_in:
+        fixture: "Three sealed domain evidence packets can be analyzed independently before canonical requirements are published."
+        expected: ["temporary candidate IDs", "isolated packets", "input fingerprints", "coordinator deduplication", "canonical ID allocation at fan-in", "no worker approval"]
+  audit-delivery-traceability:
+    positive: "Independently audit every completed requirement through verification and commit."
+    negative: "Fix all traceability findings while auditing."
+    ambiguous: "Is migration complete?" # audit first; do not infer from dashboard
+    expected: ["PASS/PASS_WITH_LIMITATIONS/FAIL", "stable findings", "reproduction"]
+    invariants: ["read-only", "generated totals reconciled"]
+    failures: ["aggregate tests treated as full coverage", "missing evidence downgraded"]
+    scenarios:
+      flat_matrix_compatibility:
+        fixture: "The project exports one normalized CSV and no registry graph."
+        expected: ["audit_trace_matrix.py", "no graph-export requirement", "existing behavior preserved"]
+      reciprocal_registry_graph:
+        fixture: "The project exports multiple registries with explicit forward and reverse edges."
+        expected: ["audit_trace_graph.py", "endpoint validation", "reciprocal-edge validation", "stable findings"]
+      honest_early_lifecycle:
+        fixture: "Evidence exists, but no implementation or verification claim has been made."
+        expected: ["PASS when declared lifecycle rules are satisfied", "no invented downstream links"]
+      semantic_collision:
+        fixture: "The structural graph passes, but source authority and behavioral equivalence are disputed."
+        expected: ["continue semantic audit", "do not claim completion from helper output"]
+  validate-work-item-assumptions:
+    positive: "Before planning this backlog item filed three months ago, check whether the code it describes still looks the way it says."
+    negative: "This item is stale — update its approach and start implementing the revised plan."
+    ambiguous: "Is this ticket still worth doing?" # check the item's falsifiable claims and return a materiality verdict; the caller decides worth
+    expected: ["authoritative item record read, not a generated index", "falsifiable claims extracted separately from narrative and proposed solution", "still-accurate / changed / unverified lists", "named file, symbol, and the change that moved it", "single materiality verdict with justification", "exact next decision returned to the caller"]
+    invariants: ["read-only", "no edits to the item or the system", "no revised approach proposed", "no follow-up work filed", "proceed-or-abandon decision left to the caller", "uncheckable claims recorded as unverified rather than assumed", "conservative materiality when genuinely torn", "targeted reads and history queries only"]
+    failures: ["stale claim confirmed from the item's own wording instead of current state", "whole-file reads or a full test run used as the check", "unverifiable claim resolved by assumption", "non-falsifiable appetite or priority treated as a staleness signal", "verdict withheld as it depends", "findings extended into a plan"]
+    scenarios:
+      symbol_moved:
+        fixture: "The item names a function that has since moved to another module as part of unrelated work."
+        expected: ["changed", "naming the origin, destination, and the change that moved it", "materiality judged against whether the approach survives"]
+      partly_solved:
+        fixture: "Later work already implemented part of the behavior the item calls missing."
+        expected: ["changed", "material", "remaining scope distinguished from the resolved part"]
+      cosmetic_rename:
+        fixture: "A file the item names was renamed but the described requirement still stands unchanged."
+        expected: ["changed", "cosmetic", "requirement still stands"]
+      unreachable_claim:
+        fixture: "The item asserts behavior of an external service the current scope cannot reach."
+        expected: ["unverified", "specific reason", "not counted as confirmed or refuted"]
+      no_falsifiable_claims:
+        fixture: "The item states an appetite and a priority but asserts nothing checkable about current state."
+        expected: ["no falsifiable claims", "valid result", "no verdict manufactured"]
+      already_resolved:
+        fixture: "Every claim the item makes has been addressed by later work."
+        expected: ["fully resolved", "returned to the caller to close", "no closure performed"]
+  generate-synthetic-fixtures:
+    positive: "These test fixtures are derived from real customer documents — build them so nothing real can leak into the repository."
+    negative: "Take this production export and strip the personal fields out of it before we commit it."
+    ambiguous: "We need realistic test data" # establish whether the artifact is a structured dataset (anonymize-data) or a document whose value is behavioral signal
+    expected: ["reviewed specification as the audit surface", "per-value identity versus load-bearing-signal decision recorded", "deterministic renderer that is a pure function of the specification", "identifier detectors used as an assertion over output", "executable reproducibility, determinism, no-unapproved-identifier, declared-parity, and signal-presence checks"]
+    invariants: ["generation replaces scrubbing", "no sensitive original edited in place", "every identity value in the committed artifact was approved in the specification", "kept values are justified by a test that needs them", "no clock, randomness, or ambient state inside a render path", "detectors never used as the transformation", "non-format-detectable values found by review, not pattern"]
+    failures: ["real artifact redacted and committed", "detector weakened or approved set widened to pass a validation", "committed artifact edited instead of the specification", "renderer embeds a timestamp or environment detail", "detectors implied to be complete coverage", "structureless scan derived from instead of authored by type"]
+    scenarios:
+      missed_field_is_invisible:
+        fixture: "A reviewer proposes redacting a real document because it looks clean afterwards."
+        expected: ["generation preferred", "denylist limitation named", "specification offered as the reviewable surface"]
+      load_bearing_value:
+        fixture: "A public institution name in the source drives classification and an assertion depends on it."
+        expected: ["kept verbatim as load-bearing signal", "justified by the test that needs it", "not treated as identity"]
+      unapproved_identifier_appears:
+        fixture: "A regenerated fixture contains an account-number-shaped value that is not in the approved set."
+        expected: ["validation fails", "specification corrected rather than the detector weakened"]
+      structured_dataset_instead:
+        fixture: "The input is a bounded tabular export whose columns are known and which must retain analytical utility."
+        expected: ["anonymize-data", "not this workflow"]
+      nondeterministic_renderer:
+        fixture: "A render path calls the current time so the artifact differs between runs."
+        expected: ["determinism check fails", "ambient state removed from the render path"]
+      scan_without_text:
+        fixture: "The source artifact is an image scan with no extractable structure."
+        expected: ["specification authored from the artifact type", "entry recorded as authored rather than derived", "no derivation attempted"]
+  implement-ready-slice:
+    positive: "Select and implement the next dependency-ready approved requirement with TDD."
+    negative: "Implement a blocked business decision."
+    ambiguous: "Keep building" # inspect active claim and queue before selecting
+    expected: ["selection rationale", "workpack", "red/green/full-gate evidence", "handoff"]
+    invariants: ["exclusive ownership", "TDD by default", "explicit non-TDD override does not claim red-green-refactor", "no false completion", "unrelated changes preserved"]
+    failures: ["setup error counted as red", "selector output accepted without semantic review", "TDD evidence claimed after opt-out"]
+    scenarios:
+      parallel_slices_require_isolation:
+        fixture: "Two dependency-ready slices have disjoint source paths but share a lockfile, test database, and Git working tree."
+        expected: ["shared surfaces declared", "serialized or isolated worktrees", "resource leases", "coordinator-only merge", "incremental affected gates"]
+  specify-openspec-change:
+    positive: "Define a new account-lockout feature in this OpenSpec-managed application before implementation."
+    negative: "Write a retrospective OpenSpec proposal for code that is already finished without asking me."
+    ambiguous: "Use OpenSpec for this change" # inspect active changes, project schema, scale, and unresolved intent first
+    expected: ["matching active-change search", "approved requirement grouping", "many-to-many traceability", "requirement revision snapshots", "proposal", "behavior-first delta specs", "acceptance scenarios", "design", "tasks", "strict validation", "approval boundary"]
+    invariants: ["specification transforms rather than renames requirements", "specification precedes implementation", "project-local OpenSpec state", "existing matching change reused", "implementation detail stays out of behavior specs", "tiny changes remain lightweight"]
+    failures: ["duplicate change", "code before accepted behavior", "guessed requirement", "OpenSpec imposed on research or presentation", "functional requirements invented for pure refactor"]
+    scenarios:
+      new_feature_specifies_first:
+        fixture: "A requested multi-factor login feature has no active OpenSpec change and no implementation yet."
+        expected: ["new bounded change", "requirements and scenarios before code", "implementation remains stopped pending approval"]
+      existing_approved_change_reused:
+        fixture: "An active approved add-mfa change already contains matching proposal, specs, design, and tasks."
+        expected: ["reuse add-mfa", "no second proposal", "handoff to readiness or implementation"]
+      bug_fix_records_correct_behavior:
+        fixture: "Successful login loops back to the sign-in page."
+        expected: ["corrected behavior", "MODIFIED or appropriate delta", "regression scenario", "no mystery fix"]
+      refactor_without_behavior_change:
+        fixture: "Split a payment module while preserving all externally visible behavior."
+        expected: ["skip_specs: true", "design and tasks", "behavior-preservation checks", "no invented functional delta"]
+      tiny_change_avoids_bureaucracy:
+        fixture: "Correct one internal comment typo in a project where OpenSpec is optional."
+        expected: ["no durable OpenSpec change", "direct bounded edit", "governance respected"]
+      non_software_task_does_not_trigger:
+        fixture: "Research a market and prepare an executive presentation."
+        expected: ["no OpenSpec change", "route to research or presentation capabilities"]
+      independent_changes_use_exclusive_directories:
+        fixture: "Approved account and reporting requirements form separate changes with no shared main-spec capability."
+        expected: ["coordinator-reserved change IDs", "exclusive change directories", "main specs read-only", "per-change strict validation", "cross-change fan-in review"]
+  review-openspec-change:
+    positive: "Review the existing add-mfa OpenSpec change and resolve readiness gaps before implementation."
+    negative: "Implement whatever seems reasonable even though the requirement is ambiguous."
+    ambiguous: "Is this OpenSpec change ready?" # resolve the exact change and inspect all artifacts and authority
+    expected: ["existing change", "strict validation", "semantic readiness review", "scenario task and intended-test coverage", "READY or NOT_READY"]
+    invariants: ["structural validity is not semantic approval", "unresolved authority blocks readiness", "refinement does not silently change intent"]
+    failures: ["duplicate proposal", "implementation during review", "assumption presented as approval", "skip_specs combined with behavior deltas"]
+    scenarios:
+      ambiguous_requirement_blocks_implementation:
+        fixture: "The proposal says lock accounts after repeated failures but neither the threshold nor recovery behavior is decided."
+        expected: ["NOT_READY", "clarification or spec update", "no implementation", "revalidation after correction"]
+  implement-openspec-change:
+    positive: "Implement the approved add-mfa OpenSpec change task by task with tests."
+    negative: "Start coding this feature before the OpenSpec change is reviewed."
+    ambiguous: "Apply the current change" # identify one approved active change and confirm readiness
+    expected: ["approved existing change", "task slices", "requirement and scenario links", "tests", "checked tasks backed by evidence", "verification handoff"]
+    invariants: ["no silent spec divergence", "material artifact changes are revalidated and reapproved", "unrelated work preserved"]
+    failures: ["code-first flow", "task checkbox without validation", "new proposal replacing active change", "spec rewritten post hoc to fit code"]
+    scenarios:
+      implementation_discovers_spec_mismatch:
+        fixture: "During implementation, repository constraints show the approved session-expiry behavior cannot work as specified."
+        expected: ["stop affected slice", "mismatch evidence", "clarify and update existing change", "strict validation", "approval before resume"]
+      independent_slices_integrate_incrementally:
+        fixture: "Two approved slices have resolved dependencies, exclusive paths, separate worktrees, and isolated runtime resources."
+        expected: ["dependency and ownership plan", "parallel isolated workers", "no worker tasks.md edits", "affected gate after each merge", "full gate after fan-in"]
+  verify-openspec-implementation:
+    positive: "Verify that the completed add-mfa implementation satisfies every OpenSpec scenario before closure."
+    negative: "Check the tasks boxes and archive without running the tests."
+    ambiguous: "Verify this change" # resolve the active change, diff, scenarios, tasks, tests, and required gates
+    expected: ["requirement scenario code and test map", "strict OpenSpec validation", "focused and full gates", "severity findings", "archive-readiness decision"]
+    invariants: ["verification remains read-only", "checked tasks are not proof", "specification is not rewritten to hide divergence"]
+    failures: ["aggregate green treated as complete coverage", "missing scenario ignored", "implementation fixed while claiming independence", "structural validator treated as behavioral proof"]
+    scenarios:
+      completed_change_validated_before_archive:
+        fixture: "All tasks are checked, but one required failure scenario has no test or other credible verification."
+        expected: ["NOT_READY", "missing scenario evidence", "return to implementation", "no archive"]
+      incremental_slice_review_is_not_final_verification:
+        fixture: "Each isolated slice passed focused review, but the integrated commit has not run cross-slice tests."
+        expected: ["immutable slice checkpoints", "incremental findings allowed", "no change-level PASS", "integrated snapshot", "cross-slice and full gates"]
+  complete-openspec-change:
+    positive: "Archive this verified OpenSpec change and confirm the main specs and archive state."
+    negative: "Archive all active changes even if some tasks are incomplete."
+    ambiguous: "Close the change" # resolve one exact change and prove verification and completion first
+    expected: ["exact verified change", "pre-archive strict validation", "spec merge or intentional skip", "dated archive", "post-archive validation", "closure evidence"]
+    invariants: ["no --no-validate bypass", "incomplete work remains active", "archived state is verified after mutation"]
+    failures: ["warning-tolerant archive treated as approval", "ambiguous change selection", "partial archive reported as success", "project artifacts copied into commons"]
+  test-driven-development:
+    positive: "Implement this regression fix by proving a behavior-relevant failure before production code."
+    negative: "Write release notes for an already completed change."
+    ambiguous: "Fix this bug" # establish accepted behavior and a runnable test path before entering RED
+    expected: ["approved OpenSpec acceptance criterion when applicable", "smallest behavior", "RED evidence", "same focused test green", "refactor while green", "broader gate", "mutation quality check after GREEN and REFACTOR", "verification handoff"]
+    invariants: ["OpenSpec defines what and TDD defines how", "setup failure is not RED", "assertions are not weakened to obtain green", "green tests do not validate uncovered criteria", "passing tests alone are not evidence of test quality where mutation testing applies", "mutation testing is delegated rather than reimplemented here", "limitations remain explicit"]
+    failures: ["tests written after implementation and labeled TDD", "immediate pass ignored", "full gate omitted", "whole specification marked validated from one green test", "mutation testing attempted during RED", "mutation tooling and gate logic embedded in the TDD loop", "green suite reported as validated test quality"]
+    scenarios:
+      concurrent_tdd_uses_isolated_resources:
+        fixture: "Two independent TDD workers would otherwise share a test database, service port, coverage file, and writable checkout."
+        expected: ["isolated writable state", "verified base revision", "resource leases", "shared surfaces serialized", "focused evidence returned incrementally"]
+      mutation_hardening_loop_after_refactor:
+        fixture: "RED and GREEN are recorded, the refactor is complete, the suite is green, and a boundary mutant then survives the targeted mutation scope."
+        expected: ["mutation check runs only after GREEN and REFACTOR", "survivor classified", "one behavioral test added", "test proved failing against the mutant", "test proved passing against correct implementation", "mutation rerun kills it", "TESTS_PASS then MUTATION_CHECKED then TEST_QUALITY_VALIDATED"]
+      mutation_not_attempted_during_red:
+        fixture: "The focused test has just been written and no production behavior exists yet."
+        expected: ["no mutation run", "RED evidence first", "mutation deferred until meaningful implementation exists"]
+  mutation-testing:
+    positive: "The payment change is green and refactored; assess whether these tests would actually detect a defect in the tax boundary and harden them where they would not."
+    negative: "Raise the mutation score to 100% on this module by whatever means are necessary."
+    ambiguous: "Are these tests any good?" # establish the scope, a stable passing baseline, the governing specification, and whether tooling exists
+    expected: ["stable passing baseline confirmed", "scope profile and criticality selected", "detected ecosystem mapped to one adapter", "normalized run", "every survivor classified with evidence", "meaningful survivors linked to requirement and specification", "behavioral test hardening proved against the mutant", "derived gate status with reasons", "structured plus human-readable report"]
+    invariants: ["passing tests are not evidence of test quality", "coverage is not mutation quality", "mutation score is never the only gate", "a critical surviving mutant fails regardless of aggregate score", "correct production behavior is never changed to kill a mutant", "unsupported technology is NOT_SUPPORTED rather than a pass", "an unstable baseline blocks rather than scores", "equivalent mutants may be accepted only with a recorded reason", "OpenSpec remains the behavioral authority"]
+    failures: ["bare mutation score reported with no missing behavior explained", "every survivor labeled TEST_GAP", "implementation-coupled assertions added to kill mutants", "production code changed so a mutant dies", "full-project mutation run after a small edit", "unsupported ecosystem silently passed", "flaky failures counted as killed mutants", "score raised by narrowing scope or excluding code", "application results aggregated with Commons methodology mutation results"]
+    scenarios:
+      strong_tests_pass:
+        fixture: "Every meaningful mutant is killed and the one survivor is an argued equivalent mutant."
+        expected: ["PASS", "accepted equivalent mutant excluded with its reason", "no critical survivors"]
+      weak_tests_but_green_suite:
+        fixture: "All unit tests pass, yet mutants for the reduced-rate boundary, the inclusive discount maximum, and the negative-rate rejection survive."
+        expected: ["FAIL", "three TEST_GAP survivors", "missing behavior named per survivor", "boundary, invalid-input, and rejection tests recommended"]
+      boundary_condition_survivor:
+        fixture: "A comparison operator mutated from < to <= survives."
+        expected: ["missing boundary test identified", "test at the exact threshold and one value on each side", "linked acceptance criterion"]
+      equivalent_mutant:
+        fixture: "Two side-effect-free disjuncts of a guard are swapped and no test can observe the difference."
+        expected: ["EQUIVALENT_MUTANT", "recorded equivalence reason", "not classified as a test gap", "no assertion invented to kill it"]
+      critical_business_rule_survivor:
+        fixture: "Aggregate mutation score is 96% but one financial-calculation mutant survives as a test gap."
+        expected: ["FAIL", "critical survivor named", "high aggregate score does not excuse it"]
+      unsupported_technology:
+        fixture: "The scope is COBOL source with no maintained mutation engine."
+        expected: ["NOT_SUPPORTED", "reason stated", "compensating verification named", "migrated target or characterization harness assessed instead"]
+      flaky_baseline:
+        fixture: "The normal suite fails intermittently across repeats with no code change."
+        expected: ["BLOCKED_BY_FLAKY_TESTS", "no score reported", "stabilize the suite before interpreting survivors"]
+      changed_code_scope:
+        fixture: "One module changed in a pull request against a large repository."
+        expected: ["diff-scoped selection", "changed plus directly impacted code only", "unchanged modules excluded", "no full-project run"]
+      unspecified_behavior_survivor:
+        fixture: "A survivor's behavior is real but no requirement or acceptance criterion governs it."
+        expected: ["UNSPECIFIED_BEHAVIOR", "routed to the specification workflow", "no test invented to raise the score"]
+      baseline_regression:
+        fixture: "The accepted baseline for this scope is 87.5% and the current run is 82.5%."
+        expected: ["FAIL", "regression against baseline reported", "baseline not promoted from a failing run"]
+  design-test-strategy:
+    positive: "Choose the test layers for a data migration with authorization and browser-visible outcomes."
+    negative: "Mandate unit integration browser and end-to-end tests for every function."
+    ambiguous: "We need better coverage" # model risks and credible oracles before selecting layers
+    expected: ["risk-to-test matrix", "layer rationale", "oracles", "negative and boundary cases", "residual risk", "legacy oracle authority and readiness when source-derived evidence is used"]
+    invariants: ["lowest credible layer preferred", "coverage percentage is not behavioral proof", "generated output is not execution evidence", "observed source does not silently replace approved intent"]
+    failures: ["all layers selected without risk", "production dependency treated as reliable test environment", "generic generated outcome treated as executable assertion", "suspected defect treated as approved behavior"]
+    scenarios:
+      approved_legacy_oracle:
+        fixture: "An accountable owner approved a concrete expected outcome, the referenced source fingerprint is current, and construction and runtime bindings are resolved."
+        expected: ["APPROVED_INTENT", "READY_FOR_EXPECTED_OUTCOMES", "lowest credible layer", "executable recommendation"]
+      generic_generated_outcome:
+        fixture: "A generated rule vector says only that the system handles the edge case and supplies no observable result."
+        expected: ["UNRESOLVED", "SCENARIO_ONLY", "no executable assertion"]
+      observed_behavior_conflicts_with_intent:
+        fixture: "Current source demonstrates one result while approved target intent requires another."
+        expected: ["OBSERVED_SOURCE remains characterization", "approved intent remains authoritative", "conflict visible", "REVIEW_REQUIRED when reconciliation is needed"]
+      ordinary_nonlegacy_strategy:
+        fixture: "A new feature has accepted behavior and no reconstructed legacy evidence."
+        expected: ["standard risk-to-test workflow", "no legacy taxonomy required", "existing layer selection unchanged"]
+  accessibility-review:
+    positive: "Independently audit the completed application across keyboard, reflow, contrast, semantics, and screen-reader states."
+    negative: "Declare this screenshot accessible because it looks readable."
+    ambiguous: "Check the UI for accessibility" # define journeys, states, standard, platforms, and reachable assistive checks
+    expected: ["review matrix", "reproducible findings", "impact severity", "limitations", "retest"]
+    invariants: ["unavailable testing is not a pass", "visual QA is not accessibility proof"]
+    failures: ["automated scan only", "initial page only", "no keyboard journey", "no retest"]
+  anonymize-data:
+    positive: "Prepare this JSON and CSV customer export for an external analysis boundary using exact field rules and deterministic tokens."
+    negative: "Guess every possible identifier in arbitrary prose and certify the result as legally anonymous."
+    ambiguous: "Hide the personal data" # establish purpose, data classes, trust boundary, reversibility, utility, and attack model
+    expected: ["data inventory", "field-scoped rule contract", "dry-run counts", "isolated output", "leakage tests", "residual linkage risk"]
+    invariants: ["required misses fail closed", "reports contain no matched values", "stable tokens are called pseudonymization", "input is not overwritten"]
+    failures: ["broad capitalization heuristic", "key stored in configuration", "free text silently skipped", "compliance claim"]
+  design-frontend-architecture:
+    positive: "Define route, module, state, rendering, and service boundaries for this multi-feature frontend using the supplied design guide."
+    negative: "Choose typography and colors for a marketing page."
+    ambiguous: "Set up the frontend architecture" # establish journeys, repository state, design guide, runtime constraints, and decision authority
+    expected: ["route and shell map", "feature boundaries", "state ownership", "typed interfaces", "failure states", "design-guide mappings", "decisions and unknowns"]
+    invariants: ["visual design remains frontend-design", "task sequencing remains plan-work", "proposals are not requirements", "private feature internals do not become shared APIs"]
+    failures: ["framework fashion presented as evidence", "global state by default", "design guide ignored", "implementation presented as independent review"]
+  coordinate-parallel-agents:
+    positive: "Partition these independent source batches across bounded workers and integrate their isolated findings centrally."
+    negative: "Have several agents edit the same registry and resolve conflicts themselves."
+    ambiguous: "Use multiple agents" # verify useful independence, denominator, ownership, concurrency, and coordinator authority
+    expected: ["exclusive partition", "worker contracts", "bounded concurrency", "isolated outputs", "structured returns", "coordinator validation and integration"]
+    invariants: ["one primary owner per item", "canonical IDs and shared state remain coordinator-owned", "sequential fallback preserves batches"]
+    failures: ["overlapping writes", "worker scope expansion", "unvalidated output integration", "parallel commits or global-state transitions"]
+    scenarios:
+      deterministic_wave_planning:
+        fixture: "A task graph contains dependencies, nested writable paths, one shared schema, and a concurrency limit of two."
+        expected: ["cycle detection", "write-path conflict detection", "shared-surface conflict detection", "bounded deterministic stages", "incremental fan-in validation"]
+  frontend-design:
+    positive: "Design and implement a dense operational workspace with a deliberate visual thesis and responsive states."
+    negative: "Review this finished interface for release defects."
+    ambiguous: "Make the app look better" # establish product job, users, constraints, and redesign authority
+    expected: ["visual thesis", "hierarchy", "component language", "responsive rules", "interaction states"]
+    invariants: ["existing design system respected", "accessibility is a design input", "generic styling avoided"]
+    failures: ["stock card grid", "arbitrary gradients", "desktop-only composition", "missing error and empty states"]
+  polish-html-artifact:
+    positive: "Polish this factually complete HTML dashboard without changing its sections, navigation, data, or interactions, then hand it to independent visual QA."
+    negative: "Rewrite the presentation story and replace its client identity because a reference deck looks more fashionable."
+    ambiguous: "Make this finished HTML feel premium" # bind structure, narrative, brand, locales, viewports, and accepted content before editing
+    expected: ["protected invariants", "rendered baseline", "visual-cause diagnosis", "token and component refinements", "responsive correction", "rendered comparison", "independent validation handoff"]
+    invariants: ["facts and narrative unchanged", "dashboard information architecture unchanged", "client brand authoritative", "reference identity not copied", "reduced-motion parity"]
+    failures: ["content changed to fit layout", "cardification", "glass glow or neon default", "desktop-only judgment", "self-authored looks good claim without rendered evidence"]
+  review-code-change:
+    positive: "Review the complete base-to-head diff and return only evidence-backed severity-ranked findings."
+    negative: "Post your review comments and approve the pull request without asking."
+    ambiguous: "Review my changes" # resolve base, head, local policy, intent, and external-posting authority
+    expected: ["complete file accounting", "change summary", "validation summary", "severity findings", "limits"]
+    invariants: ["review remains read-only", "summary and findings are separate", "external posting requires confirmation"]
+    failures: ["partial diff", "style preference presented as defect", "existing feedback ignored"]
+  execute-safe-change:
+    positive: "Apply these authorized account changes with exact identities, a write-incapable dry run, checkpoints, verification, and rollback."
+    negative: "Delete everything matching this broad pattern and retry until it works."
+    ambiguous: "Clean up stale resources" # bind actor, targets, environment, cardinality, authority, and recovery first
+    expected: ["immutable plan", "target fingerprints", "non-mutating dry run", "idempotent batches", "verification and recovery"]
+    invariants: ["authorization bound to exact scope", "policy failures are not retried", "logs are redacted"]
+    failures: ["dry-run flag reaches write path", "identity drift ignored", "irreversible partial mutation"]
+  estimate-adm-modernization:
+    positive: "Scope and estimate this bounded legacy rewrite using traced outcome units, comparable calibration, three-point person-days, deterministic aggregation, and independent review."
+    negative: "Multiply source lines by a productivity constant and present the result as a committed schedule."
+    ambiguous: "Estimate this modernization" # establish source coverage, target outcome, strategy, architecture, delivery model, and calibration availability
+    expected: ["non-overlapping work units", "traceability", "dimension-specific unknowns", "three-point effort", "deterministic summary", "independent findings"]
+    invariants: ["source size is not effort", "effort is not schedule or cost", "uncalibrated means LOW confidence", "shared work counted once"]
+    failures: ["partial scope extrapolated", "reference application counts transferred", "unknown dimensions silently cleared", "unreviewed estimate published"]
+  migrate-code-with-evidence:
+    positive: "Migrate one approved legacy module into an isolated target with source traceability, acceptance scenarios, strict TDD, and parity review."
+    negative: "Send the whole repository to an LLM with embedded credentials and overwrite the source with generated code."
+    ambiguous: "Convert this old code to the new stack" # establish source inventory, behavior evidence, target authority, bounded slice, and runnable validation
+    expected: ["read-only source fingerprint", "isolated target", "migration manifest", "source requirement scenario test links", "RED GREEN REFACTOR evidence", "broader parity validation"]
+    invariants: ["TDD is P0", "credentials remain external", "network is disabled by default", "generation is not parity proof", "unsafe commands are rejected"]
+    failures: ["bulk prompt translation", "source-tree writes", "tests backfilled after generation", "unknown behavior silently invented"]
+  review-privacy-security:
+    positive: "Review this multi-tenant upload flow for data handling, trust boundaries, abuse paths, secrets, logging, and negative tests."
+    negative: "Certify regulatory compliance from the architecture diagram alone."
+    ambiguous: "Is this secure?" # establish assets, actors, data classes, scope, environment, and evidence
+    expected: ["data-flow map", "trust boundaries", "abuse paths", "severity findings", "residual risk and limits"]
+    invariants: ["controls require evidence", "sensitive values are not repeated", "review is not certification"]
+    failures: ["generic checklist only", "deployment assumptions treated as fact", "no negative cases"]
+  plan-work:
+    positive: "Plan this approved cross-service feature with dependencies, exclusive ownership, acceptance, validation, checkpoints, and recovery."
+    negative: "Mark all planned milestones complete before implementation starts."
+    ambiguous: "Make a plan" # inspect current state and resolve the objective and acceptance boundary
+    expected: ["goal and non-goals", "evidence-linked tasks", "dependency order", "ownership", "validation and recovery"]
+    invariants: ["unknown decisions remain blockers", "plan is not completion evidence", "first action is exact"]
+    failures: ["task list without acceptance", "parallel ownership collision", "no executable validation"]
+  protect-git-work:
+    positive: "Prepare a safe checkpoint before rebasing while preserving unknown dirty changes and verifying the staged diff."
+    negative: "Discard every uncommitted file so the branch is clean."
+    ambiguous: "Get this branch ready to merge" # inspect ownership, upstream, active operations, policy, and authorization
+    expected: ["exact Git state", "change ownership", "staged review", "secret check", "verified recovery reference"]
+    invariants: ["unknown work is preserved", "history rewriting requires authority", "checkpoint validation is recorded"]
+    failures: ["broad destructive cleanup", "unrelated changes committed", "unverified stash or commit treated as safe"]
+  build-living-dashboard:
+    positive: "Generate the management dashboard from the canonical requirements registry."
+    negative: "Let users edit requirement status in the generated dashboard."
+    ambiguous: "Show progress visually" # determine audience, decision, and canonical input
+    expected: ["canonical five-domain navigation", "complete standard section order", "all canonical information domains mapped to stable locations", "explicit available in-progress not-yet-analyzed not-applicable and blocked states", "structured requirement specification owned criterion implementation test and evidence export", "derived coverage and warnings", "bounded registers with visible total and filter state", "shared openable details", "bounded semantic traceability", "generated HTML", "matching HTML input structure design and applicable brand fingerprints", "separate structural semantic static profile consistency brand fidelity visual accessibility and localization checks", "required rendered-state manifest", "browser result"]
+    invariants: ["read-only projection", "canonical information architecture and editorial design instantiated rather than invented", "system statistics are measured from deterministic inventory", "complexity distinguishes measured from assessed", "project extensions use controlled insertion points", "branding and language do not alter structure or density", "missing or unreadable branding uses the labeled Accenture fallback and still creates dashboard/index.html", "requirement specification implementation and validation states remain separate", "criterion ownership prevents cartesian trace expansion", "language switching preserves filters dialog diagrams navigation pagination and scroll", "unknown denominator stays unknown", "one renderer owns dashboard HTML"]
+    failures: ["project-specific navigation invented", "standard section removed instead of explicit applicability", "unsupported extension placement", "hand-edited metrics", "decorative gradients or generic SaaS card redesign", "Markdown scraped ad hoc in browser", "green test equated with full-spec validation", "whole repository graph rendered by default", "logo-only color promoted to global chrome", "VALIDATED claimed without visual accessibility or localization QA"]
+    scenarios:
+      canonical_visual_product:
+        fixture: "A substantial dashboard is generated with project data and a resolved client brand profile."
+        expected: ["STRUCTURE_PASS", "STATIC_HTML_PASS", "BRAND_PROFILE_CONSISTENT", "BRAND_FIDELITY_PASS", "VISUAL_QA_PASS", "ACCESSIBILITY_PASS", "overview decision brief stakeholder questions modernization requirements specifications application map traceability detail and mobile captures", "shared asset fingerprint", "semantic visible brand roles", "no design fallback"]
+      unavailable_brand_fallback:
+        fixture: "A dashboard is requested without branding, or the supplied client-brand source cannot be read."
+        expected: ["dashboard/index.html created", "accenture-fallback identity", "requested brand source and failure retained", "client-brand fidelity unresolved", "no branding-only blocker file"]
+      public_sector_bilingual:
+        fixture: "An Austrian public-sector dashboard requires German default and English switching."
+        expected: ["de-AT default", "flag-only visible Austrian 🇦🇹 and UK 🇬🇧 switch", "accessible locale labels", "generated record content localized", "German and English visual QA"]
+      partial_full_analysis:
+        fixture: "A FULL analysis dashboard has one relevant artifact still PENDING."
+        expected: ["analysis in progress", "unaccounted count visible", "complete status rejected", "system overview not reduced to first slice"]
+      mixed_language_contract:
+        fixture: "COBOL, PL/I, Java, and SQL workers publish technology-specific inventory into one project."
+        expected: ["same canonical dashboard structure", "technology-specific drilldown", "measured composition", "single renderer"]
+      database_free:
+        fixture: "No relational persistence exists in the analyzed scope."
+        expected: ["data and persistence slot retained", "ERD NOT_APPLICABLE", "reason states no relational schema"]
+      monolith:
+        fixture: "The current application is a monolith with no evidenced services."
+        expected: ["service topology slot retained", "current topology monolith", "no invented microservices"]
+      no_tests:
+        fixture: "No automated legacy tests are present."
+        expected: ["legacy test quality slot retained", "no automated legacy tests detected", "high characterization-test risk"]
+      no_openspec_yet:
+        fixture: "Requirements exist but OpenSpec generation has not started."
+        expected: ["specifications slot retained", "NOT_YET_ANALYZED", "lifecycle explanation"]
+  create-branded-html-artifact:
+    positive: "Create an offline executive presentation from the official site and supplied sources."
+    negative: "Make a purple glass-card AI dashboard without a brief."
+    ambiguous: "Make this deck premium" # extract audience, job, evidence, and brand source
+    expected: ["redirect and source capture", "custom-property fast path", "semantic interpretation of ordinary compiled CSS and visible selectors", "safe inline SVG image metadata linked-asset manifest and favicon identity discovery", "version-2 brand profile when resolvable", "exact official favicon and logo hashes when resolvable", "observed versus derived decisions with confidence", "complete token evidence mappings", "optional-role degradation without identity fallback", "actionable aggregate diagnostics", "mandatory HTML artifact", "Accenture fallback only for inaccessible or unresolved core identity", "computed-style fidelity QA handoff"]
+    invariants: ["no invented metrics", "visual source not factual source", "permitted assets only", "logo-only colors are not global interface colors", "danger color is not primary", "unsafe explicit assets fail closed", "dashboard and presentation share one resolved profile or the same Accenture fallback", "client-brand failure never suppresses HTML output", "source website layout and content are not copied"]
+    failures: ["site cloned literally", "generic template survives unchanged", "synthetic client favicon", "placeholder logo", "unsafe inline or linked identity asset", "first-missing-variable diagnostic", "optional inaccessible color discards a usable core brand", "token consistency claimed as client fidelity", "branding blocker emitted instead of HTML"]
+  create-technical-diagram:
+    positive: "Choose and create the right architecture views from verified code and system evidence for a technical dashboard."
+    negative: "Draw a decorative architecture diagram and fill in any missing relationships so it looks complete."
+    ambiguous: "Show how this system works" # establish audience, purpose, scope, state, and whether structure, sequence, or data movement is primary
+    expected: ["diagram-family selection", "audience and abstraction", "evidence model", "format rationale", "editable source", "rendered artifact", "semantic and visual validation"]
+    invariants: ["no invented nodes or edges", "VERIFIED INFERRED UNKNOWN separated", "large models decomposed", "standalone destination respected"]
+    failures: ["Mermaid chosen automatically for every case", "unknown edge rendered as fact", "single unreadable canvas", "presentation styling changes architecture facts"]
+    scenarios:
+      large_model:
+        fixture: "The selected architecture contains 85 nodes and 140 relationships."
+        expected: ["overview", "drilldowns", "stable element IDs", "no one-canvas output"]
+      presentation_adaptation:
+        fixture: "A verified technical diagram must be adapted to a branded executive presentation."
+        expected: ["same semantic model", "reduced information density", "brand-aware rendering", "no invented simplification"]
+      unknown_relationship:
+        fixture: "Two systems are known but their integration is not established."
+        expected: ["UNKNOWN recorded", "no normal edge", "open question or annotation"]
+  create-system-landscape-diagram:
+    positive: "Create current and target application landscapes from the system register and interface catalog."
+    negative: "Connect systems that share a database technology even though no interface evidence exists."
+    ambiguous: "Show all applications" # establish boundary, integrations, audience, and current/target/transition state
+    expected: ["systems and actors", "scope and lifecycle distinctions", "evidenced integration directions", "overview and drilldowns when large"]
+    invariants: ["external systems distinguished", "protocol omitted when unknown", "aliases reconciled without merging deployments"]
+    failures: ["fabricated integration", "current and target conflated", "executive view overloaded with internals"]
+  create-component-architecture-diagram:
+    positive: "Derive a component architecture from module manifests, service wiring, contracts, and owned schemas."
+    negative: "Treat every source directory as a runtime component."
+    ambiguous: "Show the service architecture" # choose container/component level, current/proposed state, and dependency semantics
+    expected: ["bounded solution", "responsibilities", "interfaces", "dependency directions", "data ownership", "container overview plus drilldowns when needed"]
+    invariants: ["runtime and build dependencies distinguished", "proposed target labeled", "C4 optional not mandatory"]
+    failures: ["mixed abstraction levels", "directory names treated as proof", "target dependency shown as current"]
+  create-class-diagram:
+    positive: "Create a package-focused class diagram from selected Java domain classes and interfaces."
+    negative: "Dump all classes, getters, setters, and framework types from the repository."
+    ambiguous: "Show the domain model" # select source boundary, domain overview or subsystem detail, and current/proposed state
+    expected: ["selected classes and interfaces", "correct inheritance", "defensible associations", "important members only", "readable package grouping"]
+    invariants: ["no invented class", "cardinality requires evidence", "dynamic types can remain unresolved"]
+    failures: ["getter setter noise", "composition guessed from field type", "proposed class labeled verified"]
+  create-er-diagram:
+    positive: "Create a core-entity ER diagram from DDL, migrations, and verified foreign-key metadata."
+    negative: "Infer every relationship from columns ending in _id."
+    ambiguous: "Show me the database" # establish schema authority, domain scope, logical/physical level, and desired detail
+    expected: ["entities", "primary and foreign keys", "join tables", "defensible cardinality", "overview and schema drilldowns"]
+    invariants: ["schema outranks ORM convenience mapping", "no invented entity", "large schema decomposed"]
+    failures: ["naming convention treated as foreign key", "200-table canvas", "nullability ignored"]
+  create-sequence-diagram:
+    positive: "Trace the verified login request through client, gateway, identity service, store, and error branch."
+    negative: "Add retry and fallback branches because production systems usually have them."
+    ambiguous: "Show how login works" # establish trigger, participants, evidence, happy/error paths, and current/target state
+    expected: ["ordered participants", "messages and direction", "supported alternatives", "sync async semantics", "completion and error outcomes"]
+    invariants: ["ordering traced rather than guessed", "static dependency is not runtime proof", "unsupported branch omitted"]
+    failures: ["participant invented", "message ordering reversed", "current and target flow merged ambiguously"]
+  create-data-flow-diagram:
+    positive: "Trace a SAS batch pipeline from source files through transformations and stores to downstream consumers."
+    negative: "Invent transformations between every adjacent dataset to make lineage continuous."
+    ambiguous: "Show where the data goes" # choose logical/physical lineage, pipeline boundary, datasets, and current/target state
+    expected: ["sources", "transformations", "stores", "destinations", "direction", "overview and pipeline drilldowns"]
+    invariants: ["data flow separated from control flow", "manual transfer retained", "unknown lineage explicit"]
+    failures: ["unsupported transformation", "store drawn as process", "sensitive-data label invented"]
+  update-commons-presentation:
+    positive: "Refresh the Agent Commons presentation after the latest release, preserve its current style, and update the story only if the architecture changed."
+    negative: "Redesign the presentation from scratch because a utility skill was added."
+    ambiguous: "There are new agents and skills; update the commons presentation." # refresh facts first, then classify narrative impact from repository evidence
+    expected: ["deterministic factual refresh first", "FACTUAL ONLY or MINOR NARRATIVE IMPACT or MAJOR NARRATIVE IMPACT", "authored generated separation", "claim verification", "visual QA after narrative changes"]
+    invariants: ["generated data never hand edited", "factual-only changes do not rewrite narrative", "visual contract is immutable", "only generated facts and authored text may change", "unsupported claims omitted", "offline presentation retained"]
+    failures: ["stale data ignored", "new capability added manually to HTML", "CSS theme structure SVG or runtime changed", "visual contract rebaselined during maintenance", "decorative relationship invented", "visual QA claimed without evidence"]
+    scenarios:
+      factual_only:
+        fixture: "One small utility skill and one eval were added with no architecture or sales-story effect."
+        expected: ["FACTUAL ONLY", "refresh generated data", "no narrative rewrite"]
+      minor_narrative:
+        fixture: "A directly invocable localization capability adds a relevant proof point to an existing capability section."
+        expected: ["MINOR NARRATIVE IMPACT", "targeted existing-section update", "no presentation restructure"]
+      major_architecture:
+        fixture: "A new research archetype and composition lifecycle materially change how the platform is explained."
+        expected: ["MAJOR NARRATIVE IMPACT", "affected narrative sections updated", "unchanged sections preserved", "visual QA"]
+      keep_existing_style:
+        fixture: "The presentation needs a content refresh."
+        expected: ["locked visual contract checked before and after", "typography palette layout structure navigation animation SVG and runtime preserved", "content-only adjustment"]
+      new_agent:
+        fixture: "A canonical agent definition was added and cataloged."
+        expected: ["agent appears in navigator preview search and network after refresh", "no manual HTML entry"]
+      new_skill:
+        fixture: "A canonical skill definition was added and cataloged."
+        expected: ["skill appears in navigator preview search and network after refresh", "no manual HTML entry"]
+      stale_presentation:
+        fixture: "The generated presentation asset does not match canonical repository state."
+        expected: ["refresh before narrative analysis", "check mode CURRENT before completion"]
+  localize-client-artifact:
+    positive: "Prepare this finished dashboard for the Austrian client: German by default, keep English available, and add the standard language switch."
+    negative: "Translate this paragraph into German."
+    ambiguous: "Make the dashboard German" # resolve client locale, English fallback, default, glossary, offline, and persistence
+    collision: "Create a new branded dashboard from these source materials." # use create-branded-html-artifact before localization
+    expected: ["one HTML artifact", "en and locale-appropriate German message data", "flag-only Austrian and British control with accessible names", "source hashes", "bilingual semantic and visual QA"]
+    invariants: ["design and state preserved", "accessible names and keyboard behavior retained", "document lang updated", "no external translation service", "technical identifiers preserved", "chart values unchanged", "evidence remains original"]
+    failures: ["separate language files", "partial accidental English", "stale German silently reused", "flag without accessible name", "language switch resets state"]
+    scenarios:
+      basic_dashboard: {fixture: "English standalone dashboard", expected: ["German and English", "working switch", "layout preserved"]}
+      technical_terminology: {fixture: "OrderService calls PaymentGateway through /payments/authorize", expected: ["identifiers unchanged", "surrounding prose translated"]}
+      dynamic_javascript: {fixture: "cards, filters, tooltips, and modal text are generated at runtime", expected: ["keyed runtime lookup", "language-change rerender hook"]}
+      chart: {fixture: "chart title, legend, tooltip, and numeric series", expected: ["labels translated", "values unchanged"]}
+      diagram: {fixture: "technical nodes plus human-readable explanatory labels", expected: ["node identifiers preserved", "explanatory labels translated"]}
+      existing_german: {fixture: "reviewed client terminology already exists", expected: ["valid German preserved", "no blind retranslation"]}
+      long_german: {fixture: "German navigation and card labels exceed English length", expected: ["desktop and mobile overflow QA", "no drastic font shrink"]}
+      missing_translation: {fixture: "one de-AT value is absent", expected: ["deterministic validation failure"]}
+      stale_translation: {fixture: "English source changes after German review", expected: ["source-hash mismatch", "German marked stale"]}
+      persistence: {fixture: "Deutsch selected and page reloaded", expected: ["Deutsch remains selected when storage is available", "safe default when unavailable"]}
+      offline: {fixture: "network unavailable", expected: ["both languages work locally", "no runtime API or remote dependency"]}
+  validate-visual-artifact:
+    positive: "Review this completed presentation at desktop, projector, tablet, and mobile sizes."
+    negative: "Design the presentation from scratch through QA."
+    ambiguous: "Check this HTML" # establish completion, routes, states, and acceptance scope
+    expected: ["separate structure static profile consistency brand fidelity and visual results", "computed-style browser matrix", "peer artifact asset comparison", "prioritized findings", "retest"]
+    invariants: ["working state identified", "all primary controls exercised"]
+    failures: ["vague looks good", "visual QA claimed as business or accessibility proof"]
+  search-external-capabilities:
+    positive: "Search configured external sources for legacy modernization workflows relevant to this project."
+    negative: "Install every GitHub skill that mentions modernization."
+    ambiguous: "See what the open-source ecosystem already has" # derive a bounded, privacy-safe topic before searching
+    expected: ["gap-derived queries", "official then curated then community order", "three to seven findings", "license and security status", "matched gap", "review recommendation", "user acceptance question"]
+    invariants: ["no installation", "no execution", "no automatic trust", "no project or commons mutation", "no client detail leakage"]
+    failures: ["GitHub popularity treated as approval", "arbitrary web crawling", "search interpreted as acceptance", "raw project data in search query"]
+  review-external-capability:
+    positive: "Review this pinned external modernization plugin for useful ideas and commons overlap."
+    negative: "Run its scripts to see whether they are safe."
+    ambiguous: "Should commons use this plugin?" # pin one capability and compare semantics before recommending
+    expected: ["provenance", "license scope", "security class", "semantic comparison", "targeted promotion candidates"]
+    invariants: ["one bounded capability", "external code remains unexecuted", "unknown license prohibits copying", "promotion remains explicit"]
+    failures: ["whole-package cloning", "filename-only comparison", "official provenance bypasses eval", "runtime syntax promoted canonically"]
+  manage-project-delivery:
+    positive: "Reconcile workstreams, dependencies, milestones, risks, decisions, and actions into an evidence-based delivery status for the steering meeting."
+    negative: "Implement every overdue task and update external trackers while acting as the project-governance workflow."
+    ambiguous: "Run the project" # resolve authoritative sources, reporting period, cadence, decision rights, and output boundary
+    collision: "Turn an approved objective into an executable implementation plan." # use plan-work; use this skill after delivery state exists
+    expected: ["source and reporting-period declaration", "dependency-aware health", "RAID and decisions", "owners and due dates", "assumptions conflicts and unknowns", "action-first status"]
+    invariants: ["status is derived from evidence", "delivery governance does not implement work items", "organization-specific roles and approval routes remain project-local", "runtime-neutral workflow"]
+    failures: ["traffic-light status without basis", "silent dependency cycle", "unowned blocker hidden", "automatic external tracker mutation"]
+  forecast-project-financials:
+    positive: "Build base downside and upside project forecasts from the approved baseline, posted actuals, remaining-work drivers, and explicit assumptions."
+    negative: "Provide statutory accounting, tax, investment, or commercial approval from an unverified project forecast."
+    ambiguous: "Forecast the project" # resolve reporting period, currency, authoritative sources, scenarios, materiality, and approval boundary
+    collision: "Estimate a modernization program before a delivery baseline exists." # use estimate-adm-modernization for pre-baseline effort estimation
+    expected: ["baseline actual and forecast separation", "EAC revenue cost and margin", "variance explanation", "scenario assumptions", "reconciliation checks", "review handoff"]
+    invariants: ["units and periods are explicit", "missing actuals are not treated as zero", "division by zero yields an explicit unavailable metric", "organization-specific rate cards and thresholds remain project-local", "runtime-neutral workflow"]
+    failures: ["actuals overwritten by forecasts", "double-counted remaining work", "unsupported precision", "unreviewed consequential forecast presented as approved"]

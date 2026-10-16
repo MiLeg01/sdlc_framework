@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "mutation_run": {
+    "scope_profile": "PR",
+    "scope": "legacy/src/cobol/PAYCALC.cbl",
+    "changed_scope_only": true,
+    "criticality": "FINANCIAL_OR_CALCULATION",
+    "technology": "cobol",
+    "tool": "none",
+    "commit": "f7723c1",
+    "baseline_tests": "PASS",
+    "baseline_test_command": "make characterization-tests",
+    "tool_execution": "UNAVAILABLE",
+    "not_supported_reason": "no maintained mutation engine exists for COBOL",
+    "compensating_verification": "the migrated Java target implementation was mutated with PIT and the characterization harness was assessed separately; source parity is covered by reconciliation tests"
+  },
+  "survivors": []
+}

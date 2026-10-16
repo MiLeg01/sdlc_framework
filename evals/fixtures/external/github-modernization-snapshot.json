@@ -1,0 +1,64 @@
+{
+  "repositories": {
+    "anthropics/claude-plugins-official": {
+      "full_name": "anthropics/claude-plugins-official",
+      "html_url": "https://github.com/anthropics/claude-plugins-official",
+      "description": "Official Anthropic plugin marketplace for Claude Code.",
+      "default_branch": "main",
+      "license": "Apache-2.0",
+      "revision": "3411fb9108778ca0e950db59c6511d2f7020cbc8",
+      "updated_at": "2026-08-18T15:10:52Z",
+      "pushed_at": "2026-08-18T09:20:57Z",
+      "last_commit_at": "2026-08-18T09:20:57Z",
+      "stars": 10000,
+      "topics": ["claude-code", "plugins", "agents"],
+      "tree": [
+        "plugins/code-modernization/.claude-plugin/plugin.json",
+        "plugins/code-modernization/LICENSE",
+        "plugins/code-modernization/README.md",
+        "plugins/code-modernization/agents/legacy-analyst.md"
+      ],
+      "files": {
+        "plugins/code-modernization/.claude-plugin/plugin.json": "{\"name\":\"code-modernization\",\"description\":\"Modernize legacy codebases with business-rule extraction and controlled source-to-target mapping.\"}"
+      }
+    }
+  },
+  "community_search": [
+    {
+      "full_name": "specialists/mainframe-capability",
+      "html_url": "https://github.com/specialists/mainframe-capability",
+      "description": "COBOL semantic analysis, copybook dependency mapping, and PL/I business-rule extraction workflows.",
+      "default_branch": "main",
+      "license": "Apache-2.0",
+      "revision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "updated_at": "2026-08-10T00:00:00Z",
+      "pushed_at": "2026-08-10T00:00:00Z",
+      "stars": 120,
+      "topics": ["cobol", "pli", "semantic-analysis", "business-rules"]
+    },
+    {
+      "full_name": "specialists/java21-spring4-modernizer",
+      "html_url": "https://github.com/specialists/java21-spring4-modernizer",
+      "description": "Java 21 and Spring Boot 4.x source-to-target modernization mapping workflows.",
+      "default_branch": "main",
+      "license": "MIT",
+      "revision": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+      "updated_at": "2026-08-11T00:00:00Z",
+      "pushed_at": "2026-08-11T00:00:00Z",
+      "stars": 80,
+      "topics": ["java-21", "spring-boot-4", "modernization"]
+    },
+    {
+      "full_name": "noise/java-migration-testing",
+      "html_url": "https://github.com/noise/java-migration-testing",
+      "description": "Java migration testing utilities and examples.",
+      "default_branch": "main",
+      "license": "MIT",
+      "revision": "cccccccccccccccccccccccccccccccccccccccc",
+      "updated_at": "2026-08-12T00:00:00Z",
+      "pushed_at": "2026-08-12T00:00:00Z",
+      "stars": 9000,
+      "topics": ["java", "migration", "testing"]
+    }
+  ]
+}

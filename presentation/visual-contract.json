@@ -1,0 +1,13 @@
+{
+  "contract_version": 4,
+  "design_id": "agent-commons-ultraviolet",
+  "policy": "Only generated facts and authored textual content may change. The visual and interaction system is immutable.",
+  "locked": {
+    "data_theme": "dark",
+    "data_visual_thesis": "agent-commons-ultraviolet",
+    "theme_color": "#050008",
+    "style_sha256": "8d79827cddd5aa3b2289c92e36062443066c516c5eeca4949410f787f262d228",
+    "structure_sha256": "2a8e84df919ff85c4f89afd68e50ef5bb9132844a459a33e1dc6aeeff00a509c",
+    "behavior_sha256": "98cbf44f2af7f1ed52728ac665a5906b2c994b53bdb2730c2226b862c4a58258"
+  }
+}

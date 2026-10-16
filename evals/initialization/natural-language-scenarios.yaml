@@ -1,0 +1,49 @@
+schema_version: 1
+suite: initialize-project-natural-language-briefs
+executable: evals/initialization/test_natural_language_briefs.py
+scenarios:
+  - id: A
+    name: fully-parameterized-legacy-request
+    proves: supplied migration, source, permissions, and outputs are not re-asked while absent branding uses the Accenture fallback
+  - id: B
+    name: supplied-client-brand
+    proves: explicit client brand suppresses the branding question
+  - id: C
+    name: brand-reference-url
+    proves: a supplied brand URL is captured as a project-local non-copying reference
+  - id: D
+    name: partial-brief
+    proves: only material missing decisions are asked
+  - id: E
+    name: contradictory-permissions
+    proves: read-only plus in-place modification stops before changes
+  - id: F
+    name: multiple-read-only-sources
+    proves: each source and access rule is recorded separately without source mutation
+  - id: G
+    name: development-brief
+    proves: extraction works outside legacy migration
+  - id: G2
+    name: explicit-technical-diagrams
+    proves: named component, ER, and sequence views select the overlay and matching conditions without a repeated question
+  - id: G3
+    name: unspecified-architecture-views
+    proves: architecture documentation without named views asks one concise multi-select question before scaffold changes
+  - id: G4
+    name: architecture-assessment-landscape
+    proves: an application-and-integration assessment composes research with the system-landscape view instead of inventing an archetype
+  - id: H
+    name: presentation-brief
+    proves: topic, purpose, brand, audience, and outcome are resolved without repetition
+  - id: I
+    name: hybrid-brief
+    proves: legacy and development archetypes compose from one brief
+  - id: J
+    name: no-repeated-questions-and-generated-state
+    proves: resolved brief, read-only rule, brand, and non-fabricating dashboard are scaffolded
+  - id: K
+    name: bilingual-austrian-client-delivery
+    proves: English working language plus de-AT client default and English switch select the bilingual overlay without reasking
+  - id: L
+    name: unresolved-client-language
+    proves: one concise language question is asked only when an HTML artifact has no supplied language requirement

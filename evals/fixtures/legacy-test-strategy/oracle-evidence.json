@@ -1,0 +1,45 @@
+{
+  "schema_version": 1,
+  "obligations": [
+    {
+      "id": "OBL-APPROVED",
+      "behavior": "Reject an amount below zero with the documented validation code.",
+      "oracle_authority": "APPROVED_INTENT",
+      "approval": {
+        "decision_id": "DEC-001",
+        "approved_at": "2026-01-15",
+        "evidence_fingerprint": "sha256:current-approved-evidence"
+      },
+      "current_evidence_fingerprint": "sha256:current-approved-evidence",
+      "expected_observation": "validation_code equals NEGATIVE_AMOUNT",
+      "bindings": {
+        "construction": "resolved",
+        "fixture": "resolved",
+        "runtime": "not-required"
+      }
+    },
+    {
+      "id": "OBL-CONFLICT",
+      "behavior": "Calculate the service fee.",
+      "oracle_authority": "OBSERVED_SOURCE",
+      "observed_outcome": "round down",
+      "approved_target_outcome": "round half up",
+      "expected_observation": "conflicting outcomes require reconciliation"
+    },
+    {
+      "id": "OBL-GENERIC",
+      "behavior": "Handle the boundary case.",
+      "oracle_authority": "UNRESOLVED",
+      "generated_outcome": "the boundary is handled correctly",
+      "expected_observation": null
+    },
+    {
+      "id": "OBL-DEFECT",
+      "behavior": "Preserve or correct a suspected legacy defect.",
+      "oracle_authority": "OBSERVED_SOURCE",
+      "suspected_defect": true,
+      "defect_disposition": null,
+      "expected_observation": "legacy response is observable"
+    }
+  ]
+}

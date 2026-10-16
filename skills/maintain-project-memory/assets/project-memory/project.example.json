@@ -1,0 +1,13 @@
+{
+  "goal": "Understand and modernize the configured legacy estate",
+  "mode": "legacy-migration",
+  "source_roots": ["client_input"],
+  "protected_paths": ["client_input"],
+  "target_technology": ["Java 21", "Spring Boot"],
+  "languages": ["COBOL", "PL/I", "Java"],
+  "architecture": "Mainframe programs and shared data definitions behind an API boundary",
+  "lifecycle_stage": "analysis",
+  "major_decisions": [],
+  "critical_blockers": [],
+  "next_action": "Validate the inventory and build bounded language context packages"
+}

@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "expected_facts": [
+    {"id": "at-least-once", "severity": "CRITICAL", "text": "The broker provides at-least-once delivery."},
+    {"id": "idempotent-consumer", "severity": "CRITICAL", "text": "The consumer is idempotent by request identifier."},
+    {"id": "account-ordering", "severity": "MAJOR", "text": "Ordering is required only within one customer account."},
+    {"id": "retry-three", "severity": "MAJOR", "text": "Transient failures may be retried three times with exponential backoff."},
+    {"id": "dead-letter", "severity": "MAJOR", "text": "Exhausted messages move to a dead-letter queue and require a recorded cause before replay."},
+    {"id": "payload-minimization", "severity": "CRITICAL", "text": "Payloads exclude access tokens and raw personal identifiers."},
+    {"id": "retention", "severity": "MINOR", "text": "Audit request identifiers are retained for thirty days."}
+  ],
+  "invariants": ["every factual claim cites the local corpus", "recommendation is distinct from source fact", "unsupported internet facts are excluded"],
+  "hard_assertions": ["evidence_valid", "evidence_required", "at-least-once", "payload-minimization"]
+}

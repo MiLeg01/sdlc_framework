@@ -1,0 +1,118 @@
+{
+  "schema_version": 1,
+  "discovery": {
+    "official_sources": true,
+    "curated_sources": true,
+    "github_search": true,
+    "general_web_search": false
+  },
+  "github": {
+    "minimum_remaining": 5,
+    "repository_cache_ttl_seconds": 86400,
+    "stop_after_candidates": 7
+  },
+  "sources": [
+    {
+      "id": "anthropic-official-plugins",
+      "tier": 1,
+      "type": "github-repository",
+      "location": "https://github.com/anthropics/claude-plugins-official",
+      "repository": "anthropics/claude-plugins-official",
+      "trust": "OFFICIAL",
+      "enabled": true,
+      "description": "Anthropic-maintained Claude Code plugin marketplace and capability examples.",
+      "capability_categories": ["skills", "agents", "commands", "workflows", "plugins", "hooks", "mcp"],
+      "last_reviewed": "2026-08-18",
+      "notes": "Verified through the GitHub repository API; official provenance does not imply automatic promotion."
+    },
+    {
+      "id": "openai-official-skills",
+      "tier": 1,
+      "type": "github-repository",
+      "location": "https://github.com/openai/skills",
+      "repository": "openai/skills",
+      "trust": "OFFICIAL",
+      "enabled": true,
+      "description": "OpenAI-maintained reusable skill examples and supporting resources.",
+      "capability_categories": ["skills", "workflows", "scripts", "templates"],
+      "last_reviewed": "2026-08-18",
+      "notes": "Repository-level license was not asserted by the GitHub API; review license scope per capability."
+    },
+    {
+      "id": "openai-official-codex",
+      "tier": 1,
+      "type": "github-repository",
+      "location": "https://github.com/openai/codex",
+      "repository": "openai/codex",
+      "trust": "OFFICIAL",
+      "enabled": true,
+      "description": "OpenAI-maintained Codex implementation, examples, documentation, and tooling patterns.",
+      "capability_categories": ["agent-tooling", "skills", "prompts", "mcp", "validation"],
+      "last_reviewed": "2026-08-18",
+      "notes": "Search for reusable methodology; product implementation code is not automatically a commons candidate."
+    },
+    {
+      "id": "cline-official",
+      "tier": 1,
+      "type": "github-repository",
+      "location": "https://github.com/cline/cline",
+      "repository": "cline/cline",
+      "trust": "OFFICIAL",
+      "enabled": true,
+      "description": "Cline-maintained runtime, workflows, MCP integration, and agent-tooling implementation.",
+      "capability_categories": ["agent-tooling", "workflows", "mcp", "prompts", "validation"],
+      "last_reviewed": "2026-08-18",
+      "notes": "Runtime implementation patterns require abstraction before canonical reuse."
+    },
+    {
+      "id": "opencode-official",
+      "tier": 1,
+      "type": "github-repository",
+      "location": "https://github.com/anomalyco/opencode",
+      "repository": "anomalyco/opencode",
+      "trust": "OFFICIAL",
+      "enabled": true,
+      "description": "OpenCode-maintained runtime, agents, commands, integrations, and tooling patterns.",
+      "capability_categories": ["agent-tooling", "agents", "commands", "mcp", "plugins"],
+      "last_reviewed": "2026-08-18",
+      "notes": "The former sst/opencode URL currently redirects to this authoritative repository."
+    },
+    {
+      "id": "mcp-official-servers",
+      "tier": 1,
+      "type": "github-repository",
+      "location": "https://github.com/modelcontextprotocol/servers",
+      "repository": "modelcontextprotocol/servers",
+      "trust": "OFFICIAL",
+      "enabled": true,
+      "description": "Official Model Context Protocol reference servers and integration examples.",
+      "capability_categories": ["mcp", "remote-tooling", "security", "validation"],
+      "last_reviewed": "2026-08-18",
+      "notes": "License and security scope must be checked per server/package."
+    },
+    {
+      "id": "github-community-discovery",
+      "tier": 3,
+      "type": "github-search",
+      "location": "https://github.com/search",
+      "trust": "COMMUNITY",
+      "enabled": true,
+      "description": "Broader GitHub discovery for previously unknown repositories and files.",
+      "capability_categories": ["skills", "agents", "commands", "workflows", "plugins", "mcp", "hooks", "scripts", "evals"],
+      "last_reviewed": "2026-08-18",
+      "notes": "Every result remains untrusted until repository, revision, license, and executable content are reviewed."
+    },
+    {
+      "id": "general-web-discovery",
+      "tier": 4,
+      "type": "web-discovery",
+      "location": "https://www.google.com/search",
+      "trust": "UNTRUSTED",
+      "enabled": false,
+      "description": "Optional discovery of repositories, marketplaces, registries, and official documentation.",
+      "capability_categories": ["repositories", "marketplaces", "registries", "documentation"],
+      "last_reviewed": "2026-08-18",
+      "notes": "Disabled by default; arbitrary webpages are never ingested as capabilities."
+    }
+  ]
+}

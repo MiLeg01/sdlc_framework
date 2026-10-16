@@ -1,0 +1,35 @@
+parameters:
+- name: outputDir
+  type: string
+- name: artifactName
+  type: string
+
+steps:
+- bash: |
+    set -euo pipefail
+    if [ -f '${{ parameters.outputDir }}/quality-summary.json' ]; then
+      test -f '${{ parameters.outputDir }}/quality-summary.html'
+      test -f '${{ parameters.outputDir }}/performance.json'
+      test -f '${{ parameters.outputDir }}/failures.json'
+      python3 tools/evals/render_azure_summary.py --run-dir '${{ parameters.outputDir }}'
+      echo "##vso[task.uploadsummary]${{ parameters.outputDir }}/azure-summary.md"
+    fi
+    find '${{ parameters.outputDir }}' -type f -path '*screenshots*' -print 2>/dev/null || true
+  displayName: Render Azure quality summary and inventory screenshots
+  condition: always()
+
+- task: PublishTestResults@2
+  displayName: Publish JUnit quality results
+  condition: always()
+  inputs:
+    testResultsFormat: JUnit
+    testResultsFiles: '${{ parameters.outputDir }}/junit.xml'
+    failTaskOnFailedTests: false
+    testRunTitle: Agent Commons quality
+
+- task: PublishPipelineArtifact@1
+  displayName: Publish JSON, HTML, logs, performance, and screenshots
+  condition: always()
+  inputs:
+    targetPath: '${{ parameters.outputDir }}'
+    artifact: '${{ parameters.artifactName }}'
